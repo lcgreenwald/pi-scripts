@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=FT817-rigctld
+Comment=FT817 rig control
+Exec=/home/pi/bin/FT817-rigctld.sh
+Icon=js8call_icon
+Terminal=true
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;
+StartupNotify=true
+NoDisplay=false

@@ -1,0 +1,18 @@
+/proc/*
+/sys/*
+/dev/*
+/boot/*
+/tmp/*
+/run/*
+/mnt/*
+/media/*
+
+
+
+#pi  rsync -aHv --delete --exclude-from=$HOME/bin/rsync-exclude.txt / /media/pi/DrinanIV/backups/RPi4/
+#root  rsync -aHv --delete --exclude-from=$HOME/rsync-exclude.txt / /media/pi/DrinanIV/backups/RPi4/
+
+#  ssh rsync:   rsync -aHv --delete --exclude-from=/Volumes/Home/larry/Documents/GitHub/wb0sio/pi-build-2/bin/rsync-exclude.txt --rsh="ssh" root@rpi4:/ /Volumes/Home/larry/backups/RPi4/
+
+
+
