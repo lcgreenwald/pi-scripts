@@ -3,6 +3,7 @@
 #set conky display size &/or update call sign
 #20200123 km4ack
 #20200514 edit km4ack
+#20200806 wb0sio changed MYPATH
 
 MYPATH=$HOME/pi-scripts/conky
 TEMPFILE=/run/user/1000/conky.tmp
