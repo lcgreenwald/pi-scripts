@@ -4,7 +4,7 @@
 #20200123 km4ack
 #20200514 edit km4ack
 
-MYPATH=$HOME/pi-build/conky
+MYPATH=$HOME/pi-scripts/conky
 TEMPFILE=/run/user/1000/conky.tmp
 
 CALL=$(cat ~/.conkyrc | grep "{color Yellow}" | sed s'/.*{alignc}//' | head -1)
