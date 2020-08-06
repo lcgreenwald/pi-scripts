@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "pi-build-install by wb0sio."
 echo "Do not reboot at the end of the build-a-pi script."
-echo "This script will automatically reboot upon completion.
+echo "This script will automatically reboot upon completion."
 cd ~
 git clone https://github.com/km4ack/pi-build.git $HOME/pi-build
 bash $HOME/pi-build/build-a-pi
