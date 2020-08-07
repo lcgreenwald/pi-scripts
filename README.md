@@ -1,7 +1,7 @@
 # pi-scripts
 My Raspberry Pi Scripts and programs
 
-# Install pi-build-install
+# pi-build-install
 This script installs:
 
 km4ack build-a-pi beta
