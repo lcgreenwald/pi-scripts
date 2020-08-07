@@ -35,7 +35,7 @@ fi
 rm $MYPATH/intro.txt
 
 #git clone https://github.com/km4ack/pi-build.git
-# build-a-pi beta
+# build-a-pi beta 
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
