@@ -1,7 +1,15 @@
 # pi-scripts
 My Raspberry Pi Scripts and programs
 
-# Install
+# Install pi-build-install
+This script installs:
+
+km4ack build-a-pi beta
+
+km4ack hotspot tools customized to allow editing the hotspot IP address
+
+K4CPO-FD-Logger customized for N0SUW/WB0SIO 
+
 Run the following commands
 
 	cd
