@@ -1,7 +1,31 @@
 #!/bin/bash
-echo "pi-build-install by wb0sio."
-echo "Do not reboot at the end of the build-a-pi script."
-echo "This script will automatically reboot upon completion."
+if ! hash yad 2>/dev/null; then
+sudo apt install -y yad
+fi
+if ! hash jq 2>/dev/null; then
+sudo apt install -y jq
+fi
+
+#####################################
+#	notice to user
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+pi-build-install by wb0sio.
+Do not reboot at the end of the build-a-pi script.
+Wait for the pi-build-install finished dialog box.
+EOF
+
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
+--button="Continue":2 > /dev/null 2>&1)
+BUT=$?
+if [ $BUT = 252 ]; then
+rm $MYPATH/intro.txt
+exit
+fi
+rm $MYPATH/intro.txt
+
 cd ~
 git clone https://github.com/km4ack/pi-build.git $HOME/pi-build
 bash $HOME/pi-build/build-a-pi
@@ -18,5 +42,20 @@ sudo cp * /var/www/html/log/
 sudo nano /var/www/html/log/constants.php
 cp ~/pi-scripts/bin/*.sh ~/bin/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/hotspot-tools2/" /pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/hotspot-tools2/" $HOME/pi-build/update
+
+#reboot when done
+yad --width=400 --height=200 --title="Reboot" --image $LOGO \
+--text-align=center --skip-taskbar --image-on-top \
+--wrap --window-icon=$LOGO \
+--undecorated --text="<big><big><big><b>Pi-Build-Install finished \rReboot Required</b></big></big></big>\r\r" \
+--button="Reboot Now":0 \
+--button="Exit":1
+BUT=$(echo $?)
+
+if [ $BUT = 0 ]; then
+echo rebooting
 sudo reboot
+elif [ $BUT = 1 ]; then
+exit
+fi
