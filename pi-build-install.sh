@@ -57,7 +57,8 @@ sudo chmod 777 /var/www/html/log
 sudo cp * /var/www/html/log/
 cp ~/pi-scripts/bin/*.sh ~/bin/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/hotspot-tools2/" $HOME/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 
 #reboot when done
 yad --width=400 --height=200 --title="Reboot" --image $LOGO \
