@@ -34,21 +34,27 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-cd ~
-git clone https://github.com/km4ack/pi-build.git $HOME/pi-build
-bash $HOME/pi-build/build-a-pi
+#git clone https://github.com/km4ack/pi-build.git
+# build-a-pi beta
+cd
+git clone https://github.com/km4ack/pi-build.git
+cd pi-build
+git checkout dev
+bash build-a-pi
+cd
+#************
+if [ -d $HOME/hotspot-tools2 ]; then
+	mv $HOME/hotspot-tools2 $HOME/hotspot-tools2.km4ack
+fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 sudo cp -f ~/hotspot-tools2/hstools.desktop /usr/share/applications/hotspot-tools.desktop
 git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 sudo apt-get install -y php7.3 mariadb-server phpmyadmin
 cd K4CPO-FD-Logger
-rm adif_log.txt
-nano setup
 bash setup
 sudo mkdir /var/www/html/log
 sudo chmod 777 /var/www/html/log
 sudo cp * /var/www/html/log/
-sudo nano /var/www/html/log/constants.php
 cp ~/pi-scripts/bin/*.sh ~/bin/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/hotspot-tools2/" $HOME/pi-build/update
