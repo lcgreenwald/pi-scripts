@@ -1,11 +1,19 @@
 #!/bin/bash
-if ! hash yad 2>/dev/null; then
-sudo apt install -y yad
-fi
-if ! hash jq 2>/dev/null; then
-sudo apt install -y jq
-fi
-
+#install YAD & jq as needed
+clear;echo;echo
+echo "#######################################"
+echo "#  Updating repository & installing   #"
+echo "#  a few needed items before we begin #"
+echo "#######################################"
+sudo apt-get update
+sudo apt-get upgrade -y
+	if ! hash yad 2>/dev/null; then
+	sudo apt install -y yad
+	fi
+	if ! hash jq 2>/dev/null; then
+	sudo apt install -y jq
+	fi
+MYPATH=$HOME/pi-scripts
 #####################################
 #	notice to user
 #####################################
@@ -29,7 +37,8 @@ rm $MYPATH/intro.txt
 cd ~
 git clone https://github.com/km4ack/pi-build.git $HOME/pi-build
 bash $HOME/pi-build/build-a-pi
-git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/autohotspot-tools2
+git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
+sudo cp -f ~/hotspot-tools2/hstools.desktop /usr/share/applications/hotspot-tools.desktop
 git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 sudo apt-get install -y php7.3 mariadb-server phpmyadmin
 cd K4CPO-FD-Logger
