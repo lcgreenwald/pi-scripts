@@ -19,6 +19,7 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio.
+This script downloads and installs the beta version of KM4ACK Build-a-Pi and a custom version of KM4ACK HotSpot Tools.
 Do not reboot at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 EOF
@@ -48,13 +49,6 @@ if [ -d $HOME/hotspot-tools2 ]; then
 fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 sudo cp -f ~/hotspot-tools2/hstools.desktop /usr/share/applications/hotspot-tools.desktop
-git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
-sudo apt-get install -y php7.3 mariadb-server phpmyadmin
-cd K4CPO-FD-Logger
-bash setup
-sudo mkdir /var/www/html/log
-sudo chmod 777 /var/www/html/log
-sudo cp * /var/www/html/log/
 cp ~/pi-scripts/bin/*.sh ~/bin/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update

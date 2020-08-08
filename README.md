@@ -24,3 +24,11 @@ Run the following command
 
 	bash $HOME/pi-scripts/tqsl-install.sh
 
+# K4CPO-FD-Logger
+
+This script downloads and installs a version of K4CPO-FD-Logger customized for N0SUW/WB0SIO.
+
+Run the following command
+
+	bash $HOME/pi-scripts/fd-logger-install.sh
+
