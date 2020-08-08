@@ -15,3 +15,12 @@ Run the following commands
 	cd
 	git clone https://github.com/lcgreenwald/pi-scripts.git $HOME/pi-scripts
 	bash $HOME/pi-scripts/pi-build-install.sh
+
+# TrustedQSL
+
+This script downloads, compiles and installs the latest version of TrustedQSL.
+
+Run the following command
+
+	bash $HOME/pi-scripts/tqsl-install.sh
+
