@@ -30,3 +30,4 @@ Run the following command
 
 	bash $HOME/pi-scripts/fd-logger-install.sh
 
+	

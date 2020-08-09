@@ -19,10 +19,11 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 TrustedSQL Install by wb0sio.
-This script downloads, compiles and installs the latest version of TrustedQSL.
+This script downloads, compiles and installs
+the latest version of TrustedQSL.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="TQSL Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)

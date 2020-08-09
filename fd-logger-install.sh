@@ -19,11 +19,14 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 K4CPO-FD-Logger Install by wb0sio.
-This script downloads and installs a version of K4CPO-FD-Logger customized for N0SUW/WB0SIO.
-Just hit return at the password prompt. A password is not required.
+This script downloads and installs a version of 
+the K4CPO-FD-Logger customized for N0SUW/WB0SIO.
+Just hit return at the password prompt. 
+A password is not required.
+Select Build/Clear DataBase when the web browser opens.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="K4CPO-FD-Logger"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -41,3 +44,4 @@ bash setup
 sudo mkdir /var/www/html/log
 sudo chmod 777 /var/www/html/log
 sudo cp * /var/www/html/log/
+chromium-browser localhost/log/setup.php

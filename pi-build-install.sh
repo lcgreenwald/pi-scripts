@@ -19,7 +19,8 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio.
-This script downloads and installs the beta version of KM4ACK Build-a-Pi and a custom version of KM4ACK HotSpot Tools.
+This script downloads and installs the beta version of 
+KM4ACK's Build-a-Pi and a custom version of KM4ACK's HotSpot Tools.
 Do not reboot at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 EOF
@@ -50,6 +51,7 @@ fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 sudo cp -f ~/hotspot-tools2/hstools.desktop /usr/share/applications/hotspot-tools.desktop
 cp ~/pi-scripts/bin/*.sh ~/bin/
+cp ~/pi-scripts/conky/get-grid ~/bin/conky/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
