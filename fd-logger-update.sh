@@ -7,8 +7,8 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 K4CPO-FD-Logger update by wb0sio.
-This script downloads and installs the latest version of 
-the K4CPO-FD-Logger customized for N0SUW/WB0SIO.
+This script downloads and installs the latest version
+of the K4CPO-FD-Logger customized for N0SUW/WB0SIO.
 EOF
 
 INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="K4CPO-FD-Logger Update"  --show-uri \
