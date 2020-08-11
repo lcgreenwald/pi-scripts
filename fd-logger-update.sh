@@ -11,7 +11,7 @@ This script downloads and installs the latest version of
 the K4CPO-FD-Logger customized for N0SUW/WB0SIO.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="K4CPO-FD-Logger"  --show-uri \
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="K4CPO-FD-Logger Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
