@@ -22,11 +22,12 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-cd ~/trustedqsl-tqsl
+cd $HOME/trustedqsl-tqsl
 git pull
 cmake .
 make
 sudo make install
+cd -
 
 cat <<EOF > $MYPATH/intro.txt
 The TrustedSQL update is complete.
