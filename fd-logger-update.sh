@@ -22,9 +22,9 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-cd #HOME/K4CPO-FD-Logger
+cd $HOME/K4CPO-FD-Logger
 git pull
-sudo cp -r * /var/www/html/log/
+sudo cp -u $HOME/K4CPO-FD-Logger/* /var/www/html/log/
 cd -
 
 cat <<EOF > $MYPATH/intro.txt
