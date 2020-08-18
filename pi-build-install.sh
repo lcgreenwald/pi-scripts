@@ -19,8 +19,9 @@ MYPATH=$HOME/pi-scripts
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio.
-This script downloads and installs the latest version of 
-KM4ACK's Build-a-Pi and a custom version of KM4ACK's HotSpot Tools.
+This script downloads and installs the
+latest version of KM4ACK's Build-a-Pi 
+and a custom version of KM4ACK's HotSpot Tools.
 Do not reboot at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 EOF

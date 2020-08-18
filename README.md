@@ -4,7 +4,7 @@ My Raspberry Pi Scripts and programs
 # pi-build-install
 This script installs:
 
-km4ack build-a-pi beta
+km4ack build-a-pi
 
 km4ack hotspot tools customized to allow editing the hotspot IP address
 

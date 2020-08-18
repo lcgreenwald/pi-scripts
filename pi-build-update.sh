@@ -14,7 +14,8 @@ MYPATH=$HOME/pi-scripts
 cat <<EOF > $MYPATH/intro.txt
 pi-build-update by wb0sio.
 This script downloads the latest version of 
-KM4ACK's Build-a-Pi and a custom version of KM4ACK's HotSpot Tools.
+KM4ACK's Build-a-Pi and a custom version of 
+KM4ACK's HotSpot Tools.
 EOF
 
 INTRO=$(yad --width=600 --height=250 --text-align=center --center --title="Build-a-Pi Update"  --show-uri \
