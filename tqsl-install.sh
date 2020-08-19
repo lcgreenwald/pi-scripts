@@ -34,8 +34,9 @@ exit
 fi
 rm $MYPATH/intro.txt
 
+cd
 sudo apt install -y cmake g++ libexpat1-dev libssl-dev libdb++-dev libcurl4-openssl-dev libwxgtk3.0-dev
-git clone https://git.code.sf.net/p/trustedqsl/tqsl trustedqsl-tqsl
+git clone https://git.code.sf.net/p/trustedqsl/tqsl ~/trustedqsl-tqsl
 cd ~/trustedqsl-tqsl
 cmake .
 make

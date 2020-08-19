@@ -18,7 +18,7 @@ KM4ACK's Build-a-Pi and a custom version of
 KM4ACK's HotSpot Tools.
 EOF
 
-INTRO=$(yad --width=600 --height=250 --text-align=center --center --title="Build-a-Pi Update"  --show-uri \
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -31,7 +31,6 @@ rm $MYPATH/intro.txt
 
 cd pi-build
 git pull
-#bash build-a-pi
 cd
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
@@ -44,8 +43,8 @@ fi
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 
-#reboot when done
-yad --width=400 --height=200 --title="Reboot" --image $LOGO \
+#Notify when done
+yad --width=400 --height=200 --title="Updates" --image $LOGO \
 --text-align=center --skip-taskbar --image-on-top \
 --wrap --window-icon=$LOGO \
 --undecorated --text="<big><big><big><b>Pi-Build-update finished </b></big></big></big>\r\r" \

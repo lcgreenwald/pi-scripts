@@ -26,7 +26,7 @@ A password is not required.
 Select Build/Clear DataBase when the web browser opens.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="K4CPO-FD-Logger"  --show-uri \
+INTRO=$(yad --width=560 --height=250 --text-align=center --center --title="K4CPO-FD-Logger"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -37,11 +37,13 @@ exit
 fi
 rm $MYPATH/intro.txt
 
+cd
 git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 sudo apt-get install -y php7.3 mariadb-server phpmyadmin
-cd K4CPO-FD-Logger
+cd ~/K4CPO-FD-Logger
 bash setup
 sudo mkdir /var/www/html/log
 sudo chmod 777 /var/www/html/log
 sudo cp * /var/www/html/log/
-chromium-browser localhost/log/setup.php
+cd
+chromium-browser http://localhost/log?setup
