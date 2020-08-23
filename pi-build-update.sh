@@ -42,6 +42,7 @@ else
 fi
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
 #Notify when done
 yad --width=400 --height=200 --title="Updates" --image $LOGO \

@@ -56,6 +56,7 @@ cp ~/pi-scripts/conky/get-grid ~/bin/conky/
 sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
 #reboot when done
 yad --width=400 --height=200 --title="Reboot" --image $LOGO \
