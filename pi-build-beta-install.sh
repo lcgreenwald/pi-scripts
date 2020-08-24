@@ -60,8 +60,8 @@ bash $MYPATH/pi-build/build-a-pi
 if [ -d $HOME/hotspot-tools2 ]; then
 	rm -rf $HOME/hotspot-tools2
 fi
-git clone https://github.com/lcgreenwald/autohotspot-tools2.git $MYPATH/hotspot-tools2
-cp -f $MYPATH/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
+git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
+cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
 cp $MYPATH/bin/*.sh ~/bin/
 cp $MYPATH/conky/get-grid ~/bin/conky/
 cp $MYPATH/desktop_files/* $HOME/.local/share/applications/
