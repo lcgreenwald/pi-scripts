@@ -50,25 +50,24 @@ rm $MYPATH/intro.txt
 
 # build-a-pi  
 cd
-git clone https://github.com/km4ack/pi-build.git $MYPATH/../pi-build
-cd $MYPATH/../pi-build
+git clone https://github.com/km4ack/pi-build.git $MYPATH/pi-build
+cd $MYPATH/pi-build
 git checkout dev
 git pull
 cd
-bash $MYPATH/../pi-build/build-a-pi
+bash $MYPATH/pi-build/build-a-pi
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
 	rm -rf $HOME/hotspot-tools2
 fi
-git clone https://github.com/lcgreenwald/autohotspot-tools2.git $MYPATH/../hotspot-tools2
-cp -f $MYPATH/../hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
+git clone https://github.com/lcgreenwald/autohotspot-tools2.git $MYPATH/hotspot-tools2
+cp -f $MYPATH/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
 cp $MYPATH/bin/*.sh ~/bin/
 cp $MYPATH/conky/get-grid ~/bin/conky/
 cp $MYPATH/desktop_files/* $HOME/.local/share/applications/
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/../pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/../pi-build/functions/base.function
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/functions/base.function
 sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
-sed -i "s/\/home\/pi/$MYPATH\/..\/hotspot-tools2/" $HOME/.local/share/applications/hotspot-tools.desktop
 sudo updatedb
 
 #reboot when done
