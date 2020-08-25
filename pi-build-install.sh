@@ -51,7 +51,7 @@ rm $MYPATH/intro.txt
 # build-a-pi  
 cd
 git clone https://github.com/km4ack/pi-build.git $MYPATH/pi-build
-cd $MYPATH/pi-build
+cd pi-build
 git pull
 cd
 bash $MYPATH/pi-build/build-a-pi
