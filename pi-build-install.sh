@@ -5,15 +5,26 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-sudo apt-get update
-sudo apt-get upgrade -y
-	if ! hash yad 2>/dev/null; then
+###### Install log2ram 20200111 wb0sio ####
+if ! hash log2ram 2>/dev/null; then
+	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
+	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+fi
+sudo apt update
+sudo apt upgrade -y
+if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
-	fi
-	if ! hash jq 2>/dev/null; then
+fi
+if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
-	fi
-MYPATH=$HOME/pi-scripts
+fi
+if ! hash log2ram 2>/dev/null; then
+	sudo apt install -y log2ram
+fi
+if ! hash locate 2>/dev/null; then
+	sudo apt install -y locate
+fi
+MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 #####################################
 #	notice to user
 #####################################
@@ -39,21 +50,26 @@ rm $MYPATH/intro.txt
 
 # build-a-pi  
 cd
-git clone https://github.com/km4ack/pi-build.git
-cd pi-build
-bash build-a-pi
+git clone https://github.com/km4ack/pi-build.git $MYPATH/pi-build
+cd $MYPATH/pi-build
+git pull
 cd
+bash $MYPATH/pi-build/build-a-pi
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
-	mv $HOME/hotspot-tools2 $HOME/hotspot-tools2.km4ack
+	rm -rf $HOME/hotspot-tools2
 fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
-sudo cp -f ~/hotspot-tools2/hstools.desktop /usr/share/applications/hotspot-tools.desktop
-cp ~/pi-scripts/bin/*.sh ~/bin/
-cp ~/pi-scripts/conky/get-grid ~/bin/conky/
-sudo cp ~/pi-scripts/desktop_files/* /usr/share/applications/
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
+cp $MYPATH/bin/*.sh ~/bin/
+cp $MYPATH/conky/get-grid ~/bin/conky/
+cp $MYPATH/desktop_files/* $HOME/.local/share/applications/
+cp $MYPATH/.local/share/* $HOME/.local/share/
+cp $MYPATH/.config/* $HOME/.config/
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/functions/base.function
+sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
+sudo updatedb
 
 #reboot when done
 yad --width=400 --height=200 --title="Reboot" --image $LOGO \
