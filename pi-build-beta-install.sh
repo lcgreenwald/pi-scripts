@@ -55,7 +55,7 @@ cd pi-build
 git checkout dev
 git pull
 cd
-bash $MYPATH/pi-build/build-a-pi
+bash pi-build/build-a-pi
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
 	rm -rf $HOME/hotspot-tools2
