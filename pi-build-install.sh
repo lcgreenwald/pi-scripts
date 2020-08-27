@@ -61,13 +61,13 @@ if [ -d $HOME/hotspot-tools2 ]; then
 fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
-cp $MYPATH/bin/*.sh ~/bin/
-cp $MYPATH/conky/get-grid ~/bin/conky/
-cp $MYPATH/desktop_files/* $HOME/.local/share/applications/
-cp $MYPATH/.local/share/* $HOME/.local/share/
-cp $MYPATH/.config/* $HOME/.config/
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $MYPATH/pi-build/functions/base.function
+cp -f $MYPATH/bin/*.sh ~/bin/
+cp -f $MYPATH/conky/get-grid ~/bin/conky/
+cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
+cp -f $MYPATH/.local/share/* $HOME/.local/share/
+cp -f $MYPATH/.config/* $HOME/.config/
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 sudo updatedb
 
