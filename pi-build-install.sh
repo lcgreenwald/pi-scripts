@@ -64,7 +64,7 @@ cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotsp
 cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
-cp -f $MYPATH/.local/share/* $HOME/.local/share/
+cp -rf $MYPATH/.local/share/* $HOME/.local/share/
 cp -f $MYPATH/.config/* $HOME/.config/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
