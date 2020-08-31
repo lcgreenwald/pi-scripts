@@ -48,6 +48,9 @@ ${voffset -165}
 ${color grey}
 ${font}
 ${font Arial:bold:size=10}${color Yellow}SYSTEM ${color DarkSlateGray} ${hr 2}
+${font Arial:bold:size=10}${color White}Name$alignr${nodename}
+${font Arial:bold:size=10}${color White}Version$alignr${exec cat /etc/issue.net} ${machine}
+${font Arial:bold:size=10}${color White}Kernel $alignr${kernel}
 ${font Arial:bold:size=10}${color White}Frequency $alignr${freq_g cpu0}Ghz
 ${font Arial:bold:size=10}${color White}Uptime $alignr${uptime}
 #TEMP
