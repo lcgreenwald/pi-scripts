@@ -49,7 +49,8 @@ ${color grey}
 ${font}
 ${font Arial:bold:size=08}${color Yellow}SYSTEM: ${color DarkSlateGray} ${hr 2}
 ${font Arial:bold:size=08}${color White}Hostame: $alignr${nodename}
-${font Arial:bold:size=08}${color White}Version: $alignr${exec cat /etc/issue.net} ${machine}
+${font Arial:bold:size=10}${color White}Version: $alignr${exec cat /etc/issue.net}
+${font Arial:bold:size=10}${color White}Architecture: $alignr${machine}
 ${font Arial:bold:size=08}${color White}Kernel: $alignr${kernel}
 ${font Arial:bold:size=08}${color White}Frequency: $alignr${freq_g cpu0}Ghz
 ${font Arial:bold:size=08}${color White}Uptime: $alignr${uptime}
