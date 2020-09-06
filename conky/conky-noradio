@@ -31,7 +31,9 @@ conky.config = {
 };
 
 conky.text = [[
-${font Arial:size=18}${color Yellow}$alignc${nodename}
+${font Arial:size=18}${color Yellow}${alignc}    
+${voffset -25}
+${font Arial:bold:size=16}${color White}${alignc}${color Yellow}$alignc${nodename}
 ${color Yellow}LOCAL${alignr}ZULU
 ${font Arial:bold:size=15}${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
