@@ -74,7 +74,7 @@ Icon=/home/pi/pi-scripts/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
 Terminal=false
-Categories=HamRadio
+Categories=Utility
 Keywords=Radio
 EOF
 
