@@ -48,14 +48,44 @@ rm $MYPATH/intro.txt
 # Install 3.5" display drivers  
 cd
 git clone https://github.com/MrYacha/LCD-show.git
-cd LCD-show
-bash LCD35-show
+sudo chmod -R 755 LCD-show
+#cd LCD-show
+#sudo ./LCD35-show
+
+cat <<EOF > $HOME/.local/share/applications/LCD35-show.desktop
+[Desktop Entry]
+Name=LCD35-show
+Comment=LCD35-show
+GenericName=Enable 3.5" Display
+Exec=/home/pi/pi-scripts/lcd35.sh
+Icon=/home/pi/pi-scripts/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=Settings;DesktopSettings;
+Keywords=Display
+EOF
+
+cat <<EOF > $HOME/.local/share/applications/LCD-hdmi.desktop
+[Desktop Entry]
+Name=LCD-hdmi
+Comment=LCD-hdmi
+GenericName=Enable HDMI Display
+Exec=/home/pi/pi-scripts/hdmi.sh
+Icon=/home/pi/pi-scripts/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=Settings;DesktopSettings;
+Keywords=Display
+EOF
+
 
 # done
 yad --width=400 --height=200 --title="Complete" --image $LOGO \
 --text-align=center --skip-taskbar --image-on-top \
 --wrap --window-icon=$LOGO \
---undecorated --text="<big><big><big><b>3.5 in. display driver install finished </b></big></big></big>\r\r" \
+--undecorated --text="<big><big><big><b>3.5 in. display driver install finished \r Select the desired display in \r the Preferences menu. </b></big></big></big>\r\r" \
 --button="Exit":0
 BUT=$(echo $?)
 
