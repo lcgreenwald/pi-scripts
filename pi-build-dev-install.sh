@@ -37,7 +37,7 @@ Do not reboot at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi Beta"  --show-uri \
+INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi Dev"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -52,7 +52,7 @@ rm $MYPATH/intro.txt
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
-git checkout beta
+git checkout dev
 git pull
 cd
 bash pi-build/build-a-pi
