@@ -90,6 +90,7 @@ yad --width=400 --height=200 --title="Complete" --image $LOGO \
 BUT=$(echo $?)
 
 if [ $BUT = 0 ]; then
+exit
 elif [ $BUT = 1 ]; then
 exit
 fi
