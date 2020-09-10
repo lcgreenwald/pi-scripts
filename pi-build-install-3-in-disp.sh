@@ -1,6 +1,6 @@
 #!/bin/bash
 #install YAD & jq as needed
-clear;echo;echo
+clear;echo;echo;cd
 echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
@@ -29,7 +29,7 @@ MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 #	notice to user
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-pi-build-install-noradio by wb0sio.
+pi-build-install-3-in-display by wb0sio.
 This script downloads and installs 
 the 3.5" display drivers.
 EOF
