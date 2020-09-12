@@ -33,7 +33,8 @@ if ! hash samba 2>/dev/null; then
 			read only = no
 			public = yes
 			writable = yes
-  EOF
+EOF
+  
 	cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
 	rm $MYPATH/samba_share.txt
 fi
