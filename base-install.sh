@@ -23,7 +23,7 @@ if ! hash locate 2>/dev/null; then
 	sudo apt install -y locate
 fi
 if ! hash samba 2>/dev/null; then
-	sudo apt install samba samba-common-bin smbclient cifs-utils
+	sudo apt install -y samba samba-common-bin smbclient cifs-utils
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
 	sudo chmod 777 /home/public
@@ -35,6 +35,6 @@ if ! hash samba 2>/dev/null; then
 			writable = yes
 EOF
   
-	cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
+	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
 	rm $MYPATH/samba_share.txt
 fi
