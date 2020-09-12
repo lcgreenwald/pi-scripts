@@ -28,13 +28,14 @@ if ! hash samba 2>/dev/null; then
 	sudo mkdir /home/public
 	sudo chmod 777 /home/public
 	cat <<EOF > $MYPATH/samba_share.txt
-		[public]
-			path = /home/public
-			read only = no
-			public = yes
-			writable = yes
+[public]
+	path = /home/public
+	read only = no
+	public = yes
+	writable = yes
 EOF
-  
+	sudo chmod 666 /etc/samba/smb.conf  
 	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
+	sudo chmod 644 /etc/samba/smb.conf
 	rm $MYPATH/samba_share.txt
 fi
