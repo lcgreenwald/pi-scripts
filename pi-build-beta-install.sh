@@ -1,35 +1,12 @@
 #!/bin/bash
-#install YAD & jq as needed
-clear;echo;echo
-echo "#######################################"
-echo "#  Updating repository & installing   #"
-echo "#  a few needed items before we begin #"
-echo "#######################################"
-###### Install log2ram 20200111 wb0sio ####
-if ! hash log2ram 2>/dev/null; then
-	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
-	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
-fi
-sudo apt update
-sudo apt upgrade -y
-if ! hash yad 2>/dev/null; then
-	sudo apt install -y yad
-fi
-if ! hash jq 2>/dev/null; then
-	sudo apt install -y jq
-fi
-if ! hash log2ram 2>/dev/null; then
-	sudo apt install -y log2ram
-fi
-if ! hash locate 2>/dev/null; then
-	sudo apt install -y locate
-fi
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+export MYPATH
+exec $MYPATH/base-install.sh
 #####################################
 #	notice to user
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-pi-build-install by wb0sio.
+pi-build-install-beta by wb0sio.
 This script downloads and installs the
 latest version of KM4ACK's Build-a-Pi 
 and a custom version of KM4ACK's HotSpot Tools.
