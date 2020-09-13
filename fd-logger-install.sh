@@ -21,8 +21,6 @@ cat <<EOF > $MYPATH/intro.txt
 K4CPO-FD-Logger Install by wb0sio.
 This script downloads and installs a version of 
 the K4CPO-FD-Logger customized for N0SUW/WB0SIO.
-Just hit return at the password prompt. 
-A password is not required.
 Select Build/Clear DataBase when the web browser opens.
 EOF
 
