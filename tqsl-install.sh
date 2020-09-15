@@ -14,6 +14,7 @@ sudo apt-get upgrade -y
 	sudo apt install -y jq
 	fi
 MYPATH=$HOME/pi-scripts
+LOGO=$MYPATH/logo.png
 #####################################
 #	notice to user
 #####################################

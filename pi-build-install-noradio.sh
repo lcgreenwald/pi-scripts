@@ -1,6 +1,6 @@
 #!/bin/bash
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export MYPATH
+LOGO=$MYPATH/logo.png
 $MYPATH/base-install.sh
 #####################################
 #	notice to user

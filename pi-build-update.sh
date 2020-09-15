@@ -8,6 +8,7 @@ echo "#######################################"
 sudo apt-get update
 sudo apt-get upgrade -y
 MYPATH=$HOME/pi-scripts
+LOGO=$MYPATH/logo.png
 #####################################
 #	notice to user
 #####################################
