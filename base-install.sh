@@ -18,6 +18,7 @@ if ! hash jq 2>/dev/null; then
 fi
 if ! hash log2ram 2>/dev/null; then
 	sudo apt install -y log2ram
+	sudo sed -i "s/SIZE=40M/SIZE=100M/" /etc/log2ram.conf
 fi
 if ! hash locate 2>/dev/null; then
 	sudo apt install -y locate
