@@ -35,11 +35,13 @@ ${voffset 15}
 ${font Arial:size=20}${color Yellow}${alignc}N0CALL
 ${voffset -40}
 ${font Arial:bold:size=14}${color White}Gridsquare ${alignr}${color Yellow}${execi 25 $HOME/bin/conky/grid | cut -c1-12} 
+${if_match "VFOA" == "${execi 5 $HOME/bin/conky/get-vfo}"}\
 ${font Arial:bold:size=14}${color White}Radio Freq ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq | cut -c1-6}
 ${font Arial:bold:size=14}${color White}Radio Freq A ${if_match "VFOA" == "${execi 5 $HOME/bin/conky/get-vfo}"}*$endif\
 ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq VFOA | cut -c1-7}
 ${font Arial:bold:size=14}${color White}Radio Freq B ${if_match "VFOB" == "${execi 5 $HOME/bin/conky/get-vfo}"}*$endif\
 ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq VFOB | cut -c1-7}
+$endif\
 ${color Yellow}LOCAL${alignr}ZULU
 ${font Arial:bold:size=14}${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
