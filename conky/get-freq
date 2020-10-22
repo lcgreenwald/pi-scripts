@@ -15,11 +15,11 @@ FREQCH=$(echo "$FREQ" | grep error)
 
 if [ -z "$FREQCH" ]
 then
-echo $FREQ/1000000 | bc -l | xargs printf "%.3f ${FREQ: -3}"
+echo ${FREQ:0:-3}/1000 | bc -l | xargs printf "%.3f ${FREQ: -3}"
 else
 MAIN "$1"
 fi
 
 }
 
-MAIN "$1"
+MAIN
