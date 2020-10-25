@@ -25,10 +25,14 @@ if ! hash locate 2>/dev/null; then
 fi
 if ! hash plank 2>/dev/null; then
 	sudo apt install -y plank
+	if [[ -d $HOME/.config/plank/dock1/launchers ]]
+	then
+		mkdir -p $HOME/.config/plank/dock1/launchers
+	fi
 	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
 	if [[ -d $HOME/.config/autostart ]]
 	then
-		mkdir $HOME/.config/autostart
+		mkdir -p $HOME/.config/autostart
 	fi
 	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
 fi
