@@ -29,7 +29,6 @@ rm $MYPATH/intro.txt
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
-git pull
 cd
 bash pi-build/build-a-pi
 #************

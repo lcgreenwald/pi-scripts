@@ -26,6 +26,7 @@ fi
 if ! hash plank 2>/dev/null; then
 	sudo apt install -y plank
 	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
+	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
 fi
 if ! hash samba 2>/dev/null; then
 	sudo apt install -y samba samba-common-bin smbclient cifs-utils
