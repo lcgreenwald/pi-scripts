@@ -23,6 +23,10 @@ fi
 if ! hash locate 2>/dev/null; then
 	sudo apt install -y locate
 fi
+if ! hash plank 2>/dev/null; then
+	sudo apt install -y plank
+	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
+fi
 if ! hash samba 2>/dev/null; then
 	sudo apt install -y samba samba-common-bin smbclient cifs-utils
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
