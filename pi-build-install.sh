@@ -13,13 +13,17 @@ latest version of KM4ACK's Build-a-Pi
 and a custom version of KM4ACK's HotSpot Tools.
 Do not reboot at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
+Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=550 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
---button="Continue":2 > /dev/null 2>&1)
-BUT=$?
+--button="Master":2 > /dev/null 2>&1 \
+--button="Beta":3 > /dev/null 2>&1 \
+--button="Dev":4 > /dev/null 2>&1)
+BUT=$(echo $?)
+
 if [ $BUT = 252 ]; then
 rm $MYPATH/intro.txt
 exit
@@ -30,6 +34,19 @@ rm $MYPATH/intro.txt
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
+if [ $BUT = 2 ]; then
+echo "Master selected."
+git checkout master
+git pull
+elif [ $BUT = 3 ]; then
+echo "Beta selected."
+git checkout beta
+git pull
+elif [ $BUT = 4 ]; then
+echo "Dev selected."
+git checkout dev
+git pull
+fi
 cd
 bash pi-build/build-a-pi
 #************
@@ -42,7 +59,9 @@ cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/.local/share/* $HOME/.local/share/
-mkdir $HOME/.xlog
+if ! -d $HOME/.xlog 2>/dev/null; then
+	mkdir $HOME/.xlog
+fi
 cp -rf $MYPATH/.xlog/* $HOME/.xlog/
 cp -f $MYPATH/.config/* $HOME/.config/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
