@@ -42,7 +42,7 @@ elif [ $BUT = 3 ]; then
 echo "Beta selected."
 git checkout beta
 git pull
-elif [ $BUT = 3 ]; then
+elif [ $BUT = 4 ]; then
 echo "Dev selected."
 git checkout dev
 git pull
