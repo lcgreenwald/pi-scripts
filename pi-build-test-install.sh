@@ -59,7 +59,9 @@ cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/.local/share/* $HOME/.local/share/
-mkdir $HOME/.xlog/
+if ! -d $HOME/.xlog 2>/dev/null; then
+	mkdir $HOME/.xlog
+fi
 cp -rf $MYPATH/.xlog/* $HOME/.xlog/
 cp -f $MYPATH/.config/* $HOME/.config/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
