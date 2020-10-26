@@ -36,6 +36,8 @@ git clone https://github.com/km4ack/pi-build.git
 cd pi-build
 if [ $BUT = 2 ]; then
 echo "Master selected."
+git checkout master
+git pull
 elif [ $BUT = 3 ]; then
 echo "Beta selected."
 git checkout beta
