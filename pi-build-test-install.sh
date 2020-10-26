@@ -21,7 +21,7 @@ INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1
+--button="Dev":4 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
