@@ -31,6 +31,7 @@ fi
 rm $MYPATH/intro.txt
 
 cd pi-build
+git stash
 git pull
 cd
 #************

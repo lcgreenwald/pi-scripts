@@ -1,4 +1,0 @@
-WSJT-X ADIF Export<eoh>
-<call:4>AI0Y <gridsquare:4>EN34 <mode:3>FT8 <rst_sent:3>-20 <rst_rcvd:3>-17 <qso_date:8>20200719 <time_on:6>212615 <qso_date_off:8>20200719 <time_off:6>212830 <band:2>6m <freq:9>50.314100 <station_callsign:6>WB0SIO <my_gridsquare:6>EN24WS <tx_pwr:2>30 <eor>
-<call:5>K0HMZ <gridsquare:4>DN88 <mode:3>FT8 <rst_sent:3>+03 <rst_rcvd:3>-11 <qso_date:8>20200719 <time_on:6>214300 <qso_date_off:8>20200719 <time_off:6>214400 <band:3>10m <freq:9>28.075100 <station_callsign:6>WB0SIO <my_gridsquare:6>EN24WS <tx_pwr:2>35 <eor>
-<call:6>VE4HTO <gridsquare:4>EO10 <mode:3>FT8 <rst_sent:3>+04 <rst_rcvd:3>+21 <qso_date:8>20200719 <time_on:6>215000 <qso_date_off:8>20200719 <time_off:6>215115 <band:3>10m <freq:9>28.075100 <station_callsign:6>WB0SIO <my_gridsquare:6>EN24WS <tx_pwr:2>35 <eor>

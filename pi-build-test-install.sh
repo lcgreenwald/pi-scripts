@@ -34,6 +34,8 @@ rm $MYPATH/intro.txt
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
+git config --global user.email "lcgreenwald@gmail.com"
+git config --global user.name "lcgreenwald"
 if [ $BUT = 2 ]; then
 echo "Master selected."
 git checkout master
@@ -58,12 +60,12 @@ cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotsp
 cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
-cp -rf $MYPATH/.local/share/* $HOME/.local/share/
+cp -rf $MYPATH/local/share/* $HOME/.local/share/
 if ! -d $HOME/.xlog 2>/dev/null; then
 	mkdir $HOME/.xlog
 fi
-cp -rf $MYPATH/.xlog/* $HOME/.xlog/
-cp -f $MYPATH/.config/* $HOME/.config/
+cp -rf $MYPATH/xlog/* $HOME/.xlog/
+cp -f $MYPATH/config/* $HOME/.config/
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
