@@ -17,6 +17,7 @@ echo "MYPATH: $MYPATH"
 FINISH(){
 if [ -f "$BASE" ]; then
 #rm $BASE
+echo "cat $BASE"
 fi
 }
 
