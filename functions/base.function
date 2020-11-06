@@ -8,7 +8,7 @@ TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
 mkdir -p $DIR
 
-source $MYPATH/installapps
+source $MYPATH/config
 
 ################################
 #	LOG2RAM
