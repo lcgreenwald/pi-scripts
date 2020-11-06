@@ -116,12 +116,13 @@ echo "$i" >> $BASE
 done
 fi
 
+
 #####################################
 #	Install Base Apps
 #####################################
-touch $HOME/.config/WB0SIO
-while read i ; do
+touch $RB
 source $FUNCTIONS/base.function
+while read i ; do
 $i
 done < $BASE
 
