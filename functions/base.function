@@ -14,7 +14,7 @@ mkdir -p $DIR
 #	LOG2RAM
 ################################
 Log2ram(){
-if [ ! hash log2ram 2>/dev/null ]; then
+if ! hash log2ram 2>/dev/null ; then
 	sudo apt install -y log2ram
 	sudo sed -i "s/SIZE=40M/SIZE=100M/" /etc/log2ram.conf
 fi
@@ -23,7 +23,7 @@ fi
 #	LOCATE
 ################################
 Locate(){
-if [ ! hash locate 2>/dev/null ]; then
+if ! hash locate 2>/dev/null ; then
 	sudo apt install -y locate
 fi
 }
@@ -31,13 +31,13 @@ fi
 #	PLANK
 ################################
 Plank(){
-if [ ! hash plank 2>/dev/null ]; then
+if ! hash plank 2>/dev/null ; then
 	sudo apt install -y plank
-	if [ ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ];	then
+	if ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ;	then
 		mkdir -p $HOME/.config/plank/dock1/launchers
 	fi
 	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
-	if [ ! -d $HOME/.config/autostart 2>/dev/null ]; then
+	if ! -d $HOME/.config/autostart 2>/dev/null ; then
 		mkdir -p $HOME/.config/autostart
 	fi
 	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
@@ -47,7 +47,7 @@ fi
 #	SAMBA
 ################################
 Samba(){
-if [ ! hash samba 2>/dev/null ]; then
+if ! hash samba 2>/dev/null ; then
 	sudo apt install -y samba samba-common-bin smbclient cifs-utils
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
@@ -69,7 +69,7 @@ fi
 #	WEBMIN
 ################################
 Webmin(){
-if [ ! hash webmin 2>/dev/null ]; then
+if ! hash webmin 2>/dev/null ; then
 	cd ~/Downloads
 	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 	wget http://www.webmin.com/download/deb/webmin-current.deb
@@ -81,7 +81,7 @@ fi
 #	3.5" DISPLAY DRIVERS
 ################################
 3inDisplay(){
-if [ ! -d $HOME/LCD-show 2>/dev/null ]; then
+if ! -d $HOME/LCD-show 2>/dev/null ; then
 	# Install 3.5" display drivers  
 	cd
 	git clone https://github.com/MrYacha/LCD-show.git
@@ -121,7 +121,7 @@ fi
 #	Proto
 ################################
 Proto(){
-if [ ! hash file 2>/dev/null ]; then
+if ! hash file 2>/dev/null ; then
 	
 fi
 }
