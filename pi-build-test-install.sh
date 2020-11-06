@@ -95,7 +95,7 @@ yad --center --list --checklist --width=600 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
-false "Log2Ram" "Create a RAM based log folder to reduce SD card wear." \
+false "Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "File search utility" \
 false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
@@ -110,7 +110,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2Ram Locate Plank Samba Webmin 3inDisplay)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin 3inDisplay)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
