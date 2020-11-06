@@ -20,7 +20,7 @@
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
-CONFIG=$MYPATH/config
+CONFIG=$MYPATH/installapps
 LOGO=$MYPATH/logo.png
 TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
@@ -28,18 +28,6 @@ VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 FINISH(){
 if [ -f "$BASE" ]; then
 rm $BASE
-fi
-
-if [ -f "$ADDITIONAL" ]; then
-rm $ADDITIONAL
-fi
-
-if [ -f "$FLSUITE" ]; then
-rm $FLSUITE
-fi
-
-if [ -f "$UTILITY" ]; then
-rm $UTILITY
 fi
 }
 
@@ -236,7 +224,7 @@ sudo apt -y full-upgrade
 #####################################
 #	Install Base Apps
 #####################################
-touch $HOME/.config/KM4ACK
+touch $HOME/.config/WB0SIO
 while read i ; do
 source $FUNCTIONS/base.function
 $i
