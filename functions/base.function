@@ -2,7 +2,8 @@
 #km4ack 20200513
 #wb0sio 20200820 Converted km4ack build-a-pi to wb0sio pi-scripts-install
 
-MYPATH=$HOME/pi-scripts2
+#MYPATH=$HOME/pi-scripts
+MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
 mkdir -p $DIR

@@ -1,10 +1,9 @@
 #!/bin/bash
-export MYPATH
 
 DESK=$(printenv | grep DISPLAY)
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
-RB=$( ls $HOME/.config | grep KM4ACK)
+RB=$( ls $HOME/.config | grep WB0SIO)
 BASE=$MYPATH/base.txt
 CONFIG=$MYPATH/config
 FUNCTIONS=$MYPATH/functions
@@ -13,6 +12,7 @@ DIR=$MYPATH/temp
 WHO=$(whoami)
 VERSION=$(cat $MYPATH/changelog | grep version= | sed 's/version=//')
 export MYPATH
+echo "MYPATH: $MYPATH"
 
 FINISH(){
 if [ -f "$BASE" ]; then
@@ -33,6 +33,13 @@ EOF
 exit 0
 fi
 
+#####################################
+#	Check if run before
+#####################################
+if [ -f "$RB" ]; then
+bash $MYPATH/update.sh &
+exit
+fi
 
 echo "#######################################"
 echo "#  Updating repository & installing   #"
