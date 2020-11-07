@@ -100,8 +100,8 @@ clear
 #Scan system for updated applications
 yad  --width=550 --height=250 --text-align=center --center --title="Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text="<b>Version $VERSION</b>\r\r\r\rFirst we need to scan the system to see what is installed, \
-then check for updates on the web. This should take less than a minute. Ready when you are." \
+--text="<b>Version $VERSION</b>\r\r\r\rFirst we need to scan the system to see what is installed. \
+This should take less than a minute. Ready when you are." \
 --button="Exit":1 \
 --button="Start Scan":2
 BUT=$?
@@ -205,7 +205,7 @@ fi
 CKBASE=$(cat $BASE)
 if [ -z "$CKBASE" ]; then
 rm $BASE  > /dev/null 2>&1
-yad  --width=550 --height=250 --text-align=center --center --title="Update" \
+yad  --width=600 --height=250 --text-align=center --center --title="Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="\r\r\r\r<b>Nothing selected for install/update</b>" \
 --button="CLOSE":1

@@ -1,11 +1,27 @@
 #!/bin/bash
 
+###########################################################
+#                                                    	    #
+#	#   #	#       #     #      #        #####  #   #   	    #
+#	#  #	# #   # #    ##     # #      #       #  #    	    #
+#	# #		#   #   #   # #    #   #    #        # #         	#
+#	##		#       #  #####  #######  #         ##          	#
+#	# #		#       #     #   #     #   #        # #         	#
+#	#  #	#       #     #   #     #    #       #  #        	#
+#	#   #	#       #     #   #     #     #####  #   #       	#
+#                                                        	#
+###########################################################
+#                                                        	#
+#	Modified for WB0SIO pi-build-install.  					#
+#   6-November-2020 by WB0SIO                            	#
+#                                                        	#
+###########################################################
+
 DESK=$(printenv | grep DISPLAY)
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
-RB=$( ls $HOME/.config | grep WB0SIO)
+RB=$HOME/.config/WB0SIO)
 BASE=$MYPATH/base.txt
-#CONFIG=$MYPATH/installapps
 FUNCTIONS=$MYPATH/functions
 TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
@@ -16,8 +32,7 @@ echo "MYPATH: $MYPATH"
 
 FINISH(){
 if [ -f "$BASE" ]; then
-#rm $BASE
-echo "cat $BASE"
+rm $BASE
 fi
 }
 
@@ -76,7 +91,7 @@ optional utility software.
 
 EOF
 
-INTRO=$(yad --width=550 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=600 --height=250 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -132,7 +147,7 @@ done < $BASE
 #	notice to user
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-Now we install Build-A-Pi.
+Now we eill install Build-A-Pi.
 Do not reboot as requested at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
@@ -211,7 +226,7 @@ rm -rf $DIR > /dev/null 2>&1
 sudo apt -y autoremove
 
 #reboot when done
-yad --width=400 --height=200 --title="Reboot" --image $LOGO \
+yad --width=600 --height=200 --title="Reboot" --image $LOGO \
 --text-align=center --skip-taskbar --image-on-top \
 --wrap --window-icon=$LOGO \
 --undecorated --text="<big><big><big><b>Pi-Build-Install finished \rReboot Required\rIf you close this window, you will have to reboot manually.</b></big></big></big>\r\r" \
