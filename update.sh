@@ -240,14 +240,14 @@ rm $BASE $ADDITIONAL $UTILITY $FLSUITE > /dev/null 2>&1
 #restore crontab
 crontab $TEMPCRON
 rm $TEMPCRON
+
 #####################################
 #reboot when done
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-<big><big><big><b>Pi-Build-Install finished 
+Pi-Build-Install finished 
 Reboot Required
 If you close this window, you will have to reboot manually.
-</b></big></big></big>
 
 EOF
 
@@ -255,7 +255,7 @@ INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Bu
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
---button="Exit":1
+--button="Exit":1)
 BUT=$(echo $?)
 
 if [ $BUT = 0 ]; then
@@ -266,22 +266,3 @@ elif [ $BUT = 1 ]; then
 rm $MYPATH/intro.txt
 exit
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
