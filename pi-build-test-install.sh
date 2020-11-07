@@ -1,20 +1,20 @@
 #!/bin/bash
 
 ###########################################################
-#                                                    	    #
-#	#   #	#       #     #      #        #####  #   #   	    #
-#	#  #	# #   # #    ##     # #      #       #  #    	    #
-#	# #		#   #   #   # #    #   #    #        # #         	#
-#	##		#       #  #####  #######  #         ##          	#
-#	# #		#       #     #   #     #   #        # #         	#
-#	#  #	#       #     #   #     #    #       #  #        	#
-#	#   #	#       #     #   #     #     #####  #   #       	#
-#                                                        	#
+#                                                         #
+# #   # #       #     #      #        #####  #   #        #
+# #  #  # #   # #    ##     # #      #       #  #         #
+# # #   #   #   #   # #    #   #    #        # #          #
+# ##    #       #  #####  #######  #         ##           #
+# # #   #       #     #   #     #   #        # #          #
+# #  #  #       #     #   #     #    #       #  #         #
+# #   # #       #     #   #     #     #####  #   #        #
+#                                                         #
 ###########################################################
-#                                                        	#
-#	Modified for WB0SIO pi-build-install.  					#
-#   6-November-2020 by WB0SIO                            	#
-#                                                        	#
+#                                                         #
+# Modified for WB0SIO pi-build-install.                   #
+#   6-November-2020 by WB0SIO                             #
+#                                                         #
 ###########################################################
 
 DESK=$(printenv | grep DISPLAY)
@@ -84,14 +84,14 @@ fi
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio, version $VERSION.
 This script downloads and installs the
-latest version of KM4ACK's Build-a-Pi 
-and a custom version of KM4ACK's HotSpot Tools.
+latest version of KM4ACK's Build-a-Pi and 
+a custom version of KM4ACK's HotSpot Tools.
 First we will install some required and some
 optional utility software.
 
 EOF
 
-INTRO=$(yad --width=600 --height=250 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -147,13 +147,13 @@ done < $BASE
 #	notice to user
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-Now we eill install Build-A-Pi.
+Now we will install Build-A-Pi.
 Do not reboot as requested at the end of the build-a-pi script.
 Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=550 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=600 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
@@ -225,18 +225,29 @@ rm $BASE > /dev/null 2>&1
 rm -rf $DIR > /dev/null 2>&1
 sudo apt -y autoremove
 
+#####################################
 #reboot when done
-yad --width=600 --height=200 --title="Reboot" --image $LOGO \
---text-align=center --skip-taskbar --image-on-top \
---wrap --window-icon=$LOGO \
---undecorated --text="<big><big><big><b>Pi-Build-Install finished \rReboot Required\rIf you close this window, you will have to reboot manually.</b></big></big></big>\r\r" \
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+<big><big><big><b>Pi-Build-Install finished 
+Reboot Required
+If you close this window, you will have to reboot manually.
+</b></big></big></big>
+
+EOF
+
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
 --button="Exit":1
 BUT=$(echo $?)
 
 if [ $BUT = 0 ]; then
+rm $MYPATH/intro.txt
 echo rebooting
 sudo reboot
 elif [ $BUT = 1 ]; then
+rm $MYPATH/intro.txt
 exit
 fi

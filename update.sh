@@ -1,26 +1,25 @@
 #!/bin/bash
 
 ###########################################################
-#                                                    	    #
-#	#   #	#       #     #      #        #####  #   #   	    #
-#	#  #	# #   # #    ##     # #      #       #  #    	    #
-#	# #		#   #   #   # #    #   #    #        # #         	#
-#	##		#       #  #####  #######  #         ##          	#
-#	# #		#       #     #   #     #   #        # #         	#
-#	#  #	#       #     #   #     #    #       #  #        	#
-#	#   #	#       #     #   #     #     #####  #   #       	#
-#                                                        	#
+#                                                         #
+# #   # #       #     #      #        #####  #   #        #
+# #  #  # #   # #    ##     # #      #       #  #         #
+# # #   #   #   #   # #    #   #    #        # #          #
+# ##    #       #  #####  #######  #         ##           #
+# # #   #       #     #   #     #   #        # #          #
+# #  #  #       #     #   #     #    #       #  #         #
+# #   # #       #     #   #     #     #####  #   #        #
+#                                                         #
 ###########################################################
-#                                                        	#
-#	Modified for WB0SIO pi-build-install update.  					#
-#   6-November-2020 by WB0SIO                            	#
-#                                                        	#
+#                                                         #
+# Modified for WB0SIO pi-build-install update.            #
+#   6-November-2020 by WB0SIO                             #
+#                                                         #
 ###########################################################
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
-#CONFIG=$MYPATH/installapps
 LOGO=$MYPATH/logo.png
 TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
@@ -42,8 +41,8 @@ fi
 
 
 #####################################
-#	Create autostart dir
-#used to autostart conky at boot
+# Create autostart dir
+# used to autostart conky at boot
 #####################################
 mkdir -p $HOME/.config/autostart
 
@@ -241,19 +240,30 @@ rm $BASE $ADDITIONAL $UTILITY $FLSUITE > /dev/null 2>&1
 #restore crontab
 crontab $TEMPCRON
 rm $TEMPCRON
+#####################################
 #reboot when done
-yad --width=400 --height=200 --title="Reboot" --image $LOGO \
---text-align=center --skip-taskbar --image-on-top \
---wrap --center --window-icon=$LOGO \
---undecorated --text="<big><big><big><b>Update Finished \rReboot Required</b></big></big></big>\r\r" \
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+<big><big><big><b>Pi-Build-Install finished 
+Reboot Required
+If you close this window, you will have to reboot manually.
+</b></big></big></big>
+
+EOF
+
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
 --button="Exit":1
 BUT=$(echo $?)
 
 if [ $BUT = 0 ]; then
+rm $MYPATH/intro.txt
 echo rebooting
 sudo reboot
 elif [ $BUT = 1 ]; then
+rm $MYPATH/intro.txt
 exit
 fi
 
