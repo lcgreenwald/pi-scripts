@@ -20,7 +20,7 @@
 DESK=$(printenv | grep DISPLAY)
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
-RB=$HOME/.config/WB0SIO)
+RB=$HOME/.config/WB0SIO
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
 TEMPCRON=$MYPATH/cron.tmp
