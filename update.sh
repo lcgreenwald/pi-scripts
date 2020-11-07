@@ -160,9 +160,9 @@ fi
 #		3.5" DISPLAY DRIVERS
 #----------------------------------------------------#
 if [ ! -d $HOME/LCD-show 2>/dev/null ]; then
-3inDisplay="Not Installed"
+Display="Not Installed"
 else
-3inDisplay="Installed"
+Display="Installed"
 fi
 }
 
@@ -189,7 +189,7 @@ false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
 false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
-false "3inDisplay" "$3inDisplay" "Drivers for a 3.5 in. touch screen display" \
+false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE

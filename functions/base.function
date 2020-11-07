@@ -80,7 +80,7 @@ fi
 ################################
 #	3.5" DISPLAY DRIVERS
 ################################
-3inDisplay(){
+Display(){
 if ! -d $HOME/LCD-show 2>/dev/null ; then
 	# Install 3.5" display drivers  
 	cd

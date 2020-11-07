@@ -100,7 +100,7 @@ false "Locate" "File search utility" \
 false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
 false "Webmin" "Web based system manager." \
-false "3inDisplay" "Drivers for a 3.5 in. touch screen display" \
+false "Display" "Drivers for a 3.5 in. touch screen display" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -110,7 +110,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin 3inDisplay)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
