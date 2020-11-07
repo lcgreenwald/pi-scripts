@@ -177,13 +177,13 @@ CHECK
 ####################################################################
 ####################################################################
 
-#####################################
-#	Base Apps
-#####################################
+#----------------------------------------------------#
+#			BASE APP MENU
+#----------------------------------------------------#
 yad --center --list --checklist --width=600 --height=600 --separator="" \
---image $LOGO --column=Check --column=App --column=Description \
---print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
---text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
+--image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
+--window-icon=$LOGO --image-on-top --text-align=center \
+--text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
@@ -197,7 +197,6 @@ BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
 fi
-
 
 
 
