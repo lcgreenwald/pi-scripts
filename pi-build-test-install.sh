@@ -229,10 +229,9 @@ sudo apt -y autoremove
 #reboot when done
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-<big><big><big><b>Pi-Build-Install finished 
+Pi-Build-Install finished 
 Reboot Required
 If you close this window, you will have to reboot manually.
-</b></big></big></big>
 
 EOF
 

@@ -99,7 +99,7 @@ clear
 #Scan system for updated applications
 yad  --width=550 --height=250 --text-align=center --center --title="Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text="<b>Version $VERSION</b>\r\r\r\rFirst we need to scan the system to see what is installed. \
+--text="<b>Version $VERSION</b>\r\r\r\r\r\rFirst we need to scan the system to see what is installed. \
 This should take less than a minute. Ready when you are." \
 --button="Exit":1 \
 --button="Start Scan":2
@@ -245,11 +245,9 @@ rm $TEMPCRON
 #reboot when done
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-<big><big><big><b>
 Pi Build Install Update finished 
 Reboot Required
 If you close this window, you will have to reboot manually.
-</b></big></big></big>
 EOF
 
 INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
