@@ -119,41 +119,41 @@ CHECK(){
 #		LOG2RAM
 #----------------------------------------------------#
 if ! hash log2ram 2>/dev/null; then
-LOG2RAM="Not Installed"
+Log2ram="Not Installed"
 else
-LOG2RAM="Installed"
+Log2ram="Installed"
 fi
 #----------------------------------------------------#
 #		LOCATE
 #----------------------------------------------------#
 if ! hash locate 2>/dev/null; then
-LOCATE="Not Installed"
+Locate="Not Installed"
 else
-LOCATE="Installed"
+Locate="Installed"
 fi
 #----------------------------------------------------#
 #		PLANK
 #----------------------------------------------------#
 if ! hash plank 2>/dev/null; then
-PLANK="Not Installed"
+Plank="Not Installed"
 else
-PLANK="Installed"
+Plank="Installed"
 fi
 #----------------------------------------------------#
 #		SAMBA
 #----------------------------------------------------#
 if ! hash samba 2>/dev/null; then
-SAMBA="Not Installed"
+Samba="Not Installed"
 else
-SAMBA="Installed"
+Samba="Installed"
 fi
 #----------------------------------------------------#
 #		WEBMIN
 #----------------------------------------------------#
 if ! hash webmin 2>/dev/null; then
-WEBMIN="Not Installed"
+Webmin="Not Installed"
 else
-WEBMIN="Installed"
+Webmin="Installed"
 fi
 
 #----------------------------------------------------#
@@ -164,6 +164,7 @@ if [ ! -d $HOME/LCD-show 2>/dev/null ]; then
 else
 3inDisplay="Installed"
 fi
+}
 
 CHECK
 ####################################################################
@@ -183,12 +184,12 @@ yad --center --list --checklist --width=600 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
-false "Log2Ram" "Create a RAM based log folder to reduce SD card wear." \
-false "Locate" "File search utility" \
-false "Plank" "Application dock." \
-false "Samba" "SMB file system" \
-false "Webmin" "Web based system manager." \
-false "3inDisplay" "Drivers for a 3.5 in. touch screen display" \
+false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
+false "Locate" "$Locate" "File search utility" \
+false "Plank" "$Plank" "Application dock." \
+false "Samba" "$Samba" "SMB file system" \
+false "Webmin" "$Webmin" "Web based system manager." \
+false "3inDisplay" "$3inDisplay" "Drivers for a 3.5 in. touch screen display" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -215,7 +216,7 @@ fi
 
 #backup crontab 
 crontab -l > $TEMPCRON
-echo "@reboot sleep 10 && export DISPLAY=:0 && $MYPATH/.complete" >> $TEMPCRON
+echo "@reboot sleep 10 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
 #update/upgrade the system
 sudo apt-get -y update
 sudo apt-get -y upgrade
