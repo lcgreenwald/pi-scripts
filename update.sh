@@ -245,13 +245,14 @@ rm $TEMPCRON
 #reboot when done
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-Pi-Build-Install finished 
+<big><big><big><b>
+Pi Build Install Update finished 
 Reboot Required
 If you close this window, you will have to reboot manually.
-
+</b></big></big></big>
 EOF
 
-INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
