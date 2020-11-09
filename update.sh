@@ -229,6 +229,16 @@ source $FUNCTIONS/base.function
 $i
 done < $BASE
 
+#************
+# Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
+#************
+if [ -d $HOME/hotspot-tools2 ]; then
+	rm -rf $HOME/hotspot-tools2
+fi
+git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
 #####################################
 #	END CLEANUP

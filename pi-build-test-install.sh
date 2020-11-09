@@ -199,6 +199,7 @@ fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
 #************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
@@ -214,7 +215,6 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
-sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 sudo updatedb
 
 #####################################
