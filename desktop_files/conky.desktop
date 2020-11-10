@@ -2,7 +2,7 @@
 Name=Conky
 Comment=Conky
 GenericName=Conky Screen Background Monitor
-Exec=/home/pi/bin/conky/startconky
+Exec=/home/pi/pi-scripts/conky/startconky
 Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
