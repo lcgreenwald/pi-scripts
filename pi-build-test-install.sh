@@ -154,7 +154,7 @@ Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=600 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=650 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
