@@ -116,6 +116,7 @@ false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
 false "Webmin" "Web based system manager." \
 false "Display" "Drivers for a 3.5 in. touch screen display" \
+false "Cqrprop" "A small application that shows propagation data" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -125,7 +126,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
@@ -153,7 +154,7 @@ Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=600 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=650 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
@@ -190,6 +191,7 @@ fi
 cd
 bash pi-build/build-a-pi
 
+source $MYPATH/config
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
@@ -215,6 +217,9 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
+sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
+
+# Update the locate database.
 sudo updatedb
 
 #####################################
