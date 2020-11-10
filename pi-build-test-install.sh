@@ -191,6 +191,7 @@ fi
 cd
 bash pi-build/build-a-pi
 
+source $MYPATH/config
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
@@ -216,6 +217,9 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
+sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
+
+# Update the locate database.
 sudo updatedb
 
 #####################################
