@@ -165,6 +165,17 @@ Display="Installed"
 fi
 }
 
+#----------------------------------------------------#
+#		Cqrprop
+#----------------------------------------------------#
+if [ ! hash  cqrprop 2>/dev/null ]; then
+Cqrprop="Not Installed"
+else
+Cqrprop="Installed"
+fi
+}
+
+
 CHECK
 ####################################################################
 ####################################################################
@@ -189,6 +200,7 @@ false "Plank" "$Plank" "Application dock." \
 false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
 false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
+false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -244,7 +256,7 @@ sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 #	END CLEANUP
 #####################################
 #Remove temp files
-rm $BASE $ADDITIONAL $UTILITY $FLSUITE > /dev/null 2>&1
+rm $BASE > /dev/null 2>&1
 
 
 #restore crontab
