@@ -14,17 +14,6 @@ Run the following commands
 	git clone https://github.com/lcgreenwald/pi-scripts.git $HOME/pi-scripts
 	bash $HOME/pi-scripts/pi-build-install.sh
 
-# TrustedQSL
-
-This script downloads, compiles and installs the latest version of TrustedQSL.
-
-Run the following command for the initial installation
-
-	bash $HOME/pi-scripts/tqsl-install.sh
-	
-Run the following command to update TruestedQSL
-
-	bash $HOME/pi-scripts/tqsl-update.sh
 
 # K4CPO-FD-Logger
 
