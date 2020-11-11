@@ -1,0 +1,143 @@
+#this installs the basic software for pi-scripts-install
+#km4ack 20200513
+#wb0sio 20200820 Converted km4ack build-a-pi to wb0sio pi-scripts-install
+
+MYPATH=$HOME/pi-scripts
+#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+TEMPCRON=$MYPATH/cron.tmp
+DIR=$MYPATH/temp
+mkdir -p $DIR
+
+#source $MYPATH/installapps
+
+################################
+#	LOG2RAM
+################################
+Log2ram(){
+if ! hash log2ram 2>/dev/null ; then
+	sudo apt install -y log2ram
+	sudo sed -i "s/SIZE=40M/SIZE=100M/" /etc/log2ram.conf
+fi
+}
+################################
+#	LOCATE
+################################
+Locate(){
+if ! hash locate 2>/dev/null ; then
+	sudo apt install -y locate
+fi
+}
+################################
+#	PLANK
+################################
+Plank(){
+if ! hash plank 2>/dev/null ; then
+	sudo apt install -y plank
+	if ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ;	then
+		mkdir -p $HOME/.config/plank/dock1/launchers
+	fi
+	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
+	if ! -d $HOME/.config/autostart 2>/dev/null ; then
+		mkdir -p $HOME/.config/autostart
+	fi
+	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
+fi
+}
+################################
+#	SAMBA
+################################
+Samba(){
+if ! hash samba 2>/dev/null ; then
+	sudo apt install -y samba samba-common-bin smbclient cifs-utils
+	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
+	sudo mkdir /home/public
+	sudo chmod 777 /home/public
+	cat <<EOF > $MYPATH/samba_share.txt
+[public]
+  path = /home/public
+  read only = no
+  public = yes
+  writable = yes
+EOF
+	sudo chmod 666 /etc/samba/smb.conf  
+	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
+	sudo chmod 644 /etc/samba/smb.conf
+	rm $MYPATH/samba_share.txt
+fi
+}
+################################
+#	WEBMIN
+################################
+Webmin(){
+if ! hash webmin 2>/dev/null ; then
+	cd ~/Downloads
+	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
+	wget http://www.webmin.com/download/deb/webmin-current.deb
+	sudo dpkg -i webmin-current.deb
+	cd
+fi
+}
+################################
+#	3.5" DISPLAY DRIVERS
+################################
+Display(){
+if ! -d $HOME/LCD-show 2>/dev/null ; then
+	# Install 3.5" display drivers  
+	cd
+	git clone https://github.com/MrYacha/LCD-show.git
+	sudo chmod -R 755 LCD-show
+
+	cat <<EOF > $HOME/.local/share/applications/LCD35-show.desktop
+[Desktop Entry]
+Name=LCD35-show
+Comment=LCD35-show
+GenericName=Enable 3.5" Display
+Exec=/home/pi/pi-scripts/lcd35.sh
+Icon=/home/pi/pi-scripts/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=Settings;DesktopSettings;
+Keywords=Display
+EOF
+
+	cat <<EOF > $HOME/.local/share/applications/LCD-hdmi.desktop
+[Desktop Entry]
+Name=LCD-hdmi
+Comment=LCD-hdmi
+GenericName=Enable HDMI Display
+Exec=/home/pi/pi-scripts/hdmi.sh
+Icon=/home/pi/pi-scripts/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=Settings;DesktopSettings;
+Keywords=Display
+EOF
+
+fi
+}
+
+################################
+#	cqrprop
+################################
+Cqrprop(){
+if ! hash cqrprop 2>/dev/null ; then
+	sudo apt-get install git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
+	git clone https://github.com/ok2cqr/cqrprop.git
+	cd cqrprop
+	make 
+	sudo make install
+fi
+}
+################################
+
+################################
+#	Proto
+################################
+Proto(){
+if ! hash file 2>/dev/null ; then
+	echo "file" >/dev/null
+fi
+}
+################################

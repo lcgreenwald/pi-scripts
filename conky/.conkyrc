@@ -21,7 +21,7 @@ conky.config = {
 	default_outline_color = 'green',
 	alignment = 'top_right',
 	gap_x = 10,
-	gap_y = 10,
+	gap_y = 50,
 	no_buffers = true,
 	uppercase = false,
 	cpu_avg_samples = 2,
@@ -34,7 +34,7 @@ conky.text = [[
 ${font Arial:size=18}${color Yellow}${alignc}N0CALL
 ${voffset -25}
 ${font Arial:bold:size=12}${color White}Gridsquare ${alignr}${color Yellow}${execi 25 $HOME/bin/conky/grid | cut -c1-12}
-#${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq | cut -c1-6}
+${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq}
 ${color Yellow}LOCAL${alignr}ZULU
 ${font Arial:bold:size=15}${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
@@ -47,10 +47,15 @@ ${voffset -165}
 
 ${color grey}
 ${font}
-${font Arial:bold:size=10}${color Yellow}SYSTEM ${color DarkSlateGray} ${hr 2}
-${font Arial:bold:size=10}${color White}Frequency $alignr${freq_g cpu0}Ghz
-${font Arial:bold:size=10}${color White}Uptime $alignr${uptime}
-${font Arial:bold:size=10}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${font Arial:bold:size=10}${color Yellow}SYSTEM: ${color DarkSlateGray} ${hr 2}
+${font Arial:bold:size=10}${color White}Hostame: $alignr${nodename}
+${font Arial:bold:size=10}${color White}Version: $alignr${exec cat /etc/issue.net}
+${font Arial:bold:size=10}${color White}Architecture: $alignr${machine}
+${font Arial:bold:size=10}${color White}Kernel: $alignr${kernel}
+${font Arial:bold:size=10}${color White}Frequency: $alignr${freq_g cpu0}Ghz
+${font Arial:bold:size=10}${color White}Uptime: $alignr${uptime}
+#TEMP
+${font Arial:bold:size=10}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
 ${voffset -15}
 ${font Arial:bold:size=8}${color White}CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
 ${cpubar cpu}

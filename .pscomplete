@@ -1,0 +1,28 @@
+#!/bin/bash
+
+MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+LOGO=$MYPATH/logo.png
+
+cat <<EOF > $MYPATH/boot.txt
+Pi Scripts Install Complete.
+
+73, de WB0SIO
+
+EOF
+
+OUT=$(yad --width=550 --height=300 --text-align=center --center --title="Pi Scripts Install"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/boot.txt \
+--button="CLOSE":2 > /dev/null 2>&1)
+BUT=$?
+if [ $BUT = 252 ]; then
+rm $MYPATH/boot.txt
+crontab -l > $HOME/Documents/cron.tmp
+sed -i 's/@reboot\ sleep\ 10.*//' $HOME/Documents/cron.tmp
+crontab $HOME/Documents/cron.tmp
+exit
+fi
+rm $MYPATH/boot.txt
+crontab -l > $HOME/Documents/cron.tmp
+sed -i 's/@reboot\ sleep\ 10.*//' $HOME/Documents/cron.tmp
+crontab $HOME/Documents/cron.tmp
