@@ -191,7 +191,7 @@ fi
 cd
 bash pi-build/build-a-pi
 
-source $MYPATH/config
+source $HOME/pi-build/config
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
