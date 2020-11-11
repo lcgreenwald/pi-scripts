@@ -163,7 +163,6 @@ Display="Not Installed"
 else
 Display="Installed"
 fi
-}
 
 #----------------------------------------------------#
 #		Cqrprop
