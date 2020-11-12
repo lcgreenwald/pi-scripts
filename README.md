@@ -8,6 +8,15 @@ km4ack build-a-pi
 
 km4ack hotspot tools customized to allow editing the hotspot IP address
 
+You may also optionally install:
+
+	log2ram  Save logs to ram to reduce wear on your SD card.
+	locate   File find/locate program
+	samba    SMB server to share files/folders with Windows machines
+	webmin   Web based computer/configuration mamager
+	cqrprop  Propagation prediction 
+	3.5" display drivers
+
 Run the following commands
 
 	cd
