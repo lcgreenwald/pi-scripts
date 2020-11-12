@@ -123,7 +123,7 @@ fi
 ################################
 Cqrprop(){
 if ! hash cqrprop 2>/dev/null ; then
-	sudo apt-get install git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
+	sudo apt-get install -y git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
 	git clone https://github.com/ok2cqr/cqrprop.git
 	cd cqrprop
 	make 
