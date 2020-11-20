@@ -1,55 +1,57 @@
-alignment top_right
-background no
-# border_margin 5
-border_width 5
-border_inner_margin 0
-border_outer_margin 0
-default_color AAAAAA
-double_buffer yes
-draw_borders no
-draw_outline no
-draw_shades no
-gap_x 0
-gap_y 30
-minimum_size 275 1000
-maximum_width 300
-no_buffers yes
-override_utf8_locale yes
-own_window yes
-own_window_title conky
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-own_window_transparent yes
-own_window_type normal 	## normal /override /desktop
-text_buffer_size 8000
-total_run_times 0
-update_interval 1
-uppercase no
-use_xft yes
-xftalpha 1
-xftfont Droid Sans:size=8
+conky.config = {
+alignment = top_right
+background = no
+# border_margin = 5
+border_width = 5
+border_inner_margin = 0
+border_outer_margin = 0
+default_color = AAAAAA
+double_buffer = yes
+draw_borders = no
+draw_outline = no
+draw_shades = no
+gap_x = 0
+gap_y = 30
+minimum_size = 275 1000
+maximum_width = 300
+no_buffers = yes
+override_utf8_locale = yes
+own_window = yes
+own_window_title = conky
+own_window_hints = undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent = yes
+own_window_type = normal 	## normal /override /desktop
+text_buffer_size = 8000
+total_run_times = 0
+update_interval = 1
+uppercase = no
+use_xft = yes
+xftalpha = 1
+xftfont = Droid Sans:size=8
 # Graphics settings #
-draw_shades no
-default_shade_color AAAAAA
-draw_outline no
-default_outline_color AAAAAA
-draw_borders no
-draw_graph_borders no
-default_graph_size 26 80
-show_graph_scale no
-show_graph_range no
+draw_shades = no
+default_shade_color = AAAAAA
+draw_outline = no
+default_outline_color = AAAAAA
+draw_borders = no
+draw_graph_borders = no
+default_graph_size = 26 80
+show_graph_scale = no
+show_graph_range = no
 
 # Color scheme #
-default_color FFFFFF
-color1 FFFFFF
-color2 FFFFFF
-color3 FFFFFF
-color4 CCCCFF
-color5 FFFFFF
-color6 DCDCDC
-color7 FFFFFF
-color8 FFFFFF
+default_color = FFFFFF
+color1 = FFFFFF
+color2 = FFFFFF
+color3 = FFFFFF
+color4 = CCCCFF
+color5 = FFFFFF
+color6 = DCDCDC
+color7 = FFFFFF
+color8 = FFFFFF
+};
 
-TEXT
+conky.text = [[
 # Various images #
 ${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/top-bg.png -p 20,10 -s 275x950}\
 #${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bottom-bg.png -p 20,580 -s 228x380}\
@@ -83,50 +85,47 @@ ${if_existing /proc/net/route wlan0}
 ${goto 40}${color5}Up: ${color2}${upspeed wlan0}${goto 125}wlan0${color5}${goto 190}Down: ${color2}${downspeed wlan0}
 ${voffset 8}${goto 40}${upspeedgraph wlan0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan0 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup wlan0}${color5}${goto 150}Received: ${color2}${totaldown wlan0}
-${else}
+${endif}
 ${if_existing /proc/net/route wlan1}\
 ${goto 40}${color5}Up: ${color2}${upspeed wlan1}${color5}${goto 125}wlan1${goto 190}Down: ${color2}${downspeed wlan1}
 ${voffset 8}${goto 40}${upspeedgraph wlan1 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan1 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup wlan1}${color5}${goto 150}Received: ${color2}${totaldown wlan1}
-${else}\
+${endif}\
 ${if_existing /proc/net/route eth4}\
 ${goto 40}${color5}Up: ${color2}${upspeed eth4}${color5}${goto 125}eth4${goto 190}Down: ${color2}${downspeed eth4}
 ${voffset 8}${goto 40}${upspeedgraph eth4 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth4 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup eth4}${color5}${goto 150}Received: ${color2}${totaldown eth4}
-${else}\
+${endif}\
 ${if_existing /proc/net/route eno2}\
 ${goto 40}${color5}Up: ${color2}${upspeed eno2}${color5}${goto 125}eno2${goto 190}Down: ${color2}${downspeed eno2}
 ${voffset 8}${goto 40}${upspeedgraph eno2 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eno2 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup eno2}${color5}${goto 150}Received: ${color2}${totaldown eno2}
-${else}\
+${endif}\
 ${if_existing /proc/net/route enp0s3}\
 ${goto 40}${color5}Up: ${color2}${upspeed enp0s3}${color5}${goto 125}enp0s3${goto 190}Down: ${color2}${downspeed enp0s3}
 ${voffset 8}${goto 40}${upspeedgraph enp0s3 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph enp0s3 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup enp0s3}${color5}${goto 150}Received: ${color2}${totaldown enp0s3}
-${else}\
+${endif}\
 ${if_existing /proc/net/route enp0s9}\
 ${goto 40}${color5}Up: ${color2}${upspeed enp0s9}${color5}${goto 125}enp0s9${goto 190}Down: ${color2}${downspeed enp0s9}
 ${voffset 8}${goto 40}${upspeedgraph enp0s9 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph enp0s9 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup enp0s9}${color5}${goto 150}Received: ${color2}${totaldown enp0s9}
-${else}\
+${endif}\
 ${if_existing /proc/net/route eth2}\
 ${goto 40}${color5}Up: ${color2}${upspeed eth2}${color5}${goto 125}eth2${goto 190}Down: ${color2}${downspeed eth2}
 ${voffset 8}${goto 40}${upspeedgraph eth2 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth2 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup eth2}${color5}${goto 150}Received: ${color2}${totaldown eth2}
-${else}\
+${endif}\
 ${if_existing /proc/net/route eth1}\
 ${goto 40}${color5}Up: ${color2}${upspeed eth1}${color5}${goto 125}eth1${goto 190}Down: ${color2}${downspeed eth1}
 ${voffset 8}${goto 40}${upspeedgraph eth1 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth1 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup eth1}${color5}${goto 150}Received: ${color2}${totaldown eth1}
-${else}\
+${endif}\
 ${if_existing /proc/net/route eth0}\
 ${goto 40}${color5}Up: ${color2}${upspeed eth0}${goto 125}eth0${color5}${goto 190}Down: ${color2}${downspeed eth0}
 ${voffset 8}${goto 40}${upspeedgraph eth0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth0 26,80 FFFFFF FFFFFF}
 ${voffset 1}${goto 40}${color5}Sent: ${color2}${totalup eth0}${color5}${goto 150}Received: ${color2}${totaldown eth0}
-${else}\
-${goto 40}${color8}Network disconnected${color}
-${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/offline.png -p 175,150 -s 16x16}
-${endif}${endif}${endif}${endif}${endif}${endif}${endif}${endif}\
+${endif}\
 \
 # Cpu, memory, uptime, and load graph #
 \
@@ -255,4 +254,4 @@ ${goto 40}starbug public ${alignr 5} ${fs_free /home/public/mounts/starbug/publi
 ${goto 40}${fs_bar 8, 150 /home/public/mounts/starbug/public}${alignr 5} ${fs_used_perc /home/public/mounts/starbug/public}%
 $endif#
 
-
+]];
