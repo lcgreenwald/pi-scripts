@@ -60,7 +60,7 @@ echo
 sed -i '/vcgencmd/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-${font Arial:bold:size=10}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 fi
 
 cp $TEMPFILE $HOME/.conkyrc
