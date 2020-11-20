@@ -127,7 +127,7 @@ ${voffset 4}${goto 80}${color6}CPU3: ${cpu cpu2}%${goto 175}CPU4: ${cpu cpu3}%
 ${voffset 4}${goto 10}${color5}Mem:${color}${goto 80}${color2}${membar 5,120}${color}${alignr 5}${color6}${memperc}%${color}
 ${voffset 4}${goto 10}${color5}Uptime:${color}${goto 85}${color6}${uptime_short}${color}${goto 140}${color5}
 #TEMP
-${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
 ${voffset 4}${goto 10}${color5}Load:${color}
 ${voffset 4}${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
 \
