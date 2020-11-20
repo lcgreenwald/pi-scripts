@@ -10,7 +10,8 @@ conky.config = {
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	double_buffer = true,
-	minimum_width = 250, minimum_height = 5,
+	minimum_width = 250,
+	minimum_height = 5,
 	maximum_width = 400,
 	draw_shades = false,
 	draw_outline = false,
@@ -28,50 +29,222 @@ conky.config = {
 	net_avg_samples = 1,
 	override_utf8_locale = false,
 	use_spacer = 'right',
+	xftfont = 'Droid Sans:size=8',
+
+	default_color = 'FFFFFF',
+	color1 = 'FFFFFF',
+	color2 = 'FFFFFF',
+	color3 = 'FFFFFF',
+	color4 = 'CCCCFF',
+	color5 = 'FFFFFF',
+	color6 = 'DCDCDC',
+	color7 = 'FFFFFF',
+	color8 = 'FFFFFF',
+
 };
 
 conky.text = [[
-${font Arial:size=18}${color Yellow}${alignc}  
-${voffset -25}
-${color Yellow}LOCAL${alignr}ZULU
-${font Arial:bold:size=15}${color White}${time %H:%M:%S}\
-${alignr}${tztime Zulu %H:%M:%S}
-${font Arial:bold:size=15}${color White}${time %d%b%y}\
-${alignr}${tztime Zulu %d%b%y}
-
-
-${voffset -165}
-
-
-${color grey}
-${font}
-${font Arial:bold:size=10}${color Yellow}SYSTEM: ${color DarkSlateGray} ${hr 2}
-${font Arial:bold:size=10}${color White}Hostame: $alignr${nodename}
-${font Arial:bold:size=10}${color White}Version: $alignr${exec cat /etc/issue.net}
-${font Arial:bold:size=10}${color White}Architecture: $alignr${machine}
-${font Arial:bold:size=10}${color White}Kernel: $alignr${kernel}
-${font Arial:bold:size=10}${color White}Frequency: $alignr${freq_g cpu0}Ghz
-${font Arial:bold:size=10}${color White}Uptime: $alignr${uptime}
+# Various images #
+${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/top-bg.png -p 20,10 -s 275x950}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bottom-bg.png -p 20,580 -s 228x380}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-1.png -p 20,266 -s 228x86}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-2.png -p 20,352 -s 228x105}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-3.png -p 20,457 -s 228x110}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-4.png -p 20,565 -s 228x14}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-5.png -p 20,565 -s 228x14}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-6.png -p 20,180 -s 228x86}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/fav-color.png -p 20,180 -s 228x86}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/border.png -p 20,10 -s 228x950}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-v.png -p 95,274 -s 1x76}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-v.png -p 172,274 -s 1x76}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,358 -s 226x1}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,447 -s 226x1}\
+#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,900 -s 226x1}\
+\
+# Clock + calendar #
+\
+${voffset 20}${font Droid Sans Mono :size=11}${alignc}${color4}$nodename${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color2}Today is ${time %A}${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color2}${time %B %d, %Y}${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color2}${time %I:%M:%S %p}${color}$font
+${voffset 3}${font Droid Sans Mono :size=9}${alignc}${color2}${exec cat /etc/issue.net} $machine${color}$font
+${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color2}Kernel: ${kernel}${color}$font
+\
+# The network section #
+\
+${voffset 5}\
+${if_existing /proc/net/route wlan0}
+${goto 10}${color5}Up: ${color2}${upspeed wlan0}${goto 110}wlan0${color5}${alignr 5}Down: ${color2}${downspeed wlan0}
+${voffset 8}${goto 10}${upspeedgraph wlan0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan0 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup wlan0}${color5}${goto 150}Received: ${color2}${totaldown wlan0}
+${endif}
+${if_existing /proc/net/route wlan1}\
+${goto 10}${color5}Up: ${color2}${upspeed wlan1}${color5}${goto 110}wlan1${alignr 5}Down: ${color2}${downspeed wlan1}
+${voffset 8}${goto 10}${upspeedgraph wlan1 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan1 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup wlan1}${color5}${goto 150}Received: ${color2}${totaldown wlan1}
+${endif}\
+${if_existing /proc/net/route eth4}\
+${goto 10}${color5}Up: ${color2}${upspeed eth4}${color5}${goto 110}eth4${alignr 5}Down: ${color2}${downspeed eth4}
+${voffset 8}${goto 10}${upspeedgraph eth4 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth4 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup eth4}${color5}${goto 150}Received: ${color2}${totaldown eth4}
+${endif}\
+${if_existing /proc/net/route eno2}\
+${goto 10}${color5}Up: ${color2}${upspeed eno2}${color5}${goto 110}eno2${alignr 5}Down: ${color2}${downspeed eno2}
+${voffset 8}${goto 10}${upspeedgraph eno2 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eno2 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup eno2}${color5}${goto 150}Received: ${color2}${totaldown eno2}
+${endif}\
+${if_existing /proc/net/route enp0s3}\
+${goto 10}${color5}Up: ${color2}${upspeed enp0s3}${color5}${goto 110}enp0s3${alignr 5}Down: ${color2}${downspeed enp0s3}
+${voffset 8}${goto 10}${upspeedgraph enp0s3 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph enp0s3 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup enp0s3}${color5}${goto 150}Received: ${color2}${totaldown enp0s3}
+${endif}\
+${if_existing /proc/net/route enp0s9}\
+${goto 10}${color5}Up: ${color2}${upspeed enp0s9}${color5}${goto 110}enp0s9${alignr 5}Down: ${color2}${downspeed enp0s9}
+${voffset 8}${goto 10}${upspeedgraph enp0s9 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph enp0s9 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup enp0s9}${color5}${goto 150}Received: ${color2}${totaldown enp0s9}
+${endif}\
+${if_existing /proc/net/route eth2}\
+${goto 10}${color5}Up: ${color2}${upspeed eth2}${color5}${goto 110}eth2${alignr 5}Down: ${color2}${downspeed eth2}
+${voffset 8}${goto 10}${upspeedgraph eth2 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth2 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup eth2}${color5}${goto 150}Received: ${color2}${totaldown eth2}
+${endif}\
+${if_existing /proc/net/route eth1}\
+${goto 10}${color5}Up: ${color2}${upspeed eth1}${color5}${goto 110}eth1${alignr 5}Down: ${color2}${downspeed eth1}
+${voffset 8}${goto 10}${upspeedgraph eth1 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth1 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup eth1}${color5}${goto 150}Received: ${color2}${totaldown eth1}
+${endif}\
+${if_existing /proc/net/route eth0}\
+${goto 10}${color5}Up: ${color2}${upspeed eth0}${goto 110}eth0${color5}${alignr 5}Down: ${color2}${downspeed eth0}
+${voffset 8}${goto 10}${upspeedgraph eth0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth0 26,80 FFFFFF FFFFFF}
+${voffset 1}${goto 10}${color5}Sent: ${color2}${totalup eth0}${color5}${goto 150}Received: ${color2}${totaldown eth0}
+${endif}\
+\
+# Cpu, memory, uptime, and load graph #
+\
+${voffset 10}${goto 10}${color5}Cpu:${color}${goto 80}${color2}${cpubar 5,120}${color}
+${voffset 4}${goto 80}${color6}CPU1: ${cpu cpu0}%${goto 175}CPU2: ${cpu cpu1}%
+${voffset 4}${goto 80}${color6}CPU3: ${cpu cpu2}%${goto 175}CPU4: ${cpu cpu3}%
+${voffset 4}${goto 10}${color5}Mem:${color}${goto 80}${color2}${membar 5,120}${color}${alignr 5}${color6}${memperc}%${color}
+${voffset 4}${goto 10}${color5}Uptime:${color}${goto 85}${color6}${uptime_short}${color}${goto 140}${color5}
 #TEMP
-${font Arial:bold:size=10}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
-${voffset -15}
-${font Arial:bold:size=8}${color White}CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
-${cpubar cpu}
-${font Arial:bold:size=8}${color White}MEM $alignc $mem / $memmax $alignr $memperc%
-$membar
-${font Arial:bold:size=8}${color White}SWAP $alignc $swap / $swapmax $alignr $swapperc%
-$swapbar
-${font Arial:bold:size=10}${color White}HDD $alignc used / free / size  
-$alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
-${fs_bar /home}
-
-${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=10}${color White}Wireless IP address $alignr ${addr wlan0}
-${font Arial:bold:size=10}${color White}Wired IP address $alignr ${addr eth0}
-${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=10}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
-
-${font Arial:bold:size=10}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=08}${color White}${tail ~/Documents/mylog.txt 5}
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
+${voffset 4}${goto 10}${color5}Load:${color}
+${voffset 4}${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
+\
+# The processes section #
+\
+${voffset 0}${goto 10}${color1}Proc${color}${alignc}${color1}Mem%${color}${alignr 5}${color1}Mem${color}
+${voffset 4}${goto 10}${color5}${top_mem name 1}${color}${alignc}${color2}${top_mem mem 1}%${color}${alignr 5}${color6}${top_mem mem_res 1}${color}
+${voffset 4}${goto 10}${color5}${top_mem name 2}${color}${alignc}${color2}${top_mem mem 2}%${color}${alignr 5}${color6}${top_mem mem_res 2}${color}
+${voffset 4}${goto 10}${color5}${top_mem name 3}${color}${alignc}${color2}${top_mem mem 3}%${color}${alignr 5}${color6}${top_mem mem_res 3}${color}
+#${voffset 4}${goto 10}${color5}${top_mem name 4}${color}${alignc}${color2}${top_mem mem 4}%${color}${alignr 5}${color6}${top_mem mem_res 4}${color}
+#${voffset 4}${goto 10}${color5}${top_mem name 5}${color}${alignc}${color2}${top_mem mem 5}%${color}${alignr 5}${color6}${top_mem mem_res 5}${color}
+\
+# Mounted drive space #
+\
+${voffset 12}${goto 10}Drive Space ${alignr 5}Free/Used/Size
+${voffset 4}\
+${goto 10}root ${alignr 5} ${fs_free /}/${fs_used /}/${fs_size /}
+${goto 10}${fs_bar 8, 150 /}${alignr 5}$fs_used_perc%
+${if_mounted /home}#
+${goto 10}home ${alignr 5} ${fs_free /home}/${fs_used /home}/${fs_size /home}
+${goto 10}${fs_bar 8, 150 /home}${alignr 5} ${fs_used_perc /home}%
+$endif#
+${if_mounted /home/data}#
+${goto 10}data ${alignr 5}  ${fs_free /home/data}/${fs_used /home/data}/${fs_size /home/data}
+${goto 10}${fs_bar 8, 150 /home/data}${alignr 5} ${fs_used_perc /home/data}%
+$endif#
+${if_mounted /home/public}#
+${goto 10}public ${alignr 5}  ${fs_free /home/public}/${fs_used /home/public}/${fs_size /home/public}
+${goto 10}${fs_bar 8, 150 /home/public}${alignr 5} ${fs_used_perc /home/public}%
+$endif#
+${if_mounted /var/www}#
+${goto 10}www ${alignr 5} ${fs_free /var/www}/${fs_used /var/www}/${fs_size /var/www}
+${goto 10}${fs_bar 8, 150 /var/www}${alignr 5} ${fs_used_perc /var/www}%
+$endif#
+${if_mounted /home/public/mounts/firefly/public}#
+${goto 10}firefly public ${alignr 5} ${fs_free /home/public/mounts/firefly/public}/${fs_used /home/public/mounts/firefly/public}/${fs_size /home/public/mounts/firefly/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/firefly/public}${alignr 5} ${fs_used_perc /home/public/mounts/firefly/public}%
+$endif#
+${if_mounted /home/public/mounts/honshu/public}#
+${goto 10}honshu public ${alignr 5} ${fs_free /home/public/mounts/honshu/public}/${fs_used /home/public/mounts/honshu/public}/${fs_size /home/public/mounts/honshu/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/honshu/public}${alignr 5} ${fs_used_perc /home/public/mounts/honshu/public}%
+$endif#
+${if_mounted /home/public/mounts/serenity/public}#
+${goto 10}serenity public ${alignr 5} ${fs_free /home/public/mounts/serenity/public}/${fs_used /home/public/mounts/serenity/public}/${fs_size /home/public/mounts/serenity/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/serenity/public}${alignr 5} ${fs_used_perc /home/public/mounts/serenity/public}%
+$endif#
+${if_mounted /home/public/mounts/bardotter/data}#
+${goto 10}bardotter data ${alignr 5} ${fs_free /home/public/mounts/bardotter/data}/${fs_used /home/public/mounts/bardotter/data}/${fs_size /home/public/mounts/bardotter/data}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/bardotter/data}${alignr 5} ${fs_used_perc /home/public/mounts/bardotter/data}%
+$endif#
+${if_mounted /home/public/mounts/bardotter/public}#
+${goto 10}bardotter public ${alignr 5} ${fs_free /home/public/mounts/bardotter/public}/${fs_used /home/public/mounts/bardotter/public}/${fs_size /home/public/mounts/bardotter/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/bardotter/public}${alignr 5} ${fs_used_perc /home/public/mounts/bardotter/public}%
+$endif#
+${if_mounted /home/public/mounts/dragonskeep/larry}#
+${goto 10}dragonskeep larry ${alignr 5} ${fs_free /home/public/mounts/dragonskeep/larry}/${fs_used /home/public/mounts/dragonskeep/larry}/${fs_size /home/public/mounts/dragonskeep/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/dragonskeep/larry}${alignr 5} ${fs_used_perc /home/public/mounts/dragonskeep/larry}%
+$endif#
+${if_mounted /home/public/mounts/dragonskeep/public}#
+${goto 10}dragonskeep public ${alignr 5} ${fs_free /home/public/mounts/dragonskeep/public}/${fs_used /home/public/mounts/dragonskeep/public}/${fs_size /home/public/mounts/dragonskeep/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/dragonskeep/public}${alignr 5} ${fs_used_perc /home/public/mounts/dragonskeep/public}%
+$endif#
+${if_mounted /home/public/mounts/nerat/larry}#
+${goto 10}nerat larry ${alignr 5} ${fs_free /home/public/mounts/nerat/larry}/${fs_used /home/public/mounts/nerat/larry}/${fs_size /home/public/mounts/nerat/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/nerat/larry}${alignr 5} ${fs_used_perc /home/public/mounts/nerat/larry}%
+$endif#
+${if_mounted /home/public/mounts/nerat/public}#
+${goto 10}nerat public ${alignr 5} ${fs_free /home/public/mounts/nerat/public}/${fs_used /home/public/mounts/nerat/public}/${fs_size /home/public/mounts/nerat/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/nerat/public}${alignr 5} ${fs_used_perc /home/public/mounts/nerat/public}%
+$endif#
+${if_mounted /home/public/mounts/ruatha/larry}#
+${goto 10}ruatha larry ${alignr 5} ${fs_free /home/public/mounts/ruatha/larry}/${fs_used /home/public/mounts/ruatha/larry}/${fs_size /home/public/mounts/ruatha/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/ruatha/larry}${alignr 5} ${fs_used_perc /home/public/mounts/ruatha/larry}%
+$endif#
+${if_mounted /home/public/mounts/ruatha/public}#
+${goto 10}ruatha public ${alignr 5} ${fs_free /home/public/mounts/ruatha/public}/${fs_used /home/public/mounts/ruatha/public}/${fs_size /home/public/mounts/ruatha/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/ruatha/public}${alignr 5} ${fs_used_perc /home/public/mounts/ruatha/public}%
+$endif#
+${if_mounted /home/public/mounts/telgar/larry}#
+${goto 10}telgar larry ${alignr 5} ${fs_free /home/public/mounts/telgar/larry}/${fs_used /home/public/mounts/telgar/larry}/${fs_size /home/public/mounts/telgar/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/telgar/larry}${alignr 5} ${fs_used_perc /home/public/mounts/telgar/larry}%
+$endif#
+${if_mounted /home/public/mounts/telgar/public}#
+${goto 10}telgar public ${alignr 5} ${fs_free /home/public/mounts/telgar/public}/${fs_used /home/public/mounts/telgar/public}/${fs_size /home/public/mounts/telgar/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/telgar/public}${alignr 5} ${fs_used_perc /home/public/mounts/telgar/public}%
+$endif#
+${if_mounted /home/public/mounts/thunderbolt1/larry}#
+${goto 10}thunderbolt1 larry ${alignr 5} ${fs_free /home/public/mounts/thunderbolt1/larry}/${fs_used /home/public/mounts/thunderbolt1/larry}/${fs_size /home/public/mounts/thunderbolt1/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/thunderbolt1/larry}${alignr 5} ${fs_used_perc /home/public/mounts/thunderbolt1/larry}%
+$endif#
+${if_mounted /home/public/mounts/thunderbolt1/public}#
+${goto 10}thunderbolt1 public ${alignr 5} ${fs_free /home/public/mounts/thunderbolt1/public}/${fs_used /home/public/mounts/thunderbolt1/public}/${fs_size /home/public/mounts/thunderbolt1/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/thunderbolt1/public}${alignr 5} ${fs_used_perc /home/public/mounts/thunderbolt1/public}%
+$endif#
+${if_mounted /home/public/mounts/DrinanIV/public}#
+${goto 10}DrinanIV public ${alignr 5} ${fs_free /home/public/mounts/DrinanIV/public}/${fs_used /home/public/mounts/DrinanIV/public}/${fs_size /home/public/mounts/DrinanIV/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/DrinanIV/public}${alignr 5} ${fs_used_perc /home/public/mounts/DrinanIV/public}%
+$endif#
+${if_mounted /home/public/mounts/DrinanIV/larry}#
+${goto 10}DrinanIV larry ${alignr 5} ${fs_free /home/public/mounts/DrinanIV/larry}/${fs_used /home/public/mounts/DrinanIV/larry}/${fs_size /home/public/mounts/DrinanIV/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/DrinanIV/larry}${alignr 5} ${fs_used_perc /home/public/mounts/DrinanIV/larry}%
+$endif#
+${if_mounted /home/public/mounts/Seelzar/public}#
+${goto 10}Seelzar public ${alignr 5} ${fs_free /home/public/mounts/Seelzar/public}/${fs_used /home/public/mounts/Seelzar/public}/${fs_size /home/public/mounts/Seelzar/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/Seelzar/public}${alignr 5} ${fs_used_perc /home/public/mounts/Seelzar/public}%
+$endif#
+${if_mounted /home/public/mounts/Seelzar/larry}#
+${goto 10}Seelzar larry ${alignr 5} ${fs_free /home/public/mounts/Seelzar/larry}/${fs_used /home/public/mounts/Seelzar/larry}/${fs_size /home/public/mounts/Seelzar/larry}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/Seelzar/larry}${alignr 5} ${fs_used_perc /home/public/mounts/Seelzar/larry}%
+$endif#
+${if_mounted /home/public/mounts/starbug/data}#
+${goto 10}starbug data ${alignr 5} ${fs_free /home/public/mounts/starbug/data}/${fs_used /home/public/mounts/starbug/data}/${fs_size /home/public/mounts/starbug/data}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/starbug/data}${alignr 5} ${fs_used_perc /home/public/mounts/starbug/data}%
+$endif#
+${if_mounted /home/public/mounts/starbug/public}#
+${goto 10}starbug public ${alignr 5} ${fs_free /home/public/mounts/starbug/public}/${fs_used /home/public/mounts/starbug/public}/${fs_size /home/public/mounts/starbug/public}
+${goto 10}${fs_bar 8, 150 /home/public/mounts/starbug/public}${alignr 5} ${fs_used_perc /home/public/mounts/starbug/public}%
+$endif#
 
 ]];
