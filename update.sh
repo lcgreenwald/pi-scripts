@@ -36,7 +36,7 @@ trap FINISH EXIT
 #fix issue 108 https://github.com/lcgreenwald/pi-scripts/issues/108
 #Thanks to N5RKS for finding the bug
 if [ -d $HOME/pi-build/temp ]; then
-rm -rf $HOME/pi-build/temp
+  rm -rf $HOME/pi-build/temp
 fi
 
 
@@ -44,8 +44,9 @@ fi
 # Create autostart dir
 # used to autostart conky at boot
 #####################################
-mkdir -p $HOME/.config/autostart
-
+if [ -d $HOME/.config/autostart ]; then
+  mkdir -p $HOME/.config/autostart
+fi
 
 #Check for pi-scripts updates
 echo "Checking for Pi Scripts updates"
