@@ -150,7 +150,7 @@ fi
 #----------------------------------------------------#
 #		WEBMIN
 #----------------------------------------------------#
-if ! hash webmin 2>/dev/null; then
+if [ ! -d /usr/share/webmin 2>/dev/null ]; then
 Webmin="Not Installed"
 else
 Webmin="Installed"
