@@ -189,6 +189,11 @@ git checkout dev
 git pull
 fi
 cd
+#************
+# Edit build-a-pi to use WB0SIO version of gpsd install.
+#************
+sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
+
 bash pi-build/build-a-pi
 
 source $HOME/pi-build/config
