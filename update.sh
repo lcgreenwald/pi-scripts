@@ -252,6 +252,11 @@ sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-buil
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
+#************
+# Edit build-a-pi to use WB0SIO version of gpsd install.
+#************
+sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
+
 #####################################
 #	END CLEANUP
 #####################################
