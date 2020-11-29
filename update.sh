@@ -33,10 +33,11 @@ fi
 trap FINISH EXIT
 
 #remove temp dir if exist
-#fix issue 108 https://github.com/lcgreenwald/pi-scripts/issues/108
+#fix issue 108 https://github.com/km4ack/pi-scripts/issues/108
 #Thanks to N5RKS for finding the bug
+#wb0sio 20201129  Added sudo
 if [ -d $HOME/pi-build/temp ]; then
-  rm -rf $HOME/pi-build/temp
+  sudo rm -rf $HOME/pi-build/temp
 fi
 
 
@@ -240,6 +241,8 @@ while read i ; do
 source $FUNCTIONS/base.function
 $i
 done < $BASE
+
+bash $HOME/pi-build/update
 
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
