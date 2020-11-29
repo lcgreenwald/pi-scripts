@@ -17,9 +17,8 @@ fi
 #install needed packages
 echo "installing a few needed packages"
 apt install -y scons
-cd $HOME/Downloads
 wget --tries 2 --connect-timeout=60 http://download-mirror.savannah.gnu.org/releases/gpsd/gpsd-3.21.tar.xz
-gunzip gpsd-3.21.tar.xz
+tar -xf gpsd-3.21.tar.xz
 cd gpsd-3.21
 scons && scons check && scons udev-install
 
@@ -38,14 +37,4 @@ echo "##########################################################################
 echo "#instructions at https://raw.githubusercontent.com/km4ack/pi-scripts/master/gps-instruction #"
 echo "#############################################################################################"
 echo "Reboot is needed to complete"
-#echo "Would you like to reboot now? y/n"
-#read ANSW
-
-#if [ $ANSW = "y" ]
-#then
-#reboot
-#else
-#echo "GPS won't work until reboot"
-#exit 0
-#fi
 
