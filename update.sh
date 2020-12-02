@@ -210,24 +210,6 @@ if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
 fi
 
-
-
-
-#check and exit if nothing selected
-CKBASE=$(cat $BASE)
-if [ -z "$CKBASE" ]; then
-rm $BASE  > /dev/null 2>&1
-yad  --width=600 --height=250 --text-align=center --center --title="Update" \
---image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text="\r\r\r\r<b>Nothing selected for install/update</b>" \
---button="CLOSE":1
-exit
-fi
-
-
-#backup crontab 
-crontab -l > $TEMPCRON
-echo "@reboot sleep 10 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
 #update/upgrade the system
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -243,6 +225,10 @@ $i
 done < $BASE
 
 bash $HOME/pi-build/update
+
+#backup crontab 
+crontab -l > $TEMPCRON
+echo "@reboot sleep 10 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
 
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
@@ -276,7 +262,7 @@ rm $TEMPCRON
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Pi Build Install Update finished 
-Reboot Required
+A reboot may be required depending on what has been installed.
 If you close this window, you will have to reboot manually.
 EOF
 
