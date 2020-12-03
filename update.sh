@@ -169,13 +169,31 @@ fi
 #----------------------------------------------------#
 #		Cqrprop
 #----------------------------------------------------#
-if [ ! hash  cqrprop 2>/dev/null ]; then
+if ! hash  cqrprop 2>/dev/null ; then
 Cqrprop="Not Installed"
 else
 Cqrprop="Installed"
 fi
-}
 
+#----------------------------------------------------#
+#		Disks
+#----------------------------------------------------#
+if ! hash  gnome-disks 2>/dev/null ; then
+Disks="Not Installed"
+else
+Disks="Installed"
+fi
+
+#----------------------------------------------------#
+#		PiImager
+#----------------------------------------------------#
+if ! hash  rpi-imager 2>/dev/null ; then
+PiImager="Not Installed"
+else
+PiImager="Installed"
+fi
+
+}
 
 CHECK
 ####################################################################
@@ -202,12 +220,22 @@ false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
 false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
 false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
+false "Disks" "$Disks" "Manage Drives and Media" \
+false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
+fi
+
+if [ $BUT = 3 ]; then
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager)
+for i in "${BASEAPPS[@]}"
+do
+echo "$i" >> $BASE
+done
 fi
 
 #update/upgrade the system
