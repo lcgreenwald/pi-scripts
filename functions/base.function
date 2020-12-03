@@ -148,7 +148,7 @@ fi
 #	PiImager
 ################################
 PiImager(){
-if ! hash file 2>/dev/null ; then
+if ! hash rpi-imager 2>/dev/null ; then
 	sudo apt install -y rpi-imager >/dev/null
 fi
 }

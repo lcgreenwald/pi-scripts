@@ -187,7 +187,7 @@ fi
 #----------------------------------------------------#
 #		PiImager
 #----------------------------------------------------#
-if [ ! hash  gnome-disks 2>/dev/null ]; then
+if [ ! hash  rpi-imager 2>/dev/null ]; then
 PiImager="Not Installed"
 else
 PiImager="Installed"
