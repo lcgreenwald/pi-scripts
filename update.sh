@@ -23,9 +23,6 @@ FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
 TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
-LOG=$MYPATH/pi-build-update.log
-#LOG=/dev/null
-export MYPATH LOG
 
 FINISH(){
 if [ -f "$BASE" ]; then
@@ -213,7 +210,6 @@ Display="Not Installed"
 else
 Display="Installed"
 fi
-
 
 }
 
