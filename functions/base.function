@@ -3,7 +3,7 @@
 #wb0sio 20200820 Converted km4ack build-a-pi to wb0sio pi-scripts-install
 
 MYPATH=$HOME/pi-scripts
-#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >$LOG 2>&1 && pwd )"
+#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
 mkdir -p $DIR
@@ -14,7 +14,7 @@ mkdir -p $DIR
 #	LOG2RAM
 ################################
 Log2ram(){
-if ! hash log2ram 2>$LOG ; then
+if ! hash log2ram 2>/dev/null ; then
 	sudo apt install -y log2ram
 	sudo sed -i "s/SIZE=40M/SIZE=100M/" /etc/log2ram.conf
 fi
@@ -25,7 +25,7 @@ fi
 #	LOCATE
 ################################
 Locate(){
-if ! hash locate 2>$LOG ; then
+if ! hash locate 2>/dev/null ; then
 	sudo apt install -y locate
 fi
 }
@@ -35,13 +35,13 @@ fi
 #	PLANK
 ################################
 Plank(){
-if ! hash plank 2>$LOG ; then
+if ! hash plank 2>/dev/null ; then
 	sudo apt install -y plank
-	if ! -d $HOME/.config/plank/dock1/launchers 2>$LOG ;	then
+	if ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ;	then
 		mkdir -p $HOME/.config/plank/dock1/launchers
 	fi
 	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
-	if ! -d $HOME/.config/autostart 2>$LOG ; then
+	if ! -d $HOME/.config/autostart 2>/dev/null ; then
 		mkdir -p $HOME/.config/autostart
 	fi
 	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
@@ -53,7 +53,7 @@ fi
 #	SAMBA
 ################################
 Samba(){
-if ! hash samba 2>$LOG ; then
+if ! hash samba 2>/dev/null ; then
 	sudo apt install -y samba samba-common-bin smbclient cifs-utils
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
@@ -77,7 +77,7 @@ fi
 #	WEBMIN
 ################################
 Webmin(){
-if ! hash webmin 2>$LOG ; then
+if ! hash webmin 2>/dev/null ; then
 	cd ~/Downloads
 	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 	wget http://www.webmin.com/download/deb/webmin-current.deb
@@ -91,7 +91,7 @@ fi
 #	3.5" DISPLAY DRIVERS
 ################################
 Display(){
-if ! -d $HOME/LCD-show 2>$LOG ; then
+if ! -d $HOME/LCD-show 2>/dev/null ; then
 	# Install 3.5" display drivers  
 	cd
 	git clone https://github.com/MrYacha/LCD-show.git
@@ -133,7 +133,7 @@ fi
 #	cqrprop
 ################################
 Cqrprop(){
-if ! hash cqrprop 2>$LOG ; then
+if ! hash cqrprop 2>/dev/null ; then
 	sudo apt install -y git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
 	git clone https://github.com/ok2cqr/cqrprop.git
 	cd cqrprop
@@ -147,7 +147,7 @@ fi
 #	Disks
 ################################
 Disks(){
-if ! hash gnome-disks 2>$LOG ; then
+if ! hash gnome-disks 2>/dev/null ; then
 	sudo apt install -y gnome-disk-utility
 fi
 }
@@ -157,8 +157,8 @@ fi
 #	PiImager
 ################################
 PiImager(){
-if ! hash rpi-imager 2>$LOG ; then
-	sudo apt install -y rpi-imager >$LOG
+if ! hash rpi-imager 2>/dev/null ; then
+	sudo apt install -y rpi-imager
 fi
 }
 ################################
@@ -167,8 +167,8 @@ fi
 #	Neofetch
 ################################
 Neofetch(){
-if ! hash rpi-imager 2>$LOG ; then
-	sudo apt install -y neofetch >$LOG
+if ! hash rpi-imager 2>/dev/null ; then
+	sudo apt install -y neofetch
 fi
 }
 ################################
@@ -177,7 +177,7 @@ fi
 #	CommanderPi
 ################################
 CommanderPi(){
-if [ ! -d $HOME/CommanderPi 2>$LOG ]; then
+if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
   cd
 	git clone https://github.com/Jack477/CommanderPi.git
 	cd CommanderPi
@@ -193,8 +193,8 @@ fi
 #	Proto
 ################################
 Proto(){
-if ! hash file 2>$LOG ; then
-	echo "file" >$LOG
+if ! hash file 2>/dev/null ; then
+	echo "file" >/dev/null
 fi
 }
 ################################
@@ -203,8 +203,8 @@ fi
 #	Proto Folder
 ################################
 ProtoF(){
-if [ ! -d $HOME/folder 2>$LOG ]; then
-	echo "folder" >$LOG
+if [ ! -d $HOME/folder 2>/dev/null ]; then
+	echo "folder" >/dev/null
 fi
 }
 ################################

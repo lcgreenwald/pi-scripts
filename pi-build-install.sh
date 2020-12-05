@@ -67,17 +67,17 @@ cd pi-scripts
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
-if ! hash log2ram 2>$LOG; then
+if ! hash log2ram 2>/dev/null; then
 	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
 	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
 fi
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y bluetooth blueman
-if ! hash yad 2>$LOG; then
+if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
 fi
-if ! hash jq 2>$LOG; then
+if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
 
@@ -97,7 +97,7 @@ EOF
 INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
---button="Continue":2 > $LOG 2>&1)
+--button="Continue":2 > /dev/null 2>&1)
 BUT=$?
 if [ $BUT = 252 ]; then
 rm $MYPATH/intro.txt
@@ -164,9 +164,9 @@ EOF
 INTRO=$(yad --width=650 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
---button="Master":2 > $LOG 2>&1 \
---button="Beta":3 > $LOG 2>&1 \
---button="Dev":4 > $LOG 2>&1)
+--button="Master":2 > /dev/null 2>&1 \
+--button="Beta":3 > /dev/null 2>&1 \
+--button="Dev":4 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
@@ -223,7 +223,7 @@ cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/local/share/* $HOME/.local/share/
-if [ ! -d $HOME/.xlog 2>$LOG ] ; then
+if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
@@ -238,8 +238,8 @@ sudo updatedb
 #	END CLEANUP
 #####################################
 #Remove temp files
-rm $BASE > $LOG 2>&1
-rm -rf $DIR > $LOG 2>&1
+rm $BASE > /dev/null 2>&1
+rm -rf $DIR > /dev/null 2>&1
 sudo apt -y autoremove
 
 #####################################
