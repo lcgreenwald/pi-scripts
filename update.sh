@@ -193,6 +193,24 @@ else
 PiImager="Installed"
 fi
 
+#----------------------------------------------------#
+#		Neofetch
+#----------------------------------------------------#
+if ! hash  neofetch 2>/dev/null ; then
+PiImager="Not Installed"
+else
+PiImager="Installed"
+fi
+
+#----------------------------------------------------#
+#		Commander Pi
+#----------------------------------------------------#
+if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
+Display="Not Installed"
+else
+Display="Installed"
+fi
+
 }
 
 CHECK
@@ -222,6 +240,8 @@ false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
 false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
+false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
+false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -231,7 +251,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

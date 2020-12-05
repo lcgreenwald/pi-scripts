@@ -120,6 +120,8 @@ false "Display" "Drivers for a 3.5 in. touch screen display" \
 false "Cqrprop" "A small application that shows propagation data" \
 false "Disks" "Manage Drives and Media" \
 false "PiImager" "Raspberry Pi Imager" \
+false "Neofetch" "Display Linux system Information In a Terminal" \
+false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -129,7 +131,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

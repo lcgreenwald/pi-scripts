@@ -142,14 +142,36 @@ fi
 }
 ################################
 
-
-
 ################################
 #	PiImager
 ################################
 PiImager(){
 if ! hash rpi-imager 2>/dev/null ; then
 	sudo apt install -y rpi-imager >/dev/null
+fi
+}
+################################
+
+################################
+#	Neofetch
+################################
+Neofetch(){
+if ! hash rpi-imager 2>/dev/null ; then
+	sudo apt install -y neofetch
+fi
+}
+################################
+
+################################
+#	CommanderPi
+################################
+CommanderPi(){
+if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
+  cd
+	git clone https://github.com/Jack477/CommanderPi.git
+	cd CommanderPi
+	bash install.sh
+	cd
 fi
 }
 ################################
