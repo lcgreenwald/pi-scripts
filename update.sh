@@ -17,12 +17,15 @@
 #                                                         #
 ###########################################################
 
-MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >$LOG 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
 TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
+LOG=$MYPATH/pi-build-update.log
+#LOG=/dev/null
+export MYPATH LOG
 
 FINISH(){
 if [ -f "$BASE" ]; then
@@ -93,8 +96,8 @@ EOF
 	fi
 ##########
 fi
-rm $MYPATH/updatebap.txt >> /dev/null 2>&1
-rm $MYPATH/complete.txt >> /dev/null 2>&1
+rm $MYPATH/updatebap.txt >> $LOG 2>&1
+rm $MYPATH/complete.txt >> $LOG 2>&1
 clear
 
 
@@ -111,7 +114,7 @@ exit
 fi
 
 #install bc if not installed
-if ! hash bc>/dev/null; then
+if ! hash bc>$LOG; then
 sudo apt install -y bc
 fi
 
@@ -119,7 +122,7 @@ CHECK(){
 #----------------------------------------------------#
 #		LOG2RAM
 #----------------------------------------------------#
-if ! hash log2ram 2>/dev/null; then
+if ! hash log2ram 2>$LOG; then
 Log2ram="Not Installed"
 else
 Log2ram="Installed"
@@ -127,7 +130,7 @@ fi
 #----------------------------------------------------#
 #		LOCATE
 #----------------------------------------------------#
-if ! hash locate 2>/dev/null; then
+if ! hash locate 2>$LOG; then
 Locate="Not Installed"
 else
 Locate="Installed"
@@ -135,7 +138,7 @@ fi
 #----------------------------------------------------#
 #		PLANK
 #----------------------------------------------------#
-if ! hash plank 2>/dev/null; then
+if ! hash plank 2>$LOG; then
 Plank="Not Installed"
 else
 Plank="Installed"
@@ -143,7 +146,7 @@ fi
 #----------------------------------------------------#
 #		SAMBA
 #----------------------------------------------------#
-if ! hash samba 2>/dev/null; then
+if ! hash samba 2>$LOG; then
 Samba="Not Installed"
 else
 Samba="Installed"
@@ -151,7 +154,7 @@ fi
 #----------------------------------------------------#
 #		WEBMIN
 #----------------------------------------------------#
-if [ ! -d /usr/share/webmin 2>/dev/null ]; then
+if [ ! -d /usr/share/webmin 2>$LOG ]; then
 Webmin="Not Installed"
 else
 Webmin="Installed"
@@ -160,7 +163,7 @@ fi
 #----------------------------------------------------#
 #		3.5" DISPLAY DRIVERS
 #----------------------------------------------------#
-if [ ! -d $HOME/LCD-show 2>/dev/null ]; then
+if [ ! -d $HOME/LCD-show 2>$LOG ]; then
 Display="Not Installed"
 else
 Display="Installed"
@@ -169,7 +172,7 @@ fi
 #----------------------------------------------------#
 #		Cqrprop
 #----------------------------------------------------#
-if ! hash  cqrprop 2>/dev/null ; then
+if ! hash  cqrprop 2>$LOG ; then
 Cqrprop="Not Installed"
 else
 Cqrprop="Installed"
@@ -178,7 +181,7 @@ fi
 #----------------------------------------------------#
 #		Disks
 #----------------------------------------------------#
-if ! hash  gnome-disks 2>/dev/null ; then
+if ! hash  gnome-disks 2>$LOG ; then
 Disks="Not Installed"
 else
 Disks="Installed"
@@ -187,11 +190,30 @@ fi
 #----------------------------------------------------#
 #		PiImager
 #----------------------------------------------------#
-if ! hash  rpi-imager 2>/dev/null ; then
+if ! hash  rpi-imager 2>$LOG ; then
 PiImager="Not Installed"
 else
 PiImager="Installed"
 fi
+
+#----------------------------------------------------#
+#		Neofetch
+#----------------------------------------------------#
+if ! hash  neofetch 2>$LOG ; then
+PiImager="Not Installed"
+else
+PiImager="Installed"
+fi
+
+#----------------------------------------------------#
+#		Commander Pi
+#----------------------------------------------------#
+if [ ! -d $HOME/CommanderPi 2>$LOG ]; then
+Display="Not Installed"
+else
+Display="Installed"
+fi
+
 
 }
 
@@ -222,6 +244,8 @@ false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
 false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
+false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
+false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -231,7 +255,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
@@ -278,7 +302,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 #	END CLEANUP
 #####################################
 #Remove temp files
-rm $BASE > /dev/null 2>&1
+rm $BASE > $LOG 2>&1
 
 
 #restore crontab
