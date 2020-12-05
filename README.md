@@ -18,6 +18,8 @@ You may also optionally install:
 	3.5" display drivers
 	disks - gnome disk utility
 	pi imager - Raspberry Pi Imager
+	Neofetch - Display Linux system Information In a Terminal
+	CommanderPi - Easy RaspberryPi4 GUI system managment
 
 Run the following commands
 
