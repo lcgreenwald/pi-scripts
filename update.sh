@@ -197,18 +197,18 @@ fi
 #		Neofetch
 #----------------------------------------------------#
 if ! hash  neofetch 2>/dev/null ; then
-PiImager="Not Installed"
+Neofetch="Not Installed"
 else
-PiImager="Installed"
+Neofetch="Installed"
 fi
 
 #----------------------------------------------------#
 #		Commander Pi
 #----------------------------------------------------#
 if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
-Display="Not Installed"
+CommanderPi="Not Installed"
 else
-Display="Installed"
+CommanderPi="Installed"
 fi
 
 }
