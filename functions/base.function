@@ -14,40 +14,33 @@ mkdir -p $DIR
 #	LOG2RAM
 ################################
 Log2ram(){
-if ! hash log2ram 2>/dev/null ; then
 	sudo apt install -y log2ram
 	sudo sed -i "s/SIZE=40M/SIZE=100M/" /etc/log2ram.conf
-fi
 }
 ################################
 #	LOCATE
 ################################
 Locate(){
-if ! hash locate 2>/dev/null ; then
 	sudo apt install -y locate
-fi
 }
 ################################
 #	PLANK
 ################################
 Plank(){
-if ! hash plank 2>/dev/null ; then
 	sudo apt install -y plank
-	if ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ;	then
-		mkdir -p $HOME/.config/plank/dock1/launchers
-	fi
-	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
-	if ! -d $HOME/.config/autostart 2>/dev/null ; then
-		mkdir -p $HOME/.config/autostart
-	fi
-	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
-fi
+	if ! -d $HOME/.cong/plank/dock1/launchers 2>/dev/null ;	then
+		mkdir -p $HOME/.cong/plank/dock1/launchers
+	
+	sudo cp -f $MYPATH/launchers/* $HOME/.cong/plank/dock1/launchers/
+	if ! -d $HOME/.cong/autostart 2>/dev/null ; then
+		mkdir -p $HOME/.cong/autostart
+	
+	sudo cp -f /usr/share/applications/plank.desktop $HOME/.cong/autostart/
 }
 ################################
 #	SAMBA
 ################################
 Samba(){
-if ! hash samba 2>/dev/null ; then
 	sudo apt install -y samba samba-common-bin smbclient cifs-utils
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
@@ -63,25 +56,21 @@ EOF
 	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
 	sudo chmod 644 /etc/samba/smb.conf
 	rm $MYPATH/samba_share.txt
-fi
 }
 ################################
 #	WEBMIN
 ################################
 Webmin(){
-if ! hash webmin 2>/dev/null ; then
 	cd ~/Downloads
 	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 	wget http://www.webmin.com/download/deb/webmin-current.deb
 	sudo dpkg -i webmin-current.deb
 	cd
-fi
 }
 ################################
 #	3.5" DISPLAY DRIVERS
 ################################
 Display(){
-if ! -d $HOME/LCD-show 2>/dev/null ; then
 	# Install 3.5" display drivers  
 	cd
 	git clone https://github.com/MrYacha/LCD-show.git
@@ -115,20 +104,17 @@ Categories=Settings;DesktopSettings;
 Keywords=Display
 EOF
 
-fi
 }
 
 ################################
 #	cqrprop
 ################################
 Cqrprop(){
-if ! hash cqrprop 2>/dev/null ; then
 	sudo apt install -y git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
 	git clone https://github.com/ok2cqr/cqrprop.git
 	cd cqrprop
 	make 
 	sudo make install
-fi
 }
 ################################
 
@@ -136,9 +122,7 @@ fi
 #	Disks
 ################################
 Disks(){
-if ! hash gnome-disks 2>/dev/null ; then
 	sudo apt install -y gnome-disk-utility
-fi
 }
 ################################
 
@@ -146,9 +130,7 @@ fi
 #	PiImager
 ################################
 PiImager(){
-if ! hash rpi-imager 2>/dev/null ; then
-	sudo apt install -y rpi-imager >/dev/null
-fi
+	sudo apt install -y rpi-imager 
 }
 ################################
 
@@ -156,9 +138,7 @@ fi
 #	Neofetch
 ################################
 Neofetch(){
-if ! hash neofetch 2>/dev/null ; then
 	sudo apt install -y neofetch
-fi
 }
 ################################
 
@@ -166,14 +146,12 @@ fi
 #	CommanderPi
 ################################
 CommanderPi(){
-if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
   cd
 	git clone https://github.com/Jack477/CommanderPi.git
 	cd CommanderPi
 	sudo apt-get install -y python3-tk python3-pil python3-pil.imagetk
 	bash install.sh
 	cd
-fi
 }
 ################################
 
@@ -181,8 +159,6 @@ fi
 #	Proto
 ################################
 Proto(){
-if ! hash file 2>/dev/null ; then
-	echo "file" >/dev/null
-fi
+	echo "" 
 }
 ################################
