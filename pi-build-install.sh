@@ -214,6 +214,13 @@ sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-buil
 sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 
 #************
+# Update aliases in .bashrc.
+#************
+sed -i "s/#alias ll='ls -l'/alias ll='ls -l'/" $HOME/.bashrc
+sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
+sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
+
+#************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #************
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
