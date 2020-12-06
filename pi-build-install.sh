@@ -237,6 +237,10 @@ cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 # Update the locate database.
+echo "#######################################"
+echo "#  Updating the locate database.      #"
+echo "#  This may take a minute or two.     #"
+echo "#######################################"
 sudo updatedb
 
 #####################################

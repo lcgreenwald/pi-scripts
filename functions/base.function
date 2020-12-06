@@ -156,7 +156,7 @@ fi
 #	Neofetch
 ################################
 Neofetch(){
-if ! hash rpi-imager 2>/dev/null ; then
+if ! hash neofetch 2>/dev/null ; then
 	sudo apt install -y neofetch
 fi
 }
@@ -170,6 +170,7 @@ if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
   cd
 	git clone https://github.com/Jack477/CommanderPi.git
 	cd CommanderPi
+	sudo apt-get install -y python3-tk python3-pil python3-pil.imagetk
 	bash install.sh
 	cd
 fi
