@@ -28,14 +28,14 @@ Locate(){
 ################################
 Plank(){
 	sudo apt install -y plank
-	if ! -d $HOME/.cong/plank/dock1/launchers 2>/dev/null ;	then
-		mkdir -p $HOME/.cong/plank/dock1/launchers
-	
-	sudo cp -f $MYPATH/launchers/* $HOME/.cong/plank/dock1/launchers/
-	if ! -d $HOME/.cong/autostart 2>/dev/null ; then
-		mkdir -p $HOME/.cong/autostart
-	
-	sudo cp -f /usr/share/applications/plank.desktop $HOME/.cong/autostart/
+	if [ ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ] ;	then
+		mkdir -p $HOME/.config/plank/dock1/launchers
+	fi
+	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
+	if [ ! -d $HOME/.config/autostart 2>/dev/null ] ; then
+		mkdir -p $HOME/.config/autostart
+	fi
+	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
 }
 ################################
 #	SAMBA
