@@ -91,15 +91,6 @@ rm $MYPATH/complete.txt >> /dev/null 2>&1
 clear
 
 #************
-#Update crontab 
-#************
-crontab -l > $TEMPCRON
-echo "@reboot sleep 5 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
-crontab $TEMPCRON
-rm $TEMPCRON
-
-
-#************
 #Scan system for updated applications
 #************
 yad  --width=550 --height=150 --text-align=center --center --title="Update" \
@@ -294,6 +285,11 @@ sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 # Edit build-a-pi to use WB0SIO version of gpsd install.
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
+
+#************
+# Update Build-a-Pi/.complete to show .pscomplete.
+#************
+echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 
 #####################################
 #	END CLEANUP

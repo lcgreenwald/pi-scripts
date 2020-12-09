@@ -80,14 +80,6 @@ if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
 
-#************
-#Update crontab 
-#************
-crontab -l > $TEMPCRON
-echo "@reboot sleep 5 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
-crontab $TEMPCRON
-rm $TEMPCRON
-
 #####################################
 #	notice to user
 #####################################
@@ -254,6 +246,11 @@ echo "#  Updating the locate database.      #"
 echo "#  This may take a minute or two.     #"
 echo "#######################################"
 sudo updatedb
+
+#************
+# Update Build-a-Pi/.complete to show .pscomplete.
+#************
+echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 
 #####################################
 #	END CLEANUP
