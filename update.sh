@@ -302,12 +302,6 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 rm $BASE > /dev/null 2>&1
 sudo apt -y autoremove
 
-#************
-#restore crontab
-#************
-crontab $TEMPCRON
-rm $TEMPCRON
-
 #####################################
 #reboot when done
 #####################################
