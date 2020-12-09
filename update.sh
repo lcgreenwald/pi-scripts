@@ -21,7 +21,6 @@ MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
-TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 
 FINISH(){

@@ -23,7 +23,6 @@ LOGO=$MYPATH/logo.png
 RB=$HOME/.config/WB0SIO
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
-TEMPCRON=$MYPATH/pscron.tmp
 WHO=$(whoami)
 VERSION=$(cat $MYPATH/changelog | grep version= | sed 's/version=//')
 export MYPATH
