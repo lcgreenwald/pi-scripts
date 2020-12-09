@@ -90,6 +90,14 @@ rm $MYPATH/updatebap.txt >> /dev/null 2>&1
 rm $MYPATH/complete.txt >> /dev/null 2>&1
 clear
 
+#************
+#Update crontab 
+#************
+crontab -l > $TEMPCRON
+echo "@reboot sleep 5 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
+crontab $TEMPCRON
+rm $TEMPCRON
+
 
 #************
 #Scan system for updated applications
@@ -270,12 +278,6 @@ $i
 done < $BASE
 
 bash $HOME/pi-build/update
-
-#************
-#backup crontab 
-#************
-crontab -l > $TEMPCRON
-echo "@reboot sleep 11 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
 
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.

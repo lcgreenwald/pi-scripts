@@ -19,11 +19,11 @@ BUT=$?
 if [ $BUT = 252 ]; then
 rm $MYPATH/boot.txt
 crontab -l > $TEMPCRON
-sed -i 's/@reboot\ sleep\ 11.*//' $TEMPCRON
+sed -i 's/@reboot\ sleep\ 5.*//' $TEMPCRON
 crontab $TEMPCRON
 exit
 fi
 rm $MYPATH/boot.txt
 crontab -l > $TEMPCRON
-sed -i 's/@reboot\ sleep\ 11.*//' $TEMPCRON
+sed -i 's/@reboot\ sleep\ 5.*//' $TEMPCRON
 crontab $TEMPCRON

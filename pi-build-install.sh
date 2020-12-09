@@ -80,6 +80,14 @@ if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
 
+#************
+#Update crontab 
+#************
+crontab -l > $TEMPCRON
+echo "@reboot sleep 5 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
+crontab $TEMPCRON
+rm $TEMPCRON
+
 #####################################
 #	notice to user
 #####################################
@@ -205,12 +213,6 @@ bash pi-build/build-a-pi
 source $HOME/pi-build/config
 
 #************
-#backup crontab 
-#************
-crontab -l > $TEMPCRON
-echo "@reboot sleep 11 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
-
-#************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
@@ -252,12 +254,6 @@ echo "#  Updating the locate database.      #"
 echo "#  This may take a minute or two.     #"
 echo "#######################################"
 sudo updatedb
-
-#************
-#restore crontab
-#************
-crontab $TEMPCRON
-rm $TEMPCRON
 
 #####################################
 #	END CLEANUP
