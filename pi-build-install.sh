@@ -23,8 +23,6 @@ LOGO=$MYPATH/logo.png
 RB=$HOME/.config/WB0SIO
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
-TEMPCRON=$MYPATH/cron.tmp
-DIR=$MYPATH/temp
 WHO=$(whoami)
 VERSION=$(cat $MYPATH/changelog | grep version= | sed 's/version=//')
 export MYPATH
@@ -38,7 +36,9 @@ fi
 
 trap FINISH EXIT
 
+#************
 #check for display. can't run from SSH
+#************
 if [ -z "$DESK" ]
 then
 cat <<EOF
@@ -202,6 +202,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 bash pi-build/build-a-pi
 
 source $HOME/pi-build/config
+
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
@@ -236,19 +237,25 @@ cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
+#************
 # Update the locate database.
+#************
 echo "#######################################"
 echo "#  Updating the locate database.      #"
 echo "#  This may take a minute or two.     #"
 echo "#######################################"
 sudo updatedb
 
+#************
+# Update Build-a-Pi/.complete to show .pscomplete.
+#************
+echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
+
 #####################################
 #	END CLEANUP
 #####################################
 #Remove temp files
 rm $BASE > /dev/null 2>&1
-rm -rf $DIR > /dev/null 2>&1
 sudo apt -y autoremove
 
 #####################################

@@ -21,7 +21,6 @@ MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
-TEMPCRON=$MYPATH/cron.tmp
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 
 FINISH(){
@@ -32,15 +31,6 @@ fi
 
 trap FINISH EXIT
 
-#remove temp dir if exist
-#fix issue 108 https://github.com/km4ack/pi-scripts/issues/108
-#Thanks to N5RKS for finding the bug
-#wb0sio 20201129  Added sudo
-if [ -d $HOME/pi-build/temp ]; then
-  sudo rm -rf $HOME/pi-build/temp
-fi
-
-
 #####################################
 # Create autostart dir
 # used to autostart conky at boot
@@ -49,7 +39,9 @@ if [ -d $HOME/.config/autostart ]; then
   mkdir -p $HOME/.config/autostart
 fi
 
+#************
 #Check for pi-scripts updates
+#************
 echo "Checking for Pi Scripts updates"
 CURRENT=$(head -1 $MYPATH/changelog | sed s'/version=//')
 
@@ -97,8 +89,9 @@ rm $MYPATH/updatebap.txt >> /dev/null 2>&1
 rm $MYPATH/complete.txt >> /dev/null 2>&1
 clear
 
-
+#************
 #Scan system for updated applications
+#************
 yad  --width=550 --height=150 --text-align=center --center --title="Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Version $VERSION</b>\r\r\First we need to scan the system to see what is installed. \
@@ -110,7 +103,9 @@ if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
 fi
 
+#************
 #install bc if not installed
+#************
 if ! hash bc>/dev/null; then
 sudo apt install -y bc
 fi
@@ -274,10 +269,6 @@ done < $BASE
 
 bash $HOME/pi-build/update
 
-#backup crontab 
-crontab -l > $TEMPCRON
-echo "@reboot sleep 10 && export DISPLAY=:0 && $MYPATH/.pscomplete" >> $TEMPCRON
-
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
@@ -294,16 +285,17 @@ sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
+#************
+# Update Build-a-Pi/.complete to show .pscomplete.
+#************
+echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
+
 #####################################
 #	END CLEANUP
 #####################################
 #Remove temp files
 rm $BASE > /dev/null 2>&1
-
-
-#restore crontab
-crontab $TEMPCRON
-rm $TEMPCRON
+sudo apt -y autoremove
 
 #####################################
 #reboot when done
