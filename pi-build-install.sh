@@ -264,6 +264,8 @@ echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 #####################################
 #	END CLEANUP
 #####################################
+# Run solar.sh to update the solar condiions data for conky
+/home/pi/bin/solar.sh
 #Remove temp files
 rm $BASE > /dev/null 2>&1
 sudo apt -y autoremove
