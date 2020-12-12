@@ -23,6 +23,7 @@ LOGO=$MYPATH/logo.png
 RB=$HOME/.config/WB0SIO
 BASE=$MYPATH/base.txt
 FUNCTIONS=$MYPATH/functions
+TEMPCRON=$MYPATH/cron.tmp
 WHO=$(whoami)
 VERSION=$(cat $MYPATH/changelog | grep version= | sed 's/version=//')
 export MYPATH
@@ -138,7 +139,6 @@ echo "$i" >> $BASE
 done
 fi
 
-
 #####################################
 #	Install Base Apps
 #####################################
@@ -148,6 +148,13 @@ while read i ; do
 $i
 done < $BASE
 
+#####################################
+#	Update crontab
+#####################################
+crontab -l > $TEMPCRON
+echo "*/60 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
+crontab $TEMPCRON
+rm $TEMPCRON
 
 #####################################
 #	notice to user
@@ -231,6 +238,9 @@ cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/local/share/* $HOME/.local/share/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
+fi
+if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
+	mkdir $HOME//bin/conky/solardata
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
