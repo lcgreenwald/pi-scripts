@@ -153,6 +153,7 @@ done < $BASE
 #####################################
 crontab -l > $TEMPCRON
 echo "*/60 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
+echo "@reboot sleep 10 && /home/pi/bin/solar.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
 
