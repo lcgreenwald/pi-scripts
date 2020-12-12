@@ -77,9 +77,9 @@ ${font Arial:bold:size=10}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leas
 
 ${font Arial:bold:size=12}${color Yellow}Solar Conditions ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White} \
-Solar Flux:  ${exec cat ~/bin/conky/solar/data/s-flux.txt} $alignc Sunspots:  ${exec cat ~/bin/conky/solardata/sunspots.txt}
-A Index:     ${exec cat ~/bin/conky/solardata/a-index.txt} $alignc K Index:   ${exec cat ~/bin/conky/solardata/k-index.txt}
-MUF:         ${exec cat ~/bin/conky/solardata/muf.txt} MHz
+Solar Flux: ${exec cat ~/bin/conky/solardata/s-flux.txt} $alignc Sunspots: ${exec cat ~/bin/conky/solardata/sunspots.txt}
+A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} $alignc K Index: ${exec cat ~/bin/conky/solardata/k-index.txt}
+MUF: ${exec cat ~/bin/conky/solardata/muf.txt} MHz
 
 ${font Arial:bold:size=12}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=10}${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$endif \
