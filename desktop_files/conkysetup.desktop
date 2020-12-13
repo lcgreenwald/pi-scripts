@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=conky setup
+Name=Conky-Prefs wb0sio
 Comment=Set conky size.
 Exec=/home/pi/pi-scripts/conky/setconky
 Icon=/home/pi/pi-scripts/conky/conky-logo.png
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;
+Categories=HamRadio;Settings;
 StartupNotify=true
 NoDisplay=false
