@@ -153,7 +153,7 @@ done < $BASE
 #####################################
 crontab -l > $TEMPCRON
 echo "*/60 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
-echo "@reboot sleep 10 && /home/pi/bin/solar.sh" >> $TEMPCRON
+echo "@reboot sleep 30 && /home/pi/bin/solar.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
 
@@ -162,7 +162,7 @@ rm $TEMPCRON
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
-Do not reboot as requested at the end of the build-a-pi script.
+Do not reboot as requested at the end of the build-a-pi script, just exit.
 Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
 EOF
