@@ -76,7 +76,7 @@ ${font Arial:bold:size=8}${color White}${execi 5 cat /var/lib/misc/dnsmasq.lease
 ${font Arial:bold:size=8}${color Yellow}Solar Conditions ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}\
 Solar Flux: ${exec cat ~/bin/conky/solardata/s-flux.txt} ${goto 150} Sunspots: ${exec cat ~/bin/conky/solardata/sunspots.txt}
-A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} ${goto 150} Index: ${exec cat ~/bin/conky/solardata/k-index.txt}
+A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} ${goto 150} K Index: ${exec cat ~/bin/conky/solardata/k-index.txt}
 MUF: ${exec cat ~/bin/conky/solardata/muf.txt} MHz
  
 ${font Arial:bold:size=8}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
