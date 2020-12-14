@@ -7,6 +7,6 @@ Icon=/home/pi/pi-scripts/conky/conky-logo.png
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;Settings;
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;
 StartupNotify=true
 NoDisplay=false
