@@ -207,6 +207,11 @@ cd
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
+#************
+# Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
+#************
+sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
+
 bash pi-build/build-a-pi
 
 source $HOME/pi-build/config
@@ -265,11 +270,6 @@ sudo updatedb
 # Update Pi-Build/.complete to show .pscomplete.
 #************
 echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
-
-#************
-# Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
-#************
-sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 
 #####################################
 #	END CLEANUP
