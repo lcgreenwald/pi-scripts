@@ -9,7 +9,9 @@ MYPATH=$HOME/pi-scripts/conky
 TEMPFILE=/run/user/1000/conky.tmp
 
 CALL=$(cat ~/.conkyrc | grep "{color Yellow}" | sed s'/.*{alignc}//' | head -1)
-
+if [[ $CALL == "" ]]; then
+  source $HOME/pi-build/config
+fi
 
 INFO=$(yad --form --width=420 --text-align=center --center --title="Preferences" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
@@ -27,7 +29,6 @@ CALL=$(echo $INFO | awk -F "|" '{ print $1 }')
 CALL=${CALL^^}
 CS=$(echo $INFO | awk -F "|" '{ print $2 }')
 TEMP=$(echo $INFO | awk -F "|" '{ print $3 }')
-
 
 cp $MYPATH/$CS $TEMPFILE
 

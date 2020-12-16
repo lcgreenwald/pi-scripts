@@ -295,6 +295,7 @@ echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 #####################################
 #Remove temp files
 rm $BASE > /dev/null 2>&1
+sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 
 #####################################
