@@ -159,11 +159,11 @@ rm $TEMPCRON
 
 #####################################
 #	notice to user
+#Do not reboot as requested at the end of the build-a-pi script, just exit.
+#Wait for the pi-build-install finished dialog box.
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
-Do not reboot as requested at the end of the build-a-pi script, just exit.
-Wait for the pi-build-install finished dialog box.
 Please select Master, Beta or Dev installation.
 EOF
 
@@ -203,7 +203,7 @@ git pull
 fi
 cd
 #************
-# Edit build-a-pi to use WB0SIO version of gpsd install.
+# Edit build-a-pi to use the WB0SIO version of gpsd install.
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
@@ -214,6 +214,10 @@ source $HOME/pi-build/config
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
+echo "#######################################"
+echo "#  Installing the WB0SIO version of   #"
+echo "#  Hotspot Tools.                     #"
+echo "#######################################"
 if [ -d $HOME/hotspot-tools2 ]; then
 	rm -rf $HOME/hotspot-tools2
 fi
@@ -258,9 +262,14 @@ echo "#######################################"
 sudo updatedb
 
 #************
-# Update Build-a-Pi/.complete to show .pscomplete.
+# Update Pi-Build/.complete to show .pscomplete.
 #************
 echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
+
+#************
+# Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
+#************
+sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 
 #####################################
 #	END CLEANUP
@@ -269,6 +278,7 @@ echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 /home/pi/bin/solar.sh
 #Remove temp files
 rm $BASE > /dev/null 2>&1
+sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 
 #####################################
