@@ -152,7 +152,7 @@ done < $BASE
 #	Update crontab
 #####################################
 crontab -l > $TEMPCRON
-echo "*/60 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
+echo "*/10 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
 echo "@reboot sleep 30 && /home/pi/bin/solar.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON

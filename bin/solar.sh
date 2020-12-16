@@ -1,5 +1,12 @@
 #!/bin/bash
-cd ~/bin/conky/solardata
+cd ~/bin/conky/solardata || exit 1
+
+# Stop if one of the output files exist and is newer than 60 minutes
+if [[ -r s-flux.txt && $(( $(date +%s) - $(stat -c "%Y" s-flux.txt) )) -lt 3600 ]]
+then
+    exit 0
+fi
+
 wget -N --quiet http://www.hamqsl.com/solarrss.php
 
 sed -n -r -e 's!^.*<solarflux>(.*)</solarflux>.*$!\1!p' solarrss.php > s-flux.txt
