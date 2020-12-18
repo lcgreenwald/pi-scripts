@@ -212,6 +212,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
 #************
 sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
+sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 bash pi-build/build-a-pi
 
