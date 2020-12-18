@@ -1,6 +1,9 @@
-version=1.1.0
+version=1.1.1
 
-1.1.0 - added gnome disk utility and Raspberry Pi Imager.
+1.1.1 - Added Neofetch and CommanderPi
+				Added conky-medium-adif
+
+1.1.0 - Added gnome disk utility and Raspberry Pi Imager.
 
 1.0.0 	Initial Release
 				
