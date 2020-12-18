@@ -72,7 +72,7 @@ if ! hash log2ram 2>/dev/null; then
 fi
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y bluetooth
+sudo apt install -y bluetooth bluez-cups bluez-obexd
 if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
 fi
