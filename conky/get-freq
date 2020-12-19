@@ -6,8 +6,6 @@
 #20200428 modified
 #20201022 wb0sio - edited to use rigctl to read the rig frequency.
 
-source "$HOME/patmenu2/config"
-
 MAIN () {
 
 FREQ=$(rigctl -m2 f)

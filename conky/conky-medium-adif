@@ -84,6 +84,8 @@ ${font Arial:size=8}${if_running piardopc}${color green}ARDOP ACTIVE${else}${col
 ${alignr}${if_running pat}${color green}PAT ACTIVE${else}${color red}PAT OFF$endif
 ${if_running kissattach}${color green}KISSATCH ACTIVE${else}${color red}KISSATCH OFF$endif \
 ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}DIREWOLF OFF$endif
+${if_running YAAC}${color green}YAAC ACTIVE${else}${color red}YAAC OFF$endif \
+${alignr}
 
 ${font Arial:bold:size=10}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=8}${if_running js8call}${color green}JS8call ACTIVE${else}${color red}JS8call OFF$endif \
