@@ -246,6 +246,7 @@ sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
 cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
+cp -f $MYPATH/conky/get-freq ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/local/share/* $HOME/.local/share/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
