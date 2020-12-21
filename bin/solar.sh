@@ -1,4 +1,13 @@
 #!/bin/bash
+
+##############################
+# Full credit to Alex Fleak (KD0YTE) for the idea for this script. 
+# as it is based on his original work posted on the BAP forum
+# https://groups.io/g/KM4ACK-Pi/topic/adding_solar_flux_and_a_index/78788335?p=,,,20,0,0,0::recentpostdate%2Fsticky,,,20,2,0,78788335
+# and updated by Benjamin AA7BK
+# modified 2020/12/16 - Larry Greenwald, wb0sio - Added muf
+##############################
+
 cd ~/bin/conky/solardata || exit 1
 
 # Stop if one of the output files exist and is newer than 60 minutes
