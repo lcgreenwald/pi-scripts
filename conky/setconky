@@ -17,7 +17,7 @@ INFO=$(yad --form --width=420 --text-align=center --center --title="Preferences"
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Conky Preferences</b>\r\rThis only changes the call sign in conky." \
 --field="Call Sign" "$CALL" \
---field="Conky Size":CB "conky-medium-adif|conky-medium|conky-small|conky-large|conky-noradio" \
+--field="Conky Size":CB "conky-medium-adif|conky-medium|conky-medium-solargif|conky-small|conky-large|conky-noradio" \
 --field="C or F":CB "C|F" \
 --button="Exit":1 \
 --button="Continue":2)
@@ -42,6 +42,13 @@ sed -i '/vcgencmd/d' $TEMPFILE
 sed -i '/#TEMP/a \
 ${font Arial:bold:size=14}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-medium-adif' ]; then
+#delete F line
+echo
+sed -i '/vcgencmd/d' $TEMPFILE
+#add cel line
+sed -i '/#TEMP/a \
+${font Arial:bold:size=8}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-medium-solargif' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd/d' $TEMPFILE
