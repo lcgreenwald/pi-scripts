@@ -97,7 +97,6 @@ ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}P
 ${font Arial:bold:size=10}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=08}${color White}${tail ~/Documents/mylog.txt 5}
 
-${image ~/Downloads/solarpich.gif -p 0,400 -f 30 -n}
 
 #$diskio
 ]];
