@@ -153,7 +153,9 @@ done < $BASE
 #####################################
 crontab -l > $TEMPCRON
 echo "@reboot sleep 30 && /home/pi/bin/solar.sh" >> $TEMPCRON
+echo "@reboot sleep 40 && /home/pi/bin/solarimage.sh" >> $TEMPCRON
 echo "*/10 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
+echo "*/60 * * * * /home/pi/bin/solarimage.sh" >> $TEMPCRON
 echo "00 03 * * 0  /home/pi/bin/install-updates.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
@@ -279,6 +281,7 @@ echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 #####################################
 # Run solar.sh to update the solar condiions data for conky
 /home/pi/bin/solar.sh
+/home/pi/bin/solarimage.sh
 #Remove temp files
 rm $BASE > /dev/null 2>&1
 sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
