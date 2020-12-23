@@ -73,7 +73,7 @@ ${font Arial:bold:size=10}${color White}Wired IP address $alignr ${addr eth0}
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
 
-${font Arial:bold:size=10}${color Yellow}Solar Conditions ${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=10}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
 Solar Flux: ${exec cat ~/bin/conky/solardata/s-flux.txt} ${goto 150} Sunspots: ${exec cat ~/bin/conky/solardata/sunspots.txt}
 A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} ${goto 150} K Index: ${exec cat ~/bin/conky/solardata/k-index.txt}
