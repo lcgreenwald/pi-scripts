@@ -26,4 +26,11 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-curl -sSL https://raw.githubusercontent.com/DeskPi-Team/deskpi/master/install.sh | sudo bash
+#curl -sSL https://raw.githubusercontent.com/DeskPi-Team/deskpi/master/install.sh | sudo bash
+
+cd ~
+git clone https://github.com/DeskPi-Team/deskpi.git
+cd ~/deskpi/
+chmod +x install.sh
+sudo ./install.sh
+cd ~
