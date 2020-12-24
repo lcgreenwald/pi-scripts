@@ -8,6 +8,7 @@
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
+MODE=$(cat /boot/config.txt | grep "hdmi_mode")
 
 if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
@@ -39,15 +40,15 @@ sudo sed -i "s/#hdmi_group*/hdmi_group=2/" /boot/config.txt
 
 if [ $BUT = 1 ]; then
 echo "1920x1080 selected."
-sudo sed -i "s/hdmi_mode=*/hdmi_mode=82/" /boot/config.txt
+sudo sed -i "s/$MODE/hdmi_mode=82/" /boot/config.txt
 elif [ $BUT = 2 ]; then
 echo "1600x1200 selected."
-sudo sed -i "s/hdmi_mode=*/hdmi_mode=51/" /boot/config.txt
+sudo sed -i "s/$MODE/hdmi_mode=51/" /boot/config.txt
 elif [ $BUT = 3 ]; then
 echo "1280x1024 selected."
-sudo sed -i "s/hdmi_mode=*/hdmi_mode=35/" /boot/config.txt
+sudo sed -i "s/$MODE/hdmi_mode=35/" /boot/config.txt
 elif [ $BUT = 4 ]; then
 echo "1024x768 selected."
-sudo sed -i "s/hdmi_mode=*/hdmi_mode=16/" /boot/config.txt
+sudo sed -i "s/$MODE/hdmi_mode=16/" /boot/config.txt
 fi
 rm $MYPATH/intro.txt
