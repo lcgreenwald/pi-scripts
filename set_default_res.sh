@@ -21,16 +21,17 @@ cat <<EOF > $MYPATH/intro.txt
 Select the desired default screen resloution.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Update Resolution"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="1920x1080":1 > /dev/null 2>&1 \
 --button="1600x1200":2 > /dev/null 2>&1 \
 --button="1280x1024":3 > /dev/null 2>&1 \
---button="1024x768":4 > /dev/null 2>&1)
+--button="1024x768":4 > /dev/null 2>&1 \
+--button="Exit":5 > /dev/null 2>&1)
 BUT=$(echo $?)
 
-if [ $BUT = 252 ]; then
+if [ $BUT = 252 || $BUT = 5 ]; then
 rm $MYPATH/intro.txt
 exit
 fi
@@ -63,7 +64,7 @@ If you close this window, you will have to reboot manually.
 
 EOF
 
-INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Update Resolution"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
