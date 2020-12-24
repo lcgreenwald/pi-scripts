@@ -31,7 +31,7 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Updat
 --button="Exit":5 > /dev/null 2>&1)
 BUT=$(echo $?)
 
-if [ $BUT = 252 || $BUT = 5 ]; then
+if [[ $BUT = 252 || $BUT = 5 ]]; then
 rm $MYPATH/intro.txt
 exit
 fi
