@@ -52,3 +52,28 @@ echo "1024x768 selected."
 sudo sed -i "s/$MODE/hdmi_mode=16/" /boot/config.txt
 fi
 rm $MYPATH/intro.txt
+
+#####################################
+#reboot when done
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+Default resolution has been set. 
+Reboot Required to make the change take affect.
+If you close this window, you will have to reboot manually.
+
+EOF
+
+INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
+--button="Reboot Now":0 \
+--button="Exit":1)
+BUT=$(echo $?)
+
+if [ $BUT = 0 ]; then
+rm $MYPATH/intro.txt
+echo rebooting
+sudo reboot
+elif [ $BUT = 1 ]; then
+rm $MYPATH/intro.txt
+exit
