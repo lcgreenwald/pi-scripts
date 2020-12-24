@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=solar
+Comment=Solar conditions update
+Exec=/home/pi/bin/solarimage.sh
+Icon=/usr/share/icons/gnome/24x24/status/sunny.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;
+StartupNotify=true
