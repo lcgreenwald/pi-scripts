@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=SolarConditions
+Name=Solar Conditions
 Comment=Solar conditions update
 Exec=/home/pi/bin/solar.sh
 Icon=/usr/share/icons/gnome/24x24/status/sunny.png
