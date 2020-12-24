@@ -58,7 +58,7 @@ rm $MYPATH/intro.txt
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Default resolution has been set. 
-Reboot Required to make the change take affect.
+Reboot Required to make the change take effect.
 If you close this window, you will have to reboot manually.
 
 EOF
@@ -77,3 +77,4 @@ sudo reboot
 elif [ $BUT = 1 ]; then
 rm $MYPATH/intro.txt
 exit
+fi
