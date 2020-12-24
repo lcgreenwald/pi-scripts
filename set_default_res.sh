@@ -40,15 +40,15 @@ sudo sed -i "s/#hdmi_group*/hdmi_group=2/" /boot/config.txt
 
 if [ $BUT = 1 ]; then
 echo "1920x1080 selected."
-sudo sed -i "s/$MODE/hdmi_mode=82/" /boot/config.txt
+sudo sed  "s/$MODE/hdmi_mode=82/" /boot/config.txt
 elif [ $BUT = 2 ]; then
 echo "1600x1200 selected."
-sudo sed -i "s/$MODE/hdmi_mode=51/" /boot/config.txt
+sudo sed  "s/$MODE/hdmi_mode=51/" /boot/config.txt
 elif [ $BUT = 3 ]; then
 echo "1280x1024 selected."
-sudo sed -i "s/$MODE/hdmi_mode=35/" /boot/config.txt
+sudo sed  "s/$MODE/hdmi_mode=35/" /boot/config.txt
 elif [ $BUT = 4 ]; then
 echo "1024x768 selected."
-sudo sed -i "s/$MODE/hdmi_mode=16/" /boot/config.txt
+sudo sed  "s/$MODE/hdmi_mode=16/" /boot/config.txt
 fi
 rm $MYPATH/intro.txt
