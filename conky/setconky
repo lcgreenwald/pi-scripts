@@ -17,7 +17,7 @@ INFO=$(yad --form --width=420 --text-align=center --center --title="Preferences"
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Conky Preferences</b>\r\rThis only changes the call sign in conky." \
 --field="Call Sign" "$CALL" \
---field="Conky Size":CB "conky-medium-adif|conky-medium|conky-medium-solargif|conky-small|conky-large|conky-noradio" \
+--field="Conky Size":CB "conky-medium|conky-medium-solargif|conky-medium-adif|conky-small|conky-large|conky-noradio" \
 --field="C or F":CB "C|F" \
 --button="Exit":1 \
 --button="Continue":2)

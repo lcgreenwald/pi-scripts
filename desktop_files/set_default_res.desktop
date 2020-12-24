@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Set Default Resolution
+Comment=Set default HDMI resolution.
+Exec=/home/pi/pi-scripts/set_default_res.sh
+Icon=/home/pi/pi-scripts/logo.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;
+StartupNotify=true
+NoDisplay=false
