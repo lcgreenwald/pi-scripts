@@ -82,18 +82,18 @@ A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} ${goto 150} K Index: ${ex
 MUF: ${exec cat ~/bin/conky/solardata/muf.txt} MHz
 
 ${font Arial:bold:size=12}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
-${font Arial:size=10}${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$endif \
+${font Arial:size=10}${alignr}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif \
+${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif
+${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$endif \
 ${alignr}${if_running pat}${color green}PAT ACTIVE${else}${color red}PAT OFF$endif
 ${if_running kissattach}${color green}KISSATCH ACTIVE${else}${color red}KISSATCH OFF$endif \
 ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}DIREWOLF OFF$endif
 
 ${font Arial:bold:size=12}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=10}${if_running js8call}${color green}JS8call ACTIVE${else}${color red}JS8call OFF$endif \
-${alignr}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif
 ${if_running wsjtx}${color green}WSJT-X ACTIVE${else}${color red}WSJT-X OFF$endif \
 ${alignr}${if_running jtdx}${color green}JTDX ACTIVE${else}${color red}JTDX OFF$endif
 ${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif \
-${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
 
