@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Set Wallpaper
+Comment=Set a new wallpaper.
+Exec=/home/pi/pi-scripts/set_wallpaper.sh
+Icon=/home/pi/pi-scripts/logo.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;
+StartupNotify=true
+NoDisplay=false
