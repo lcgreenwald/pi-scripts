@@ -91,7 +91,7 @@ ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}D
 
 ${font Arial:bold:size=12}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=10}${if_running js8call}${color green}JS8call ACTIVE${else}${color red}JS8call OFF$endif \
-${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif
+${alignr}${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif
 ${if_running wsjtx}${color green}WSJT-X ACTIVE${else}${color red}WSJT-X OFF$endif \
 ${alignr}${if_running jtdx}${color green}JTDX ACTIVE${else}${color red}JTDX OFF$endif
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
