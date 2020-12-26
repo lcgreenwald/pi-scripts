@@ -6,3 +6,7 @@
 cd ~/Downloads
 wget http://www.hamqsl.com/solarpich.php
 mv solarpich.php solarpich.gif
+wget http://www.hamqsl.com/solarmuf.php
+mv solarmuf.php solarmuf.gif
+wget http://www.hamqsl.com/solar101vhfpic.php
+mv solar101vhfpic.php solar101vhfpic.gif
