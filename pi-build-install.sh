@@ -255,7 +255,7 @@ if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
 fi
 if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
-	mkdir $HOME//bin/conky/solardata
+	mkdir $HOME/bin/conky/solardata
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
