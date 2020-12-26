@@ -31,7 +31,7 @@ conky.config = {
 };
 
 conky.text = [[
-${image ~/Downloads/solar101vhfpic.gif -p 0,0 -f 30}
-${image ~/Downloads/solarmuf.gif -p 210,160 -f 30}
+${image ~/bin/conky/solardata/solar101vhfpic.gif -p 0,0 -f 30}
+${image ~/bin/conky/solardata/solarmuf.gif -p 210,160 -f 30}
 
 ]];
