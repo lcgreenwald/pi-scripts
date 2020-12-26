@@ -1,4 +1,4 @@
 !#/bin/bash
 #sudo killall conky > /dev/null 2>&1
 sleep 10 &&
-/usr/bin/conky > /dev/null 2>&1
+/usr/bin/conky -c $HOME/.conkyrc2 > /dev/null 2>&1
