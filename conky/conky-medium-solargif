@@ -75,7 +75,7 @@ ${font Arial:bold:size=10}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leas
 
 ${font Arial:bold:size=10}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
 ${voffset -25}
-${image ~/Downloads/solarpich.gif -p 0,530 -f 30 -n}
+${image ~/bin/conky/solardata/solarpich.gif -p 0,530 -f 30 -n}
 ${voffset 150}
 
 ${font Arial:bold:size=10}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
