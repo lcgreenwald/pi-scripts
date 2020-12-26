@@ -259,7 +259,7 @@ if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
-cp -f $MYPATH/conky/.conkyrc $HOME/.conkyrc
+cp -f $MYPATH/conky/.conkyrc* $HOME/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #************

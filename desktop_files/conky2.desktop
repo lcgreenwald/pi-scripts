@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Conky 2
+Comment=Conky Solar Conditions
+GenericName=Conky Screen Background Monitor
+Exec=/home/pi/pi-scripts/conky/startconky2
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=HamRadio
+Keywords=Radio
