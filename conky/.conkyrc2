@@ -10,8 +10,8 @@ conky.config = {
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 	double_buffer = true,
-	minimum_width = 400, minimum_height = 200,
-	maximum_width = 500,
+	minimum_width = 620, minimum_height = 360,
+	maximum_width = 650,
 	draw_shades = false,
 	draw_outline = false,
 	draw_borders = false,
@@ -31,6 +31,7 @@ conky.config = {
 };
 
 conky.text = [[
-${image ~/Downloads/solarmuf.gif -p 0,0 -f 30 -n}
+${image ~/Downloads/solar101vhfpic.gif -p 0,0 -f 30}
+${image ~/Downloads/solarmuf.gif -p 210,160 -f 30}
 
 ]];
