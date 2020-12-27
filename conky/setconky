@@ -7,7 +7,7 @@
 
 MYPATH=$HOME/pi-scripts/conky
 TEMPFILE=/run/user/1000/conky.tmp
-LOGO=$MYPATH/logo.png
+LOGO=$HOME/pi-scripts/logo.png
 
 CALL=$(cat ~/.conkyrc | grep "{color Yellow}" | sed s'/.*{alignc}//' | head -1)
 if [[ $CALL == "" ]]; then
