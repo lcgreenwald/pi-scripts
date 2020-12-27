@@ -8,7 +8,6 @@
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
-MODE=$(cat /boot/config.txt | grep "hdmi_mode")
 
 if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
@@ -39,9 +38,6 @@ if [[ $BUT = 252 || $BUT = 99 ]]; then
 rm $MYPATH/intro.txt
 exit
 fi
-
-sudo sed -i "s/#hdmi_force_hotplug/hdmi_force_hotplug/" /boot/config.txt
-sudo sed -i "s/#hdmi_group*/hdmi_group=2/" /boot/config.txt
 
 if [ $BUT = 1 ]; then
 pcmanfm --set-wallpaper $HOME/pi-build/bap-wallpaper.jpg
