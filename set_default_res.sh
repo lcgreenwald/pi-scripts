@@ -9,6 +9,7 @@
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=$MYPATH/logo.png
 MODE=$(cat /boot/config.txt | grep "hdmi_mode")
+GROUP=$(cat /boot/config.txt | grep "hdmi_group")
 
 if ! hash yad 2>/dev/null; then
 	sudo apt install -y yad
@@ -37,7 +38,7 @@ exit
 fi
 
 sudo sed -i "s/#hdmi_force_hotplug/hdmi_force_hotplug/" /boot/config.txt
-sudo sed -i "s/#hdmi_group*/hdmi_group=2/" /boot/config.txt
+sudo sed -i "s/$GROUP/hdmi_group=2/" /boot/config.txt
 
 if [ $BUT = 1 ]; then
 echo "1920x1080 selected."
