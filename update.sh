@@ -278,7 +278,42 @@ fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
 sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
-sed -i "s/pi-build/pi-scripts/" $HOME/.local/share/applications/setconky.desktop
+
+#************
+# Update aliases in .bashrc.
+#************
+sed -i "s/#alias ll='ls -l'/alias ll='ls -l'/" $HOME/.bashrc
+sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
+sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
+
+#************
+# Install WB0SIO versions of desktop, conky and digi-mode files.
+#************
+cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
+cp -f $MYPATH/bin/*.sh ~/bin/
+cp -f $MYPATH/conky/get-grid ~/bin/conky/
+cp -f $MYPATH/conky/get-freq ~/bin/conky/
+cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
+cp -rf $MYPATH/local/share/* $HOME/.local/share/
+if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
+	mkdir $HOME/.xlog
+fi
+if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
+	mkdir $HOME/bin/conky/solardata
+fi
+cp -rf $MYPATH/xlog/* $HOME/.xlog/
+cp -f $MYPATH/config/* $HOME/.config/
+cp -f $MYPATH/conky/.conkyrc* $HOME/
+sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
+
+#************
+# Update the locate database.
+#************
+echo "#######################################"
+echo "#  Updating the locate database.      #"
+echo "#  This may take a minute or two.     #"
+echo "#######################################"
+sudo updatedb
 
 #************
 # Edit build-a-pi to use WB0SIO version of gpsd install.
