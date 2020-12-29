@@ -320,11 +320,6 @@ sudo updatedb
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
-#************
-# Update Build-a-Pi/.complete to show .pscomplete.
-#************
-echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
-
 #####################################
 #	END CLEANUP
 #####################################

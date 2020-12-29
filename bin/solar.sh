@@ -24,6 +24,14 @@ sed -n -r -e 's!^.*<aindex>(.*)</aindex>.*$!\1!p' solarrss.php > a-index.txt
 sed -n -r -e 's!^.*<kindex>(.*)</kindex>.*$!\1!p' solarrss.php > k-index.txt
 sed -n -r -e 's!^.*<sunspots>(.*)</sunspots>.*$!\1!p' solarrss.php > sunspots.txt
 sed -n -r -e 's!^.*<muf>(.*)</muf>.*$!\1!p' solarrss.php > muf.txt
+sed -n -r -e 's!^.*<band name="80m-40m" time="day">(.*)</band>.*$!\1!p' solarrss.php > band80-40day.txt
+sed -n -r -e 's!^.*<band name="30m-20m" time="day">(.*)</band>.*$!\1!p' solarrss.php > band30-20day.txt
+sed -n -r -e 's!^.*<band name="17m-15m" time="day">(.*)</band>.*$!\1!p' solarrss.php > band17-15day.txt
+sed -n -r -e 's!^.*<band name="12m-10m" time="day">(.*)</band>.*$!\1!p' solarrss.php > band12-10day.txt
+sed -n -r -e 's!^.*<band name="80m-40m" time="night">(.*)</band>.*$!\1!p' solarrss.php > band80-40night.txt
+sed -n -r -e 's!^.*<band name="30m-20m" time="night">(.*)</band>.*$!\1!p' solarrss.php > band30-20night.txt
+sed -n -r -e 's!^.*<band name="17m-15m" time="night">(.*)</band>.*$!\1!p' solarrss.php > band17-15night.txt
+sed -n -r -e 's!^.*<band name="12m-10m" time="night">(.*)</band>.*$!\1!p' solarrss.php > band12-10night.txt
 
 rm solarrss.php
 cd

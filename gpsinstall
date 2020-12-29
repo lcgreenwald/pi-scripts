@@ -3,6 +3,7 @@
 #script to install GPS Dongle for Raspberry Pi 
 #km4ack 20190911
 #Last Edit km4ack 20191014
+# Modified: 2020/12/29 WB0SIO - added 'allow' to chrony.conf
 
 #check if running as root
 IAM=$(whoami)
@@ -29,6 +30,10 @@ mv /etc/default/gpsd /etc/default/gpsd.org
 wget --tries 2 --connect-timeout=60 https://raw.githubusercontent.com/km4ack/pi-scripts/master/gpsd -P /etc/default/
 
 echo "refclock SHM 0 offset 0.5 delay 0.2 refid NMEA" >> /etc/chrony/chrony.conf
+
+echo " " >> /etc/chrony/chrony.conf
+echo "# Allow this computer to be a time server." >> /etc/chrony/chrony.conf
+echo "allow" >> /etc/chrony/chrony.conf
 
 echo "";echo "";echo ""
 echo "#############################################################################################"
