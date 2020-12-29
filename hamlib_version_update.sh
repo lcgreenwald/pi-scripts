@@ -14,5 +14,5 @@ head -n 1 | awk -F "/" '{print $7}')
 
 # Update pi-build/functions/base.function to install the latest version.
 sed -i "s/hamlib\/$RIG/hamlib\/$NEWRIG/" $HOME/pi-build/functions/base.function
-sed -i "s/hamlib-$RIG/hamlib-NEWRIG/" $HOME/pi-build/functions/base.function
+sed -i "s/hamlib-$RIG/hamlib-$NEWRIG/" $HOME/pi-build/functions/base.function
 
