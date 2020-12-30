@@ -16,6 +16,7 @@ fi
 #####################################
 #	notice to user
 #####################################
+SELECT(){
 cat <<EOF > $MYPATH/intro.txt
 Select the desired wallpaper.
 EOF
@@ -33,12 +34,14 @@ INTRO=$(yad --width=1020 --height=150 --text-align=center --center --title="Upda
 --button="road":8 > /dev/null 2>&1 \
 --button="Exit":99 > /dev/null 2>&1)
 BUT=$(echo $?)
+rm $MYPATH/intro.txt
 
 if [[ $BUT = 252 || $BUT = 99 ]]; then
-rm $MYPATH/intro.txt
 exit
 fi
+}
 
+APPLY(){
 if [ $BUT = 1 ]; then
 pcmanfm --set-wallpaper $HOME/pi-build/bap-wallpaper.jpg
 elif [ $BUT = 2 ]; then
@@ -56,10 +59,16 @@ pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/mountain.jpg
 elif [ $BUT = 8 ]; then
 pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/road.jpg
 fi
-rm $MYPATH/intro.txt
+}
+
+while [ 1 ]
+do
+
+SELECT
+APPLY
 
 #####################################
-#reboot when done
+#Quit or try amnother
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 New Wallpaper has been set. 
@@ -68,10 +77,21 @@ EOF
 INTRO=$(yad --width=300 --height=100 --text-align=center --center --title="Update Wallpaper"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
+--button="Choose another":0 \
 --button="Exit":1)
 BUT=$(echo $?)
-
-if [[ $BUT = 252 || $BUT=1 ]]; then
 rm $MYPATH/intro.txt
+
+
+if [[ $BUT = 252 || $BUT = 1 ]]; then
 exit
 fi
+
+done
+
+#if [ $BUT = 0 ]; then
+#SELECT
+#APPLY
+#fi
+
+#exit
