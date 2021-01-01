@@ -79,6 +79,9 @@ fi
 if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
+if ! hash xscreensaver 2>/dev/null; then
+	sudo apt install -y xscreensaver
+fi
 
 #####################################
 #	notice to user
