@@ -68,6 +68,7 @@ $swapbar
 HDD $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
+Disk IO $alignr $diskio
 
 ${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}Wireless IP address $alignr ${addr wlan0}
