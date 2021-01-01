@@ -50,30 +50,33 @@ ${color grey}
 ${font}
 ${font Arial:bold:size=14}${color Yellow}SYSTEM: ${color DarkSlateGray}${hr 2}
 ${voffset -30}
-${font Arial:bold:size=10}${color White}Hostame: $alignr${nodename}
-${font Arial:bold:size=10}${color White}Version: $alignr${exec cat /etc/issue.net}
-${font Arial:bold:size=10}${color White}Architecture: $alignr${machine}
-${font Arial:bold:size=10}${color White}Kernel: $alignr${kernel}
-${font Arial:bold:size=10}${color White}Frequency: $alignr${freq_g cpu0}Ghz
-${font Arial:bold:size=10}${color White}Uptime: $alignr${uptime}
+${font Arial:bold:size=10}${color White}
+Hostame: $alignr${nodename}
+Version: $alignr${exec cat /etc/issue.net}
+Architecture: $alignr${machine}
+Kernel: $alignr${kernel}
+Frequency: $alignr${freq_g cpu0}Ghz
+Uptime: $alignr${uptime}
 #TEMP
-${font Arial:bold:size=10}${color White}Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
+Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
 ${voffset -15}
-${font Arial:bold:size=10}${color White}CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
+CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
 ${cpubar cpu}
-${font Arial:bold:size=10}${color White}MEM $alignc $mem / $memmax $alignr $memperc%
+MEM $alignc $mem / $memmax $alignr $memperc%
 $membar
-${font Arial:bold:size=10}${color White}SWAP $alignc $swap / $swapmax $alignr $swapperc%
+SWAP $alignc $swap / $swapmax $alignr $swapperc%
 $swapbar
-${font Arial:bold:size=10}${color White}HDD $alignc used / free / size  
+HDD $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
+Disk IO $alignr $diskio
 
 ${font Arial:bold:size=12}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=10}${color White}Wireless IP address $alignr ${addr wlan0}
-${font Arial:bold:size=10}${color White}Wired IP address $alignr ${addr eth0}
+${font Arial:bold:size=10}${color White}\
+Wireless IP address $alignr ${addr wlan0}
+Wired IP address $alignr ${addr eth0}
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=10}${color White}${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
+${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
 
 ${font Arial:bold:size=12}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
@@ -105,8 +108,9 @@ ${alignr}${if_running jtdx}${color green}JTDX ACTIVE${else}${color red}JTDX OFF$
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
 
-${font Arial:bold:size=12}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=8}${color White}${tail ~/Documents/mylog.txt 5}
+${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=10}${color White}\
+${execi 600 fortune -s | fold -s -w40}
 
-#$diskio
+
 ]];
