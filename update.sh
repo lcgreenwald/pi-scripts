@@ -209,7 +209,7 @@ fi
 #----------------------------------------------------#
 #		Fortune
 #----------------------------------------------------#
-if ! hash  fortune 2>/dev/null ; then
+if [ ! -d /usr/share/terminfo/f/fortune 2>/dev/null ]; then
 Fortune="Not Installed"
 else
 Fortune="Installed"
@@ -246,7 +246,7 @@ false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
-false "Fortune" "Display random quotes" \
+false "Fortune" "$Fortune" "Display random quotes" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
