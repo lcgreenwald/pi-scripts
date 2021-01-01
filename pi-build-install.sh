@@ -79,6 +79,9 @@ fi
 if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
+if ! hash xscreensaver 2>/dev/null; then
+	sudo apt install -y xscreensaver
+fi
 
 #####################################
 #	notice to user
@@ -123,6 +126,7 @@ false "Disks" "Manage Drives and Media" \
 false "PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
+false "Fortune" "Display random quotes" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -132,7 +136,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi)
+BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

@@ -1,4 +1,8 @@
-version=1.1.4
+version=1.1.5
+
+1.1.5 - Added diskio and fortune to conky
+        Added fortune installation option.
+        Added xscreensaver install.
 
 1.1.4 - Updates to the updates.sh
 
