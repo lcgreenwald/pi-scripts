@@ -107,7 +107,7 @@ ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}P
 
 ${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
-${execi 600 fortune -s }
+${execi 600 fortune -s | fold -s -w40}
 
 ${font Arial:bold:size=10}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color Yellow}mylog.txt

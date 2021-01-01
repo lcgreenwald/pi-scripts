@@ -108,6 +108,6 @@ ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}P
 
 ${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
-${offset 15}${font Noto Sans:size=10}${execi 600 fortune -s | fold -s -w44}
+${execi 600 fortune -s | fold -s -w40}
 
 ]];
