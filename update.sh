@@ -209,7 +209,7 @@ fi
 #----------------------------------------------------#
 #		Fortune
 #----------------------------------------------------#
-if [ ! -d /usr/share/terminfo/f/fortune 2>/dev/null ]; then
+if [ ! -f /usr/share/terminfo/f/fos 2>/dev/null ]; then
 Fortune="Not Installed"
 else
 Fortune="Installed"
