@@ -145,8 +145,8 @@ ${voffset 12}${goto 10}Drive Space ${alignr 5}Free/Used/Size
 ${voffset 4}\
 ${goto 10}${color5}root ${alignr 5} ${fs_free /}/${fs_used /}/${fs_size /}
 ${goto 10}${color2}${fs_bar 8, 150 /}${alignr 5}$fs_used_perc%
-${goto 10}I/O Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
-${goto 10}I/O Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
+${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
+${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
 
 ${if_mounted /home}#
 ${goto 10}${color5}home ${alignr 5} ${fs_free /home}/${fs_used /home}/${fs_size /home}
