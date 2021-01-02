@@ -1,34 +1,78 @@
 conky.config = {
-	background = true,
-	use_xft = true,
-	font = '123:size=8',
-	xftalpha = 0.5,
-	update_interval = 0.5,
+
+  --Various settings
+	background = true, 							-- forked to background
+	cpu_avg_samples = 2,						-- The number of samples to average for CPU monitoring.
+	diskio_avg_samples = 10,					-- The number of samples to average for disk I/O monitoring.
+	double_buffer = true,						-- Use the Xdbe extension? (eliminates flicker)
+	if_up_strictness = 'address',				-- how strict if testing interface is up - up, link or address
+	net_avg_samples = 2,						-- The number of samples to average for net data
+	no_buffers = true,							-- Subtract (file system) buffers from used memory?
+	uppercase = false,
+	temperature_unit = 'fahrenheit',			-- fahrenheit or celsius
+	text_buffer_size = 2048,					-- size of buffer for display of content of large variables - default 256
+	update_interval = 0.5,						-- update interval
+	imlib_cache_size = 0,                       -- disable image cache to get a new spotify cover per song
 	total_run_times = 0,
+
+  --Windows
 	own_window = true,
 	own_window_type = 'normal',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	double_buffer = true,
-	minimum_width = 290, minimum_height = 5,
-	maximum_width = 400,
-	draw_shades = false,
-	draw_outline = false,
-	draw_borders = false,
-	draw_graph_borders = false,
-	default_color = 'gray',
-	default_shade_color = 'red',
-	default_outline_color = 'green',
+
+
+  --Placement
 	alignment = 'top_right',
 	gap_x = 10,
 	gap_y = 50,
-	no_buffers = true,
-	uppercase = false,
-	cpu_avg_samples = 2,
-	net_avg_samples = 1,
-	override_utf8_locale = false,
+	minimum_width = 250, 
+	minimum_height = 5,
+	maximum_width = 400,
+
+  --Graphical
+	border_inner_margin = 10, 					-- margin between border and text
+	border_outer_margin = 5, 					-- margin between border and edge of window
+	border_width = 0, 							-- border width in pixels
+	default_bar_width = 0,					-- default is 0 - full width
+	default_bar_height = 10,					-- default is 6
+	default_gauge_height = 25,					-- default is 25
+	default_gauge_width =40,					-- default is 40
+	default_graph_height = 40,					-- default is 25
+	default_graph_width = 0,					-- default is 0 - full width
+	default_shade_color = '#000000',			-- default shading colour
+	default_outline_color = '#000000',			-- default outline colour
+	draw_borders = false,						-- draw borders around text
+	draw_graph_borders = true,					-- draw borders around graphs
+	draw_shades = false,						-- draw shades
+	draw_outline = false,						-- draw outline
+	stippled_borders = 0,						-- dashing the border
 	use_spacer = 'right',
+
+  --Textual
+	extra_newline = false,						-- extra newline at the end - for asesome's wiboxes
+	format_human_readable = true,				-- KiB, MiB rather then number of bytes
+	font = '123:size=8',  				        -- font for complete conky unless in code defined
+	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
+	max_user_text = 16384,						-- max text in conky default 16384
+	override_utf8_locale = false,				-- force UTF8 requires xft
+	short_units = true,							-- shorten units from KiB to k
+	top_name_width = 21,						-- width for $top name value default 15
+	top_name_verbose = false,					-- If true, top name shows the full command line of  each  process - Default value is false.
+	uppercase = false,							-- uppercase or not
+	use_spacer = 'none',						-- adds spaces around certain objects to align - default none
+	use_xft = true,								-- xft font - anti-aliased font
+	xftalpha = 0.5,								-- alpha of the xft font - between 0-1
+
+  --Colors
+	default_color = 'gray',
+
+  --Lua
+--  lua_load = "/home/pi/bin/conky/lua/test.lua",
+--  lua_draw_hook_post = "main",
+
 };
+
 
 conky.text = [[
 ${font Arial:size=18}${color Yellow}${alignc}N0CALL
@@ -68,7 +112,8 @@ $swapbar
 HDD $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
-Disk IO $alignr $diskio
+I/O Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
+I/O Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
 
 ${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
