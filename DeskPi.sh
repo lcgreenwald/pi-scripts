@@ -10,8 +10,6 @@ LOGO=$MYPATH/logo.png
 cat <<EOF > $MYPATH/intro.txt
 This script downloads and installs the
 DeskPi Pro power button and fan control.
-It reboots auromatically.
-
 EOF
 
 INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
@@ -30,6 +28,7 @@ rm $MYPATH/intro.txt
 
 cd ~
 git clone https://github.com/DeskPi-Team/deskpi.git
+sed -i '/installed/a exit' $HOME/deskpi/install.sh
 cd ~/deskpi/
 chmod +x install.sh
 sudo ./install.sh

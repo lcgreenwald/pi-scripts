@@ -115,6 +115,7 @@ yad --center --list --checklist --width=600 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
+false "DeskPi" "DeskPi enclosure utilities." \
 false "Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "File search utility" \
 false "Plank" "Application dock." \
@@ -136,7 +137,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
+BASEAPPS=(DeskPi Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

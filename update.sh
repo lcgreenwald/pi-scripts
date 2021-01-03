@@ -209,10 +209,19 @@ fi
 #----------------------------------------------------#
 #		Fortune
 #----------------------------------------------------#
-if [ ! -f /usr/share/terminfo/f/fos 2>/dev/null ]; then
+if [ ! -f /usr/share/terminfo/f/fortune 2>/dev/null ]; then
 Fortune="Not Installed"
 else
 Fortune="Installed"
+fi
+
+#----------------------------------------------------#
+#		DeskPi
+#----------------------------------------------------#
+if [ ! -d $HOME/deskpi 2>/dev/null ]; then
+DeskPi="Not Installed"
+else
+DeskPi="Installed"
 fi
 
 }
@@ -235,6 +244,7 @@ yad --center --list --checklist --width=600 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
+false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
@@ -256,7 +266,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
+BASEAPPS=(DeskPi Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
