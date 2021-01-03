@@ -80,7 +80,7 @@ if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
 if ! hash xscreensaver 2>/dev/null; then
-	sudo apt install -y xscreensaver
+	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
 fi
 
 #####################################
