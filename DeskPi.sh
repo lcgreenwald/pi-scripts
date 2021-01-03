@@ -28,7 +28,7 @@ rm $MYPATH/intro.txt
 
 cd ~
 git clone https://github.com/DeskPi-Team/deskpi.git
-sed -i "s/sudo reboot/#sudo reboot/" $HOME/deskpi/install.sh
+sed -i '/installed/a exit' $HOME/deskpi/install.sh
 cd ~/deskpi/
 chmod +x install.sh
 sudo ./install.sh
