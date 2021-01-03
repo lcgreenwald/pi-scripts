@@ -112,8 +112,8 @@ $swapbar
 HDD $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
-I/O Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
-I/O Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
+Disk Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
+Disk Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
 
 ${font Arial:bold:size=12}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
