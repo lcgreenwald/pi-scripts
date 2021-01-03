@@ -160,6 +160,7 @@ echo "@reboot sleep 30 && /home/pi/bin/solar.sh" >> $TEMPCRON
 echo "@reboot sleep 40 && /home/pi/bin/solarimage.sh" >> $TEMPCRON
 echo "*/10 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
 echo "*/10 * * * * /home/pi/bin/solarimage.sh" >> $TEMPCRON
+echo "*/10 * * * * /home/pi/bin/writegrid.sh" >> $TEMPCRON
 echo "00 03 * * 0  /home/pi/bin/install-updates.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
