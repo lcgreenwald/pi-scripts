@@ -20,6 +20,7 @@ You may also optionally install:
 	pi imager - Raspberry Pi Imager
 	Neofetch - Display Linux system Information In a Terminal
 	CommanderPi - Easy RaspberryPi4 GUI system managment
+	Fortune - Random quotes
 
 Run the following commands
 
