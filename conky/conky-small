@@ -77,7 +77,7 @@ conky.config = {
 conky.text = [[
 ${font Arial:size=12}${color Yellow}${alignc}N0CALL
 ${voffset -20}
-${font Arial:bold:size=12}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
+${font Arial:bold:size=08}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
 ${font Arial:bold:size=08}${color White}Radio Freq ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq}
 ${color Yellow}LOCAL${alignr}ZULU
 ${font Arial:bold:size=08}${color White}${time %H:%M:%S}\
