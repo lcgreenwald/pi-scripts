@@ -151,8 +151,8 @@ ${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG O
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
 
-${font Arial:bold:size=10}${color Yellow}RECENT LOG ENTRIES ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=08}${color White}${tail ~/Documents/mylog.txt 5}
+${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=10}${color White}\
+${execi 600 fortune -s | fold -s -w40}
 
-#$diskio
 ]];

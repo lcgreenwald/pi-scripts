@@ -5,6 +5,7 @@ version=1.1.5
         Added xscreensaver install.
         Added Disk IO display to conky
         Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
+        Added DeskPi utilities
 
 1.1.4 - Updates to the updates.sh
 
