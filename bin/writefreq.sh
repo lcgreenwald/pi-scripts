@@ -13,7 +13,7 @@ FREQCH=$(echo "$FREQ" | grep error)
 
 if [ -z "$FREQCH" ]
 then
-echo ${FREQ:0:-3}/1000 | bc -l | xargs printf "%.3f ${FREQ: -3}" > $HOME/bin/conky/Freq.txt
+echo ${FREQ:0:-3}/1000 | bc -l | xargs printf "%.3f ${FREQ: -3}" > /home/pi/bin/conky/Freq.txt
 else
 MAIN "$1"
 fi
