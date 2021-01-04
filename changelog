@@ -6,6 +6,7 @@ version=1.1.5
         Added Disk IO display to conky
         Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
         Added DeskPi utilities
+        Added writefreq.sh and updated conky files with ${exec cat $HOME/bin/conky/Freq.txt}.  Added writefreq.sh to crontab.
 
 1.1.4 - Updates to the updates.sh script
 
