@@ -145,6 +145,6 @@ ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}P
 
 ${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
-${execi 600 fortune -s | fold -s -w40}
+${exec cat $HOME/bin/conky/fortune.txt}
 
 ]];

@@ -12,3 +12,5 @@ echo $GRID > $HOME/bin/conky/Grid.txt
 else
 echo "NO GPS" > $HOME/bin/conky/Grid.txt
 fi
+
+fortune | fold -s -w40 > $HOME/bin/conky/fortune.txt
