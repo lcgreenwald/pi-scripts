@@ -74,10 +74,10 @@ conky.config = {
 };
 
 conky.text = [[
-${font Arial:size=18}${color Yellow}${alignc}N0CALL
+${font Arial:size=18}${color Yellow}${alignc}WB0SIO
 ${voffset -25}
 ${font Arial:bold:size=12}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
-${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${execi 5 $HOME/bin/conky/get-freq}
+${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
 ${color Yellow}LOCAL${alignr}ZULU
 ${font Arial:bold:size=15}${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
@@ -100,7 +100,7 @@ Kernel: $alignr${kernel}
 Frequency: $alignr${freq_g cpu0}Ghz
 Uptime: $alignr${uptime}
 #TEMP
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
+Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
 ${voffset -15}
 CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
 ${cpubar cpu}
@@ -121,7 +121,7 @@ Wired IP address $alignr ${addr eth0}
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 ${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
 
-${font Arial:bold:size=10}${color Yellow}Solar Conditions ${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=10}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
 Solar Flux: ${exec cat ~/bin/conky/solardata/s-flux.txt} ${goto 150} Sunspots: ${exec cat ~/bin/conky/solardata/sunspots.txt}
 A Index: ${exec cat ~/bin/conky/solardata/a-index.txt} ${goto 150} K Index: ${exec cat ~/bin/conky/solardata/k-index.txt}
@@ -136,18 +136,18 @@ ${color White}12m-10m Day: ${if_existing /home/pi/bin/conky/solardata/band12-10d
 ${goto 150} Night: ${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Good}${color Green}Good  ${endif}${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Fair}${color Yellow}Fair${endif}${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Poor}${color Red}Poor  ${endif} 
 
 ${font Arial:bold:size=10}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
-${font Arial:size=08}${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$endif \
+${font Arial:size=08}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif \
+${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif
+${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$endif \
 ${alignr}${if_running pat}${color green}PAT ACTIVE${else}${color red}PAT OFF$endif
 ${if_running kissattach}${color green}KISSATCH ACTIVE${else}${color red}KISSATCH OFF$endif \
 ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}DIREWOLF OFF$endif
 
 ${font Arial:bold:size=10}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=8}${if_running js8call}${color green}JS8call ACTIVE${else}${color red}JS8call OFF$endif \
-${alignr}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif
+${alignr}${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif
 ${if_running wsjtx}${color green}WSJT-X ACTIVE${else}${color red}WSJT-X OFF$endif \
 ${alignr}${if_running jtdx}${color green}JTDX ACTIVE${else}${color red}JTDX OFF$endif
-${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif \
-${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
 
