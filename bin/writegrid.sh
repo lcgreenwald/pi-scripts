@@ -1,6 +1,7 @@
 #!/bin/bash
 ########################
 # 2021/01/03 - WB0SIO - Created from KM4ack conky/grid. Added write to file.
+# 2021/01/04 - WB0SIO - Added fortune.
 ########################
 
 GRID=$($HOME/bin/conky/get-grid)
@@ -13,4 +14,4 @@ else
 echo "NO GPS" > $HOME/bin/conky/Grid.txt
 fi
 
-fortune | fold -s -w40 > /home/pi/bin/conky/fortune.txt
+/usr/games/fortune | fold -s -w40 > /home/pi/bin/conky/fortune.txt
