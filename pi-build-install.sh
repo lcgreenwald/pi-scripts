@@ -93,7 +93,8 @@ latest version of KM4ACK's Build-a-Pi and
 a custom version of KM4ACK's HotSpot Tools.
 First we will install some required and some
 optional utility software.
-
+Once this is complete, the Build-A-Pi menu
+will open.  Enjoy!  73 de WB0SIO
 EOF
 
 INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
