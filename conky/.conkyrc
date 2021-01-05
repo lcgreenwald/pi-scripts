@@ -78,18 +78,14 @@ ${font Arial:size=18}${color Yellow}${alignc}WB0SIO
 ${voffset -25}
 ${font Arial:bold:size=12}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
 ${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
+${font Arial:bold:size=14}\
 ${color Yellow}LOCAL${alignr}ZULU
-${font Arial:bold:size=15}${color White}${time %H:%M:%S}\
+${color White}${time %H:%M:%S}\
 ${alignr}${tztime Zulu %H:%M:%S}
-${font Arial:bold:size=15}${color White}${time %d%b%y}\
+${time %d%b%y}\
 ${alignr}${tztime Zulu %d%b%y}
-
-
-${voffset -165}
-
-
-${color grey}
-${font}
+\
+${color grey}${font}\
 ${font Arial:bold:size=10}${color Yellow}SYSTEM: ${color DarkSlateGray} ${hr 2}
 ${font Arial:bold:size=10}${color White}\
 Desktop: $alignr${desktop_name} of $desktop_number
