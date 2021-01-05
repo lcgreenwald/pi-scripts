@@ -108,8 +108,14 @@ $swapbar
 HDD $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
-Disk Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
-Disk Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
+${if_existing /dev/mmcblk0p2}\
+SD Read:${alignr}${offset -10}${diskio_read /dev/mmcblk0p2}${alignr}${diskiograph_read mmcblk0p2 8,125}
+SD Write:${alignr}${offset -10}${diskio_write /dev/mmcblk0p2}${alignr}${diskiograph_write mmcblk0p2 8,125}
+${endif}\
+${if_existing /dev/sda2}\
+HD Read:${alignr}${offset -10}${diskio_read /dev/sda2}${alignr}${diskiograph_read sda2 8,125}
+HD Write:${alignr}${offset -10}${diskio_write /dev/sda2}${alignr}${diskiograph_write sda2 8,125}
+${endif}\
 
 ${font Arial:bold:size=12}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
@@ -149,7 +155,7 @@ ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif 
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
 
 ${font Arial:bold:size=12}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=12}${color White}\
+${font Arial:bold:size=10}${color White}\
 ${exec cat $HOME/bin/conky/fortune.txt}
 
 
