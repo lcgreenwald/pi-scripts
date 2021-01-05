@@ -104,7 +104,7 @@ MEM $alignc $mem / $memmax $alignr $memperc%
 $membar
 SWAP $alignc $swap / $swapmax $alignr $swapperc%
 $swapbar
-HDD $alignc used / free / size  
+HOME $alignc used / free / size  
 $alignc ${fs_used /home} / ${fs_free /home} / ${fs_size /home} 
 ${fs_bar /home}
 ${if_existing /dev/mmcblk0p2}\
