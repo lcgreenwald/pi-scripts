@@ -26,7 +26,7 @@ conky.config = {
 	alignment = 'top_right',
 	gap_x = 10,
 	gap_y = 50,
-	minimum_width = 250, 
+	minimum_width = 275, 
 	minimum_height = 5,
 	maximum_width = 400,
 
