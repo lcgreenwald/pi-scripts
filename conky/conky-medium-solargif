@@ -88,7 +88,7 @@ ${alignr}${tztime Zulu %d%b%y}
 \
 ${color grey}${font}\
 ${font Arial:bold:size=10}${color Yellow}SYSTEM: ${color DarkSlateGray} ${hr 2}
-${font Arial:bold:size=10}${color White}\
+${font Arial:bold:size=8}${color White}\
 Desktop: $alignr${desktop_name} of $desktop_number
 Hostame: $alignr${nodename}
 Version: $alignr${exec cat /etc/issue.net}
@@ -118,10 +118,11 @@ HD Write:${alignr}${offset -10}${diskio_write /dev/sda2}${alignr}${diskiograph_w
 ${endif}\
 
 ${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=10}${color White}\
+${font Arial:bold:size=8}${color White}\
 Wireless IP address $alignr ${addr wlan0}
 Wired IP address $alignr ${addr eth0}
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
+${font Arial:bold:size=8}${color White}\
 ${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
 
 ${font Arial:bold:size=10}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
