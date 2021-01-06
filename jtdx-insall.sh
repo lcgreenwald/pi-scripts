@@ -11,7 +11,7 @@
 cd $HOME
 #curl won't work here. Returns "forbidden" Use wget instead
 wget -qO jtdx.txt https://www.jtdx.tech/en/
-VER=$(grep armhf.deb jtdx.txt | awk '{print $2}' | sed 's/"//g' | sed 's/href=\/downloads\/Linux\///')
+VER=$(grep r_armhf.deb jtdx.txt | awk '{print $2}' | sed 's/"//g' | sed 's/href=\/downloads\/Linux\///')
 rm jtdx.txt
 
 wget https://www.jtdx.tech/downloads/Linux/$VER
