@@ -88,13 +88,14 @@ fi
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio, version $VERSION.
-This script downloads and installs the
-latest version of KM4ACK's Build-a-Pi and 
-a custom version of KM4ACK's HotSpot Tools.
-First we will install some required and some
-optional utility software.
-Once this is complete, the Build-A-Pi menu
-will open.  Enjoy!  73 de WB0SIO
+This script downloads and installs the latest version of 
+KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
+HotSpot Tools.
+First we will install some required and some optional 
+utility software.
+Once this is complete, the Build-A-Pi menu will open.  
+
+Enjoy!  73 de WB0SIO
 EOF
 
 INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
@@ -164,7 +165,7 @@ echo "@reboot sleep 40 && /home/pi/bin/writegrid.sh" >> $TEMPCRON
 echo "*/10 * * * * /home/pi/bin/solar.sh" >> $TEMPCRON
 echo "*/10 * * * * /home/pi/bin/solarimage.sh" >> $TEMPCRON
 echo "*/3 * * * * /home/pi/bin/writegrid.sh" >> $TEMPCRON
-echo "*/3 * * * * /home/pi/bin/writefreq.sh" >> $TEMPCRON
+echo "*/1 * * * * /home/pi/bin/writefreq.sh" >> $TEMPCRON
 echo "00 03 * * 0  /home/pi/bin/install-updates.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
