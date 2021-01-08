@@ -269,6 +269,12 @@ sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
 sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
 
 #************
+# Update swapfile parameters.
+#************
+sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
+sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
+
+#************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #************
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
