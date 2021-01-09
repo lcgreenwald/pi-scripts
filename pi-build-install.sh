@@ -167,13 +167,12 @@ echo "*/10 * * * * /home/pi/bin/solarimage.sh" >> $TEMPCRON
 echo "*/3 * * * * /home/pi/bin/writegrid.sh" >> $TEMPCRON
 echo "*/1 * * * * /home/pi/bin/writefreq.sh" >> $TEMPCRON
 echo "00 03 * * 0  /home/pi/bin/install-updates.sh" >> $TEMPCRON
+echo "00 03 * * *  /home/pi/bin/BackupDigitalModeSettings.sh" >> $TEMPCRON
 crontab $TEMPCRON
 rm $TEMPCRON
 
 #####################################
-#	notice to user
-#Do not reboot as requested at the end of the build-a-pi script, just exit.
-#Wait for the pi-build-install finished dialog box.
+#	Install Build-A-Pi
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
@@ -194,8 +193,6 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-
-# build-a-pi  
 cd
 git clone https://github.com/km4ack/pi-build.git
 cd pi-build
@@ -294,6 +291,16 @@ cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
+
+#####################################
+#	Update fstab and create mount point
+#####################################
+sudo echo " " >> /etc/fstab
+sudo echo "# <file system>    <mount point>                        <type>    <options>" >> /etc/fstab
+sudo echo "honshu:public      /home/public/mounts/honshu/public    nfs       rw,sync,bg,auto,intr,soft,_netdev,retry=1" >> /etc/fstab
+if [ ! -d /home/public/mounts/honshu/public 2>/dev/null ] ; then
+  mkdir -p /home/public/mounts/honshu/public
+fi
 
 #************
 # Update the locate database.
