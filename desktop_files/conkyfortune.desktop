@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Conky Fortune
+Comment=Conky Fortune Display
+GenericName=Conky Screen Background Monitor
+Exec=/home/pi/pi-scripts/conky/startconkyfortune
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=HamRadio
+Keywords=Radio

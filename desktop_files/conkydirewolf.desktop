@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Conky Direwolf
+Comment=Conky Direwolf Display
+GenericName=Conky Screen Background Monitor
+Exec=/home/pi/pi-scripts/conky/startconkydirewolf
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=HamRadio
+Keywords=Radio
