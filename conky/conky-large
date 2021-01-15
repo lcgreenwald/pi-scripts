@@ -116,6 +116,14 @@ ${if_existing /dev/sda2}\
 HD Read:${alignr}${offset -10}${diskio_read /dev/sda2}${alignr}${diskiograph_read sda2 8,125}
 HD Write:${alignr}${offset -10}${diskio_write /dev/sda2}${alignr}${diskiograph_write sda2 8,125}
 ${endif}\
+${if_existing /dev/zram0}\
+Zram0 Read:${alignr}${offset -10}${diskio_read /dev/zram0}${alignr}${diskiograph_read zram0 8,125}
+Zram0 Write:${alignr}${offset -10}${diskio_write /dev/zram0}${alignr}${diskiograph_write zram0 8,125}
+${endif}\
+${if_existing /dev/zram1}\
+Zram1 Read:${alignr}${offset -10}${diskio_read /dev/zram1}${alignr}${diskiograph_read zram1 8,125}
+Zram1 Write:${alignr}${offset -10}${diskio_write /dev/zram1}${alignr}${diskiograph_write zram1 8,125}
+${endif}\
 
 ${font Arial:bold:size=12}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=10}${color White}\
