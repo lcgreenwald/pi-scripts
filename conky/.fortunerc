@@ -26,10 +26,10 @@ conky.config = {
 	alignment = 'bottom_left',
 	gap_x = 10,
 	gap_y = 80,
-	minimum_width = 400, 
+	minimum_width = 425, 
 	minimum_height = 100,
-	maximum_width = 400,
-    height = 100,
+	maximum_width = 425,
+  height = 100,
     
   --Graphical
 	border_inner_margin = 10, 					-- margin between border and text
