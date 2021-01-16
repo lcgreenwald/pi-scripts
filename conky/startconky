@@ -1,4 +1,3 @@
-!#/bin/bash
-#sudo killall conky > /dev/null 2>&1
+#!/bin/bash
 sleep 10 &&
 /usr/bin/conky > /dev/null 2>&1
