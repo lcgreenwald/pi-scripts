@@ -1,3 +1,0 @@
-#!/bin/bash
-sleep 10 &&
-/usr/bin/conky -c /home/pi/pi-scripts/conky/.conkyrc2 > /dev/null 2>&1
