@@ -49,29 +49,40 @@ fi
 
 APPLY(){
 if [ $BUT = 1 ]; then
-pcmanfm --set-wallpaper /home/pi/pi-build/bap-wallpaper.jpg
+pcmanfm --set-wallpaper /home/pi/pi-build/bap-wallpaper.jpg --wallpaper-mode=stretch
 elif [ $BUT = 2 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/aurora.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/aurora.jpg --wallpaper-mode=stretch
 elif [ $BUT = 3 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/clouds.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/clouds.jpg --wallpaper-mode=stretch
 elif [ $BUT = 4 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/fisherman.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/fisherman.jpg --wallpaper-mode=stretch
 elif [ $BUT = 5 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/islands.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/islands.jpg --wallpaper-mode=stretch
 elif [ $BUT = 6 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/lasers.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/lasers.jpg --wallpaper-mode=stretch
 elif [ $BUT = 7 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/mountain.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/mountain.jpg --wallpaper-mode=stretch
 elif [ $BUT = 8 ]; then
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/road.jpg
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/road.jpg --wallpaper-mode=stretch
 elif [ $BUT = 9 ]; then
-pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/ARRL_We_Do_That.jpg
+pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/ARRL_We_Do_That.jpg --wallpaper-mode=fit
 elif [ $BUT = 10 ]; then
-pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/Band_Chart_Image_for_ARRL_Web.jpg
+pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/Band_Chart_Image_for_ARRL_Web.jpg --wallpaper-mode=center
 elif [ $BUT = 11 ]; then
-pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/When_all_else_fails-amateur_radio.jpg
+pcmanfm --set-wallpaper /home/pi/pi-scripts/wallpaper/When_all_else_fails-amateur_radio.jpg --wallpaper-mode=fit
 fi
 }
+
+#--wallpaper-mode=mode
+#                           Set mode of desktop wallpaper, mode is:
+#                            color (fill with solid color),
+#                            stretch (stretch to fill entire monitor),
+#                            fit (stretch to fit monitor size),
+#                            center (place on center of monitor),
+#                            tile (tile to fill entire monitor),
+#                            crop (stretch and crop to fill monitor), or
+#                            screen (stretch to fill entire screen)
+
 
 while [ 1 ]
 do
