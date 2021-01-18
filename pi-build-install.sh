@@ -70,6 +70,12 @@ if ! hash log2ram 2>/dev/null; then
 	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
 	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
 fi
+if ! hash rpimonitor 2>/dev/null; then
+  sudo apt-get install dirmngr
+  sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2C0D3C0F
+  sudo wget http://goo.gl/vewCLL -O /etc/apt/sources.list.d/rpimonitor.list
+fi
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y bluetooth bluez-cups bluez-obexd
@@ -81,6 +87,9 @@ if ! hash jq 2>/dev/null; then
 fi
 if ! hash xscreensaver 2>/dev/null; then
 	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
+fi
+if ! hash rpimonitor 2>/dev/null; then
+	sudo apt install -y rpimonitor
 fi
 
 #####################################
