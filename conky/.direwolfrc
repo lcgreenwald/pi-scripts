@@ -24,7 +24,7 @@ conky.config = {
 
   --Placement
 	alignment = 'bottom_left',
-	gap_x = 450,
+	gap_x = 950,
 	gap_y = 80,
 	minimum_width = 600, 
 	minimum_height = 100,
@@ -75,8 +75,8 @@ conky.config = {
 };
 
 conky.text = [[
-${if_existing /home/pi/Documents/Direwolf.log}\
+${if_existing /home/pi/Documents/Direwolf/Direwolf.log}\
 ${font Arial:bold:size=10}${color Yellow}DIREWOLF LOG ENTRIES ${color DarkSlateGray}${hr 2}
-${font Arial:bold:size=08}${color White}${tail ~/Documents/Direwolf.log 5}
+${font Arial:bold:size=08}${color White}${tail ~/Documents/Direwolf/Direwolf.log 5}
 ${endif}\
 ]];
