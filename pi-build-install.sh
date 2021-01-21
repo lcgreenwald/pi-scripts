@@ -252,7 +252,7 @@ sed -i "s/hamlib-$OLDRIG/hamlib-$NEWRIG/" $HOME/pi-build/functions/base.function
 bash pi-build/build-a-pi
 
 # Load the configuration info that was set up in build-a-pi
-source $HOME/pi-build/config
+source /home/pi/pi-build/config
 
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
@@ -274,6 +274,22 @@ sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-buil
 sed -i "s/#alias ll='ls -l'/alias ll='ls -l'/" $HOME/.bashrc
 sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
 sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
+
+#************
+# If pat menu is installed,
+# Update callsign, password and grid info in Pat Menu.
+#************
+if [ -d $HOME/patmenu2 ]; then
+
+  CONFIG=/home/pi/patmenu2/manage-pat-functions
+
+  #set callsign
+  sed -i "s/\"Call Sign\" \"\"/\"Call Sign\" \"$CALL\"/" $CONFIG
+  #set password
+  sed -i "s/\"Winlink Password\" \"\"/\"Winlink Password\" \"$WL2KPASS\"/" $CONFIG
+  #set locator
+  sed -i "s/\"Six Character Grid Square\" \"EM65TV\"/\"Six Character Grid Square\" \"$GRID\"/" $CONFIG
+fi
 
 #************
 # Update swapfile parameters.
