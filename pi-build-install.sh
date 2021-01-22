@@ -294,7 +294,7 @@ fi
 #************
 # Update swapfile parameters.
 #************
-sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
+sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=200/' /etc/dphys-swapfile
 sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 
 #************
@@ -315,6 +315,10 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
+cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
+cp -f $MYPATH/direwolf.conf $HOME/
+
+
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #####################################
