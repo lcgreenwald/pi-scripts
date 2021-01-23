@@ -315,6 +315,10 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
+cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
+cp -f $MYPATH/direwolf.conf $HOME/
+
+
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #####################################
