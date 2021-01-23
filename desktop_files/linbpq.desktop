@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=LinBPQ
+Comment=Run LinBPQ
+GenericName=LinBBQ
+Exec=/home/pi/pi-scripts/startlinbpq
+Icon=/home/pi/linbpq/HTML/favicon.ico
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=HamRadio
+Keywords=Radio

@@ -19,6 +19,7 @@ Log2ram(){
 	sudo sed -i "s/USE_RSYNC=false/USE_RSYNC=true/" /etc/log2ram.conf
 	sudo sed -i "s/PATH_DISK=\"\/var\/log\"/PATH_DISK=\"\/var\/log;\/home\/pi\/.local\/share\"/" /etc/log2ram.conf
 	sudo sed -i "s/ZL2R=false/ZL2R=true/" /etc/log2ram.conf
+	sudo sed -i "s/LOG_DISK_SIZE=100M/LOG_DISK_SIZE=200M/" /etc/log2ram.conf
 }
 ################################
 #	LOCATE
