@@ -22,7 +22,10 @@ echo "0.0.0.0 packages.microsoft.com" >> /etc/hosts
 
 # Disable vscode updates and
 # write protect that file on Linux using the chattr command:
-sed -i "s/deb/#deb/" /etc/apt/sources.list.d/vscode.list
+cp /etc/apt/sources.list.d/vscode.list /etc/apt/sources.list.d/vscode.tmp
+sed -i "s/deb/#deb/" /etc/apt/sources.list.d/vscode.tmp
+cp /etc/apt/sources.list.d/vscode.tmp /etc/apt/sources.list.d/vscode.list
+rm /etc/apt/sources.list.d/vscode.tmp
 chattr +i /etc/apt/sources.list.d/vscode.list
 lsattr /etc/apt/sources.list.d/vscode.list
 
