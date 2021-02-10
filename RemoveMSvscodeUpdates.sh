@@ -3,8 +3,8 @@
 # Remove Microsoft vscode updates from Rasberry PI OS
 #  From info in https://www.cyberciti.biz/linux-news/heads-up-microsoft-repo-secretly-installed-on-all-raspberry-pis-linux-os/
 # Execute with sudo
-# Created 2021/02/09 - Larry Greenwald
-#
+# Created 2021/02/09 - Larry Greenwald WB0SIO
+# Modified 2021/02/10 - Larry Greenwald WB0SIO
 ############################
 #check if run as root
 who=$(whoami)
@@ -24,6 +24,7 @@ echo "0.0.0.0 packages.microsoft.com" >> /etc/hosts
 # write protect that file on Linux using the chattr command:
 sed -i "s/deb/#deb/" /etc/apt/sources.list.d/vscode.list
 chattr +i /etc/apt/sources.list.d/vscode.list
+lsattr /etc/apt/sources.list.d/vscode.list
 
 # Put Debian package on hold so that it will not install further updates:
 apt-mark hold raspberrypi-sys-mods
