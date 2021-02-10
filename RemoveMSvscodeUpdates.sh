@@ -14,6 +14,7 @@ echo ""
 else
 echo "Script should be run as root"
 echo "sudo RemoveMSvscodeUpdates.sh"
+exit
 fi
 
 # Edit /etc/hosts on RPI
