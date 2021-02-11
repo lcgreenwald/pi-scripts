@@ -17,6 +17,18 @@ echo "sudo RemoveMSvscodeUpdates.sh"
 exit
 fi
 
+echo "Would you like to put a hold on the"
+read -p "raspberrypi-sys-mods package? y/n " ANS
+
+if [ $ANS = 'y' ] || [ $ANS = 'Y' ];then
+echo "A hold will be placed on the raspberrypi-sys-mods package"
+echo "You can remove this hold at anytime by running"
+echo "sudo apt-mark unhold raspberrypi-sys-mods"
+
+#Hold raspberrypi-sys-mods package
+apt-mark hold raspberrypi-sys-mods
+fi
+
 # Edit /etc/hosts on RPI
 echo "0.0.0.0 packages.microsoft.com" >> /etc/hosts
 
@@ -28,9 +40,6 @@ cp /etc/apt/sources.list.d/vscode.tmp /etc/apt/sources.list.d/vscode.list
 rm /etc/apt/sources.list.d/vscode.tmp
 chattr +i /etc/apt/sources.list.d/vscode.list
 lsattr /etc/apt/sources.list.d/vscode.list
-
-# Put Debian package on hold so that it will not install further updates:
-apt-mark hold raspberrypi-sys-mods
 
 # Delete Microsoft’s GPG key using the rm command:
 rm -vf /etc/apt/trusted.gpg.d/microsoft.gpg
