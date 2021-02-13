@@ -13,7 +13,7 @@ then
 echo ""
 else
 echo "Script should be run as root"
-echo "sudo RemoveMSvscodeUpdates.sh"
+echo "sudo ~/pi-scropts/RemoveMSvscodeUpdates.sh"
 exit
 fi
 
