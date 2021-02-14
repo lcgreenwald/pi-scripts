@@ -12,8 +12,8 @@ if [ $who == "root" ]
 then
 echo ""
 else
-echo "Script should be run as root"
-echo "sudo ~/pi-scropts/RemoveMSvscodeUpdates.sh"
+echo "This script must be run as root"
+echo "sudo ~/pi-scripts/RemoveMSvscodeUpdates.sh"
 exit
 fi
 
