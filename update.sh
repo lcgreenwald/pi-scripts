@@ -224,6 +224,15 @@ else
 DeskPi="Installed"
 fi
 
+#----------------------------------------------------#
+#		Argon
+#----------------------------------------------------#
+if [ ! -f /etc/argononed.conf 2>/dev/null ]; then
+Argon="Not Installed"
+else
+Argon="Installed"
+fi
+
 }
 
 CHECK
@@ -245,6 +254,7 @@ yad --center --list --checklist --width=600 --height=600 --separator="" \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
 false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
+false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
@@ -266,7 +276,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
@@ -323,6 +333,7 @@ fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
+cp -f $MYPATH/conky/gpsupdate $HOME/bin/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #************
