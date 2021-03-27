@@ -180,7 +180,7 @@ DeskPi(){
 ################################
 Argon(){
 	curl https://download.argon40.com/argon1.sh|bash 
-	mv /home/pi/Desktop/argonone-/* /home/pi/.local/share/applications
+	mv /home/pi/Desktop/argonone-* /home/pi/.local/share/applications
 	sed -i "s/Categories=.*$/Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;/" /home/pi/.local/share/applications/argonone-config.desktop
 	sed -i "s/Categories=.*$/Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;/" /home/pi/.local/share/applications/argonone-uninstall.desktop
 }
