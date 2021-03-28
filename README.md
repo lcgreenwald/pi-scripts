@@ -5,15 +5,20 @@ My Raspberry Pi Scripts and programs
 This script installs:
 
 km4ack build-a-pi
+	Optionally select Master, Beta or Dev 
 
 km4ack hotspot tools customized to allow editing the hotspot IP address
 
+Additional customised Conky files
+
 You may also optionally install:
 
+	DeskPi - DeskPi case software
+	Argon - Argon One m.2 case software
 	log2ram - Save logs to ram to reduce wear on your SD card.
 	locate - File find/locate program
 	samba - SMB server to share files/folders with Windows machines
-	webmin - Web based computer/configuration mamager
+	webmin - Web based computer/configuration manager
 	cqrprop - Propagation prediction 
 	3.5" display drivers
 	disks - gnome disk utility
