@@ -130,12 +130,13 @@ ${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}$
 ${font Arial:bold:size=8}${color White}\
 Wireless IP address $alignr ${addr wlan0}
 Wired IP address $alignr ${addr eth0}
+
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}\
 ${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
 
 ${font Arial:bold:size=10}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
-${voffset -25}
+${voffset -20}
 ${image ~/bin/conky/solardata/solarpich.gif -p 0,530 -f 30 -n}
 ${voffset 150}
 
