@@ -43,23 +43,6 @@ conky.config = {
 };
 
 conky.text = [[
-# Various images #
-${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/top-bg.png -p 20,10 -s 275x950}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bottom-bg.png -p 20,580 -s 228x380}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-1.png -p 20,266 -s 228x86}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-2.png -p 20,352 -s 228x105}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-3.png -p 20,457 -s 228x110}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-4.png -p 20,565 -s 228x14}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-5.png -p 20,565 -s 228x14}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/bg-6.png -p 20,180 -s 228x86}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/fav-color.png -p 20,180 -s 228x86}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/border.png -p 20,10 -s 228x950}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-v.png -p 95,274 -s 1x76}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-v.png -p 172,274 -s 1x76}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,358 -s 226x1}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,447 -s 226x1}\
-#${image ~/.conky/.conky-weather/assets/Zukitwo-v2/God-Mode/separator-h.png -p 21,900 -s 226x1}\
-\
 # Clock + calendar #
 \
 ${voffset 20}${font Droid Sans Mono :size=11}${alignc}${color4}$nodename${color}$font
@@ -68,6 +51,8 @@ ${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %B %d, %Y}$
 ${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %I:%M:%S %p}${color}$font
 ${voffset 3}${font Droid Sans Mono :size=9}${alignc}${color3}${exec cat /etc/issue.net} $machine${color}$font
 ${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}Kernel: ${kernel}${color}$font
+${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}$desktop_name of $desktop_number
+${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}Uptime: ${uptime}
 \
 # The network section #
 \
@@ -126,7 +111,8 @@ ${voffset 4}${goto 80}${color6}CPU3: ${cpu cpu2}%${goto 175}CPU4: ${cpu cpu3}%
 ${voffset 4}${goto 10}${color5}Mem:${color}${goto 80}${color2}${membar 5,120}${color}${alignr 5}${color6}${memperc}%${color}
 ${voffset 4}${goto 10}${color5}Uptime:${color}${goto 85}${color6}${uptime_short}${color}${goto 140}${color5}
 #TEMP
-${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd measure_temp | awk -F "[=\']" '{print($2 * 1.8)+32}'} F
+${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color}${freq_g cpu0}Ghz
 ${voffset 4}${goto 10}${color5}Throttled: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
 
 ${voffset 4}${goto 10}${color5}Load:${color}
