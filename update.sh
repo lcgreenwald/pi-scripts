@@ -317,6 +317,30 @@ sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
 sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
 
 #************
+# If pat menu is installed,
+# Update callsign, password and grid info in Pat Menu.
+#************
+if [ -d $HOME/patmenu2 ]; then
+
+  CONFIG=/home/pi/patmenu2/manage-pat-functions
+
+  #set callsign
+  sed -i "s/\"Call Sign\" \"\"/\"Call Sign\" \"$CALL\"/" $CONFIG
+  #set password
+  sed -i "s/\"Winlink Password\" \"\"/\"Winlink Password\" \"$WL2KPASS\"/" $CONFIG
+  #set locator
+  sed -i "s/\"Six Character Grid Square\" \"EM65TV\"/\"Six Character Grid Square\" \"$GRID\"/" $CONFIG
+fi
+
+#************
+# Update km4ack menu items.
+#************
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
+
+#************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #************
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
@@ -334,6 +358,8 @@ cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/conky/gpsupdate $HOME/bin/
+sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
+sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #************
