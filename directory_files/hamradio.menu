@@ -1,0 +1,33 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+ "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<Menu>
+  <Name>Applications</Name>
+  <Menu>
+    <Name>Hamradio</Name>
+    <Directory>HamRadio.directory</Directory>
+    <Include>
+        <Category>HamRadio</Category>
+    </Include>
+    <Menu>
+        <Name>FLSUITE</Name>
+        <Directory>FLsuite.directory</Directory>
+        <Include>
+            <Category>flsuite</Category>
+        </Include>
+    </Menu>
+    <Menu>
+        <Name>KM4ACK</Name>
+        <Directory>km4ack.directory</Directory>
+        <Include>
+            <Category>km4ack</Category>
+        </Include>
+    </Menu>
+    <Menu>
+        <Name>WB0SIO</Name>
+        <Directory>wb0sio.directory</Directory>
+        <Include>
+            <Category>wb0sio</Category>
+        </Include>
+    </Menu>
+  </Menu> <!-- End hamradio -->
+</Menu>
