@@ -301,7 +301,7 @@ sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 #************
 # Update km4ack menu items.
 #************
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
+#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
 sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
 sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
 sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
@@ -319,7 +319,7 @@ sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/application
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
 
 #************
-# Install WB0SIO versions of desktop, conky and digi-mode files.
+# Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
 #************
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
 cp -f $MYPATH/bin/*.sh ~/bin/
@@ -327,12 +327,6 @@ cp -f $MYPATH/conky/get-grid ~/bin/conky/
 cp -f $MYPATH/conky/get-freq ~/bin/conky/
 cp -f $MYPATH/desktop_files/* $HOME/.local/share/applications/
 cp -rf $MYPATH/local/share/* $HOME/.local/share/
-if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
-	mkdir $HOME/.xlog
-fi
-if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
-	mkdir $HOME/bin/conky/solardata
-fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
@@ -340,6 +334,21 @@ cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
 sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
 sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
+if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
+	mkdir $HOME/.xlog
+fi
+if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
+	mkdir $HOME/bin/conky/solardata
+fi
+if [ ! -d $HOME/Douments/adi_files 2>/dev/null ] ; then
+	mkdir $HOME/Douments/adi_files
+fi
+if [ -d $HOME/.local/share/JS8Call 2>/dev/null ] ; then
+	ln -s $HOME/.local/share/JS8Call/js8call_log.adi $HOME/Documents/adi_files/js8call_log.adi
+fi
+if [ -d $HOME/.local/share/WSJT-X 2>/dev/null ] ; then
+	ln -s $HOME/.local/share/WSJT-X/wsjtx_log.adi $HOME/Documents/adi_files/wsjtx_log.adi
+fi
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #####################################
