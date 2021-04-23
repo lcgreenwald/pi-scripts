@@ -1,4 +1,8 @@
-version=1.1.5
+version=1.1.6
+
+1.1.6 - Added Argon One m.2 case utilities
+				Added FLSuite, KM4ACK and WB0SIO sub-menus to the HamRadio menu
+				Added build Conky from source
 
 1.1.5 - Added diskio and fortune to conky
         Added fortune installation option.
