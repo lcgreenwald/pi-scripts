@@ -340,8 +340,8 @@ fi
 if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 	mkdir $HOME/bin/conky/solardata
 fi
-if [ ! -d $HOME/Douments/adi_files 2>/dev/null ] ; then
-	mkdir $HOME/Douments/adi_files
+if [ ! -d $HOME/Documents/adi_files 2>/dev/null ] ; then
+	mkdir $HOME/Documents/adi_files
 fi
 if [ -d $HOME/.local/share/JS8Call 2>/dev/null ] ; then
 	ln -s $HOME/.local/share/JS8Call/js8call_log.adi $HOME/Documents/adi_files/js8call_log.adi
