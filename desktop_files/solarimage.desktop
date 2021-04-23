@@ -7,5 +7,5 @@ Icon=/usr/share/icons/gnome/24x24/status/sunny.png
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;
+Categories=wb0sio;
 StartupNotify=true

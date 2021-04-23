@@ -107,7 +107,7 @@ Once this is complete, the Build-A-Pi menu will open.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -299,6 +299,26 @@ sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
 sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 
 #************
+# Update km4ack menu items.
+#************
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
+sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
+
+#************
+# Update FLSuite menu items.
+#************
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
+sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
+
+#************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #************
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
@@ -318,8 +338,8 @@ cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
-
-
+sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
+sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #####################################

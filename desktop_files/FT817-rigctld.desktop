@@ -7,6 +7,6 @@ Icon=js8call_icon
 Terminal=true
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;
+Categories=wb0sio;
 StartupNotify=true
 NoDisplay=false

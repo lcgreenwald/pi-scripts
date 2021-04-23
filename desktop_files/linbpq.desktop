@@ -7,5 +7,5 @@ Icon=/home/pi/linbpq/HTML/favicon.ico
 Type=Application
 Encoding=UTF-8
 Terminal=false
-Categories=HamRadio
+Categories=wb0sio;
 Keywords=Radio
