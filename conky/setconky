@@ -18,7 +18,7 @@ INFO=$(yad --form --width=420 --text-align=center --center --title="Preferences"
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Conky Preferences</b>\r\rThis only changes the call sign in conky." \
 --field="Call Sign" "$CALL" \
---field="Conky Size":CB "conky-medium|conky-medium-solargif|conky-medium-adif|conky-small|conky-large|conky-noradio" \
+--field="Conky Size":CB "conky-medium|conky-medium-solargif|conky-medium-adif|conky-small|conky-large|conky-noradio|conky-noradio-ssd" \
 --field="C or F":CB "C|F" \
 --button="Exit":1 \
 --button="Continue":2)
@@ -71,6 +71,13 @@ sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 sed -i '/#TEMP/a \
 Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-noradio' ]; then
+#delete F line
+echo
+sed -i '/vcgencmd measure_temp/d' $TEMPFILE
+#add cel line
+sed -i '/#TEMP/a \
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-noradio-ssd' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
