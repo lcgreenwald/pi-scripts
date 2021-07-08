@@ -303,11 +303,14 @@ bash $HOME/pi-build/update
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
 #************
 if [ -d $HOME/hotspot-tools2 ]; then
-	rm -rf $HOME/hotspot-tools2
+  AUTHOR=$(grep "author=" $HOME/hotspot-tools2/changelog | sed 's/author=//')
+	if [[ ! $AUTHOR == 'wb0sio' ]]; then
+		rm -rf $HOME/hotspot-tools2
+	  git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
+	  sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
+	  sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
+  fi
 fi
-git clone https://github.com/lcgreenwald/autohotspot-tools2.git $HOME/hotspot-tools2
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" $HOME/pi-build/functions/base.function
 
 #************
 # Update aliases in .bashrc.
@@ -368,7 +371,6 @@ if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
-cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/conky/gpsupdate $HOME/bin/
 sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
 sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
