@@ -187,6 +187,16 @@ Argon(){
 ################################
 
 ################################
+#	PiSafe
+################################
+PiSafe(){
+  cd
+  wget https://raw.githubusercontent.com/RichardMidnight/pi-safe/main/pisafe -O pisafe
+  bash pisafe install -y
+}
+################################
+
+################################
 #	Proto
 ################################
 Proto(){

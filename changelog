@@ -1,4 +1,7 @@
-version=1.1.6
+version=1.1.7
+author=wb0sio
+
+1.1.7 - Added PiSafe - Backup or Restore Raspberry Pi devices
 
 1.1.6 - Added Argon One m.2 case utilities
 				Added FLSuite, KM4ACK and WB0SIO sub-menus to the HamRadio menu
