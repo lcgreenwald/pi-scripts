@@ -192,7 +192,7 @@ Argon(){
 PiSafe(){
   cd
   wget https://raw.githubusercontent.com/RichardMidnight/pi-safe/main/pisafe -O pisafe
-  bash pisafe
+  bash pisafe install -y
 }
 ################################
 
