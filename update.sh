@@ -258,7 +258,7 @@ CHECK
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=700 --height=600 --separator="" \
+yad --center --list --checklist --width=700 --height=620 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
