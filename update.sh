@@ -233,6 +233,15 @@ else
 Argon="Installed"
 fi
 
+#----------------------------------------------------#
+#		PiSafe
+#----------------------------------------------------#
+if [ ! -f $HOME/pisafe 2>/dev/null ]; then
+PiSafe="Not Installed"
+else
+PiSafe="Installed"
+fi
+
 }
 
 CHECK
@@ -249,7 +258,7 @@ CHECK
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=700 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
@@ -267,6 +276,7 @@ false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
+false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE

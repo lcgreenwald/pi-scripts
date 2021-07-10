@@ -122,7 +122,7 @@ rm $MYPATH/intro.txt
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=650 --height=600 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
@@ -140,6 +140,7 @@ false "PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "Display random quotes" \
+false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -149,7 +150,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
