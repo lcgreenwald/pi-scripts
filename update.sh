@@ -417,7 +417,7 @@ A reboot may be required depending on what has been installed.
 If you close this window, you will have to reboot manually.
 EOF
 
-INTRO=$(yad --width=600 --height=300 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
+INTRO=$(yad --width=650 --height=300 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Reboot Now":0 \
