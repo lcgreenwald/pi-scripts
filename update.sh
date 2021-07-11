@@ -357,6 +357,7 @@ sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/conve
 #************
 # Update FLSuite menu items.
 #************
+if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
@@ -364,6 +365,7 @@ sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/application
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
+fi
 
 #************
 # Install WB0SIO versions of desktop, conky and digi-mode files.
@@ -381,7 +383,6 @@ if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
-cp -f $MYPATH/conky/gpsupdate $HOME/bin/
 sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
 sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
