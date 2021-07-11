@@ -296,6 +296,7 @@ sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/conve
 #************
 # Update FLSuite menu items.
 #************
+if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
@@ -303,6 +304,7 @@ sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/application
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
 sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
+fi
 
 #************
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
