@@ -76,7 +76,7 @@ ${voffset 10}${goto 10}${color5}Cpu:${color}${goto 80}${color2}${cpubar 5,120}${
 ${voffset 4}${goto 80}${color6}CPU1: ${cpu cpu0}%${goto 175}CPU2: ${cpu cpu1}%
 ${voffset 4}${goto 80}${color6}CPU3: ${cpu cpu2}%${goto 175}CPU4: ${cpu cpu3}%
 ${voffset 4}${goto 10}${color5}Mem:${color}${goto 80}${color2}${membar 5,120}${color}${alignr 5}${color6}${memperc}%${color}
-${voffset 4}${goto 10}${color5}Uptime:${color}${goto 85}${color6}${uptime_short}${color}${goto 140}${color5}
+${voffset 4}${goto 10}${color5}Swap:${color}${goto 80}${color2}${swapbar 5,120}${color}${alignr 5}${color6}${swapperc}%${color}
 #TEMP
 ${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
 ${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color}${freq_g cpu0}Ghz
@@ -109,7 +109,7 @@ ${goto 10}${color2}${fs_bar 8, 150 /home}${alignr 5} ${fs_used_perc /home}%
 $endif
 ${if_mounted /home/data}#
 ${goto 10}${color5}data ${alignr 5}  ${fs_free /home/data}/${fs_used /home/data}/${fs_size /home/data}
-${goto 10}${color2}${fs_bar 8, 150 /home/data}${alignr 5} ${fs_used_perc /home/data}%
+${goto 10}${color2}${fs_bar 8, 150 /home/data}${alignr 5}${fs_used_perc /home/data}%
 ${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda3}${alignr}${diskiograph_read sda3 8,125}
 ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda3}${alignr}${diskiograph_write sda3 8,125}
 $endif
