@@ -26,6 +26,7 @@ You may also optionally install:
 	Neofetch - Display Linux system Information In a Terminal
 	CommanderPi - Easy RaspberryPi4 GUI system managment
 	Fortune - Random quotes
+	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
 
 Run the following commands
 
