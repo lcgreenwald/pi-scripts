@@ -72,16 +72,16 @@ ${endif}
 \
 # Cpu, memory, uptime, and load graph #
 \
-${goto 10}${color5}CPU${goto 45}${color}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
-${goto 10}${color}${cpubar cpu}
-${goto 10}${color5}MEM $alignc ${color}$mem / $memmax $alignr $memperc%
-${goto 10}${color}$membar
-${goto 10}${color5}SWAP $alignc ${color}$swap / $swapmax $alignr $swapperc%
-${goto 10}${color}$swapbar
+${goto 10}${color5}CPU${goto 45}${color2}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
+${goto 10}${color2}${cpubar cpu}
+${goto 10}${color5}MEM $alignc ${color2}$mem / $memmax $alignr $memperc%
+${goto 10}${color2}$membar
+${goto 10}${color5}SWAP $alignc ${color2}$swap / $swapmax $alignr $swapperc%
+${goto 10}${color2}$swapbar
 #TEMP
-${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
-${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color}${freq_g cpu0}Ghz
-${voffset 4}${goto 10}${color5}Throttled: ${alignr 5} ${color}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
+${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color2}${freq_g cpu0}Ghz
+${voffset 4}${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
 
 ${voffset 4}${goto 10}${color5}Load:${color}
 ${voffset 4}${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
