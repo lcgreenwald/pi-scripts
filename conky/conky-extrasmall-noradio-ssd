@@ -97,7 +97,7 @@ ${voffset 4}${goto 10}${color5}${top_mem name 3}${color}${alignc}${color2}${top_
 \
 # Mounted drive space #
 \
-${voffset 12}${goto 10}Drive Space ${alignr 5}Free/Used/Size
+${voffset 12}${goto 10}${color5}Drive Space ${alignr 5}Free/Used/Size
 ${voffset 4}\
 ${goto 10}${color5}root ${alignr 5} ${fs_free /}/${fs_used /}/${fs_size /}
 ${goto 10}${color2}${fs_bar 8, 150 /}${alignr 5}${fs_used_perc /}%
