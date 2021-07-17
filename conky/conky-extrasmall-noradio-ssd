@@ -45,12 +45,12 @@ conky.config = {
 conky.text = [[
 # Clock + calendar #
 \
-${voffset 5}${font :size=9}${alignc}${color4}$nodename${color}$font
-${font :size=8}${alignc}${color3}Today is ${time %A}${color}$font
-${alignc}${color3}${time %B %d, %Y}${color}$font
-${alignc}${color3}${time %I:%M:%S %p}${color}$font
-${alignc}${color3}${exec cat /etc/issue.net} $machine${color}$font
-${alignc}${color3}Kernel: ${kernel}${color}$font
+${voffset 5}${font :size=9}${alignc}${color4}$nodename
+${font :size=8}${alignc}${color3}Today is ${time %A}
+${alignc}${color3}${time %B %d, %Y}
+${alignc}${color3}${time %I:%M:%S %p}
+${alignc}${color3}${exec cat /etc/issue.net} $machine
+${alignc}${color3}Kernel: ${kernel}
 ${alignc}${color3}$desktop_name of $desktop_number
 ${alignc}${color3}Uptime: ${uptime}
 \
@@ -83,17 +83,17 @@ ${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec /opt/vc/bin
 ${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color2}${freq_g cpu0}Ghz
 ${voffset 4}${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
 
-${voffset 4}${goto 10}${color5}Load:${color}
-${voffset 4}${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
+${voffset 4}${goto 10}${color5}Load:
+${voffset 4}${goto 10}${color2}${loadgraph 26,190 FFFFFF FFFFFF -l}
 \
 # The processes section #
 \
-${voffset 0}${goto 10}${color1}Proc${color}${alignc}${color1}Mem%${color}${alignr 5}${color1}Mem${color}
-${voffset 4}${goto 10}${color5}${top_mem name 1}${color}${alignc}${color2}${top_mem mem 1}%${color}${alignr 5}${color6}${top_mem mem_res 1}${color}
-${voffset 4}${goto 10}${color5}${top_mem name 2}${color}${alignc}${color2}${top_mem mem 2}%${color}${alignr 5}${color6}${top_mem mem_res 2}${color}
-${voffset 4}${goto 10}${color5}${top_mem name 3}${color}${alignc}${color2}${top_mem mem 3}%${color}${alignr 5}${color6}${top_mem mem_res 3}${color}
-#${voffset 4}${goto 10}${color5}${top_mem name 4}${color}${alignc}${color2}${top_mem mem 4}%${color}${alignr 5}${color6}${top_mem mem_res 4}${color}
-#${voffset 4}${goto 10}${color5}${top_mem name 5}${color}${alignc}${color2}${top_mem mem 5}%${color}${alignr 5}${color6}${top_mem mem_res 5}${color}
+${voffset 0}${goto 10}${color1}Proc${alignc}${color1}Mem%${alignr 5}${color1}Mem
+${voffset 4}${goto 10}${color5}${top_mem name 1}${alignc}${color2}${top_mem mem 1}%${alignr 5}${color6}${top_mem mem_res 1}
+${voffset 4}${goto 10}${color5}${top_mem name 2}${alignc}${color2}${top_mem mem 2}%${alignr 5}${color6}${top_mem mem_res 2}
+${voffset 4}${goto 10}${color5}${top_mem name 3}${alignc}${color2}${top_mem mem 3}%${alignr 5}${color6}${top_mem mem_res 3}
+#${voffset 4}${goto 10}${color5}${top_mem name 4}${alignc}${color2}${top_mem mem 4}%${alignr 5}${color6}${top_mem mem_res 4}
+#${voffset 4}${goto 10}${color5}${top_mem name 5}${alignc}${color2}${top_mem mem 5}%${alignr 5}${color6}${top_mem mem_res 5}
 \
 # Mounted drive space #
 \
