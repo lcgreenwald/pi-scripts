@@ -45,6 +45,7 @@ conky.config = {
 conky.text = [[
 # Author: Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts #
 # Clock + calendar #
+# Non printing line for setconky compatibility. {color Yellow}${alignc}N0CALL
 \
 ${voffset 5}${font :size=9}${alignc}${color4}$nodename
 ${font :size=8}${alignc}${color3}Today is ${time %A}
