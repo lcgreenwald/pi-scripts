@@ -128,16 +128,16 @@ ${if_existing /dev/zram1}\
 Zram1 Read:${alignr}${offset -10}${diskio_read /dev/zram1}${alignr}${diskiograph_read zram1 8,125}
 Zram1 Write:${alignr}${offset -10}${diskio_write /dev/zram1}${alignr}${diskiograph_write zram1 8,125}
 ${endif}\
-
+\
 ${font Arial:bold:size=7}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=7}${color White}\
 Wireless IP address $alignr ${addr wlan0}
 Wired IP address $alignr ${addr eth0}
-
+\
 ${font Arial:bold:size=7}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=7}${color White}\
 ${execi 5 cat /var/lib/misc/dnsmasq.leases | awk '{ print $3"   "$4 }'}
-
+\
 ${font Arial:bold:size=7}${color Yellow}SOLAR CONDITIONS ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=7}${color White}\
 Solar Flux: ${exec cat ~/bin/conky/solardata/s-flux.txt} ${goto 150} Sunspots: ${exec cat ~/bin/conky/solardata/sunspots.txt}
@@ -151,7 +151,7 @@ ${color White}17m-15m Day: ${if_existing /home/pi/bin/conky/solardata/band17-15d
 ${goto 150} Night: ${if_existing /home/pi/bin/conky/solardata/band17-15night.txt Good}${color Green}Good  ${endif}${if_existing /home/pi/bin/conky/solardata/band17-15night.txt Fair}${color Yellow}Fair${endif}${if_existing /home/pi/bin/conky/solardata/band17-15night.txt Poor}${color Red}Poor  ${endif} 
 ${color White}12m-10m Day: ${if_existing /home/pi/bin/conky/solardata/band12-10day.txt Good} ${color Green}Good${endif} ${if_existing /home/pi/bin/conky/solardata/band12-10day.txt Fair}${color Yellow}Fair${endif}${if_existing /home/pi/bin/conky/solardata/band12-10day.txt Poor}${color Red}Poor${endif}${color White} \
 ${goto 150} Night: ${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Good}${color Green}Good  ${endif}${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Fair}${color Yellow}Fair${endif}${if_existing /home/pi/bin/conky/solardata/band12-10night.txt Poor}${color Red}Poor  ${endif} 
- 
+\
 ${font Arial:bold:size=7}${color Yellow}RADIO TOOLS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=7}${if_running rigctld}${color green}RIGCTL ACTIVE${else}${color red}RIGCTL OFF$endif \
 ${alignr}${if_running flrig}${color green}FLRIG ACTIVE${else}${color red}FLRIG OFF$endif
@@ -159,7 +159,7 @@ ${if_running piardopc}${color green}ARDOP ACTIVE${else}${color red}ARDOP OFF$end
 ${alignr}${if_running pat}${color green}PAT ACTIVE${else}${color red}PAT OFF$endif
 ${if_running kissattach}${color green}KISSATCH ACTIVE${else}${color red}KISSATCH OFF$endif \
 ${alignr}${if_running direwolf}${color green}DIREWOLF ACTIVE${else}${color red}DIREWOLF OFF$endif
-
+\
 ${font Arial:bold:size=7}${color Yellow}DIGITAL APPS ${color DarkSlateGray}${hr 2}
 ${font Arial:size=7}${if_running js8call}${color green}JS8call ACTIVE${else}${color red}JS8call OFF$endif \
 ${alignr}${if_running fldigi}${color green}FLDIGI ACTIVE${else}${color red}FLDIGI OFF$endif
@@ -167,9 +167,4 @@ ${if_running wsjtx}${color green}WSJT-X ACTIVE${else}${color red}WSJT-X OFF$endi
 ${alignr}${if_running jtdx}${color green}JTDX ACTIVE${else}${color red}JTDX OFF$endif
 ${if_running garim}${color green}GARIM ACTIVE${else}${color red}GARIM OFF$endif \
 ${alignr}${if_running pavucontrol}${color green}PULSE ACTIVE${else}${color red}PULSE OFF$endif
-
-#${font Arial:bold:size=7}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
-#${font Arial:bold:size=5}${color White}\
-#${exec cat $HOME/bin/conky/fortune.txt}
-
 ]];
