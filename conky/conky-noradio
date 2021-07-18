@@ -1,9 +1,9 @@
 conky.config = {
 	background = true,
 	use_xft = true,
-	font = '123:size=8',
+	font = 'Arial:size=8',
 	xftalpha = 0.5,
-	update_interval = 0.5,
+	update_interval = 1,
 	total_run_times = 0,
 	own_window = true,
 	own_window_type = 'normal',
@@ -19,7 +19,7 @@ conky.config = {
 	draw_graph_borders = true,
 	alignment = 'top_right',
 	gap_x = 10,
-	gap_y = 50,
+	gap_y = 30,
 	no_buffers = true,
 	uppercase = false,
 	cpu_avg_samples = 2,
@@ -43,33 +43,36 @@ conky.config = {
 };
 
 conky.text = [[
+# Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts
 # Clock + calendar #
+# Non printing line for setconky compatibility. {color Yellow}${alignc}N0CALL
 \
-${voffset 20}${font Droid Sans Mono :size=11}${alignc}${color4}$nodename
-${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}Today is ${time %A}
-${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %B %d, %Y}
-${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %I:%M:%S %p}
-${voffset 3}${font Droid Sans Mono :size=9}${alignc}${color3}${exec cat /etc/issue.net} $machine
-${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}Kernel: ${kernel}
+${voffset 20}${font Droid Sans Mono :size=11}${alignc}${color4}$nodename${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}Today is ${time %A}${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %B %d, %Y}${color}$font
+${voffset 3}${font Droid Sans Mono :size=11}${alignc}${color3}${time %I:%M:%S %p}${color}$font
+${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}${exec cat /etc/issue.net} $machine${color}$font
+${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}Kernel: ${kernel}${color}$font
 ${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}$desktop_name of $desktop_number
 ${voffset 3}${font Droid Sans Mono :size=10}${alignc}${color3}Uptime: ${uptime}
 \
 # The network section #
 \
-${voffset 5}\
+${voffset 5}${font Arial:size=10}\
 ${if_existing /proc/net/route eth0}\
 ${goto 10}${color5}Up: ${color2}${upspeed eth0}${goto 110}eth0${color5}${alignr 5}Down: ${color2}${downspeed eth0}
 ${goto 10}${upspeedgraph eth0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph eth0 26,80 FFFFFF FFFFFF}
 ${goto 10}${color5}Sent: ${color2}${totalup eth0}${color5}${goto 150}Received: ${color2}${totaldown eth0}
 ${goto 10}${color5}IP address: $alignr${color2}${addr eth0}
 ${endif}\
-${if_existing /proc/net/route wlan0}
+${voffset 4}\
+${if_existing /proc/net/route wlan0}\
 ${goto 10}${color5}Up: ${color2}${upspeed wlan0}${goto 110}wlan0${color5}${alignr 5}Down: ${color2}${downspeed wlan0}
 ${goto 10}${upspeedgraph wlan0 26,80 FFFFFF FFFFFF}${goto 150}${downspeedgraph wlan0 26,80 FFFFFF FFFFFF}
 ${goto 10}${color5}Sent: ${color2}${totalup wlan0}${color5}${goto 150}Received: ${color2}${totaldown wlan0}
 ${goto 10}${color5}IP address: $alignr${color2}${addr wlan0}
-${endif}
-\
+${endif}\
+${voffset 4}\
 # Cpu, memory, uptime, and load graph #
 \
 ${goto 10}${color5}CPU${goto 45}${color2}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
@@ -79,21 +82,32 @@ ${goto 10}${color2}$membar
 ${goto 10}${color5}SWAP $alignc ${color2}$swap / $swapmax $alignr $swapperc%
 ${goto 10}${color2}$swapbar
 #TEMP
-${voffset 4}${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
-${voffset 4}${goto 10}${color5}Frequency: ${alignr 5} ${color2}${freq_g cpu0}Ghz
-${voffset 4}${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
+${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${goto 10}${color5}Frequency: ${alignr 5} ${color2}${freq_g cpu0}Ghz
+${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
+${voffset 4}\
+${goto 10}${color5}Load:${color}
+${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
+\
+# The processes section # Based on conkyrc-right by S Johnson https://groups.io/g/KM4ACK-Pi/files/Custom-Conky-Files #
+\
+${font Arial:bold:size=10}${color yellow}TOP PROCESSOR USAGE ${font Arial:bold:size=8}
+${goto 10}${color Yellow}NAME${alignr} PID   CPU   MEM
+${goto 10}${color White}1. ${top name 1}${alignr}${top pid 1}  ${top cpu 1}  ${top mem 1}
+${goto 10}${color #EEEEEE}2. ${top name 2}${alignr}${top pid 2}  ${top cpu 2}  ${top mem 2}
+${goto 10}${color #DDDDDD}3. ${top name 3}${alignr}${top pid 3}  ${top cpu 3}  ${top mem 3}
+${goto 10}${color #CCCCCC}4. ${top name 4}${alignr}${top pid 4}  ${top cpu 4}  ${top mem 4}
+${goto 10}${color #BBBBBB}5. ${top name 5}${alignr}${top pid 5}  ${top cpu 5}  ${top mem 5}
+${goto 10}${color #AAAAAA}6. ${top name 6}${alignr}${top pid 6}  ${top cpu 6}  ${top mem 6}
 
-${voffset 4}${goto 10}${color5}Load:
-${voffset 4}${goto 10}${color2}${loadgraph 26,190 FFFFFF FFFFFF -l}
-\
-# The processes section #
-\
-${voffset 0}${goto 10}${color1}Proc${alignc}${color1}Mem%${alignr 5}${color1}Mem
-${voffset 4}${goto 10}${color5}${top_mem name 1}${alignc}${color2}${top_mem mem 1}%${alignr 5}${color6}${top_mem mem_res 1}
-${voffset 4}${goto 10}${color5}${top_mem name 2}${alignc}${color2}${top_mem mem 2}%${alignr 5}${color6}${top_mem mem_res 2}
-${voffset 4}${goto 10}${color5}${top_mem name 3}${alignc}${color2}${top_mem mem 3}%${alignr 5}${color6}${top_mem mem_res 3}
-#${voffset 4}${goto 10}${color5}${top_mem name 4}${alignc}${color2}${top_mem mem 4}%${alignr 5}${color6}${top_mem mem_res 4}
-#${voffset 4}${goto 10}${color5}${top_mem name 5}${alignc}${color2}${top_mem mem 5}%${alignr 5}${color6}${top_mem mem_res 5}
+${goto 10}${font Arial:bold:size=10}${color yellow}TOP MEMORY USAGE ${font Arial:bold:size=8}
+${goto 10}${color Yellow}NAME${alignr} PID   CPU   MEM
+${goto 10}${color White}1. ${top_mem name 1}${alignr}${top_mem pid 1}  ${top_mem cpu 1}  ${top_mem mem 1}
+${goto 10}${color #EEEEEE}2. ${top_mem name 2}${alignr}${top_mem pid 2}  ${top_mem cpu 2}  ${top_mem mem 2}
+${goto 10}${color #DDDDDD}3. ${top_mem name 3}${alignr}${top_mem pid 3}  ${top_mem cpu 3}  ${top_mem mem 3}
+${goto 10}${color #CCCCCC}4. ${top_mem name 4}${alignr}${top_mem pid 4}  ${top_mem cpu 4}  ${top_mem mem 4}
+${goto 10}${color #BBBBBB}5. ${top_mem name 5}${alignr}${top_mem pid 5}  ${top_mem cpu 5}  ${top_mem mem 5}
+${goto 10}${color #AAAAAA}6. ${top_mem name 6}${alignr}${top_mem pid 6}  ${top_mem cpu 6}  ${top_mem mem 6}
 \
 # Mounted drive space #
 \
