@@ -74,6 +74,8 @@ conky.config = {
 };
 
 conky.text = [[
+# Author: Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts #
+# Based on https://github.com/km4ack/pi-build #
 ${voffset 15}
 ${font Arial:size=20}${color Yellow}${alignc}N0CALL
 ${voffset -40}
