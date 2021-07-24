@@ -108,7 +108,8 @@ ${goto 10}${color #DDDDDD}3. ${top_mem name 3}${alignr}${top_mem pid 3}  ${top_m
 ${goto 10}${color #CCCCCC}4. ${top_mem name 4}${alignr}${top_mem pid 4}  ${top_mem cpu 4}  ${top_mem mem 4}
 ${goto 10}${color #BBBBBB}5. ${top_mem name 5}${alignr}${top_mem pid 5}  ${top_mem cpu 5}  ${top_mem mem 5}
 ${goto 10}${color #AAAAAA}6. ${top_mem name 6}${alignr}${top_mem pid 6}  ${top_mem cpu 6}  ${top_mem mem 6}
-\# Mounted drive space #
+\
+# Mounted drive space #
 \
 ${voffset 12}${goto 10}${color5}Drive Space ${alignr 5}Free/Used/Size
 ${voffset 4}\
