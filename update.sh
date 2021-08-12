@@ -242,6 +242,15 @@ else
 PiSafe="Installed"
 fi
 
+#----------------------------------------------------#
+#		JS8map
+#----------------------------------------------------#
+if [ ! -d $HOME/js8map 2>/dev/null ]; then
+JS8map="Not Installed"
+else
+JS8map="Installed"
+fi
+
 }
 
 CHECK
@@ -258,7 +267,7 @@ CHECK
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=700 --height=620 --separator="" \
+yad --center --list --checklist --width=700 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
@@ -277,6 +286,7 @@ false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
+false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -286,7 +296,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

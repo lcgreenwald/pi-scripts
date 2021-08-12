@@ -141,6 +141,7 @@ false "Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
+false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -150,7 +151,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
