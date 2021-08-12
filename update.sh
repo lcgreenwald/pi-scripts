@@ -245,10 +245,10 @@ fi
 #----------------------------------------------------#
 #		JS8map
 #----------------------------------------------------#
-if [ ! -f $HOME/js8map 2>/dev/null ]; then
-PiSafe="Not Installed"
+if [ ! -d $HOME/js8map 2>/dev/null ]; then
+JS8map="Not Installed"
 else
-PiSafe="Installed"
+JS8map="Installed"
 fi
 
 }
@@ -267,7 +267,7 @@ CHECK
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=700 --height=620 --separator="" \
+yad --center --list --checklist --width=700 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
