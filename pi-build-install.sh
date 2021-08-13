@@ -62,7 +62,7 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-cd pi-scripts
+cd $HOME/pi-scripts
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
