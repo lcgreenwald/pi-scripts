@@ -289,23 +289,23 @@ sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 # Update km4ack menu items.
 #************
 #sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
+#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
+#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
+#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
+#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
 
 #************
 # Update FLSuite menu items.
 #************
-if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
-fi
+#if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
+#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
+#fi
 
 #************
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
