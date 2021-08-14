@@ -196,7 +196,8 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1)
+--button="Dev":4 > /dev/null 2>&1 \
+--button="Skip":5 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
@@ -237,7 +238,9 @@ sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 # Run build-a-pi
-bash pi-build/build-a-pi
+if [ ! $BUT = 5 ]; then
+  bash pi-build/build-a-pi
+fi
 
 # Load the configuration info that was set up in build-a-pi
 source /home/pi/pi-build/config

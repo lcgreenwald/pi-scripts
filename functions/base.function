@@ -226,8 +226,9 @@ EOF
 cd $HOME/js8map
 python3 js8map.py
 EOF
-
+chmod a+x $HOME/bin/js8map.sh
 }
+################################
 
 ################################
 #	Proto
