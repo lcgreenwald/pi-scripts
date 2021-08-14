@@ -62,7 +62,7 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-cd pi-scripts
+cd $HOME/pi-scripts
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
@@ -97,17 +97,19 @@ fi
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio, version $VERSION.
-This script downloads and installs the latest version of 
+
+This script updates the operating system and then
+downloads and installs some required and some optional 
+utility software.
+
+It will also optionally install the latest version of 
 KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
 HotSpot Tools.
-First we will install some required and some optional 
-utility software.
-Once this is complete, the Build-A-Pi menu will open.  
 
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -122,7 +124,7 @@ rm $MYPATH/intro.txt
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=650 --height=620 --separator="" \
+yad --center --list --checklist --width=650 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
@@ -189,14 +191,17 @@ rm $TEMPCRON
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
 Please select Master, Beta or Dev installation.
+Or you may skip installing Build-A-Pi now and
+install it separately later.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1)
+--button="Dev":4 > /dev/null 2>&1 \
+--button="Skip":5 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
@@ -230,6 +235,7 @@ cd
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
+if [ ! $BUT = 5 ]; then
 #************
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
 #************
@@ -237,7 +243,8 @@ sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 # Run build-a-pi
-bash pi-build/build-a-pi
+  bash pi-build/build-a-pi
+fi
 
 # Load the configuration info that was set up in build-a-pi
 source /home/pi/pi-build/config
@@ -285,27 +292,6 @@ fi
 sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
 sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 
-#************
-# Update km4ack menu items.
-#************
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
-
-#************
-# Update FLSuite menu items.
-#************
-if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
-fi
 
 #************
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
@@ -321,8 +307,8 @@ cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
-sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
-sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
+#sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
+#sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
 fi
@@ -363,6 +349,13 @@ sudo updatedb
 # Update Pi-Build/.complete to show .pscomplete.
 #************
 echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
+
+#####################################
+#	Update HamRadio Menu
+#####################################
+#create new menu subcategorie WB0SIO apps.
+bash ${HOME}/pi-scripts/menu-update.sh
+
 
 #####################################
 #	END CLEANUP

@@ -55,7 +55,7 @@ the lateest version is $LATEST. Would you like to update?
 
 Change log - https://github.com/lcgreenwald/pi-scripts/blob/master/changelog
 EOF
-BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/updatebap.txt \
 --button="Yes":2 \
@@ -76,7 +76,7 @@ echo $BUT
 cat <<EOF > $MYPATH/updatebap.txt
 Pi Scripts has been updated to $LATEST. Please restart Pi Scripts.
 EOF
-	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 	--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 	--text-info<$MYPATH/updatebap.txt \
 	--button="OK":2)
@@ -92,7 +92,7 @@ clear
 #************
 #Scan system for updated applications
 #************
-yad  --width=550 --height=150 --text-align=center --center --title="Update" \
+yad  --width=550 --height=150 --text-align=center --center --title="Pi Build Install  Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Version $VERSION</b>\r\r\First we need to scan the system to see what is installed. \
 This should take less than a minute. Ready when you are." \
@@ -270,7 +270,7 @@ CHECK
 yad --center --list --checklist --width=700 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
---text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
+--text="<big><big><b>Base Apps</b></big></big>" --title="Pi Build Install Update" \
 false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
@@ -309,7 +309,7 @@ sudo apt-get -y upgrade
 sudo apt -y full-upgrade
 
 #####################################
-#	Install Base Apps
+#	Install/Update Base Apps
 #####################################
 touch $HOME/.config/WB0SIO
 while read i ; do
@@ -317,7 +317,53 @@ source $FUNCTIONS/base.function
 $i
 done < $BASE
 
-bash $HOME/pi-build/update
+#####################################
+#	Install Build-A-Pi
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+Now we will optionally update Build-A-Pi.
+Please select Master, Beta or Dev installation.
+Or you may skip installing Build-A-Pi now and
+install it separately later.
+EOF
+
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
+--button="Master":2 > /dev/null 2>&1 \
+--button="Beta":3 > /dev/null 2>&1 \
+--button="Dev":4 > /dev/null 2>&1 \
+--button="Skip":5 > /dev/null 2>&1)
+BUT=$(echo $?)
+
+if [ $BUT = 252 ]; then
+rm $MYPATH/intro.txt
+exit
+fi
+rm $MYPATH/intro.txt
+
+if [ ! $BUT = 5 ]; then
+  cd
+  git clone https://github.com/km4ack/pi-build.git
+  cd pi-build
+  git config --global user.email "lcgreenwald@gmail.com"
+  git config --global user.name "lcgreenwald"
+  if [ $BUT = 2 ]; then
+    echo "Master selected."
+    git checkout master
+    git pull
+  elif [ $BUT = 3 ]; then
+    echo "Beta selected."
+    git checkout beta
+    git pull
+  elif [ $BUT = 4 ]; then
+    echo "Dev selected."
+    git checkout dev
+    git pull
+  fi
+  cd
+  bash $HOME/pi-build/update
+fi
 
 #************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
@@ -353,28 +399,6 @@ if [ -d $HOME/patmenu2 ]; then
   sed -i "s/\"Winlink Password\" \"\"/\"Winlink Password\" \"$WL2KPASS\"/" $CONFIG
   #set locator
   sed -i "s/\"Six Character Grid Square\" \"EM65TV\"/\"Six Character Grid Square\" \"$GRID\"/" $CONFIG
-fi
-
-#************
-# Update km4ack menu items.
-#************
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
-sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
-
-#************
-# Update FLSuite menu items.
-#************
-if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
-sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
 fi
 
 #************

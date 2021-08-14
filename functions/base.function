@@ -216,7 +216,7 @@ Icon=js8call_icon
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=wb0sio
+Categories=HamRadio;wb0sio
 StartupNotify=true
 NoDisplay=false
 EOF
@@ -226,8 +226,9 @@ EOF
 cd $HOME/js8map
 python3 js8map.py
 EOF
-
+chmod a+x $HOME/bin/js8map.sh
 }
+################################
 
 ################################
 #	Proto
