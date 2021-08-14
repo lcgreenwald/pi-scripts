@@ -97,17 +97,19 @@ fi
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio, version $VERSION.
-This script downloads and installs the latest version of 
+
+This script updates the operating system and then
+downloads and installs some required and some optional 
+utility software.
+
+It will also optionally install the latest version of 
 KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
 HotSpot Tools.
-First we will install some required and some optional 
-utility software.
-Once this is complete, the Build-A-Pi menu will open.  
 
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -191,7 +193,7 @@ Now we will install Build-A-Pi.
 Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \

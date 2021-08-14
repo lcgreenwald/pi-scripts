@@ -55,7 +55,7 @@ the lateest version is $LATEST. Would you like to update?
 
 Change log - https://github.com/lcgreenwald/pi-scripts/blob/master/changelog
 EOF
-BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/updatebap.txt \
 --button="Yes":2 \
@@ -76,7 +76,7 @@ echo $BUT
 cat <<EOF > $MYPATH/updatebap.txt
 Pi Scripts has been updated to $LATEST. Please restart Pi Scripts.
 EOF
-	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 	--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 	--text-info<$MYPATH/updatebap.txt \
 	--button="OK":2)
@@ -92,7 +92,7 @@ clear
 #************
 #Scan system for updated applications
 #************
-yad  --width=550 --height=150 --text-align=center --center --title="Update" \
+yad  --width=550 --height=150 --text-align=center --center --title="Pi Build Install  Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Version $VERSION</b>\r\r\First we need to scan the system to see what is installed. \
 This should take less than a minute. Ready when you are." \
@@ -270,7 +270,7 @@ CHECK
 yad --center --list --checklist --width=700 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
---text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
+--text="<big><big><b>Base Apps</b></big></big>" --title="Pi Build Install Update" \
 false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
@@ -325,7 +325,7 @@ Now we will optionally update Build-A-Pi.
 Please select Master, Beta or Dev installation.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
@@ -340,28 +340,26 @@ exit
 fi
 rm $MYPATH/intro.txt
 
-cd
-git clone https://github.com/km4ack/pi-build.git
-cd pi-build
-git config --global user.email "lcgreenwald@gmail.com"
-git config --global user.name "lcgreenwald"
-if [ $BUT = 2 ]; then
-echo "Master selected."
-git checkout master
-git pull
-elif [ $BUT = 3 ]; then
-echo "Beta selected."
-git checkout beta
-git pull
-elif [ $BUT = 4 ]; then
-echo "Dev selected."
-git checkout dev
-git pull
-elif [ $BUT = 5 ]; then
-fi
-cd
-
 if [ ! $BUT = 5 ]; then
+  cd
+  git clone https://github.com/km4ack/pi-build.git
+  cd pi-build
+  git config --global user.email "lcgreenwald@gmail.com"
+  git config --global user.name "lcgreenwald"
+  if [ $BUT = 2 ]; then
+    echo "Master selected."
+    git checkout master
+    git pull
+  elif [ $BUT = 3 ]; then
+    echo "Beta selected."
+    git checkout beta
+    git pull
+  elif [ $BUT = 4 ]; then
+    echo "Dev selected."
+    git checkout dev
+    git pull
+  fi
+  cd
   bash $HOME/pi-build/update
 fi
 
