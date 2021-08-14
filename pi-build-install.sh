@@ -349,6 +349,13 @@ sudo updatedb
 echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 
 #####################################
+#	Update HamRadio Menu
+#####################################
+#create new menu subcategorie WB0SIO apps.
+bash ${HOME}/pi-scripts/menu-update.sh
+
+
+#####################################
 #	END CLEANUP
 #####################################
 # Run solar.sh to update the solar condiions data for conky
