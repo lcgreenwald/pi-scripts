@@ -29,6 +29,11 @@ echo "updating fldigi"
 sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/fldigi.desktop
 fi
 
+if [ -f $FLPATH/flrig.desktop ]; then
+echo "updating flrig"
+sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flrig.desktop
+fi
+
 if [ -f $FLPATH/flamp.desktop ]; then
 echo "updating flamp"
 sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flamp.desktop
