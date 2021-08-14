@@ -191,6 +191,8 @@ rm $TEMPCRON
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
 Please select Master, Beta or Dev installation.
+Or you may skip installing Build-A-Pi now and
+install it separately later.
 EOF
 
 INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
