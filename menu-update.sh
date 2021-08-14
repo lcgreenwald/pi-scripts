@@ -169,7 +169,7 @@ Name=WB0SIO-Tools
 Icon=/home/pi/pi-scripts/logo.png
 EOF
 
-sudo mv bap.directory /usr/share/desktop-directories/
+sudo mv wb0sio.directory /usr/share/desktop-directories/
 
 #MOD HAMRADIO.MENU FILE
 cat >hamradio.menu <<EOF
