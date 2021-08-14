@@ -327,7 +327,7 @@ cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
 sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
-sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
+#sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
 fi
