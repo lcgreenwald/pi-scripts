@@ -8,10 +8,10 @@
 #bap - Build a Pi subcategory
 #km4ack - km4ack subcategory
 ###################
-# Copied and modified 20210813 wb0sio
+# Copied and modified 2021/08/14 wb0sio
 # Added wb0sio subcategory
 
-REV=20210411
+REV=20210814
 
 source $HOME/.config/WB0SIO
 
@@ -183,37 +183,34 @@ cat >hamradio.menu <<EOF
     <Include>
         <Category>HamRadio</Category>
     </Include>
-    <Menu>
-     <Name>FLSUITE</Name>
-     <Directory>FLsuite.directory</Directory>
-    <Include>
-          <Category>flsuite</Category>
-    </Include>
-    </Menu>
-        <Menu>
-            <Name>KM4ACK</Name>
-            <Directory>km4ack.directory</Directory>
-            <Include>
-                <Category>km4ack</Category>
-            </Include>
-
-        </Menu>
-	<Menu>
-        <Name>Build-a-Pi</Name>
-        <Directory>bap.directory</Directory>
-        <Include>
-            <Category>bap</Category>
-        </Include>
-
-    </Menu>
-        <Menu>
-            <Name>WB0SIO</Name>
-            <Directory>wb0sio.directory</Directory>
-            <Include>
-                <Category>wb0sio</Category>
-            </Include>
-
-        </Menu>
+		<Menu>
+		<Name>FLSUITE</Name>
+		<Directory>FLsuite.directory</Directory>
+		<Include>
+			<Category>flsuite</Category>
+		</Include>
+		</Menu>
+		<Menu>
+			<Name>KM4ACK</Name>
+			<Directory>km4ack.directory</Directory>
+			<Include>
+				<Category>km4ack</Category>
+			</Include>
+		</Menu>
+		<Menu>
+			<Name>Build-a-Pi</Name>
+			<Directory>bap.directory</Directory>
+			<Include>
+				<Category>bap</Category>
+			</Include>
+		</Menu>
+		<Menu>
+			<Name>WB0SIO</Name>
+			<Directory>wb0sio.directory</Directory>
+				<Include>
+            <Category>wb0sio</Category>
+			</Include>
+		</Menu>
   </Menu> <!-- End hamradio -->
 </Menu>
 EOF
