@@ -233,6 +233,7 @@ cd
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
+if [ ! $BUT = 5 ]; then
 #************
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
 #************
@@ -240,7 +241,6 @@ sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 # Run build-a-pi
-if [ ! $BUT = 5 ]; then
   bash pi-build/build-a-pi
 fi
 
@@ -290,27 +290,6 @@ fi
 sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
 sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 
-#************
-# Update km4ack menu items.
-#************
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /home/pi/.local/share/applications/hotspot-tools.desktop
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/hotspot-tools.desktop
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/dipole.desktop
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/getcall.desktop
-#sudo sed -i 's/Categories=.*$/Categories=km4ack;/' /usr/share/applications/converttemp.desktop
-
-#************
-# Update FLSuite menu items.
-#************
-#if [ -f /usr/local/share/applications/fldigi.desktop 2>/dev/null ]; then
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/fldigi.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flarq.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flrig.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flamp.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flnet.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flmsg.desktop
-#sudo sed -i 's/Categories=.*$/Categories=flsuite;/' /usr/local/share/applications/flwrap.desktop
-#fi
 
 #************
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
@@ -326,7 +305,7 @@ cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
-sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
+#sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
 #sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
