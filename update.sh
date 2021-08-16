@@ -19,13 +19,18 @@
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
+RADIO=$MYPATH/radio.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
+RB=$HOME/.config/WB0SIO
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 
 FINISH(){
 if [ -f "$BASE" ]; then
 rm $BASE
+fi
+if [ -f "$RADIO" ]; then
+rm $RADIO
 fi
 }
 
@@ -286,7 +291,6 @@ false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -296,10 +300,35 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE
+done
+fi
+
+
+#----------------------------------------------------#
+#			RADIO APP MENU
+#----------------------------------------------------#
+yad --center --list --checklist --width=700 --height=650 --separator="" \
+--image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
+--window-icon=$LOGO --image-on-top --text-align=center \
+--text="<big><big><b>Radio Apps</b></big></big>" --title="Pi Build Install Update" \
+false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
+--button="Exit":1 \
+--button="Check All and Continue":3 \
+--button="Next":2 > $RADIO
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+exit
+fi
+
+if [ $BUT = 3 ]; then
+RADIOAPPS=(JS8map)
+for i in "${RADIOAPPS[@]}"
+do
+echo "$i" >> $RADIO
 done
 fi
 
@@ -311,11 +340,19 @@ sudo apt -y full-upgrade
 #####################################
 #	Install/Update Base Apps
 #####################################
-touch $HOME/.config/WB0SIO
+touch $RB
 while read i ; do
 source $FUNCTIONS/base.function
 $i
 done < $BASE
+
+#####################################
+#	Install/Update Radio Apps
+#####################################
+while read i ; do
+source $FUNCTIONS/radio.function
+$i
+done < $RADIO
 
 #####################################
 #	Install Build-A-Pi
@@ -417,8 +454,6 @@ if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
-sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
-sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #************
@@ -436,10 +471,17 @@ sudo updatedb
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
 #####################################
+#	Update HamRadio Menu
+#####################################
+#create new menu subcategory WB0SIO apps.
+bash ${HOME}/pi-scripts/menu-update.sh
+
+#####################################
 #	END CLEANUP
 #####################################
 #Remove temp files
 rm $BASE > /dev/null 2>&1
+rm $RADIO > /dev/null 2>&1
 sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 

@@ -33,6 +33,9 @@ FINISH(){
 if [ -f "$BASE" ]; then
 rm $BASE
 fi
+if [ -f "$RADIO" ]; then
+rm $RADIO
+fi
 }
 
 trap FINISH EXIT
@@ -160,6 +163,31 @@ echo "$i" >> $BASE
 done
 fi
 
+
+#####################################
+#	Radio Apps
+#####################################
+yad --center --list --checklist --width=650 --height=650 --separator="" \
+--image $LOGO --column=Check --column=App --column=Description \
+--print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
+--text="<b>Radio Applications</b>" --title="Pi-Scripts Install" \
+false "JS8map" "Map to show location of JS8Call contacts" \
+--button="Exit":1 \
+--button="Check All and Continue":3 \
+--button="Next":2 > $BASE
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+exit
+fi
+
+if [ $BUT = 3 ]; then
+BASEAPPS=(JS8map)
+for i in "${RADIOAPPS[@]}"
+do
+echo "$i" >> $RADIO
+done
+fi
+
 #####################################
 #	Install Base Apps
 #####################################
@@ -168,6 +196,15 @@ source $FUNCTIONS/base.function
 while read i ; do
 $i
 done < $BASE
+
+#####################################
+#	Install Radio Apps
+#####################################
+touch $RB
+source $FUNCTIONS/radio.function
+while read i ; do
+$i
+done < $RADIO
 
 #####################################
 #	Update crontab
@@ -353,7 +390,7 @@ echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 #####################################
 #	Update HamRadio Menu
 #####################################
-#create new menu subcategorie WB0SIO apps.
+#create new menu subcategory WB0SIO apps.
 bash ${HOME}/pi-scripts/menu-update.sh
 
 
@@ -365,6 +402,7 @@ bash ${HOME}/pi-scripts/menu-update.sh
 /home/pi/bin/solarimage.sh
 #Remove temp files
 rm $BASE > /dev/null 2>&1
+rm $RADIO > /dev/null 2>&1
 sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 
