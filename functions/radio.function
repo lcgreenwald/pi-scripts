@@ -15,12 +15,19 @@ mkdir -p $DIR
 #	js8map
 ################################
 JS8map(){
-	# Install js8map  
+	# Install/update js8map  
 	cd
-	git clone https://github.com/OddLingo/js8map.git
-	python3 -m pip install --upgrade pip
-    python3 -m pip install --upgrade Pillow
+	if [ ! -d $HOME/js8call 2>/dev/null ]; then
+		git clone https://github.com/OddLingo/js8map.git
+		python3 -m pip install --upgrade pip
+		python3 -m pip install --upgrade Pillow
+	else
+		cd js8map
+		git pull
+		cd
+	fi
 
+# Create the desktop entry
 	cat <<EOF > $HOME/.local/share/applications/js8map.desktop
 [Desktop Entry]
 Version=1.0
@@ -36,11 +43,14 @@ StartupNotify=true
 NoDisplay=false
 EOF
 
+# Create the shell script to run js8map
 	cat <<EOF > $HOME/bin/js8map.sh
 #!/bin/bash
 cd $HOME/js8map
 python3 js8map.py
 EOF
+
+# Make the shell script executable
 chmod a+x $HOME/bin/js8map.sh
 }
 ################################
