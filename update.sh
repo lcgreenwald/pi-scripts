@@ -19,6 +19,7 @@
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=$MYPATH/base.txt
+RADIO=$MYPATH/radio.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
 RB=$HOME/.config/WB0SIO
@@ -348,7 +349,6 @@ done < $BASE
 #####################################
 #	Install/Update Radio Apps
 #####################################
-touch $RB
 while read i ; do
 source $FUNCTIONS/radio.function
 $i
