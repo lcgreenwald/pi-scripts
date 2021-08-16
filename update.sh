@@ -454,8 +454,6 @@ if [ ! -d $HOME/bin/conky/solardata 2>/dev/null ] ; then
 fi
 cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
-sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
-sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
 #************
@@ -471,6 +469,12 @@ sudo updatedb
 # Edit build-a-pi to use WB0SIO version of gpsd install.
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
+
+#####################################
+#	Update HamRadio Menu
+#####################################
+#create new menu subcategory WB0SIO apps.
+bash ${HOME}/pi-scripts/menu-update.sh
 
 #####################################
 #	END CLEANUP
