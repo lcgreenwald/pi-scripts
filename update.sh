@@ -318,7 +318,7 @@ yad --center --list --checklist --width=700 --height=650 --separator="" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Next":2 > $BASE
+--button="Next":2 > $RADIO
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
