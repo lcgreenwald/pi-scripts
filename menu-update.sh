@@ -10,8 +10,9 @@
 ###################
 # Copied and modified 2021/08/14 wb0sio
 # Added wb0sio subcategory
+# 2021/08/16 wb0sio fixed flrig typos in FLSUITE()
 
-REV=20210814
+REV=20210816
 
 source $HOME/.config/WB0SIO
 
@@ -27,11 +28,6 @@ FLPATH=/usr/local/share/applications
 if [ -f $FLPATH/fldigi.desktop ]; then
 echo "updating fldigi"
 sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/fldigi.desktop
-fi
-
-if [ -f $FLPATH/flrig.desktop ]; then
-echo "updating flrig"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flrig.desktop
 fi
 
 if [ -f $FLPATH/flamp.desktop ]; then
@@ -59,7 +55,7 @@ echo "updating flwrap"
 sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flwrap.desktop
 fi
 
-if [ -f $FLPATH/flwrap.desktop ]; then
+if [ -f $FLPATH/flrig.desktop ]; then
 echo "updating flrig"
 sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flrig.desktop
 fi
