@@ -27,6 +27,7 @@ You may also optionally install:
 	CommanderPi - Easy RaspberryPi4 GUI system managment
 	Fortune - Random quotes
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
+	JS8map - Map to show location of JS8Call contacts
 
 Run the following commands
 
