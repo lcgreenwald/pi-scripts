@@ -147,30 +147,6 @@ false "Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
---button="Exit":1 \
---button="Check All and Continue":3 \
---button="Next":2 > $BASE
-BUT=$?
-if [ $BUT = 252 ] || [ $BUT = 1 ]; then
-exit
-fi
-
-if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe)
-for i in "${BASEAPPS[@]}"
-do
-echo "$i" >> $BASE
-done
-fi
-
-
-#####################################
-#	Radio Apps
-#####################################
-yad --center --list --checklist --width=650 --height=650 --separator="" \
---image $LOGO --column=Check --column=App --column=Description \
---print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
---text="<b>Radio Applications</b>" --title="Pi-Scripts Install" \
 false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
@@ -181,10 +157,10 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(JS8map)
-for i in "${RADIOAPPS[@]}"
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
+for i in "${BASEAPPS[@]}"
 do
-echo "$i" >> $RADIO
+echo "$i" >> $BASE
 done
 fi
 
@@ -196,15 +172,6 @@ source $FUNCTIONS/base.function
 while read i ; do
 $i
 done < $BASE
-
-#####################################
-#	Install Radio Apps
-#####################################
-touch $RB
-source $FUNCTIONS/radio.function
-while read i ; do
-$i
-done < $RADIO
 
 #####################################
 #	Update crontab
