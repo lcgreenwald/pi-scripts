@@ -124,7 +124,7 @@ rm $MYPATH/intro.txt
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=650 --height=620 --separator="" \
+yad --center --list --checklist --width=650 --height=700 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
