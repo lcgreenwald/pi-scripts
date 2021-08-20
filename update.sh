@@ -22,15 +22,11 @@ BASE=$MYPATH/base.txt
 RADIO=$MYPATH/radio.txt
 FUNCTIONS=$MYPATH/functions
 LOGO=$MYPATH/logo.png
-RB=$HOME/.config/WB0SIO
 VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 
 FINISH(){
 if [ -f "$BASE" ]; then
 rm $BASE
-fi
-if [ -f "$RADIO" ]; then
-rm $RADIO
 fi
 }
 
@@ -44,9 +40,9 @@ if [ -d $HOME/.config/autostart ]; then
   mkdir -p $HOME/.config/autostart
 fi
 
-#************
+#####################################
 #Check for pi-scripts updates
-#************
+#####################################
 echo "Checking for Pi Scripts updates"
 CURRENT=$(head -1 $MYPATH/changelog | sed s'/version=//')
 
@@ -60,7 +56,7 @@ the lateest version is $LATEST. Would you like to update?
 
 Change log - https://github.com/lcgreenwald/pi-scripts/blob/master/changelog
 EOF
-BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
+BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/updatebap.txt \
 --button="Yes":2 \
@@ -81,7 +77,7 @@ echo $BUT
 cat <<EOF > $MYPATH/updatebap.txt
 Pi Scripts has been updated to $LATEST. Please restart Pi Scripts.
 EOF
-	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
+	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 	--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 	--text-info<$MYPATH/updatebap.txt \
 	--button="OK":2)
@@ -94,10 +90,10 @@ rm $MYPATH/updatebap.txt >> /dev/null 2>&1
 rm $MYPATH/complete.txt >> /dev/null 2>&1
 clear
 
-#************
+#####################################
 #Scan system for updated applications
-#************
-yad  --width=550 --height=150 --text-align=center --center --title="Pi Build Install  Update" \
+#####################################
+yad  --width=550 --height=150 --text-align=center --center --title="Update" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Version $VERSION</b>\r\r\First we need to scan the system to see what is installed. \
 This should take less than a minute. Ready when you are." \
@@ -108,9 +104,9 @@ if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
 fi
 
-#************
+#####################################
 #install bc if not installed
-#************
+#####################################
 if ! hash bc>/dev/null; then
 sudo apt install -y bc
 fi
@@ -256,15 +252,6 @@ else
 JS8map="Installed"
 fi
 
-#----------------------------------------------------#
-#		K4CPO-FD-Logger
-#----------------------------------------------------#
-if [ ! -d $HOME/K4CPO-FD-Logger 2>/dev/null ]; then
-K4CPO-FD-Logger="Not Installed"
-else
-K4CPO-FD-Logger="Installed"
-fi
-
 }
 
 CHECK
@@ -284,7 +271,7 @@ CHECK
 yad --center --list --checklist --width=700 --height=650 --separator="" \
 --image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=$LOGO --image-on-top --text-align=center \
---text="<big><big><b>Base Apps</b></big></big>" --title="Pi Build Install Update" \
+--text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
 false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
@@ -323,65 +310,19 @@ sudo apt-get -y upgrade
 sudo apt -y full-upgrade
 
 #####################################
-#	Install/Update Base Apps
+#	Install Base Apps
 #####################################
-touch $RB
+touch $HOME/.config/WB0SIO
 while read i ; do
 source $FUNCTIONS/base.function
 $i
 done < $BASE
 
+bash $HOME/pi-build/update
+
 #####################################
-#	Install Build-A-Pi
-#####################################
-cat <<EOF > $MYPATH/intro.txt
-Now we will optionally update Build-A-Pi.
-Please select Master, Beta or Dev installation.
-Or you may skip installing Build-A-Pi now and
-install it separately later.
-EOF
-
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
---image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text-info<$MYPATH/intro.txt \
---button="Master":2 > /dev/null 2>&1 \
---button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1 \
---button="Skip":5 > /dev/null 2>&1)
-BUT=$(echo $?)
-
-if [ $BUT = 252 ]; then
-rm $MYPATH/intro.txt
-exit
-fi
-rm $MYPATH/intro.txt
-
-if [ ! $BUT = 5 ]; then
-  cd
-  git clone https://github.com/km4ack/pi-build.git
-  cd pi-build
-  git config --global user.email "lcgreenwald@gmail.com"
-  git config --global user.name "lcgreenwald"
-  if [ $BUT = 2 ]; then
-    echo "Master selected."
-    git checkout master
-    git pull
-  elif [ $BUT = 3 ]; then
-    echo "Beta selected."
-    git checkout beta
-    git pull
-  elif [ $BUT = 4 ]; then
-    echo "Dev selected."
-    git checkout dev
-    git pull
-  fi
-  cd
-  bash $HOME/pi-build/update
-fi
-
-#************
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
-#************
+#####################################
 if [ -d $HOME/hotspot-tools2 ]; then
   AUTHOR=$(grep "author=" $HOME/hotspot-tools2/changelog | sed 's/author=//')
 	if [[ ! $AUTHOR == 'wb0sio' ]]; then
@@ -392,17 +333,17 @@ if [ -d $HOME/hotspot-tools2 ]; then
   fi
 fi
 
-#************
+#####################################
 # Update aliases in .bashrc.
-#************
+#####################################
 sed -i "s/#alias ll='ls -l'/alias ll='ls -l'/" $HOME/.bashrc
 sed -i "s/#alias la='ls -A'/alias la='ls -la'/" $HOME/.bashrc
 sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" $HOME/.bashrc
 
-#************
+#####################################
 # If pat menu is installed,
 # Update callsign, password and grid info in Pat Menu.
-#************
+#####################################
 if [ -d $HOME/patmenu2 ]; then
 
   CONFIG=/home/pi/patmenu2/manage-pat-functions
@@ -415,9 +356,14 @@ if [ -d $HOME/patmenu2 ]; then
   sed -i "s/\"Six Character Grid Square\" \"EM65TV\"/\"Six Character Grid Square\" \"$GRID\"/" $CONFIG
 fi
 
-#************
+#####################################
+# Update HamRadio menu items.
+#####################################
+bash $MYPATH/menu-update.sh
+
+#####################################
 # Install WB0SIO versions of desktop, conky and digi-mode files.
-#************
+#####################################
 cp -f $HOME/hotspot-tools2/hstools.desktop $HOME/.local/share/applications/hotspot-tools.desktop
 cp -f $MYPATH/bin/*.sh ~/bin/
 cp -f $MYPATH/conky/get-grid ~/bin/conky/
@@ -433,32 +379,25 @@ cp -rf $MYPATH/xlog/* $HOME/.xlog/
 cp -f $MYPATH/config/* $HOME/.config/
 sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 
-#************
+#####################################
 # Update the locate database.
-#************
+#####################################
 echo "#######################################"
 echo "#  Updating the locate database.      #"
 echo "#  This may take a minute or two.     #"
 echo "#######################################"
 sudo updatedb
 
-#************
+#####################################
 # Edit build-a-pi to use WB0SIO version of gpsd install.
-#************
+#####################################
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
-
-#####################################
-#	Update HamRadio Menu
-#####################################
-#create new menu subcategory WB0SIO apps.
-bash ${HOME}/pi-scripts/menu-update.sh
 
 #####################################
 #	END CLEANUP
 #####################################
 #Remove temp files
 rm $BASE > /dev/null 2>&1
-rm $RADIO > /dev/null 2>&1
 sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 

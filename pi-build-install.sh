@@ -25,6 +25,7 @@ BASE=$MYPATH/base.txt
 RADIO=$MYPATH/radio.txt
 FUNCTIONS=$MYPATH/functions
 TEMPCRON=$MYPATH/cron.tmp
+TEMPFSTAB=$MYPATH/fstab.tmp
 WHO=$(whoami)
 VERSION=$(cat $MYPATH/changelog | grep version= | sed 's/version=//')
 export MYPATH
@@ -33,9 +34,6 @@ echo "MYPATH: $MYPATH"
 FINISH(){
 if [ -f "$BASE" ]; then
 rm $BASE
-fi
-if [ -f "$RADIO" ]; then
-rm $RADIO
 fi
 }
 
@@ -66,7 +64,7 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-cd $HOME/pi-scripts
+cd pi-scripts
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
@@ -101,19 +99,17 @@ fi
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 pi-build-install by wb0sio, version $VERSION.
-
-This script updates the operating system and then
-downloads and installs some required and some optional 
-utility software.
-
-It will also optionally install the latest version of 
+This script downloads and installs the latest version of 
 KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
 HotSpot Tools.
+First we will install some required and some optional 
+utility software.
+Once this is complete, the Build-A-Pi menu will open.  
 
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -128,7 +124,7 @@ rm $MYPATH/intro.txt
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=650 --height=650 --separator="" \
+yad --center --list --checklist --width=650 --height=620 --separator="" \
 --image $LOGO --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=$LOGO --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
@@ -195,17 +191,14 @@ rm $TEMPCRON
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
 Please select Master, Beta or Dev installation.
-Or you may skip installing Build-A-Pi now and
-install it separately later.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1 \
---button="Skip":5 > /dev/null 2>&1)
+--button="Dev":4 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
@@ -239,7 +232,6 @@ cd
 #************
 sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
-if [ ! $BUT = 5 ]; then
 #************
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
 #************
@@ -247,8 +239,7 @@ sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
 sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 # Run build-a-pi
-  bash pi-build/build-a-pi
-fi
+bash pi-build/build-a-pi
 
 # Load the configuration info that was set up in build-a-pi
 source /home/pi/pi-build/config
@@ -296,6 +287,10 @@ fi
 sudo sed -i 's/CONF_SWAPSIZE=100/#CONF_SWAPSIZE=100/' /etc/dphys-swapfile
 sudo sed -i 's/#CONF_SWAPFACTOR=2/CONF_SWAPFACTOR=1/' /etc/dphys-swapfile
 
+#####################################
+# Update HamRadio menu items.
+#####################################
+bash $MYPATH/menu-update.sh
 
 #************
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
@@ -311,8 +306,6 @@ cp -f $MYPATH/config/* $HOME/.config/
 cp -f $MYPATH/conky/.conkyrc* $HOME/
 cp -f $MYPATH/bpq32.cfg $HOME/linbpq/
 cp -f $MYPATH/direwolf.conf $HOME/
-#sudo cp -f $MYPATH/directory_files/*.directory /usr/share/desktop-directories/
-#sudo cp -f $MYPATH/directory_files/hamradio.menu /usr/share/extra-xdg-menus/
 if [ ! -d $HOME/.xlog 2>/dev/null ] ; then
 	mkdir $HOME/.xlog
 fi
@@ -333,9 +326,11 @@ sed -i "s/N0CALL/$CALL/" $HOME/.conkyrc
 #####################################
 #	Update fstab and create mount point
 #####################################
-sudo echo " " >> /etc/fstab
-sudo echo "# <file system>    <mount point>                        <type>    <options>" >> /etc/fstab
-sudo echo "honshu:public      /home/public/mounts/honshu/public    nfs       rw,sync,bg,auto,intr,soft,_netdev,retry=1" >> /etc/fstab
+cat /etc/fstab > $TEMPFSTAB
+sudo echo " " >> $TEMPFSTAB
+sudo echo "# <file system>    <mount point>                        <type>    <options>" >> $TEMPFSTAB
+sudo echo "honshu:public      /home/public/mounts/honshu/public    nfs       rw,sync,bg,auto,intr,soft,_netdev,retry=1" >> $TEMPFSTAB
+rm $TEMPFSTAB
 if [ ! -d /home/public/mounts/honshu/public 2>/dev/null ] ; then
   mkdir -p /home/public/mounts/honshu/public
 fi
@@ -355,13 +350,6 @@ sudo updatedb
 echo "$MYPATH/.pscomplete" >> $HOME/pi-build/.complete
 
 #####################################
-#	Update HamRadio Menu
-#####################################
-#create new menu subcategory WB0SIO apps.
-bash ${HOME}/pi-scripts/menu-update.sh
-
-
-#####################################
 #	END CLEANUP
 #####################################
 # Run solar.sh to update the solar condiions data for conky
@@ -369,7 +357,6 @@ bash ${HOME}/pi-scripts/menu-update.sh
 /home/pi/bin/solarimage.sh
 #Remove temp files
 rm $BASE > /dev/null 2>&1
-rm $RADIO > /dev/null 2>&1
 sudo rm -rf $HOME/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 
