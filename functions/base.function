@@ -223,7 +223,7 @@ Icon=js8call_icon
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;wb0sio
+Categories=HamRadio;wb0sio;
 StartupNotify=true
 NoDisplay=false
 EOF
