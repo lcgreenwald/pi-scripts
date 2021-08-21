@@ -267,11 +267,10 @@ fi
 #----------------------------------------------------#
 #		K4CPO-FD-Logger
 #----------------------------------------------------#
-FD-Log="Not set"
 if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
-	FD-Log="Not Installed"
+	FDLog="Not Installed"
 else
-	FD-Log="Installed"
+	FDLog="Installed"
 fi
 
 }
@@ -311,7 +310,7 @@ false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "RPiMonitor" "$RPiMonitor" "Display Raspberry Pi system information" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
-#false "K4CPO-FD-Logger" "$FD-Log" "FD logger customized for N0SUW/WB0SIO" \
+false "K4CPO-FD-Logger" "$FDLog" "K$CPO FD logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
