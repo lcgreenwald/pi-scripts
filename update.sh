@@ -290,7 +290,7 @@ CHECK
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=750 --height=700 --separator="" \
+yad --center --list --checklist --width=750 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
@@ -310,7 +310,7 @@ false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
-false "K4CPO-FD-Logger" "$FD-Log" "FD logger customized for N0SUW/WB0SIO" \
+#false "K4CPO-FD-Logger" "$FD-Log" "FD logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
