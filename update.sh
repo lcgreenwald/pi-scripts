@@ -247,12 +247,12 @@ else
 fi
 
 #----------------------------------------------------#
-#		RpiMonitor
+#		RPiMonitor
 #----------------------------------------------------#
 if [ ! hash rpimonitor 2>/dev/null ]; then
-	RpiMonitor="Not Installed"
+	RPiMonitor="Not Installed"
 else
-	RpiMonitor="Installed"
+	RPiMonitor="Installed"
 fi
 
 #----------------------------------------------------#
@@ -309,6 +309,7 @@ false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
+false "RPiMonitor" "$RPiMonitor" "Display Raspberry Pi system information" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 #false "K4CPO-FD-Logger" "$FD-Log" "FD logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
