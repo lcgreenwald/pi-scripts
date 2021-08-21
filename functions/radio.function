@@ -9,8 +9,6 @@ TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
 mkdir -p $DIR
 
-#source $MYPATH/installapps
-
 ################################
 #	js8map
 ################################

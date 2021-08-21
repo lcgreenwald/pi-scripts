@@ -33,7 +33,10 @@ echo "MYPATH: $MYPATH"
 
 FINISH(){
 if [ -f "$BASE" ]; then
-rm $BASE
+	rm $BASE
+fi
+if [ -f "$RADIO" ]; then
+	rm $RADIO
 fi
 }
 
@@ -72,11 +75,6 @@ if ! hash log2ram 2>/dev/null; then
 	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
 	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
 fi
-if ! hash rpimonitor 2>/dev/null; then
-  sudo apt-get install dirmngr
-  sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2C0D3C0F
-  sudo wget http://goo.gl/vewCLL -O /etc/apt/sources.list.d/rpimonitor.list
-fi
 
 sudo apt update
 sudo apt upgrade -y
@@ -89,9 +87,6 @@ if ! hash jq 2>/dev/null; then
 fi
 if ! hash xscreensaver 2>/dev/null; then
 	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
-fi
-if ! hash rpimonitor 2>/dev/null; then
-	sudo apt install -y rpimonitor
 fi
 
 #####################################
@@ -144,6 +139,7 @@ false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "Map to show location of JS8Call contacts" \
+false "K4CPO-FD-Logger" "K4CPO-FD-Logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -153,7 +149,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map K4CPO-FD-Logger)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

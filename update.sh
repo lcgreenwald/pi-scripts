@@ -26,7 +26,10 @@ VERSION=$(grep "version=" $MYPATH/changelog | sed 's/version=//')
 
 FINISH(){
 if [ -f "$BASE" ]; then
-rm $BASE
+	rm $BASE
+fi
+if [ -f "$RADIO" ]; then
+	rm $RADIO
 fi
 }
 
@@ -116,140 +119,158 @@ CHECK(){
 #		LOG2RAM
 #----------------------------------------------------#
 if ! hash log2ram 2>/dev/null; then
-Log2ram="Not Installed"
+	Log2ram="Not Installed"
 else
-Log2ram="Installed"
+	Log2ram="Installed"
 fi
 #----------------------------------------------------#
 #		LOCATE
 #----------------------------------------------------#
 if ! hash locate 2>/dev/null; then
-Locate="Not Installed"
+	Locate="Not Installed"
 else
-Locate="Installed"
+	Locate="Installed"
 fi
 #----------------------------------------------------#
 #		PLANK
 #----------------------------------------------------#
 if ! hash plank 2>/dev/null; then
-Plank="Not Installed"
+	Plank="Not Installed"
 else
-Plank="Installed"
+	Plank="Installed"
 fi
 #----------------------------------------------------#
 #		SAMBA
 #----------------------------------------------------#
 if ! hash samba 2>/dev/null; then
-Samba="Not Installed"
+	Samba="Not Installed"
 else
-Samba="Installed"
+	Samba="Installed"
 fi
 #----------------------------------------------------#
 #		WEBMIN
 #----------------------------------------------------#
 if [ ! -d /usr/share/webmin 2>/dev/null ]; then
-Webmin="Not Installed"
+	Webmin="Not Installed"
 else
-Webmin="Installed"
+	Webmin="Installed"
 fi
 
 #----------------------------------------------------#
 #		3.5" DISPLAY DRIVERS
 #----------------------------------------------------#
 if [ ! -d $HOME/LCD-show 2>/dev/null ]; then
-Display="Not Installed"
+	Display="Not Installed"
 else
-Display="Installed"
+	Display="Installed"
 fi
 
 #----------------------------------------------------#
 #		Cqrprop
 #----------------------------------------------------#
 if ! hash  cqrprop 2>/dev/null ; then
-Cqrprop="Not Installed"
+	Cqrprop="Not Installed"
 else
-Cqrprop="Installed"
+	Cqrprop="Installed"
 fi
 
 #----------------------------------------------------#
 #		Disks
 #----------------------------------------------------#
 if ! hash  gnome-disks 2>/dev/null ; then
-Disks="Not Installed"
+	Disks="Not Installed"
 else
-Disks="Installed"
+	Disks="Installed"
 fi
 
 #----------------------------------------------------#
 #		PiImager
 #----------------------------------------------------#
 if ! hash  rpi-imager 2>/dev/null ; then
-PiImager="Not Installed"
+	PiImager="Not Installed"
 else
-PiImager="Installed"
+	PiImager="Installed"
 fi
 
 #----------------------------------------------------#
 #		Neofetch
 #----------------------------------------------------#
 if ! hash  neofetch 2>/dev/null ; then
-Neofetch="Not Installed"
+	Neofetch="Not Installed"
 else
-Neofetch="Installed"
+	Neofetch="Installed"
 fi
 
 #----------------------------------------------------#
 #		Commander Pi
 #----------------------------------------------------#
 if [ ! -d $HOME/CommanderPi 2>/dev/null ]; then
-CommanderPi="Not Installed"
+	CommanderPi="Not Installed"
 else
-CommanderPi="Installed"
+	CommanderPi="Installed"
 fi
 
 #----------------------------------------------------#
 #		Fortune
 #----------------------------------------------------#
 if [ ! -f /usr/share/terminfo/f/fortune 2>/dev/null ]; then
-Fortune="Not Installed"
+	Fortune="Not Installed"
 else
-Fortune="Installed"
+	Fortune="Installed"
 fi
 
 #----------------------------------------------------#
 #		DeskPi
 #----------------------------------------------------#
 if [ ! -d $HOME/deskpi 2>/dev/null ]; then
-DeskPi="Not Installed"
+	DeskPi="Not Installed"
 else
-DeskPi="Installed"
+	DeskPi="Installed"
 fi
 
 #----------------------------------------------------#
 #		Argon
 #----------------------------------------------------#
 if [ ! -f /etc/argononed.conf 2>/dev/null ]; then
-Argon="Not Installed"
+	Argon="Not Installed"
 else
-Argon="Installed"
+	Argon="Installed"
 fi
 
 #----------------------------------------------------#
 #		PiSafe
 #----------------------------------------------------#
 if [ ! -f $HOME/pisafe 2>/dev/null ]; then
-PiSafe="Not Installed"
+	PiSafe="Not Installed"
 else
-PiSafe="Installed"
+	PiSafe="Installed"
+fi
+
+#----------------------------------------------------#
+#		RpiMonitor
+#----------------------------------------------------#
+if [ ! hash rpimonitor 2>/dev/null ]; then
+	RpiMonitor="Not Installed"
+else
+	RpiMonitor="Installed"
 fi
 
 #----------------------------------------------------#
 #		JS8map
 #----------------------------------------------------#
 if [ ! -d $HOME/js8map 2>/dev/null ]; then
-JS8map="Not Installed"
+	JS8map="Not Installed"
 else
-JS8map="Installed"
+	JS8map="Installed"
+fi
+
+#----------------------------------------------------#
+#		K4CPO-FD-Logger
+#----------------------------------------------------#
+if [ ! -d $HOME/K4CPO-FD-Logger 2>/dev/null ]; then
+	K4CPO-FD-Logger="Not Installed"
+else
+	K4CPO-FD-Logger="Installed"
 fi
 
 }
@@ -288,6 +309,7 @@ false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
+false "K4CPO-FD-Logger" "$K4CPO-FD-Logger" "K4CPO-FD-Logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > $BASE
@@ -297,7 +319,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map K4CPO-FD-Logger)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> $BASE

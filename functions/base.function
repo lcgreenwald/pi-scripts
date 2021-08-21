@@ -8,8 +8,6 @@ TEMPCRON=$MYPATH/cron.tmp
 DIR=$MYPATH/temp
 mkdir -p $DIR
 
-#source $MYPATH/installapps
-
 ################################
 #	LOG2RAM
 ################################
@@ -193,6 +191,19 @@ PiSafe(){
   cd
   wget https://raw.githubusercontent.com/RichardMidnight/pi-safe/main/pisafe -O pisafe
   bash pisafe install -y
+}
+################################
+
+################################
+#	RpiMonitor
+################################
+RpiMonitor(){
+if ! hash rpimonitor 2>/dev/null; then
+	sudo apt-get install dirmngr
+	sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2C0D3C0F
+	sudo wget http://goo.gl/vewCLL -O /etc/apt/sources.list.d/rpimonitor.list
+fi
+sudo apt install -y rpimonitor
 }
 ################################
 
