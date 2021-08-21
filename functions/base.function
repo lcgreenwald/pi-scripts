@@ -2,16 +2,14 @@
 #km4ack 20200513
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 
-MYPATH=$HOME/pi-scripts
-#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-TEMPCRON=$MYPATH/cron.tmp
-DIR=$MYPATH/temp
-mkdir -p $DIR
-
 ################################
 #	LOG2RAM
 ################################
 Log2ram(){
+if ! hash log2ram 2>/dev/null; then
+	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
+	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+fi
 	sudo apt install -y log2ram
 	sudo sed -i "s/SIZE=40M/SIZE=200M/" /etc/log2ram.conf
 	sudo sed -i "s/USE_RSYNC=false/USE_RSYNC=true/" /etc/log2ram.conf
@@ -30,14 +28,14 @@ Locate(){
 ################################
 Plank(){
 	sudo apt install -y plank
-	if [ ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ] ;	then
-		mkdir -p $HOME/.config/plank/dock1/launchers
+	if [ ! -d ${HOME}/.config/plank/dock1/launchers 2>/dev/null ] ;	then
+		mkdir -p ${HOME}/.config/plank/dock1/launchers
 	fi
-	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
-	if [ ! -d $HOME/.config/autostart 2>/dev/null ] ; then
-		mkdir -p $HOME/.config/autostart
+	sudo cp -f ${MYPATH}/launchers/* ${HOME}/.config/plank/dock1/launchers/
+	if [ ! -d ${HOME}/.config/autostart 2>/dev/null ] ; then
+		mkdir -p ${HOME}/.config/autostart
 	fi
-	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
+	sudo cp -f /usr/share/applications/plank.desktop ${HOME}/.config/autostart/
 }
 ################################
 #	SAMBA
@@ -47,7 +45,7 @@ Samba(){
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
 	sudo chmod 777 /home/public
-	cat <<EOF > $MYPATH/samba_share.txt
+	cat <<EOF > ${MYPATH}/samba_share.txt
 [public]
   path = /home/public
   read only = no
@@ -55,9 +53,9 @@ Samba(){
   writable = yes
 EOF
 	sudo chmod 666 /etc/samba/smb.conf  
-	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
+	sudo cat ${MYPATH}/samba_share.txt >> /etc/samba/smb.conf
 	sudo chmod 644 /etc/samba/smb.conf
-	rm $MYPATH/samba_share.txt
+	rm ${MYPATH}/samba_share.txt
 }
 ################################
 #	WEBMIN
@@ -78,7 +76,7 @@ Display(){
 	git clone https://github.com/MrYacha/LCD-show.git
 	sudo chmod -R 755 LCD-show
 
-	cat <<EOF > $HOME/.local/share/applications/LCD35-show.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/LCD35-show.desktop
 [Desktop Entry]
 Name=LCD35-show
 Comment=LCD35-show
@@ -92,7 +90,7 @@ Categories=Settings;DesktopSettings;
 Keywords=Display
 EOF
 
-	cat <<EOF > $HOME/.local/share/applications/LCD-hdmi.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/LCD-hdmi.desktop
 [Desktop Entry]
 Name=LCD-hdmi
 Comment=LCD-hdmi
@@ -213,7 +211,7 @@ sudo apt install -y rpimonitor
 JS8map(){
 	# Install/update js8map  
 	cd
-	if [ ! -d $HOME/js8map 2>/dev/null ]; then
+	if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
 		git clone https://github.com/OddLingo/js8map.git
 		python3 -m pip install --upgrade pip
 		python3 -m pip install --upgrade Pillow
@@ -224,7 +222,7 @@ JS8map(){
 	fi
 
 # Create the desktop entry
-	cat <<EOF > $HOME/.local/share/applications/js8map.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/js8map.desktop
 [Desktop Entry]
 Version=1.0
 Name=js8map
@@ -240,14 +238,14 @@ NoDisplay=false
 EOF
 
 # Create the shell script to run js8map
-	cat <<EOF > $HOME/bin/js8map.sh
+	cat <<EOF > ${HOME}/bin/js8map.sh
 #!/bin/bash
-cd $HOME/js8map
+cd ${HOME}/js8map
 python3 js8map.py
 EOF
 
 # Make the shell script executable
-chmod a+x $HOME/bin/js8map.sh
+chmod a+x ${HOME}/bin/js8map.sh
 }
 ################################
 
@@ -255,7 +253,7 @@ chmod a+x $HOME/bin/js8map.sh
 #	K4CPO-FD-Logger
 ################################
 K4CPO-FD-Logger(){
-if [ ! -d $HOME/folder 2>/dev/null ]; then
+if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	cd
 	git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 	sudo apt-get install -y php7.3 mariadb-server phpmyadmin
@@ -288,7 +286,7 @@ fi
 #	Proto Folder
 ################################
 ProtoF(){
-if [ ! -d $HOME/folder 2>/dev/null ]; then
+if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	echo "folder" >/dev/null
 fi
 }
