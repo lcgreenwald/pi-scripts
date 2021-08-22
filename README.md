@@ -27,6 +27,8 @@ You may also optionally install:
 	CommanderPi - Easy RaspberryPi4 GUI system managment
 	Fortune - Random quotes
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
+	JS8map - Map to show location of JS8Call contacts
+	K4CPO-FD-Logger - Field Day logger customized for N0SUW/WB0SIO
 
 Run the following commands
 
