@@ -93,13 +93,15 @@ fi
 #	notice to user
 #####################################
 cat <<EOF > ${MYPATH}/intro.txt
-pi-build-install by wb0sio, version ${VERSION}.
-This script downloads and installs the latest version of 
+pi-build-install by wb0sio, version $VERSION.
+
+This script updates the operating system and then
+downloads and installs some required and some optional 
+utility software.
+
+It will also optionally install the latest version of 
 KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
 HotSpot Tools.
-First we will install some required and some optional 
-utility software.
-Once this is complete, the Build-A-Pi menu will open.  
 
 Enjoy!  73 de WB0SIO
 EOF
