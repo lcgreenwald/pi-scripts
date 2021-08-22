@@ -155,7 +155,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map K4CPO-FD-Logger)
+BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map K4CPO-FD-Logger)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
