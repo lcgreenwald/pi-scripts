@@ -12,155 +12,15 @@
 # Added wb0sio subcategory
 # 2021/08/16 wb0sio fixed flrig typos in FLSUITE()
 
-REV=20210816
+REV=20210820
 
 source $HOME/.config/WB0SIO
 
 
-FLSUITE(){
-##########################
-#	FLSUITE 
-##########################
-CATEGORY=flsuite
-
-FLPATH=/usr/local/share/applications
-
-if [ -f $FLPATH/fldigi.desktop ]; then
-echo "updating fldigi"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/fldigi.desktop
-fi
-
-if [ -f $FLPATH/flamp.desktop ]; then
-echo "updating flamp"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flamp.desktop
-fi
-
-if [ -f $FLPATH/flarq.desktop ]; then
-echo "updating flarq"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flarq.desktop
-fi
-
-if [ -f $FLPATH/flmsg.desktop ]; then
-echo "updating flmsg"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flmsg.desktop
-fi
-
-if [ -f $FLPATH/flnet.desktop ]; then
-echo "updating flnet"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flnet.desktop
-fi
-
-if [ -f $FLPATH/flwrap.desktop ]; then
-echo "updating flwrap"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flwrap.desktop
-fi
-
-if [ -f $FLPATH/flrig.desktop ]; then
-echo "updating flrig"
-sudo sed -i "s/Categories.*/Categories=$CATEGORY/" $FLPATH/flrig.desktop
-fi
-}
-
-BAP(){
-##########################
-#	BAP 
-##########################
-
-cd /run/user/$UID
-
-#DONATE
-if [ ! -f /usr/local/share/applications/donate.desktop ]; then
-	cat >donate.desktop <<EOF
-[Desktop Entry]
-Name=Donate
-Comment=Donate to Build a Pi
-Exec=xdg-open https://www.paypal.com/paypalme/km4ack
-Icon=/home/pi/pi-build/logo.png
-Terminal=false
-Type=Application
-Categories=bap
-Keywords=Support
-EOF
-
-	sudo mv donate.desktop /usr/local/share/applications/
-fi
-
-#FAQ
-if [ ! -f /usr/local/share/applications/faq.desktop ]; then
-	cat >faq.desktop <<EOF
-[Desktop Entry]
-Name=FAQ
-Comment=Build a Pi FAQ
-Exec=xdg-open https://app.simplenote.com/publish/C3bBxN
-Icon=/home/pi/pi-build/logo.png
-Terminal=false
-Type=Application
-Categories=bap
-Keywords=Support
-
-EOF
-
-	sudo mv faq.desktop /usr/local/share/applications/
-fi
-
-#SUPPORT
-if [ ! -f /usr/local/share/applications/support.desktop ]; then
-	cat >support.desktop <<EOF
-[Desktop Entry]
-Name=Tech Support
-Comment=Build a Pi Tech Support
-Exec=xdg-open https://groups.io/g/KM4ACK-Pi/topics
-Icon=/home/pi/pi-build/logo.png
-Terminal=false
-Type=Application
-Categories=bap
-Keywords=Support
-
-EOF
-
-	sudo mv support.desktop /usr/local/share/applications/
-fi
-
-if [ ! -f /usr/local/share/applications/build-a-pi.desktop ]; then
-sudo mv /usr/share/applications/build-a-pi.desktop /usr/local/share/applications/
-sudo sed -i 's/Categories.*/Categories=bap/' /usr/local/share/applications/build-a-pi.desktop
-sudo sed -i 's/Name.*/Name=Update-Tool/' /usr/local/share/applications/build-a-pi.desktop
-fi
-}
 
 CREATEMENU(){
 #Create menu subcategories
 cd /run/user/$UID
-
-cat >FLsuite.directory <<EOF
-[Desktop Entry]
-Type=Directory
-Encoding=UTF-8
-Name=flsuite
-Icon=fldigi
-EOF
-
-sudo mv FLsuite.directory /usr/share/desktop-directories/
-
-cat >km4ack.directory <<EOF
-[Desktop Entry]
-Type=Directory
-Encoding=UTF-8
-Name=KM4ACK-Tools
-Icon=CQ.png
-EOF
-
-sudo mv km4ack.directory /usr/share/desktop-directories/
-
-cat >bap.directory <<EOF
-[Desktop Entry]
-Type=Directory
-Encoding=UTF-8
-Name=Build-a-Pi
-Icon=/home/pi/pi-build/logo.png
-EOF
-
-sudo mv bap.directory /usr/share/desktop-directories/
 
 cat >wb0sio.directory <<EOF
 [Desktop Entry]
@@ -224,8 +84,6 @@ if [ ! -f /usr/share/extra-xdg-menus/hamradio.menu ]; then
 sudo apt install -y extra-xdg-menus
 fi
 
-BAP
-
 #check to see if this script has already run
 if [ "$MENU" = "$REV" ]; then
 REV=$(cat $HOME/.config/WB0SIO | sed 's/MENU=//')
@@ -235,7 +93,6 @@ exit
 else
 echo "MENU=$REV" >> $HOME/.config/WB0SIO
 CREATEMENU
-FLSUITE
 fi
 
 

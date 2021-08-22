@@ -1,15 +1,8 @@
-#this installs the basic software for pi-scripts-install
+#this installs the radio related software for pi-scripts-install
 #km4ack 20200513
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 #wb0sio 20210816 Converted wb0sio base.function to wb0sio radio.function
 
-MYPATH=$HOME/pi-scripts
-#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-TEMPCRON=$MYPATH/cron.tmp
-DIR=$MYPATH/temp
-mkdir -p $DIR
-
-#source $MYPATH/installapps
 
 ################################
 #	js8map
@@ -17,7 +10,7 @@ mkdir -p $DIR
 JS8map(){
 	# Install/update js8map  
 	cd
-	if [ ! -d $HOME/js8map 2>/dev/null ]; then
+	if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
 		git clone https://github.com/OddLingo/js8map.git
 		python3 -m pip install --upgrade pip
 		python3 -m pip install --upgrade Pillow
@@ -28,7 +21,7 @@ JS8map(){
 	fi
 
 # Create the desktop entry
-	cat <<EOF > $HOME/.local/share/applications/js8map.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/js8map.desktop
 [Desktop Entry]
 Version=1.0
 Name=js8map
@@ -38,22 +31,45 @@ Icon=js8call_icon
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;wb0sio
+Categories=HamRadio;wb0sio;
 StartupNotify=true
 NoDisplay=false
 EOF
 
 # Create the shell script to run js8map
-	cat <<EOF > $HOME/bin/js8map.sh
+	cat <<EOF > ${HOME}/bin/js8map.sh
 #!/bin/bash
-cd $HOME/js8map
+cd ${HOME}/js8map
 python3 js8map.py
 EOF
 
 # Make the shell script executable
-chmod a+x $HOME/bin/js8map.sh
+chmod a+x ${HOME}/bin/js8map.sh
 }
 ################################
+
+################################
+#	K4CPO-FD-Logger
+################################
+K4CPO-FD-Logger(){
+if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
+	cd
+	git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
+	sudo apt-get install -y php7.3 mariadb-server phpmyadmin
+	cd ~/K4CPO-FD-Logger
+	bash setup
+	sudo mkdir /var/www/html/log
+	sudo chmod 777 /var/www/html/log
+	sudo cp * /var/www/html/log/
+	cd
+	chromium-browser http://localhost/log?setup
+else
+	cd ~/K4CPO-FD-Logger
+	git pull
+	cd
+fi
+}
+###############################
 
 ################################
 #	Proto File
@@ -69,7 +85,7 @@ fi
 #	Proto Folder
 ################################
 ProtoF(){
-if [ ! -d $HOME/folder 2>/dev/null ]; then
+if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	echo "folder" >/dev/null
 fi
 }
