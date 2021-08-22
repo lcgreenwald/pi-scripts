@@ -22,7 +22,9 @@ BASE=${MYPATH}/base.txt
 RADIO=${MYPATH}/radio.txt
 FUNCTIONS=${MYPATH}/functions
 LOGO=${MYPATH}/logo.png
-VERSION=$(grep "version=" ${MYPATH}/changelog | sed 's/version=//')
+VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
+AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
+LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 
 FINISH(){
 if [ -f "${BASE}" ]; then
