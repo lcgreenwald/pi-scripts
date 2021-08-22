@@ -308,6 +308,7 @@ false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
+false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "RPiMonitor" "$RPiMonitor" "Display Raspberry Pi system information" \

@@ -193,9 +193,9 @@ PiSafe(){
 ################################
 
 ################################
-#	RpiMonitor
+#	RPiMonitor
 ################################
-RpiMonitor(){
+RPiMonitor(){
 if ! hash rpimonitor 2>/dev/null; then
 	sudo apt-get install dirmngr
 	sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2C0D3C0F
