@@ -67,7 +67,7 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-cd pi-scripts
+cd ${MYPATH}
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
@@ -93,7 +93,8 @@ fi
 #	notice to user
 #####################################
 cat <<EOF > ${MYPATH}/intro.txt
-pi-build-install by wb0sio, version $VERSION.
+pi-build-install by $AUTHOR, version $VERSION, last updated $LASTUPDATE.
+This script is installed in ${MYPATH}
 
 This script updates the operating system and then
 downloads and installs some required and some optional 
