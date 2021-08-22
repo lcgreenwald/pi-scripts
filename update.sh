@@ -310,7 +310,7 @@ false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "RPiMonitor" "$RPiMonitor" "Display Raspberry Pi system information" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
-false "K4CPO-FD-Logger" "$FDLog" "K$CPO FD logger customized for N0SUW/WB0SIO" \
+false "K4CPO-FD-Logger" "$FDLog" "K4CPO FD logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
