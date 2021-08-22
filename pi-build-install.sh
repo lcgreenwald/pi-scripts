@@ -93,7 +93,9 @@ fi
 #	notice to user
 #####################################
 cat <<EOF > ${MYPATH}/intro.txt
-pi-build-install by $AUTHOR, version $VERSION, last updated $LASTUPDATE.
+pi-build-install by $AUTHOR.
+Version $VERSION.
+Last vestion update $LASTUPDATE.
 This script is installed in ${MYPATH}
 
 This script updates the operating system and then
@@ -107,7 +109,7 @@ HotSpot Tools.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text-info<${MYPATH}/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
