@@ -28,8 +28,8 @@ TEMPCRON=${MYPATH}/cron.tmp
 TEMPFSTAB=${MYPATH}/fstab.tmp
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
-#export MYPATH
-#echo "MYPATH: ${MYPATH}"
+AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
+LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 
 FINISH(){
 if [ -f "${BASE}" ]; then

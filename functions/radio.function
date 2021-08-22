@@ -3,6 +3,7 @@
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 #wb0sio 20210816 Converted wb0sio base.function to wb0sio radio.function
 
+
 ################################
 #	js8map
 ################################
@@ -30,7 +31,7 @@ Icon=js8call_icon
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=HamRadio;wb0sio
+Categories=HamRadio;wb0sio;
 StartupNotify=true
 NoDisplay=false
 EOF
@@ -51,7 +52,7 @@ chmod a+x ${HOME}/bin/js8map.sh
 #	K4CPO-FD-Logger
 ################################
 K4CPO-FD-Logger(){
-if [ ! -d ${HOME}/folder 2>/dev/null ]; then
+if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
 	cd
 	git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 	sudo apt-get install -y php7.3 mariadb-server phpmyadmin
@@ -68,7 +69,7 @@ else
 	cd
 fi
 }
-################################
+###############################
 
 ################################
 #	Proto File
