@@ -18,9 +18,7 @@ source $HOME/.config/WB0SIO
 
 DESKTOP(){
 # Create desktop entries
-
-	
-}	
+}
 
 CREATEMENU(){
 #Create menu subcategories
