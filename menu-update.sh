@@ -16,9 +16,6 @@ REV=20210820
 
 source $HOME/.config/WB0SIO
 
-DESKTOP(){
-# Create desktop entries
-}
 
 CREATEMENU(){
 #Create menu subcategories
@@ -94,7 +91,7 @@ echo "Revision $REV installed"
 exit
 else
 echo "MENU=$REV" >> $HOME/.config/WB0SIO
-DESKTOP
+
 CREATEMENU
 fi
 
