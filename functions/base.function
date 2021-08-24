@@ -2,6 +2,8 @@
 #km4ack 20200513
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 
+TEMPCRON=${MYPATH}/cron.tmp
+
 ################################
 #	LOG2RAM
 ################################
@@ -183,6 +185,44 @@ Argon(){
 ################################
 
 ################################
+#	X715
+################################
+X715(){
+##  https://wiki.geekworm.com/X715_Software
+
+if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+	sudo apt-get install -y pigpio python-pigpio python3-pigpio
+	sudo systemctl enable pigpiod
+	git clone https://github.com/geekworm-com/x715
+	crontab -l > ${TEMPCRON}
+	echo "@reboot python /home/pi/x715/pwm_fan_control.py" >> ${TEMPCRON}
+	crontab ${TEMPCRON}
+	rm ${TEMPCRON}
+	# Create the desktop entry
+	cat <<EOF > ${HOME}/.local/share/applications/X715.desktop
+[Desktop Entry]
+Version=1.0
+Name=X715
+Comment= Display X715 fan speed
+Exec=sudo python /home/pi/x715/read_fan_speed.py
+Icon=/usr/share/icons/PiXflat/16x16/apps/launch.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+
+else
+	cd ${HOME}/X7115
+	git pull
+	cd
+fi
+}
+################################
+
+################################
 #	PiSafe
 ################################
 PiSafe(){
@@ -238,15 +278,19 @@ StartupNotify=true
 NoDisplay=false
 EOF
 
-# Create the shell script to run js8map
+	# Create the shell script to run js8map
+	if [ ! -d ${HOME}/bin 2>/dev/null ]; then
+		mkdir ${HOME}/bin >/dev/null
+	fi
+
 	cat <<EOF > ${HOME}/bin/js8map.sh
 #!/bin/bash
 cd ${HOME}/js8map
 python3 js8map.py
 EOF
 
-# Make the shell script executable
-chmod a+x ${HOME}/bin/js8map.sh
+	# Make the shell script executable
+	chmod a+x ${HOME}/bin/js8map.sh
 }
 ################################
 
@@ -264,9 +308,25 @@ if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
 	sudo chmod 777 /var/www/html/log
 	sudo cp * /var/www/html/log/
 	cd
+	# Create desktop entry
+	cat <<EOF > ${HOME}/.local/share/applications/K4CPO-FD-Logger.desktop
+[Desktop Entry]
+Version=1.0
+Name=K4CPO-FD-Logger
+Comment=K4CPO Field Day logger
+Exec=chromium-browser http://localhost/log
+Icon=/usr/share/icons/PiXflat/16x16/apps/launch.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+	
 	chromium-browser http://localhost/log?setup
 else
-	cd ~/K4CPO-FD-Logger
+	cd ${HOME}/K4CPO-FD-Logger
 	git pull
 	cd
 fi
@@ -289,6 +349,8 @@ fi
 ProtoF(){
 if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	echo "folder" >/dev/null
+else
+	echo "no folder" >/dev/null
 fi
 }
 ################################
