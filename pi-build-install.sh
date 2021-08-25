@@ -76,6 +76,10 @@ cd
 #	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
 #fi
 
+if [ ! -d /usr/local/share/applications/ ]; then
+	sudo mkdir -p /usr/local/share/applications/
+fi
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y bluetooth bluez-cups bluez-obexd
