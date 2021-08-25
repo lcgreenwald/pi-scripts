@@ -63,7 +63,7 @@ EOF
 #	WEBMIN
 ################################
 Webmin(){
-	cd ~/Downloads
+	cd ${HOME}/Downloads
 	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 	wget http://www.webmin.com/download/deb/webmin-current.deb
 	sudo dpkg -i webmin-current.deb
@@ -302,7 +302,7 @@ if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
 	cd
 	git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 	sudo apt-get install -y php7.3 mariadb-server phpmyadmin
-	cd ~/K4CPO-FD-Logger
+	cd ${HOME}/K4CPO-FD-Logger
 	bash setup
 	sudo mkdir /var/www/html/log
 	sudo chmod 777 /var/www/html/log

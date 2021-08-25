@@ -298,9 +298,9 @@ bash ${MYPATH}/menu-update.sh
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
 #####################################
 cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
-cp -f ${MYPATH}/bin/*.sh ~/bin/
-cp -f ${MYPATH}/conky/get-grid ~/bin/conky/
-cp -f ${MYPATH}/conky/get-freq ~/bin/conky/
+cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
+cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
+cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
 cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
 cp -rf ${MYPATH}/local/share/* ${HOME}/.local/share/
 cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
