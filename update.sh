@@ -307,31 +307,6 @@ echo "$i" >> $BASE
 done
 fi
 
-
-#----------------------------------------------------#
-#			RADIO APP MENU
-#----------------------------------------------------#
-yad --center --list --checklist --width=700 --height=650 --separator="" \
---image $LOGO --column=Check --column=App --column=status --column=description --print-column=2 \
---window-icon=$LOGO --image-on-top --text-align=center \
---text="<big><big><b>Radio Apps</b></big></big>" --title="Pi Build Install Update" \
-false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
---button="Exit":1 \
---button="Check All and Continue":3 \
---button="Next":2 > $RADIO
-BUT=$?
-if [ $BUT = 252 ] || [ $BUT = 1 ]; then
-exit
-fi
-
-if [ $BUT = 3 ]; then
-RADIOAPPS=(JS8map)
-for i in "${RADIOAPPS[@]}"
-do
-echo "$i" >> $RADIO
-done
-fi
-
 #update/upgrade the system
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -345,14 +320,6 @@ while read i ; do
 source $FUNCTIONS/base.function
 $i
 done < $BASE
-
-#####################################
-#	Install/Update Radio Apps
-#####################################
-while read i ; do
-source $FUNCTIONS/radio.function
-$i
-done < $RADIO
 
 #####################################
 #	Install Build-A-Pi
