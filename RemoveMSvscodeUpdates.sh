@@ -30,7 +30,7 @@ apt-mark hold raspberrypi-sys-mods
 fi
 
 # Edit /etc/hosts on RPI
-echo "0.0.0.0 packages.microsoft.com" >> /etc/hosts
+echo "0.0.0.0    packages.microsoft.com" >> /etc/hosts
 
 # Disable vscode updates and
 # write protect that file on Linux using the chattr command:

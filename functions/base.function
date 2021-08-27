@@ -2,18 +2,16 @@
 #km4ack 20200513
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 
-MYPATH=$HOME/pi-scripts
-#MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-TEMPCRON=$MYPATH/cron.tmp
-DIR=$MYPATH/temp
-mkdir -p $DIR
-
-#source $MYPATH/installapps
+TEMPCRON=${MYPATH}/cron.tmp
 
 ################################
 #	LOG2RAM
 ################################
 Log2ram(){
+if ! hash log2ram 2>/dev/null; then
+	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
+	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+fi
 	sudo apt install -y log2ram
 	sudo sed -i "s/SIZE=40M/SIZE=200M/" /etc/log2ram.conf
 	sudo sed -i "s/USE_RSYNC=false/USE_RSYNC=true/" /etc/log2ram.conf
@@ -32,14 +30,14 @@ Locate(){
 ################################
 Plank(){
 	sudo apt install -y plank
-	if [ ! -d $HOME/.config/plank/dock1/launchers 2>/dev/null ] ;	then
-		mkdir -p $HOME/.config/plank/dock1/launchers
+	if [ ! -d ${HOME}/.config/plank/dock1/launchers 2>/dev/null ] ;	then
+		mkdir -p ${HOME}/.config/plank/dock1/launchers
 	fi
-	sudo cp -f $MYPATH/launchers/* $HOME/.config/plank/dock1/launchers/
-	if [ ! -d $HOME/.config/autostart 2>/dev/null ] ; then
-		mkdir -p $HOME/.config/autostart
+	sudo cp -f ${MYPATH}/launchers/* ${HOME}/.config/plank/dock1/launchers/
+	if [ ! -d ${HOME}/.config/autostart 2>/dev/null ] ; then
+		mkdir -p ${HOME}/.config/autostart
 	fi
-	sudo cp -f /usr/share/applications/plank.desktop $HOME/.config/autostart/
+	sudo cp -f /usr/share/applications/plank.desktop ${HOME}/.config/autostart/
 }
 ################################
 #	SAMBA
@@ -49,7 +47,7 @@ Samba(){
 	sudo sed -i "s/WORKGROUP/WB0SIO/" /etc/samba/smb.conf
 	sudo mkdir /home/public
 	sudo chmod 777 /home/public
-	cat <<EOF > $MYPATH/samba_share.txt
+	cat <<EOF > ${MYPATH}/samba_share.txt
 [public]
   path = /home/public
   read only = no
@@ -57,15 +55,15 @@ Samba(){
   writable = yes
 EOF
 	sudo chmod 666 /etc/samba/smb.conf  
-	sudo cat $MYPATH/samba_share.txt >> /etc/samba/smb.conf
+	sudo cat ${MYPATH}/samba_share.txt >> /etc/samba/smb.conf
 	sudo chmod 644 /etc/samba/smb.conf
-	rm $MYPATH/samba_share.txt
+	rm ${MYPATH}/samba_share.txt
 }
 ################################
 #	WEBMIN
 ################################
 Webmin(){
-	cd ~/Downloads
+	cd ${HOME}/Downloads
 	sudo apt install -y perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python
 	wget http://www.webmin.com/download/deb/webmin-current.deb
 	sudo dpkg -i webmin-current.deb
@@ -80,7 +78,7 @@ Display(){
 	git clone https://github.com/MrYacha/LCD-show.git
 	sudo chmod -R 755 LCD-show
 
-	cat <<EOF > $HOME/.local/share/applications/LCD35-show.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/LCD35-show.desktop
 [Desktop Entry]
 Name=LCD35-show
 Comment=LCD35-show
@@ -94,7 +92,7 @@ Categories=Settings;DesktopSettings;
 Keywords=Display
 EOF
 
-	cat <<EOF > $HOME/.local/share/applications/LCD-hdmi.desktop
+	cat <<EOF > ${HOME}/.local/share/applications/LCD-hdmi.desktop
 [Desktop Entry]
 Name=LCD-hdmi
 Comment=LCD-hdmi
@@ -187,6 +185,44 @@ Argon(){
 ################################
 
 ################################
+#	X715
+################################
+X715(){
+##  https://wiki.geekworm.com/X715_Software
+
+if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+	sudo apt-get install -y pigpio python-pigpio python3-pigpio
+	sudo systemctl enable pigpiod
+	git clone https://github.com/geekworm-com/x715
+	crontab -l > ${TEMPCRON}
+	echo "@reboot python /home/pi/x715/pwm_fan_control.py" >> ${TEMPCRON}
+	crontab ${TEMPCRON}
+	rm ${TEMPCRON}
+	# Create the desktop entry
+	cat <<EOF > ${HOME}/.local/share/applications/X715.desktop
+[Desktop Entry]
+Version=1.0
+Name=X715
+Comment= Display X715 fan speed
+Exec=sudo python /home/pi/x715/read_fan_speed.py
+Icon=/usr/share/icons/PiXflat/16x16/apps/launch.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+
+else
+	cd ${HOME}/X7115
+	git pull
+	cd
+fi
+}
+################################
+
+################################
 #	PiSafe
 ################################
 PiSafe(){
@@ -196,6 +232,67 @@ PiSafe(){
 }
 ################################
 
+################################
+#	RPiMonitor
+################################
+RPiMonitor(){
+if ! hash rpimonitor 2>/dev/null; then
+	sudo apt-get install dirmngr
+	sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 2C0D3C0F
+	sudo wget http://goo.gl/vewCLL -O /etc/apt/sources.list.d/rpimonitor.list
+	sudo apt update
+fi
+sudo apt install -y rpimonitor
+}
+################################
+
+################################
+#	js8map
+################################
+JS8map(){
+	# Install/update js8map  
+	cd
+	if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
+		git clone https://github.com/OddLingo/js8map.git
+		python3 -m pip install --upgrade pip
+		python3 -m pip install --upgrade Pillow
+	else
+		cd js8map
+		git pull
+		cd
+	fi
+
+# Create the desktop entry
+	cat <<EOF > ${HOME}/.local/share/applications/js8map.desktop
+[Desktop Entry]
+Version=1.0
+Name=js8map
+Comment=Amateur Radio Weak Signal Operating
+Exec=/home/pi/bin/js8map.sh
+Icon=js8call_icon
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+
+	# Create the shell script to run js8map
+	if [ ! -d ${HOME}/bin 2>/dev/null ]; then
+		mkdir ${HOME}/bin >/dev/null
+	fi
+
+	cat <<EOF > ${HOME}/bin/js8map.sh
+#!/bin/bash
+cd ${HOME}/js8map
+python3 js8map.py
+EOF
+
+	# Make the shell script executable
+	chmod a+x ${HOME}/bin/js8map.sh
+}
+################################
 
 ################################
 #	Proto File
@@ -211,8 +308,10 @@ fi
 #	Proto Folder
 ################################
 ProtoF(){
-if [ ! -d $HOME/folder 2>/dev/null ]; then
+if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	echo "folder" >/dev/null
+else
+	echo "no folder" >/dev/null
 fi
 }
 ################################

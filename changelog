@@ -1,8 +1,10 @@
 version=1.1.8
 author=wb0sio
-LastUpdate=2021/08/11
+LastUpdate=2021/08/27
 
-1.1.8 - 2021/08/11 - Added js8map - Display a map of calls seen by JS8Call 
+1.1.8 - 2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
+		2021/08/22 - Moved RPiMonitor from always install to install from the menu
+		2021/08/27 - Added X715 power supply hat utilities
 
 1.1.7 - Added PiSafe - Backup or Restore Raspberry Pi devices
 

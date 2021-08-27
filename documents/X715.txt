@@ -1,0 +1,24 @@
+
+URL:  https://wiki.geekworm.com/X715_Software
+
+The PWN fan is not rotating when X715 is connected to PI 4, we need to to install the pwm fan control script
+
+#fan control code need pigpiod library, so we need to install it firstly.
+sudo apt-get install -y pigpio python-pigpio python3-pigpio
+sudo systemctl enable pigpiod
+git clone https://github.com/geekworm-com/x715
+//reboot to enable pigpiod
+sudo reboot
+cd ~
+python /home/pi/x715/pwm_fan_control.py&
+
+How to start PWM fan when pi 4 boots
+crontab -e
+Add a line at the end of the file that reads like this:
+
+@reboot python /home/pi/x715/pwm_fan_control.py
+
+How to read the fan RPM?
+please refer to /home/pi/x715/read_fan_speed.py, and this is only show how to get the fan speed every second, run the following command.
+
+sudo python /home/pi/x715/read_fan_speed.py
