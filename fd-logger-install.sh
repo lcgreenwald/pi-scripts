@@ -38,10 +38,28 @@ rm $MYPATH/intro.txt
 cd
 git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
 sudo apt-get install -y php7.3 mariadb-server phpmyadmin
-cd ~/K4CPO-FD-Logger
+cd ${HOME}/K4CPO-FD-Logger
 bash setup
 sudo mkdir /var/www/html/log
 sudo chmod 777 /var/www/html/log
 sudo cp * /var/www/html/log/
 cd
+# Create desktop entry
+
+# K4CPO-FD-Logger
+	cat <<EOF > ${HOME}/.local/share/applications/K4CPO-FD-Logger.desktop
+[Desktop Entry]
+Version=1.0
+Name=K4CPO-FD-Logger
+Comment=K4CPO Field Day logger
+Exec=chromium-browser http://localhost/log
+Icon=/usr/share/icons/PiXflat/16x16/apps/launch.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=HamRadio;wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+	
 chromium-browser http://localhost/log?setup
