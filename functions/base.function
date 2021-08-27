@@ -295,20 +295,6 @@ EOF
 ################################
 
 ################################
-#	K4CPO-FD-Logger
-################################
-K4CPO-FD-Logger(){
-if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
-	bash ${MYPATH}/fd-logger-install.sh
-else
-	cd ${HOME}/K4CPO-FD-Logger
-	git pull
-	cd
-fi
-}
-################################
-
-################################
 #	Proto File
 ################################
 Proto(){

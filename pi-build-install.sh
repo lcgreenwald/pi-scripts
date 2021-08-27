@@ -134,6 +134,7 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
 false "DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "Argon One m.2 enclosure utilities." \
+false "X715" "X715 power supply hat utilities." \
 false "Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "File search utility" \
 false "Plank" "Application dock." \
@@ -149,7 +150,6 @@ false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "Map to show location of JS8Call contacts" \
-false "K4CPO-FD-Logger" "K4CPO-FD-Logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -159,7 +159,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map K4CPO-FD-Logger)
+BASEAPPS=(DeskPi Argon X715 Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}

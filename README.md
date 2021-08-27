@@ -15,6 +15,7 @@ You may also optionally install:
 
 	DeskPi - DeskPi case software
 	Argon - Argon One m.2 case software
+	X715 - X715 power supply hat utilities
 	log2ram - Save logs to ram to reduce wear on your SD card.
 	locate - File find/locate program
 	samba - SMB server to share files/folders with Windows machines
@@ -29,7 +30,6 @@ You may also optionally install:
 	Fortune - Random quotes
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
 	JS8map - Map to show location of JS8Call contacts
-	K4CPO-FD-Logger - Field Day logger customized for N0SUW/WB0SIO
 
 Run the following commands
 
