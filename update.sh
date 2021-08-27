@@ -371,7 +371,9 @@ rm $MYPATH/intro.txt
 
 if [ ! $BUT = 5 ]; then
   cd
-  git clone https://github.com/km4ack/pi-build.git
+  if [ -d ${HOME}/pi-build ]; then
+    git clone https://github.com/km4ack/pi-build.git
+  fi
   cd pi-build
   git config --global user.email "lcgreenwald@gmail.com"
   git config --global user.name "lcgreenwald"
