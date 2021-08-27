@@ -267,12 +267,12 @@ else
 fi
 
 #----------------------------------------------------#
-#		K4CPO-FD-Logger
+#		X715
 #----------------------------------------------------#
-if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
-	FDLog="Not Installed"
+if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+	X715="Not Installed"
 else
-	FDLog="Installed"
+	X715="Installed"
 fi
 
 }
