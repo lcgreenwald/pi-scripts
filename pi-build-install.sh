@@ -194,24 +194,27 @@ rm ${TEMPCRON}
 #####################################
 #	Install Build-A-Pi
 #####################################
-cat <<EOF > ${MYPATH}/intro.txt
+cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
 Please select Master, Beta or Dev installation.
+Or you may skip installing Build-A-Pi now and
+install it separately later.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Build-a-Pi"  --show-uri \
---image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
---text-info<${MYPATH}/intro.txt \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1)
+--button="Dev":4 > /dev/null 2>&1 \
+--button="Skip":5 > /dev/null 2>&1)
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
-rm ${MYPATH}/intro.txt
+rm $MYPATH/intro.txt
 exit
 fi
-rm ${MYPATH}/intro.txt
+rm $MYPATH/intro.txt
 
 cd
 git clone https://github.com/km4ack/pi-build.git
@@ -233,19 +236,21 @@ git pull
 fi
 cd
 
-#####################################
+if [ ! $BUT = 5 ]; then
+#************
 # Edit build-a-pi to use the WB0SIO version of gpsd install.
-#####################################
-sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" ${HOME}/pi-build/functions/base.function
+#************
+sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
 
-#####################################
+#************
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
-#####################################
-sed -i '/#reboot when done/a exit' ${HOME}/pi-build/build-a-pi
-sed -i '/#reboot when done/a exit' ${HOME}/pi-build/update
+#************
+sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
+sed -i '/#reboot when done/a exit' $HOME/pi-build/update
 
 # Run build-a-pi
-bash pi-build/build-a-pi
+  bash pi-build/build-a-pi
+fi
 
 # Load the configuration info that was set up in build-a-pi
 source /home/pi/pi-build/config
