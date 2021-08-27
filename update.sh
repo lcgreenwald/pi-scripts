@@ -348,7 +348,7 @@ done < ${BASE}
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Now we will optionally update Build-A-Pi.
-Please select Master, Beta or Dev installation.
+Please select Current, Master, Beta or Dev installation.
 Or you may skip installing Build-A-Pi now and
 install it separately later.
 EOF
@@ -356,6 +356,7 @@ EOF
 INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
+--button="Current":6 > /dev/null 2>&1 \
 --button="Master":2 > /dev/null 2>&1 \
 --button="Beta":3 > /dev/null 2>&1 \
 --button="Dev":4 > /dev/null 2>&1 \
@@ -385,6 +386,9 @@ if [ ! $BUT = 5 ]; then
   elif [ $BUT = 4 ]; then
     echo "Dev selected."
     git checkout dev
+    git pull
+  elif [ $BUT = 6 ]; then
+    echo "Current version selected."
     git pull
   fi
   cd
