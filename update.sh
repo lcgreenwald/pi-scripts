@@ -343,7 +343,63 @@ source ${FUNCTIONS}/base.function
 $i
 done < ${BASE}
 
-bash ${HOME}/pi-build/update
+#####################################
+#	Update Build-A-Pi
+#####################################
+cat <<EOF > $MYPATH/intro.txt
+Now we will optionally update Build-A-Pi.
+Please select Current, Master, Beta or Dev installation.
+Or you may skip installing Build-A-Pi now and
+install it separately later.
+EOF
+
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
+--image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
+--text-info<$MYPATH/intro.txt \
+--button="Current":6 > /dev/null 2>&1 \
+--button="Master":2 > /dev/null 2>&1 \
+--button="Beta":3 > /dev/null 2>&1 \
+--button="Dev":4 > /dev/null 2>&1 \
+--button="Skip":5 > /dev/null 2>&1)
+BUT=$(echo $?)
+
+if [ $BUT = 252 ]; then
+rm $MYPATH/intro.txt
+exit
+fi
+rm $MYPATH/intro.txt
+
+if [ ! $BUT = 5 ]; then
+  cd
+  if [ -d ${HOME}/pi-build ]; then
+    git clone https://github.com/km4ack/pi-build.git
+  fi
+  cd pi-build
+  git config --global user.email "lcgreenwald@gmail.com"
+  git config --global user.name "lcgreenwald"
+  if [ $BUT = 2 ]; then
+    echo "Master selected."
+    git checkout master
+    git stash
+    git pull
+  elif [ $BUT = 3 ]; then
+    echo "Beta selected."
+    git checkout beta
+    git stash
+    git pull
+  elif [ $BUT = 4 ]; then
+    echo "Dev selected."
+    git checkout dev
+    git stash
+    git pull
+  elif [ $BUT = 6 ]; then
+    echo "Current version selected."
+    git stash
+    git pull
+  fi
+  cd
+  bash $HOME/pi-build/update
+fi
 
 #####################################
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
