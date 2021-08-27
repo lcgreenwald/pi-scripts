@@ -67,7 +67,7 @@ echo "#######################################"
 echo "#  Updating repository & installing   #"
 echo "#  a few needed items before we begin #"
 echo "#######################################"
-cd pi-scripts
+cd ${MYPATH}
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
@@ -75,6 +75,10 @@ cd
 #	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
 #	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
 #fi
+
+if [ ! -d /usr/local/share/applications/ ]; then
+	sudo mkdir -p /usr/local/share/applications/
+fi
 
 sudo apt update
 sudo apt upgrade -y
@@ -93,7 +97,10 @@ fi
 #	notice to user
 #####################################
 cat <<EOF > ${MYPATH}/intro.txt
-pi-build-install by wb0sio, version $VERSION.
+pi-build-install by $AUTHOR.
+Version $VERSION.
+Last vestion update $LASTUPDATE.
+This script is installed in ${MYPATH}
 
 This script updates the operating system and then
 downloads and installs some required and some optional 
@@ -106,7 +113,7 @@ HotSpot Tools.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=350 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text-info<${MYPATH}/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -127,6 +134,7 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
 false "DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "Argon One m.2 enclosure utilities." \
+false "X715" "X715 power supply hat utilities." \
 false "Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "File search utility" \
 false "Plank" "Application dock." \
@@ -138,10 +146,10 @@ false "Disks" "Manage Drives and Media" \
 false "PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
+false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "Map to show location of JS8Call contacts" \
-false "K4CPO-FD-Logger" "K4CPO-FD-Logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -151,7 +159,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map K4CPO-FD-Logger)
+BASEAPPS=(DeskPi Argon X715 Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
@@ -294,9 +302,9 @@ bash ${MYPATH}/menu-update.sh
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
 #####################################
 cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
-cp -f ${MYPATH}/bin/*.sh ~/bin/
-cp -f ${MYPATH}/conky/get-grid ~/bin/conky/
-cp -f ${MYPATH}/conky/get-freq ~/bin/conky/
+cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
+cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
+cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
 cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
 cp -rf ${MYPATH}/local/share/* ${HOME}/.local/share/
 cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/

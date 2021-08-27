@@ -267,12 +267,12 @@ else
 fi
 
 #----------------------------------------------------#
-#		K4CPO-FD-Logger
+#		X715
 #----------------------------------------------------#
-if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
-	FDLog="Not Installed"
+if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+	X715="Not Installed"
 else
-	FDLog="Installed"
+	X715="Installed"
 fi
 
 }
@@ -297,6 +297,7 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
 false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
+false "X715" "$X715" "X715 power supply hat utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
@@ -308,11 +309,10 @@ false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
 false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
+false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "RPiMonitor" "$RPiMonitor" "Display Raspberry Pi system information" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
-false "K4CPO-FD-Logger" "$FDLog" "K4CPO FD logger customized for N0SUW/WB0SIO" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -322,7 +322,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi Fortune PiSafe JS8map K4CPO-FD-Logger)
+BASEAPPS=(DeskPi Argon X715 Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
@@ -390,9 +390,9 @@ bash ${MYPATH}/menu-update.sh
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #####################################
 cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
-cp -f ${MYPATH}/bin/*.sh ~/bin/
-cp -f ${MYPATH}/conky/get-grid ~/bin/conky/
-cp -f ${MYPATH}/conky/get-freq ~/bin/conky/
+cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
+cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
+cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
 cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
 if [ ! -d ${HOME}/.xlog 2>/dev/null ] ; then
 	mkdir ${HOME}/.xlog

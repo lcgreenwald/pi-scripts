@@ -36,40 +36,21 @@ StartupNotify=true
 NoDisplay=false
 EOF
 
-# Create the shell script to run js8map
+	# Create the shell script to run js8map
+	if [ ! -d ${HOME}/bin 2>/dev/null ]; then
+		mkdir ${HOME}/bin >/dev/null
+	fi
+
 	cat <<EOF > ${HOME}/bin/js8map.sh
 #!/bin/bash
 cd ${HOME}/js8map
 python3 js8map.py
 EOF
 
-# Make the shell script executable
-chmod a+x ${HOME}/bin/js8map.sh
+	# Make the shell script executable
+	chmod a+x ${HOME}/bin/js8map.sh
 }
 ################################
-
-################################
-#	K4CPO-FD-Logger
-################################
-K4CPO-FD-Logger(){
-if [ ! -d ${HOME}/K4CPO-FD-Logger 2>/dev/null ]; then
-	cd
-	git clone https://github.com/lcgreenwald/K4CPO-FD-Logger.git
-	sudo apt-get install -y php7.3 mariadb-server phpmyadmin
-	cd ~/K4CPO-FD-Logger
-	bash setup
-	sudo mkdir /var/www/html/log
-	sudo chmod 777 /var/www/html/log
-	sudo cp * /var/www/html/log/
-	cd
-	chromium-browser http://localhost/log?setup
-else
-	cd ~/K4CPO-FD-Logger
-	git pull
-	cd
-fi
-}
-###############################
 
 ################################
 #	Proto File

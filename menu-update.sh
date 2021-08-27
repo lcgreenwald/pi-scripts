@@ -1,21 +1,14 @@
 #!/bin/bash
 
-#Script to create additional menu subcategories
-#and move some items to those categories.
-#Three new catagories will be created that can
-#be used in .desktop files.
-#flsuite - flsuite subcategory
-#bap - Build a Pi subcategory
-#km4ack - km4ack subcategory
-###################
-# Copied and modified 2021/08/14 wb0sio
+# Script to create additional menu subcategories and move some items to those categories.
+# Copied from km4ack pi-build/menu-update and modified 2021/08/14 wb0sio
 # Added wb0sio subcategory
-# 2021/08/16 wb0sio fixed flrig typos in FLSUITE()
+# 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
+# 2021/08/25 wb0sio - Removed redundant menu items
 
-REV=20210820
+REV=20210825
 
 source $HOME/.config/WB0SIO
-
 
 
 CREATEMENU(){
@@ -37,19 +30,19 @@ cat >hamradio.menu <<EOF
 <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
-  <Name>Applications</Name>
-  <Menu>
-    <Name>Hamradio</Name>
-    <Directory>HamRadio.directory</Directory>
-    <Include>
-        <Category>HamRadio</Category>
-    </Include>
-		<Menu>
-		<Name>FLSUITE</Name>
-		<Directory>FLsuite.directory</Directory>
+	<Name>Applications</Name>
+	<Menu>
+		<Name>Hamradio</Name>
+		<Directory>HamRadio.directory</Directory>
 		<Include>
-			<Category>flsuite</Category>
+			<Category>HamRadio</Category>
 		</Include>
+		<Menu>
+			<Name>FLSUITE</Name>
+			<Directory>FLsuite.directory</Directory>
+			<Include>
+				<Category>flsuite</Category>
+			</Include>
 		</Menu>
 		<Menu>
 			<Name>KM4ACK</Name>
@@ -68,11 +61,11 @@ cat >hamradio.menu <<EOF
 		<Menu>
 			<Name>WB0SIO</Name>
 			<Directory>wb0sio.directory</Directory>
-				<Include>
-            <Category>wb0sio</Category>
+			<Include>
+				<Category>wb0sio</Category>
 			</Include>
 		</Menu>
-  </Menu> <!-- End hamradio -->
+	</Menu> <!-- End hamradio -->
 </Menu>
 EOF
 
@@ -81,18 +74,19 @@ sudo mv hamradio.menu /usr/share/extra-xdg-menus/
 
 #verify ham menu is installed
 if [ ! -f /usr/share/extra-xdg-menus/hamradio.menu ]; then
-sudo apt install -y extra-xdg-menus
+	sudo apt install -y extra-xdg-menus
 fi
 
 #check to see if this script has already run
 if [ "$MENU" = "$REV" ]; then
-REV=$(cat $HOME/.config/WB0SIO | sed 's/MENU=//')
-echo "menu mods already made"
-echo "Revision $REV installed"
-exit
+	REV=$(cat $HOME/.config/WB0SIO | sed 's/MENU=//')
+	echo "menu mods already made"
+	echo "Revision $REV installed"
+	exit
 else
-echo "MENU=$REV" >> $HOME/.config/WB0SIO
-CREATEMENU
+	echo "MENU=$REV" >> $HOME/.config/WB0SIO
+
+	CREATEMENU
 fi
 
 
