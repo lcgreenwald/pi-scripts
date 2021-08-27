@@ -149,6 +149,7 @@ false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
+false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
