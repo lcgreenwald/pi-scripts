@@ -380,17 +380,21 @@ if [ ! $BUT = 5 ]; then
   if [ $BUT = 2 ]; then
     echo "Master selected."
     git checkout master
+    git stash
     git pull
   elif [ $BUT = 3 ]; then
     echo "Beta selected."
     git checkout beta
+    git stash
     git pull
   elif [ $BUT = 4 ]; then
     echo "Dev selected."
     git checkout dev
+    git stash
     git pull
   elif [ $BUT = 6 ]; then
     echo "Current version selected."
+    git stash
     git pull
   fi
   cd
