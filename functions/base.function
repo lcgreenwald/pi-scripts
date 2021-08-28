@@ -190,32 +190,18 @@ Argon(){
 X715(){
 ##  https://wiki.geekworm.com/X715_Software
 
-if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+if [ ! -d ${HOME}/x715 2>/dev/null ]; then
 	sudo apt-get install -y pigpio python-pigpio python3-pigpio
 	sudo systemctl enable pigpiod
 	git clone https://github.com/geekworm-com/x715
 	crontab -l > ${TEMPCRON}
 	echo "@reboot python /home/pi/x715/pwm_fan_control.py" >> ${TEMPCRON}
+	echo "@reboot python /home/pi/bin/write_fan_speed.py" >> ${TEMPCRON}
 	crontab ${TEMPCRON}
 	rm ${TEMPCRON}
-	# Create the desktop entry
-	cat <<EOF > ${HOME}/.local/share/applications/X715.desktop
-[Desktop Entry]
-Version=1.0
-Name=X715
-Comment= Display X715 fan speed
-Exec=sudo python /home/pi/x715/read_fan_speed.py
-Icon=/usr/share/icons/PiXflat/16x16/apps/launch.png
-Terminal=false
-X-MultipleArgs=false
-Type=Application
-Categories=HamRadio;wb0sio;
-StartupNotify=true
-NoDisplay=false
-EOF
 
 else
-	cd ${HOME}/X7115
+	cd ${HOME}/x7115
 	git pull
 	cd
 fi
