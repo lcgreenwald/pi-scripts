@@ -99,7 +99,7 @@ Uptime: $alignr${uptime}
 #TEMP
 Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
 ${if_existing /home/pi/bin/conky/fanrpm.txt}\
-${color White}Fan RPM: ${alignr}${color Yellow}${exec cat $HOME/bin/conky/fanrpm.txt}
+${color White}Fan RPM: ${alignr}${exec cat $HOME/bin/conky/fanrpm.txt}
 ${endif}\
 Throttled: $alignr ${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
 ${voffset -14}
