@@ -190,7 +190,7 @@ Argon(){
 X715(){
 ##  https://wiki.geekworm.com/X715_Software
 
-if [ ! -d ${HOME}/X715 2>/dev/null ]; then
+if [ ! -d ${HOME}/x715 2>/dev/null ]; then
 	sudo apt-get install -y pigpio python-pigpio python3-pigpio
 	sudo systemctl enable pigpiod
 	git clone https://github.com/geekworm-com/x715
@@ -201,7 +201,7 @@ if [ ! -d ${HOME}/X715 2>/dev/null ]; then
 	rm ${TEMPCRON}
 
 else
-	cd ${HOME}/X7115
+	cd ${HOME}/x7115
 	git pull
 	cd
 fi
