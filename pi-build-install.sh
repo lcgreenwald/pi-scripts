@@ -99,7 +99,7 @@ fi
 cat <<EOF > ${MYPATH}/intro.txt
 pi-build-install by $AUTHOR.
 Version $VERSION.
-Last vestion update $LASTUPDATE.
+Last version update $LASTUPDATE.
 This script is installed in ${MYPATH}
 
 This script updates the operating system and then
