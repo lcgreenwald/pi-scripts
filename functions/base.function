@@ -196,7 +196,7 @@ if [ ! -d ${HOME}/X715 2>/dev/null ]; then
 	git clone https://github.com/geekworm-com/x715
 	crontab -l > ${TEMPCRON}
 	echo "@reboot python /home/pi/x715/pwm_fan_control.py" >> ${TEMPCRON}
-	echo "@reboot python /home/pi/x715/write_fan_speed.py" >> ${TEMPCRON}
+	echo "@reboot python /home/pi/bin/write_fan_speed.py" >> ${TEMPCRON}
 	crontab ${TEMPCRON}
 	rm ${TEMPCRON}
 
