@@ -81,7 +81,7 @@ conky.text = [[
 ${font Arial:size=f1}${color Yellow}${alignc}WB0SIO
 ${voffset -20}
 ${font Arial:bold:size=7}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
-${font Arial:bold:size=7}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
+#${font Arial:bold:size=7}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
 ${font Arial:bold:size=7}\
 ${color Yellow}LOCAL${alignr}ZULU
 ${color White}${time %H:%M:%S}\
