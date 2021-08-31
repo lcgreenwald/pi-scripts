@@ -36,6 +36,6 @@ try:
         rpm = 0
         time.sleep(2)
 
-except KeyboardInterrupt:
-    GPIO.cleanup()
+#except KeyboardInterrupt:
+#    GPIO.cleanup()
 
