@@ -201,7 +201,7 @@ if [ ! -d ${HOME}/x715 2>/dev/null ]; then
 	rm ${TEMPCRON}
 
 else
-	cd ${HOME}/x7115
+	cd ${HOME}/x715
 	git pull
 	cd
 fi
@@ -253,7 +253,7 @@ JS8map(){
 [Desktop Entry]
 Version=1.0
 Name=js8map
-Comment=Amateur Radio Weak Signal Operating
+Comment=Map of stations heard by JS8Call
 Exec=/home/pi/bin/js8map.sh
 Icon=js8call_icon
 Terminal=false

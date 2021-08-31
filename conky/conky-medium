@@ -78,7 +78,7 @@ conky.text = [[
 # Based on https://github.com/km4ack/pi-build #
 ${font Arial:size=16}${color Yellow}${alignc}N0CALL
 ${font Arial:bold:size=12}${color White}Gridsquare ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Grid.txt}
-${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
+#${font Arial:bold:size=12}${color White}Radio Freq ${alignr}${color Yellow}${exec cat $HOME/bin/conky/Freq.txt}
 ${font Arial:bold:size=12}\
 ${color Yellow}LOCAL${alignr}ZULU
 ${color White}${time %H:%M:%S}\
