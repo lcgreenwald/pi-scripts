@@ -32,10 +32,9 @@ try:
         fanrpm = open('/home/pi/bin/conky/fanrpm.txt', "w")
         fanrpm.write("%.f RPM" % rpm)
         fanrpm.close()
-#        print "%.f RPM" % rpm
         rpm = 0
         time.sleep(2)
 
-#except KeyboardInterrupt:
-#    GPIO.cleanup()
+except KeyboardInterrupt:
+    GPIO.cleanup()
 
