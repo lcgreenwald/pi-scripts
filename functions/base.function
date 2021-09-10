@@ -281,6 +281,25 @@ EOF
 ################################
 
 ################################
+#	ZramSwap
+################################
+ZramSwap(){
+if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
+	cd ${HOME}/Downloads
+        git clone https://github.com/foundObjects/zram-swap.git
+        cd zram-swap
+        sudo ./install.sh
+        cd
+else
+	cd ${HOME}/Downloads/zram-swap
+        git pull
+        sudo ./install.sh
+        cd
+fi
+}
+################################
+
+################################
 #	Proto File
 ################################
 Proto(){
