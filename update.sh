@@ -269,7 +269,7 @@ fi
 #----------------------------------------------------#
 #		X715
 #----------------------------------------------------#
-if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
+if [ ! -d ${HOME}/x715 2>/dev/null ]; then
 	X715="Not Installed"
 else
 	X715="Installed"
