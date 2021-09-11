@@ -269,10 +269,19 @@ fi
 #----------------------------------------------------#
 #		X715
 #----------------------------------------------------#
-if [ ! -d ${HOME}/x715 2>/dev/null ]; then
+if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
 	X715="Not Installed"
 else
 	X715="Installed"
+fi
+
+#----------------------------------------------------#
+#		ZramSwap
+#----------------------------------------------------#
+if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
+	ZramSwap="Not Installed"
+else
+	ZramSwap="Installed"
 fi
 
 }
@@ -299,6 +308,7 @@ false "DeskPi" "$DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "$Argon" "Argon One m.2 enclosure utilities." \
 false "X715" "$X715" "X715 power supply hat utilities." \
 false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear." \
+false "ZramSwap" "$ZramSwap" "Create a RAM based swap file to improve system response." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
 false "Samba" "$Samba" "SMB file system" \
@@ -322,7 +332,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}

@@ -128,6 +128,10 @@ ${if_existing /dev/zram1}\
 Zram1 Read:${alignr}${offset -10}${diskio_read /dev/zram1}${alignr}${diskiograph_read zram1 8,125}
 Zram1 Write:${alignr}${offset -10}${diskio_write /dev/zram1}${alignr}${diskiograph_write zram1 8,125}
 ${endif}\
+${if_existing /dev/zram2}\
+Zram2 Read:${alignr}${offset -10}${diskio_read /dev/zram2}${alignr}${diskiograph_read zram2 8,125}
+Zram2 Write:${alignr}${offset -10}${diskio_write /dev/zram2}${alignr}${diskiograph_write zram2 8,125}
+${endif}\
 \
 # The processes section # Based on conkyrc-right by S Johnson https://groups.io/g/KM4ACK-Pi/files/Custom-Conky-Files #
 ${font Arial:bold:size=10}${color yellow}TOP PROCESSOR USAGE ${color DarkSlateGray}${hr 2}${font Arial:bold:size=8}

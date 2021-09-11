@@ -2,10 +2,12 @@
 My Raspberry Pi Scripts and programs
 
 # pi-build-install
-This script installs:
+This script installs or updates:
 
 km4ack build-a-pi
-	Optionally select Master, Beta or Dev 
+	Optionally select Current, Master, Beta or Dev
+          Current will execute git pull for the current branch. Current is only available in Update.
+          Master, Beta or Dev will change to the requested branch and execute git pull. 
 
 km4ack hotspot tools customized to allow editing the hotspot IP address
 
@@ -17,6 +19,7 @@ You may also optionally install:
 	Argon - Argon One m.2 case software
 	X715 - X715 power supply hat utilities
 	log2ram - Save logs to ram to reduce wear on your SD card.
+        ZramSwap - Create a RAM based swap file to improve system response.
 	locate - File find/locate program
 	samba - SMB server to share files/folders with Windows machines
 	webmin - Web based computer/configuration manager
