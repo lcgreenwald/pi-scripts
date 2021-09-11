@@ -136,6 +136,7 @@ false "DeskPi" "DeskPi enclosure utilities." \
 false "Argon" "Argon One m.2 enclosure utilities." \
 false "X715" "X715 power supply hat utilities." \
 false "Log2ram" "Create a RAM based log folder to reduce SD card wear." \
+false "ZramSwap" "Create a RAM based swap file to improve system response." \
 false "Locate" "File search utility" \
 false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
@@ -159,7 +160,7 @@ fi
 
 if [ $BUT = 3 ]; then
 
-BASEAPPS=(DeskPi Argon X715 Log2ram Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}

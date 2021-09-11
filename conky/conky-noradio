@@ -126,7 +126,7 @@ ${goto 10}${color5}home ${alignr 5} ${fs_free /home}/${fs_used /home}/${fs_size 
 ${goto 10}${color2}${fs_bar 8, 150 /home}${alignr 5} ${fs_used_perc /home}%
 $endif
 ${if_mounted /home/data}#
-${goto 10}${color5}data ${alignr 5}  ${fs_free /home/data}/${fs_used /home/data}/${fs_size /home/data}
+${goto 10}${color5}data ${alignr 5} ${fs_free /home/data}/${fs_used /home/data}/${fs_size /home/data}
 ${goto 10}${color2}${fs_bar 8, 150 /home/data}${alignr 5}${fs_used_perc /home/data}%
 ${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda3}${alignr}${diskiograph_read sda3 8,125}
 ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda3}${alignr}${diskiograph_write sda3 8,125}
