@@ -1,6 +1,8 @@
-version=1.1.8
+version=1.1.9
 author=wb0sio
-LastUpdate=2021/08/27
+LastUpdate=2021/09/10
+
+1.1.9 - 2021/09/10 - Added ZramSwap - Create a RAM based swap file to improve system response. 
 
 1.1.8 - 2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
 		2021/08/22 - Moved RPiMonitor from always install to install from the menu
