@@ -113,7 +113,7 @@ HotSpot Tools.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=500 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text-info<${MYPATH}/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
