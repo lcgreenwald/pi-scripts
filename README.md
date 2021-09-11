@@ -19,7 +19,7 @@ You may also optionally install:
 	Argon - Argon One m.2 case software
 	X715 - X715 power supply hat utilities
 	log2ram - Save logs to ram to reduce wear on your SD card.
-        ZramSwap - Create a RAM based swap file to improve system response.
+	ZramSwap - Create a RAM based swap file to improve system response.
 	locate - File find/locate program
 	samba - SMB server to share files/folders with Windows machines
 	webmin - Web based computer/configuration manager
