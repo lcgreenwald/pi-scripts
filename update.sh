@@ -25,6 +25,8 @@ LOGO=${MYPATH}/logo.png
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
+LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
+TODAY=$(date +%Y/%m/%d)
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -491,6 +493,13 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 rm ${BASE} > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
+# Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
+if [[ $LASTUPDATERUN == "" ]] ; then
+  echo "# The date update.sh was last executed" >> ${HOME}/.config/WB0SIO
+  echo "LastUpdateRun=$TODAY" >> ${HOME}/.config/WB0SIO
+else
+  sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
+fi
 
 #####################################
 #reboot when done
