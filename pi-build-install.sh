@@ -29,7 +29,7 @@ TEMPFSTAB=${MYPATH}/fstab.tmp
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
-LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
+TODAY=$(date +%Y/%m/%d)
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -113,7 +113,7 @@ HotSpot Tools.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=400 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=500 --text-align=center --center --title="Pi Build Install"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text-info<${MYPATH}/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -308,6 +308,12 @@ bash ${MYPATH}/menu-update.sh
 #####################################
 # Install WB0SIO versions of desktop, directory, conky and digi-mode files. Misc folders and sym-links.
 #####################################
+if [ ! -d ${HOME}/bin 2>/dev/null ] ; then
+	mkdir ${HOME}/bin
+fi
+if [ ! -d ${HOME}/bin/conky 2>/dev/null ] ; then
+	mkdir ${HOME}/bin/conky
+fi
 cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
 cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
 cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
@@ -373,6 +379,9 @@ echo "${MYPATH}/.pscomplete" >> ${HOME}/pi-build/.complete
 rm ${BASE} > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
+# Enter the installation date in ${HOME}/.config/WB0SIO
+echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
+echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
 
 #####################################
 #reboot when done
