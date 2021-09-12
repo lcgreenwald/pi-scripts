@@ -3,6 +3,7 @@ author=wb0sio
 LastUpdate=2021/09/10
 
 1.1.9 - 2021/09/10 - Added ZramSwap - Create a RAM based swap file to improve system response. 
+                2921/09/12 - Added installation and updated dates to file ${HOME}/.config/WB0SIO
 
 1.1.8 - 2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
 		2021/08/22 - Moved RPiMonitor from always install to install from the menu
