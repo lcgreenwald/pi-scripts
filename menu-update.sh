@@ -6,7 +6,7 @@
 # 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
 # 2021/08/25 wb0sio - Removed redundant menu items
 
-REV=2021/08/25
+REV=2021-08-25
 
 source $HOME/.config/WB0SIO
 
