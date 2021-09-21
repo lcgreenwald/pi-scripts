@@ -26,7 +26,7 @@ VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
-TODAY=$(date +%Y/%m/%d)
+TODAY=$(date +%Y-%m-%d)
 
 FINISH(){
 if [ -f "${BASE}" ]; then
