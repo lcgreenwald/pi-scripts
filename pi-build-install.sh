@@ -29,7 +29,7 @@ TEMPFSTAB=${MYPATH}/fstab.tmp
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
-TODAY=$(date +%Y/%m/%d)
+TODAY=$(date +%Y-%m-%d)
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -59,8 +59,8 @@ fi
 #	Check if run before
 #####################################
 if [ -f "${RB}" ]; then
-bash ${MYPATH}/update.sh &
-exit
+  bash ${MYPATH}/update.sh &
+  exit
 fi
 
 echo "#######################################"
