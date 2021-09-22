@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Pi-Script Version
+Comment=Pi-Script Version
+GenericName=Display Pi Script version
+Exec=grep version ~/pi-build/changelog | head -1
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=wb0sio;
+Keywords=Version
