@@ -33,6 +33,7 @@ You may also optionally install:
 	Fortune - Random quotes
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
 	JS8map - Map to show location of JS8Call contacts
+        nmon - Linux performance monitor
 
 Run the following commands
 
