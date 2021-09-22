@@ -253,7 +253,7 @@ fi
 #----------------------------------------------------#
 #		RPiMonitor
 #----------------------------------------------------#
-if [ ! hash rpimonitor 2>/dev/null ]; then
+if ! hash rpimonitor 2>/dev/null ; then
 	RPiMonitor="Not Installed"
 else
 	RPiMonitor="Installed"
@@ -284,6 +284,15 @@ if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
 	ZramSwap="Not Installed"
 else
 	ZramSwap="Installed"
+fi
+
+#----------------------------------------------------#
+#		nmon
+#----------------------------------------------------#
+if ! hash nmon 2>/dev/null ; then
+	nmon="Not Installed"
+else
+	nmon="Installed"
 fi
 
 }
@@ -325,16 +334,17 @@ false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web brow
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
+false "nmon" "$nmon" "Linux performance monitor" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Next":2 > ${BASE}
+--button="Install Selected":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}

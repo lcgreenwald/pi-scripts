@@ -1,6 +1,9 @@
-version=1.1.9
+version=1.1.10
 author=wb0sio
-LastUpdate=2021/09/10
+LastUpdate=2021/09/22
+
+1.1.10 - 2021/09/22 - Added nmon - Linux performance monitor.
+                2021/09/22 Added Pi-Scripts version display to WB0SIO sub menu.
 
 1.1.9 - 2021/09/10 - Added ZramSwap - Create a RAM based swap file to improve system response. 
                 2921/09/12 - Added installation and updated dates to file ${HOME}/.config/WB0SIO
