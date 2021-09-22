@@ -253,7 +253,7 @@ fi
 #----------------------------------------------------#
 #		RPiMonitor
 #----------------------------------------------------#
-if [ ! hash rpimonitor 2>/dev/null ]; then
+if ! hash rpimonitor 2>/dev/null ; then
 	RPiMonitor="Not Installed"
 else
 	RPiMonitor="Installed"
@@ -289,7 +289,7 @@ fi
 #----------------------------------------------------#
 #		nmon
 #----------------------------------------------------#
-if [ ! hash nmon 2>/dev/null ]; then
+if ! hash nmon 2>/dev/null ; then
 	nmon="Not Installed"
 else
 	nmon="Installed"
