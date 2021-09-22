@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Pi-Scripts Version
+Comment=Display Pi-Script and Pi-Build version numbers
+GenericName=Display Pi Script version
+Exec=/home/pi/bin/PSVersion.sh
+Icon=/home/pi/pi-scripts/logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=true
+Categories=wb0sio;
+Keywords=Version
