@@ -29,6 +29,7 @@ TEMPFSTAB=${MYPATH}/fstab.tmp
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
+LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 TODAY=$(date +%Y-%m-%d)
 
 FINISH(){

@@ -18,9 +18,9 @@ fi
 #install needed packages
 echo "installing a few needed packages"
 apt install -y scons gpsd-clients python-gps chrony python-gi-cairo asciidoctor libncurses5-dev python-dev pps-tools
-wget --tries 2 --connect-timeout=60 http://download-mirror.savannah.gnu.org/releases/gpsd/gpsd-3.21.tar.xz
-tar -xf gpsd-3.21.tar.xz
-cd gpsd-3.21
+wget --tries 2 --connect-timeout=60 http://download-mirror.savannah.gnu.org/releases/gpsd/gpsd-3.23.1.tar.xz
+tar -xf gpsd-3.23.1.tar.xz
+cd gpsd-3.23.1
 scons && scons check && scons udev-install
 
 #backup gpsd file
