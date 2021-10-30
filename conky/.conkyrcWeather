@@ -1,0 +1,62 @@
+conky.config = {
+	background = true,
+	use_xft = true,
+	font = 'Arial:size=8',
+	xftalpha = 0.5,
+	update_interval = 10,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'normal',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	double_buffer = true,
+	minimum_width = 250,
+	minimum_height = 5,
+	maximum_width = 400,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	alignment = 'top_right',
+	gap_x = 300,
+	gap_y = 30,
+	no_buffers = true,
+	uppercase = false,
+	cpu_avg_samples = 2,
+	net_avg_samples = 1,
+	override_utf8_locale = false,
+	use_spacer = 'right',
+	xftfont = 'Droid Sans:size=8',
+
+	default_color = 'gray',
+	default_shade_color = 'red',
+	default_outline_color = 'green',
+	color1 = 'yellow',
+	color2 = 'white',
+	color3 = 'green',
+	color4 = 'CCCCFF',
+	color5 = 'yellow',
+	color6 = 'DCDCDC',
+	color7 = 'yellow',
+	color8 = 'yellow',
+
+};
+
+conky.text = [[
+# Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts
+# Clock + calendar #
+\
+${execi 1800 echo "$(weather -w)"}\
+${voffset 20}${font Droid Sans Mono :size=11}${color3}${alignc}Weather
+
+${font Droid Sans Mono :size=10}${color5}Current:
+${exec echo "$(weather -d)"}
+${exec echo "$(weather -c)" }
+
+Hourly: 
+${exec echo "$(weather -H 12)"}
+
+Seven Day:
+${exec echo "$(weather -D 7)" }
+
+]];
