@@ -1,4 +1,4 @@
 #!/bin/bash
-git clone https://gitlab.com/WB0SIO/weather.git ~/.conky/weather
+git clone https://github.com/lcgreenwald/weather.git ~/.conky/weather
 cd ~/.conky/weather
 sudo make install

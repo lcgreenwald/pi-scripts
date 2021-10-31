@@ -4,6 +4,9 @@
 #wb0sio 20210816 Converted wb0sio base.function to wb0sio radio.function
 #wb0sio 20210927 Converted wb0sio radio.function to wb0sio patch.function
 
+TEMPCRON=${MYPATH}/cron.tmp
+TEMPSYSCTL=${MYPATH}/sysctl.tmp
+source ${MYPATH}/config
 
 ################################
 #	Proto

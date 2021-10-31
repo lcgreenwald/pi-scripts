@@ -20,6 +20,7 @@
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=${MYPATH}/base.txt
 RADIO=${MYPATH}/radio.txt
+PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
 LOGO=${MYPATH}/logo.png
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
@@ -118,195 +119,21 @@ if ! hash bc>/dev/null; then
 sudo apt install -y bc
 fi
 
-CHECK(){
-#----------------------------------------------------#
-#		LOG2RAM
-#----------------------------------------------------#
-if ! hash log2ram 2>/dev/null; then
-	Log2ram="Not Installed"
-else
-	Log2ram="Installed"
-fi
-#----------------------------------------------------#
-#		LOCATE
-#----------------------------------------------------#
-if ! hash locate 2>/dev/null; then
-	Locate="Not Installed"
-else
-	Locate="Installed"
-fi
-#----------------------------------------------------#
-#		PLANK
-#----------------------------------------------------#
-if ! hash plank 2>/dev/null; then
-	Plank="Not Installed"
-else
-	Plank="Installed"
-fi
-#----------------------------------------------------#
-#		SAMBA
-#----------------------------------------------------#
-if ! hash samba 2>/dev/null; then
-	Samba="Not Installed"
-else
-	Samba="Installed"
-fi
-#----------------------------------------------------#
-#		WEBMIN
-#----------------------------------------------------#
-if [ ! -d /usr/share/webmin 2>/dev/null ]; then
-	Webmin="Not Installed"
-else
-	Webmin="Installed"
-fi
+#####################################
+#	Patch Check
+#####################################
+bash $MYPATH/patch-check
+#####################################
 
-#----------------------------------------------------#
-#		3.5" DISPLAY DRIVERS
-#----------------------------------------------------#
-if [ ! -d ${HOME}/LCD-show 2>/dev/null ]; then
-	Display="Not Installed"
-else
-	Display="Installed"
-fi
+#####################################
+#Run the app check script
+#####################################
+bash $MYPATH/app-check
 
-#----------------------------------------------------#
-#		Cqrprop
-#----------------------------------------------------#
-if ! hash  cqrprop 2>/dev/null ; then
-	Cqrprop="Not Installed"
-else
-	Cqrprop="Installed"
-fi
-
-#----------------------------------------------------#
-#		Disks
-#----------------------------------------------------#
-if ! hash  gnome-disks 2>/dev/null ; then
-	Disks="Not Installed"
-else
-	Disks="Installed"
-fi
-
-#----------------------------------------------------#
-#		PiImager
-#----------------------------------------------------#
-if ! hash  rpi-imager 2>/dev/null ; then
-	PiImager="Not Installed"
-else
-	PiImager="Installed"
-fi
-
-#----------------------------------------------------#
-#		Neofetch
-#----------------------------------------------------#
-if ! hash  neofetch 2>/dev/null ; then
-	Neofetch="Not Installed"
-else
-	Neofetch="Installed"
-fi
-
-#----------------------------------------------------#
-#		Commander Pi
-#----------------------------------------------------#
-if [ ! -d ${HOME}/CommanderPi 2>/dev/null ]; then
-	CommanderPi="Not Installed"
-else
-	CommanderPi="Installed"
-fi
-
-#----------------------------------------------------#
-#		Fortune
-#----------------------------------------------------#
-if [ ! -f /usr/share/terminfo/f/fortune 2>/dev/null ]; then
-	Fortune="Not Installed"
-else
-	Fortune="Installed"
-fi
-
-#----------------------------------------------------#
-#		DeskPi
-#----------------------------------------------------#
-if [ ! -d ${HOME}/deskpi 2>/dev/null ]; then
-	DeskPi="Not Installed"
-else
-	DeskPi="Installed"
-fi
-
-#----------------------------------------------------#
-#		Argon
-#----------------------------------------------------#
-if [ ! -f /etc/argononed.conf 2>/dev/null ]; then
-	Argon="Not Installed"
-else
-	Argon="Installed"
-fi
-
-#----------------------------------------------------#
-#		PiSafe
-#----------------------------------------------------#
-if [ ! -f ${HOME}/pisafe 2>/dev/null ]; then
-	PiSafe="Not Installed"
-else
-	PiSafe="Installed"
-fi
-
-#----------------------------------------------------#
-#		RPiMonitor
-#----------------------------------------------------#
-if ! hash rpimonitor 2>/dev/null ; then
-	RPiMonitor="Not Installed"
-else
-	RPiMonitor="Installed"
-fi
-
-#----------------------------------------------------#
-#		JS8map
-#----------------------------------------------------#
-if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
-	JS8map="Not Installed"
-else
-	JS8map="Installed"
-fi
-
-#----------------------------------------------------#
-#		X715
-#----------------------------------------------------#
-if [ ! -d ${HOME}/x715 2>/dev/null ]; then
-	X715="Not Installed"
-else
-	X715="Installed"
-fi
-
-#----------------------------------------------------#
-#		ZramSwap
-#----------------------------------------------------#
-if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
-	ZramSwap="Not Installed"
-else
-	ZramSwap="Installed"
-fi
-
-#----------------------------------------------------#
-#		nmon
-#----------------------------------------------------#
-if ! hash nmon 2>/dev/null ; then
-	nmon="Not Installed"
-else
-	nmon="Installed"
-fi
-
-}
-
-CHECK
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
+#####################################
+#Load the program installation/update status
+#####################################
+source $UPDATEFILE
 
 #----------------------------------------------------#
 #			BASE APP MENU
@@ -335,6 +162,7 @@ false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 false "nmon" "$nmon" "Linux performance monitor" \
+false "Weather" "$Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${BASE}
@@ -344,7 +172,33 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather)
+for i in "${BASEAPPS[@]}"
+do
+echo "$i" >> ${BASE}
+done
+fi
+
+#####################################
+#	Radio Apps
+#####################################
+yad --center --list --checklist --width=700 --height=750 --separator="" \
+--image ${LOGO} --column=Check --column=App --column=Description \
+--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+--text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
+false "Cqrprop" "A small application that shows propagation data" \
+false "JS8map" "Map to show location of JS8Call contacts" \
+--button="Exit":1 \
+--button="Check All and Continue":3 \
+--button="Install Selected":2 > ${BASE}
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+exit
+fi
+
+if [ $BUT = 3 ]; then
+
+BASEAPPS=(Cqrprop JS8map)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
@@ -364,6 +218,24 @@ while read i ; do
 source ${FUNCTIONS}/base.function
 $i
 done < ${BASE}
+
+#####################################
+#	Install Radio Apps
+#####################################
+touch ${RB}
+source ${FUNCTIONS}/radio.function
+while read i ; do
+$i
+done < ${RADIO}
+
+#####################################
+#	Install Patches
+#####################################
+touch ${RB}
+source ${FUNCTIONS}/patch.function
+while read i ; do
+$i
+done < ${PATCH}
 
 #####################################
 #	Update Build-A-Pi
@@ -501,6 +373,8 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 #####################################
 #Remove temp files
 rm ${BASE} > /dev/null 2>&1
+rm ${RADIO} > /dev/null 2>&1
+rm ${PATCH} > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 # Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
