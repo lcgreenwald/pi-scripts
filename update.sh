@@ -123,13 +123,13 @@ fi
 #####################################
 #	Patch Check
 #####################################
-bash $MYPATH/patch-check
+bash $MYPATH/patch-check.sh
 #####################################
 
 #####################################
 #Run the app check script
 #####################################
-bash $MYPATH/app-check
+bash $MYPATH/app-check.sh
 
 #####################################
 #Load the program installation/update status
@@ -153,7 +153,6 @@ false "Plank" "$Plank" "Application dock." \
 false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
 false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
-false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
@@ -161,12 +160,11 @@ false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 false "nmon" "$nmon" "Linux performance monitor" \
 false "Weather" "$Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
@@ -181,12 +179,12 @@ done
 fi
 
 #####################################
-#	Radio Apps
+#	Ham Apps Menu
 #####################################
 yad --center --list --checklist --width=700 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
---text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
+--text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
 false "Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \

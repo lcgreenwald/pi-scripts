@@ -198,12 +198,12 @@ echo "LON=$LON" >>${CONFIG}
 fi
 
 #####################################
-#	Radio Apps
+#	Ham Apps Menu
 #####################################
 yad --center --list --checklist --width=700 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
---text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
+--text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
 false "Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
