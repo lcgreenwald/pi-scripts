@@ -3,9 +3,12 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 
 
 
-# test-patch
-This patch is for testing purposes only. It will echo "This is a test patch" to the terminal. 
+# test-patch1
+This patch is for testing purposes only. It will echo "This is test patch one." to the terminal. 
+
+# test-patch2
+This patch is for testing purposes only. It will echo "This is test patch two." to the terminal. 
 
 Last Edit 31OCT2021
 
-PATCH=NO
+PATCH=YES

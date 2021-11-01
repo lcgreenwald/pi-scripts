@@ -145,7 +145,6 @@ false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
 false "Webmin" "Web based system manager." \
 false "Display" "Drivers for a 3.5 in. touch screen display" \
-false "Cqrprop" "A small application that shows propagation data" \
 false "Disks" "Manage Drives and Media" \
 false "PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "Display Linux system Information In a Terminal" \
@@ -153,7 +152,6 @@ false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "JS8map" "Map to show location of JS8Call contacts" \
 false "nmon" "Linux performance monitor" \
 false "Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
@@ -225,12 +223,6 @@ echo "$i" >> ${BASE}
 done
 fi
 
-
-#####################################
-#	Patches
-#####################################
-
-
 #####################################
 #	Install Base Apps
 #####################################
@@ -248,15 +240,6 @@ source ${FUNCTIONS}/radio.function
 while read i ; do
 $i
 done < ${RADIO}
-
-#####################################
-#	Install Patches
-#####################################
-touch ${RB}
-source ${FUNCTIONS}/patch.function
-while read i ; do
-$i
-done < ${PATCH}
 
 #####################################
 #	Update crontab
