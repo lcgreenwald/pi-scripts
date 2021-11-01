@@ -28,6 +28,7 @@ AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
 TODAY=$(date +%Y-%m-%d)
+UPDATEFILE=/run/user/${UID}/psupdate.txt
 
 FINISH(){
 if [ -f "${BASE}" ]; then
