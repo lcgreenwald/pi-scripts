@@ -2,7 +2,7 @@
 
 #this script used to check for apps that need updates
 
-#UPDATEFILE=/run/user/${UID}/psupdate.txt
+UPDATEFILE=/run/user/${UID}/psupdate.txt
 
 #Delete file if exist
 if [ -f $UPDATEFILE ]; then
