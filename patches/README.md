@@ -9,6 +9,6 @@ This patch is for testing purposes only. It will echo "This is test patch one." 
 # test-patch2
 This patch is for testing purposes only. It will echo "This is test patch two." to the terminal. 
 
-Last Edit 31OCT2021
+Last Edit 1NOV2021
 
-PATCH=YES
+PATCH=NO
