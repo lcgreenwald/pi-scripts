@@ -16,7 +16,7 @@ CHECK(){
 #		LOG2RAM
 #----------------------------------------------------#
 if ! hash log2ram 2>/dev/null; then
-	echo "Log2ram=Not Installed" >>$UPDATEFILE
+	echo "Log2ram=Not_Installed" >>$UPDATEFILE
 else
 	echo "Log2ram=Installed" >>$UPDATEFILE
 fi
@@ -24,7 +24,7 @@ fi
 #		LOCATE
 #----------------------------------------------------#
 if ! hash locate 2>/dev/null; then
-	echo "Locate=Not Installed" >>$UPDATEFILE
+	echo "Locate=Not_Installed" >>$UPDATEFILE
 else
 	echo "Locate=Installed" >>$UPDATEFILE
 fi
@@ -32,7 +32,7 @@ fi
 #		PLANK
 #----------------------------------------------------#
 if ! hash plank 2>/dev/null; then
-	echo "Plank=Not Installed" >>$UPDATEFILE
+	echo "Plank=Not_Installed" >>$UPDATEFILE
 else
 	echo "Plank=Installed" >>$UPDATEFILE
 fi
@@ -40,7 +40,7 @@ fi
 #		SAMBA
 #----------------------------------------------------#
 if ! hash samba 2>/dev/null; then
-	echo "Samba=Not Installed" >>$UPDATEFILE
+	echo "Samba=Not_Installed" >>$UPDATEFILE
 else
 	echo "Samba=Installed" >>$UPDATEFILE
 fi
@@ -48,7 +48,7 @@ fi
 #		WEBMIN
 #----------------------------------------------------#
 if [ ! -d /usr/share/webmin 2>/dev/null ]; then
-	echo "Webmin=Not Installed" >>$UPDATEFILE
+	echo "Webmin=Not_Installed" >>$UPDATEFILE
 else
 	echo "Webmin=Installed" >>$UPDATEFILE
 fi
@@ -57,7 +57,7 @@ fi
 #		3.5" DISPLAY DRIVERS
 #----------------------------------------------------#
 if [ ! -d ${HOME}/LCD-show 2>/dev/null ]; then
-	echo "Display=Not Installed" >>$UPDATEFILE
+	echo "Display=Not_Installed" >>$UPDATEFILE
 else
 	echo "Display=Installed" >>$UPDATEFILE
 fi
@@ -66,7 +66,7 @@ fi
 #		Cqrprop
 #----------------------------------------------------#
 if ! hash  cqrprop 2>/dev/null ; then
-	echo "Cqrprop=Not Installed" >>$UPDATEFILE
+	echo "Cqrprop=Not_Installed" >>$UPDATEFILE
 else
 	echo "Cqrprop=Installed" >>$UPDATEFILE
 fi
@@ -75,7 +75,7 @@ fi
 #		Disks
 #----------------------------------------------------#
 if ! hash  gnome-disks 2>/dev/null ; then
-	echo "Disks=Not Installed" >>$UPDATEFILE
+	echo "Disks=Not_Installed" >>$UPDATEFILE
 else
 	echo "Disks=Installed" >>$UPDATEFILE
 fi
@@ -84,7 +84,7 @@ fi
 #		PiImager
 #----------------------------------------------------#
 if ! hash  rpi-imager 2>/dev/null ; then
-	echo "PiImager=Not Installed" >>$UPDATEFILE
+	echo "PiImager=Not_Installed" >>$UPDATEFILE
 else
 	echo "PiImager=Installed" >>$UPDATEFILE
 fi
@@ -93,7 +93,7 @@ fi
 #		Neofetch
 #----------------------------------------------------#
 if ! hash  neofetch 2>/dev/null ; then
-	echo "Neofetch=Not Installed" >>$UPDATEFILE
+	echo "Neofetch=Not_Installed" >>$UPDATEFILE
 else
 	echo "Neofetch=Installed" >>$UPDATEFILE
 fi
@@ -102,7 +102,7 @@ fi
 #		Commander Pi
 #----------------------------------------------------#
 if [ ! -d ${HOME}/CommanderPi 2>/dev/null ]; then
-	echo "CommanderPi=Not Installed" >>$UPDATEFILE
+	echo "CommanderPi=Not_Installed" >>$UPDATEFILE
 else
 	echo "CommanderPi=Installed" >>$UPDATEFILE
 fi
@@ -111,7 +111,7 @@ fi
 #		Fortune
 #----------------------------------------------------#
 if [ ! -f /usr/share/terminfo/f/fortune 2>/dev/null ]; then
-	echo "Fortune=Not Installed" >>$UPDATEFILE
+	echo "Fortune=Not_Installed" >>$UPDATEFILE
 else
 	echo "Fortune=Installed" >>$UPDATEFILE
 fi
@@ -120,7 +120,7 @@ fi
 #		DeskPi
 #----------------------------------------------------#
 if [ ! -d ${HOME}/deskpi 2>/dev/null ]; then
-	echo "DeskPi=Not Installed" >>$UPDATEFILE
+	echo "DeskPi=Not_Installed" >>$UPDATEFILE
 else
 	echo "DeskPi=Installed" >>$UPDATEFILE
 fi
@@ -129,7 +129,7 @@ fi
 #		Argon
 #----------------------------------------------------#
 if [ ! -f /etc/argononed.conf 2>/dev/null ]; then
-	echo "Argon=Not Installed" >>$UPDATEFILE
+	echo "Argon=Not_Installed" >>$UPDATEFILE
 else
 	echo "Argon=Installed" >>$UPDATEFILE
 fi
@@ -138,7 +138,7 @@ fi
 #		PiSafe
 #----------------------------------------------------#
 if [ ! -f ${HOME}/pisafe 2>/dev/null ]; then
-	echo "PiSafe=Not Installed" >>$UPDATEFILE
+	echo "PiSafe=Not_Installed" >>$UPDATEFILE
 else
 	echo "PiSafe=Installed" >>$UPDATEFILE
 fi
@@ -147,7 +147,7 @@ fi
 #		RPiMonitor
 #----------------------------------------------------#
 if ! hash rpimonitor 2>/dev/null ; then
-	echo "RPiMonitor=Not Installed" >>$UPDATEFILE
+	echo "RPiMonitor=Not_Installed" >>$UPDATEFILE
 else
 	echo "RPiMonitor=Installed" >>$UPDATEFILE
 fi
@@ -156,7 +156,7 @@ fi
 #		JS8map
 #----------------------------------------------------#
 if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
-	echo "JS8map=Not Installed" >>$UPDATEFILE
+	echo "JS8map=Not_Installed" >>$UPDATEFILE
 else
 	echo "JS8map=Installed" >>$UPDATEFILE
 fi
@@ -165,7 +165,7 @@ fi
 #		X715
 #----------------------------------------------------#
 if [ ! -d ${HOME}/x715 2>/dev/null ]; then
-	echo "X715=Not Installed" >>$UPDATEFILE
+	echo "X715=Not_Installed" >>$UPDATEFILE
 else
 	echo "X715=Installed" >>$UPDATEFILE
 fi
@@ -174,7 +174,7 @@ fi
 #		ZramSwap
 #----------------------------------------------------#
 if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
-	echo "ZramSwap=Not Installed" >>$UPDATEFILE
+	echo "ZramSwap=Not_Installed" >>$UPDATEFILE
 else
 	echo "ZramSwap=Installed" >>$UPDATEFILE
 fi
@@ -183,7 +183,7 @@ fi
 #		nmon
 #----------------------------------------------------#
 if ! hash nmon 2>/dev/null ; then
-	echo "nmon=Not Installed" >>$UPDATEFILE
+	echo "nmon=Not_Installed" >>$UPDATEFILE
 else
 	echo "nmon=Installed" >>$UPDATEFILE
 fi
@@ -192,7 +192,7 @@ fi
 #		Weather
 #----------------------------------------------------#
 if ! hash weather 2>/dev/null ; then
-	echo "weather=Not Installed" >>$UPDATEFILE
+	echo "weather=Not_Installed" >>$UPDATEFILE
 else
 	echo "weather=Installed" >>$UPDATEFILE
 fi
