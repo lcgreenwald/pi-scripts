@@ -12,20 +12,48 @@ source ${MYPATH}/config
 source $PATCHFILE
 
 ################################
-#	Test Patch
+#	test-patch20211015
 ################################
-Test(){
+test-patch20211015(){
 ###############################
 #Patch name to record in PATCHFILE
 ###############################
-PATCHNAME=test-patch
+PATCHNAME=test-patch20211015
 
 ###############################
 #Patch script commands go here
 ###############################
 echo
 echo
-echo "This is a test patch"
+echo "This is test-patch20211015"
+echo
+
+#############################################
+#write patch name to a file so we can       
+#look and see if it has been applied before.
+#This is checked by the patch-menu script   
+#before running the patch                   
+#############################################
+echo "$PATCHNAME" >> $PATCHFILE
+
+}
+################################
+
+################################
+#	test-patch20211020
+################################
+test-patch20211020(){
+###############################
+#Patch name to record in PATCHFILE
+###############################
+PATCHNAME=test-patch20211020
+
+###############################
+#Patch script commands go here
+###############################
+echo
+echo
+echo "This is test-patch20211020"
 echo
 
 #############################################

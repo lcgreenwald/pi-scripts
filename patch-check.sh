@@ -8,7 +8,7 @@
 #been applied previously. If so, it skips the patch screen. If not, it gives
 #the user an option to install the patch(es).
 
-PATCHCHECK=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-build/dev/patch/README.md | grep PATCH= | sed 's/PATCH=//')
+PATCHCHECK=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/README.md | grep PATCH= | sed 's/PATCH=//')
 
 if [ ${PATCHCHECK} = "YES" ]; then
 #Setup temp directory for BAP patches and download patches

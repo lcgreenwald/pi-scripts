@@ -192,9 +192,9 @@ fi
 #		Weather
 #----------------------------------------------------#
 if ! hash weather 2>/dev/null ; then
-	echo "weather=Not_Installed" >>$UPDATEFILE
+	echo "Weather=Not_Installed" >>$UPDATEFILE
 else
-	echo "weather=Installed" >>$UPDATEFILE
+	echo "Weather=Installed" >>$UPDATEFILE
 fi
 
 }
