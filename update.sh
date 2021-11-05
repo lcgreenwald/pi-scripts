@@ -100,6 +100,7 @@ BUT=$?
 echo $BUT
 ##########
 	if [ $BUT = 252 ]; then 
+  CLEANUP
 	exit
 	elif [ $BUT = 2 ]; then
 	echo "Updating Pi Scripts to $LATEST"
@@ -136,6 +137,7 @@ This should take less than a minute. Ready when you are." \
 --button="Start Scan":2
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
