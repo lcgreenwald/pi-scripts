@@ -5,7 +5,6 @@
 
 TEMPCRON=${MYPATH}/cron.tmp
 TEMPSYSCTL=${MYPATH}/sysctl.tmp
-source ${MYPATH}/config
 
 
 ################################
