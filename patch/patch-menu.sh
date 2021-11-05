@@ -9,7 +9,10 @@
 #DIR=/run/user/$UID
 #PATCH=${MYPATH}/patch.txt
 PATCHDIR=/run/user/${UID}/patch
+echo "MYPATH = $MYPATH"
+echo "PATCH = $PATCH"
 
+cat $PATCHDIR/avail-patch.txt
 source $PATCHDIR/avail-patch.txt
 
 MENU(){
