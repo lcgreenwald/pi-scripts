@@ -218,21 +218,21 @@ sudo apt -y full-upgrade
 #####################################
 #	Install Patches
 #####################################
-  # check to see if all patches have been installed
-  PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
-  if [[ -z ${PATCHESINSTALLED} ]]; then
-    echo "No available patches found"
-  else
-    echo "Available patches found"
-    source ${PATCHDIR}/patch.function
-    while read i ; do
-      $i
-    done < ${PATCH}
-    #####################################
-    #	Clean Up
-    #####################################
-    rm -rf $PATCHDIR
-  fi
+# check to see if all patches have been installed
+PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
+if [[ -z ${PATCHESINSTALLED} ]]; then
+  echo "No available patches found"
+else
+  echo "Available patches found"
+  source ${PATCHDIR}/patch.function
+  while read i ; do
+    $i
+  done < ${PATCH}
+fi
+#####################################
+#	Clean Up
+#####################################
+rm -rf $PATCHDIR
 
 #####################################
 #	Install Base Apps
