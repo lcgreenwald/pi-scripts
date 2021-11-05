@@ -385,6 +385,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 rm ${BASE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
 rm ${PATCH} > /dev/null 2>&1
+rm ${UPDATEFILE} > /dev/null 2>&1
 rm -rf $PATCHDIR > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
