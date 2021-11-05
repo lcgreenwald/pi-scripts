@@ -6,8 +6,8 @@ This script installs or updates:
 
 km4ack build-a-pi
 	Optionally select Current, Master, Beta or Dev
-          Current will execute git pull for the current branch. Current is only available in Update.
-          Master, Beta or Dev will change to the requested branch and execute git clone or git pull. 
+	Current will execute git pull for the current branch. Current is only available in Update.
+	Master, Beta or Dev will change to the requested branch and execute git clone or git pull. 
 
 km4ack hotspot tools customized to allow editing the hotspot IP address
 
@@ -16,7 +16,7 @@ Additional customised Conky files
 You may also optionally install:
 
 	Base Apps:
-        DeskPi - DeskPi case software.
+	DeskPi - DeskPi case software.
 	Argon - Argon One m.2 case software.
 	X715 - X715 power supply hat utilities.
 	log2ram - Save logs to ram to reduce wear on your SD card.
@@ -32,10 +32,10 @@ You may also optionally install:
 	RPiMonitor - Display Linux system Information in a web browser.
 	Fortune - Random quotes.
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
-        nmon - Linux performance monitor.
-        Weather - Display weather conditions and forecast.
+	nmon - Linux performance monitor.
+	Weather - Display weather conditions and forecast.
         
-        Radio Apps:
+	Radio Apps:
 	cqrprop - Propagation prediction.
 	JS8map - Map to show location of JS8Call contacts.
         
