@@ -19,9 +19,9 @@ source $PATCHDIR/avail-patch.txt
 #####################################
 #	PATCH Menu
 #####################################
-yad --center --list --checklist --width=700 --height=750 --separator="" \
---image ${LOGO} --column=Check --column=App --column=Description \
---print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+yad --center --list --checklist --width=750 --height=750 --separator="" \
+--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+--window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Patches</b>" --title="Pi-Scripts Install" \
 false "testpatch20211015" "$testpatch20211015" "A small test application" \
 false "testpatch20211020" "$testpatch20211020" "Another small test application" \
