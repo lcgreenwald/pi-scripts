@@ -24,8 +24,8 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Patches</b>" --title="Pi-Scripts Install" \
-false "test-patch20211015" "$test-patch20211015" "A small test application" \
-false "test-patch20211020" "$test-patch20211020" "Another small test application" \
+false "testpatch20211015" "$testpatch20211015" "A small test application" \
+false "testpatch20211020" "$testpatch20211020" "Another small test application" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${PATCH}
@@ -36,7 +36,7 @@ fi
 
 if [ $BUT = 3 ]; then
 
-PATCHAPPS=(test-patch20211015 test-patch20211020)
+PATCHAPPS=(testpatch20211015 testpatch20211020)
 for i in "${PATCHAPPS[@]}"
 do
 echo "$i" >> ${PATCH}

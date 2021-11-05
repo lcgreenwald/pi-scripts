@@ -3,10 +3,10 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 
 
 
-# test-patch20211015
+# testpatch20211015
 This patch is for testing purposes only. It will echo "This is test patch one." to the terminal. 
 
-# test-patch20211020
+# testpatch20211020
 This patch is for testing purposes only. It will echo "This is test patch two." to the terminal. 
 
 Last Edit 1NOV2021

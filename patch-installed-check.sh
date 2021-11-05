@@ -10,13 +10,19 @@
 
 PATCHDIR=/run/user/${UID}/patch
 PATCHCHECK=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/README.md | grep PATCH= | sed 's/PATCH=//')
-
+AVAILPATCH=$PATCHDIR/avail-patch.txt
 echo "MYPATH = $MYPATH"
 echo "PATCH = $PATCH"
 
 if [ ${PATCHCHECK} = "YES" ]; then
   mkdir $PATCHDIR
   cd $PATCHDIR
+  #Delete file if exist
+  if [ -f $AVAILPATCH ]; then
+    rm $AVAILPATCH
+  fi
+  #create new file
+  touch $AVAILPATCH
 
   wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch.function
   wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-list
@@ -27,15 +33,15 @@ if [ ${PATCHCHECK} = "YES" ]; then
   for i in $FILES; do
     RB=$(grep $i $HOME/.config/patch)
     if [ -z $RB ]; then
-      echo "$i=Not_Installed" >> $PATCHDIR/avail-patch.txt
+      echo "$i=Not_Installed" >> $AVAILPATCH
     else
-      echo "$i=Installed" >> $PATCHDIR/avail-patch.txt
+      echo "$i=Installed" >> $AVAILPATCH
     fi # $RB
   done  # $FILES
   #end check
   
   # check to see if all patches have been installed
-  PATCHESINSTALLED=$(grep "Not_Installed" $PATCHDIR/avail-patch.txt)
+  PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
   if [[ -s ${PATCHESINSTALLED} ]]; then
     echo "No available patches found"
   else
@@ -43,9 +49,9 @@ if [ ${PATCHCHECK} = "YES" ]; then
     bash $PATCHDIR/patch-menu.sh 
   fi
   
-#####################################
-#	Clean Up
-#####################################
-##  rm -rf $PATCHDIR
+  #####################################
+  #	Clean Up
+  #####################################
+  rm -rf $PATCHDIR
 
 fi  # patch check
