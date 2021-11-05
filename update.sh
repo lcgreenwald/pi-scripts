@@ -30,6 +30,8 @@ LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUp
 TODAY=$(date +%Y-%m-%d)
 UPDATEFILE=/run/user/${UID}/psupdate.txt
 
+Export MYPATH PATCH LOGO
+
 FINISH(){
 if [ -f "${BASE}" ]; then
 	rm ${BASE}
@@ -185,8 +187,8 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
-false "Cqrprop" "A small application that shows propagation data" \
-false "JS8map" "Map to show location of JS8Call contacts" \
+false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
+false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${BASE}
@@ -197,10 +199,10 @@ fi
 
 if [ $BUT = 3 ]; then
 
-BASEAPPS=(Cqrprop JS8map)
-for i in "${BASEAPPS[@]}"
+RADIOAPPS=(Cqrprop JS8map)
+for i in "${RADIOAPPS[@]}"
 do
-echo "$i" >> ${BASE}
+echo "$i" >> ${RADIO}
 done
 fi
 
@@ -208,6 +210,15 @@ fi
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt -y full-upgrade
+
+#####################################
+#	Install Patches
+#####################################
+touch ${RB}
+source ${FUNCTIONS}/patch.function
+while read i ; do
+$i
+done < ${PATCH}
 
 #####################################
 #	Install Base Apps
@@ -227,14 +238,6 @@ while read i ; do
 $i
 done < ${RADIO}
 
-#####################################
-#	Install Patches
-#####################################
-touch ${RB}
-source ${FUNCTIONS}/patch.function
-while read i ; do
-$i
-done < ${PATCH}
 
 #####################################
 #	Update Build-A-Pi

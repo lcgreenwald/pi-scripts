@@ -17,9 +17,10 @@ if [ ${PATCHCHECK} = "YES" ]; then
 
   curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch.function
   curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-list
+  curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-menu.sh
 
   FILES=cat patch-list
-  #check if available patches have already been applied to BAP
+  #check if available patches have already been applied to Pi-Scripts
   for i in $FILES; do
     RB=$(grep $i $HOME/.config/patch)
     if [ -z $RB ]; then
@@ -29,12 +30,14 @@ if [ ${PATCHCHECK} = "YES" ]; then
     fi # $RB
   done  # $FILES
   #end check
-
-  if [ -f $PATCHDIR/avail-patch.txt ]; then
-    
   
-  fi  #
-
+  # check to see if all patches have been installed
+  PATCHESINSTALLED=$(grep "Not_Installed" $PATCHDIR/avail-patch.txt)
+  if [ ${PATCHESINSTALLED} = "Not_Installed" ]; then
+    echo "Available patches found"
+    bash $PATCHDIR/patch-menu.sh 
+  fi
+  
 #####################################
 #	Clean Up
 #####################################

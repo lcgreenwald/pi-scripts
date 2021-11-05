@@ -35,7 +35,7 @@ You may also optionally install:
 	nmon - Linux performance monitor.
 	Weather - Display weather conditions and forecast.
         
-	Radio Apps:
+	Ham Radio Apps:
 	cqrprop - Propagation prediction.
 	JS8map - Map to show location of JS8Call contacts.
         
