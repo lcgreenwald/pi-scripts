@@ -32,7 +32,7 @@ UPDATEFILE=/run/user/${UID}/psupdate.txt
 PATCHDIR=/run/user/${UID}/patch
 AVAILPATCH=$PATCHDIR/avail-patch.txt
 
-export MYPATH PATCH LOGO PATCHDIR
+export MYPATH LOGO PATCH PATCHDIR AVAILPATCH
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -69,7 +69,7 @@ fi
 
 #####################################
 # Create autostart dir
-# used to autostart conky at boot
+# used to autostart programs at boot
 #####################################
 if [ -d ${HOME}/.config/autostart ]; then
   mkdir -p ${HOME}/.config/autostart
