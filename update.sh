@@ -125,7 +125,7 @@ sudo apt install -y bc
 fi
 
 #####################################
-#	Patch Check
+#	Run the patch check script
 #####################################
 bash $MYPATH/patch-installed-check.sh
 #####################################
@@ -229,10 +229,6 @@ else
     $i
   done < ${PATCH}
 fi
-#####################################
-#	Clean Up
-#####################################
-rm -rf $PATCHDIR
 
 #####################################
 #	Install Base Apps
@@ -389,6 +385,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 rm ${BASE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
 rm ${PATCH} > /dev/null 2>&1
+rm -rf $PATCHDIR > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
 sudo apt -y autoremove
 # Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
