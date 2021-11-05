@@ -3,7 +3,7 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 
 
 
-# testpatch20211015
+# hamlib4.3.1D20211105
 This patch is for testing purposes only. It will echo "This is test patch one." to the terminal. 
 
 # testpatch20211020
