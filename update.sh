@@ -46,6 +46,28 @@ fi
 trap FINISH EXIT
 
 #####################################
+# Cleanup function
+#####################################
+CLEANUP(){
+#Remove temp files
+rm ${BASE} > /dev/null 2>&1
+rm ${RADIO} > /dev/null 2>&1
+rm ${PATCH} > /dev/null 2>&1
+rm ${UPDATEFILE} > /dev/null 2>&1
+rm -rf $PATCHDIR > /dev/null 2>&1
+sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
+sudo apt -y autoremove
+# Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
+if [[ $LASTUPDATERUN == "" ]] ; then
+  echo "# The date update.sh was last executed" >> ${HOME}/.config/WB0SIO
+  echo "LastUpdateRun=$TODAY" >> ${HOME}/.config/WB0SIO
+else
+  sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
+fi
+}
+
+
+#####################################
 # Create autostart dir
 # used to autostart conky at boot
 #####################################
@@ -383,24 +405,8 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 #####################################
 #	END CLEANUP
 #####################################
-CLEANUP(){
-#Remove temp files
-rm ${BASE} > /dev/null 2>&1
-rm ${RADIO} > /dev/null 2>&1
-rm ${PATCH} > /dev/null 2>&1
-rm ${UPDATEFILE} > /dev/null 2>&1
-rm -rf $PATCHDIR > /dev/null 2>&1
-sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
-sudo apt -y autoremove
-# Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
-if [[ $LASTUPDATERUN == "" ]] ; then
-  echo "# The date update.sh was last executed" >> ${HOME}/.config/WB0SIO
-  echo "LastUpdateRun=$TODAY" >> ${HOME}/.config/WB0SIO
-else
-  sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
-fi
-}
 CLEANUP
+
 #####################################
 #reboot when done
 #####################################
