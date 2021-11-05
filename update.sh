@@ -31,7 +31,7 @@ TODAY=$(date +%Y-%m-%d)
 UPDATEFILE=/run/user/${UID}/psupdate.txt
 PATCHDIR=/run/user/${UID}/patch
 
-Export MYPATH PATCH LOGO PATCHDIR
+export MYPATH PATCH LOGO PATCHDIR
 
 FINISH(){
 if [ -f "${BASE}" ]; then
