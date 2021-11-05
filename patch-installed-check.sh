@@ -42,7 +42,7 @@ if [ ${PATCHCHECK} = "YES" ]; then
   
   # check to see if all patches have been installed
   PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
-  if [[ -s ${PATCHESINSTALLED} ]]; then
+  if [[ -z ${PATCHESINSTALLED} ]]; then
     echo "No available patches found"
   else
     echo "Available patches found"
