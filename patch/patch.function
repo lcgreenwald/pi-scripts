@@ -11,21 +11,28 @@ touch $PATCHFILE
 source ${MYPATH}/config
 source $PATCHFILE
 
+##################################################
+##################################################
+#  NOTE: do NOT put dashes in the patch name.
+##################################################
+##################################################
+
+
 ################################
-#	test-patch20211015
+#	testpatch20211015
 ################################
-test-patch20211015(){
+testpatch20211015(){
 ###############################
 #Patch name to record in PATCHFILE
 ###############################
-PATCHNAME=test-patch20211015
+PATCHNAME=testpatch20211015
 
 ###############################
 #Patch script commands go here
 ###############################
 echo
 echo
-echo "This is test-patch20211015"
+echo "This is testpatch20211015"
 echo
 
 #############################################
@@ -40,20 +47,20 @@ echo "$PATCHNAME" >> $PATCHFILE
 ################################
 
 ################################
-#	test-patch20211020
+#	testpatch20211020
 ################################
-test-patch20211020(){
+testpatch20211020(){
 ###############################
 #Patch name to record in PATCHFILE
 ###############################
-PATCHNAME=test-patch20211020
+PATCHNAME=testpatch20211020
 
 ###############################
 #Patch script commands go here
 ###############################
 echo
 echo
-echo "This is test-patch20211020"
+echo "This is testpatch20211020"
 echo
 
 #############################################
