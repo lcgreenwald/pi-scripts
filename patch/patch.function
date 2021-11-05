@@ -8,7 +8,6 @@ TEMPCRON=${MYPATH}/cron.tmp
 TEMPSYSCTL=${MYPATH}/sysctl.tmp
 PATCHFILE=$HOME/.config/patch
 touch $PATCHFILE
-source ${MYPATH}/config
 source $PATCHFILE
 
 ##################################################
