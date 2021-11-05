@@ -19,7 +19,7 @@ if [ ${PATCHCHECK} = "YES" ]; then
   wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-list
   wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-menu.sh
 
-  FILES=$(cat patch-list)
+  FILES=$(cat "patch-list")
   #check if available patches have already been applied to Pi-Scripts
   for i in $FILES; do
     RB=$(grep $i $HOME/.config/patch)
