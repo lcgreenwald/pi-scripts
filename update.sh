@@ -171,6 +171,7 @@ false "Weather" "$Weather" "Display weather conditions and forecast." \
 --button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
@@ -196,6 +197,7 @@ false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Install Selected":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
@@ -381,6 +383,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 #####################################
 #	END CLEANUP
 #####################################
+CLEANUP(){
 #Remove temp files
 rm ${BASE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
@@ -396,7 +399,8 @@ if [[ $LASTUPDATERUN == "" ]] ; then
 else
   sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
 fi
-
+}
+CLEANUP
 #####################################
 #reboot when done
 #####################################

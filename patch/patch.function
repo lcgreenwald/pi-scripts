@@ -18,13 +18,13 @@ source $PATCHFILE
 
 
 ################################
-#	hamlib4.3.1D20211105
+#	hamlib4dot3dot1date20211105
 ################################
-hamlib4.3.1D20211105(){
+hamlib4dot3dot1date20211105(){
 ###############################
 #Patch name to record in PATCHFILE
 ###############################
-PATCHNAME=hamlib4.3.1D20211105
+PATCHNAME=hamlib4dot3dot1date20211105
 
 ###############################
 #Patch script commands go here

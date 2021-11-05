@@ -23,7 +23,7 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Patches</b>" --title="Pi-Scripts Install" \
-false "hamlib4.3.1D20211105" "$hamlib4.3.1D20211105" "A small test application" \
+false "hamlib4dot3dot1date20211105" "$hamlib4dot3dot1date20211105" "HamLib update" \
 false "testpatch20211020" "$testpatch20211020" "Another small test application" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
@@ -35,7 +35,7 @@ fi
 
 if [ $BUT = 3 ]; then
 
-PATCHAPPS=(hamlib4.3.1D20211105 testpatch20211020)
+PATCHAPPS=(hamlib4dot3dot1date20211105 testpatch20211020)
 for i in "${PATCHAPPS[@]}"
 do
 echo "$i" >> ${PATCH}
