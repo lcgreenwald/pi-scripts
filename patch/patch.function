@@ -1,0 +1,175 @@
+#this installs the radio related software for pi-scripts-install
+#km4ack 20200513
+#wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
+#wb0sio 20210816 Converted wb0sio base.function to wb0sio radio.function
+#wb0sio 20210927 Converted wb0sio radio.function to wb0sio patch.function
+
+TEMPCRON=${MYPATH}/cron.tmp
+TEMPSYSCTL=${MYPATH}/sysctl.tmp
+PATCHFILE=$HOME/.config/patch
+touch $PATCHFILE
+source $PATCHFILE
+
+##################################################
+##################################################
+#  NOTE: do NOT put dashes in the patch name.
+##################################################
+##################################################
+
+
+################################
+#	hamlib4dot3dot1date20211105
+################################
+hamlib4dot3dot1date20211105(){
+###############################
+#Patch name to record in PATCHFILE
+###############################
+PATCHNAME=hamlib4dot3dot1date20211105
+
+###############################
+#Patch script commands go here
+###############################
+clear;echo;echo
+if [ -d $HOME/Downloads/hamlib-4.3.1 ]; then 
+cd $HOME/Downloads/hamlib-4.3.1
+sudo make uninstall
+sudo make clean
+sudo apt install -y libusb-1.0 libusb-dev
+./configure
+make
+sudo make install
+sudo ldconfig
+else
+echo "###################################"
+echo "hamlib source directory not found"
+echo "Downloading hamlib"
+echo "###################################"
+sleep 2
+cd $HOME/Downloads
+    NEWRIG=$(curl -s https://sourceforge.net/projects/hamlib/files/latest/download |
+        grep -o https://downloads.sourceforge.net/project/hamlib/hamlib/[0-9].[0-9].[0-9] |
+        head -n 1 | awk -F "/" '{print $7}')
+    HAMLIBLINK=https://sourceforge.net/projects/hamlib/files/hamlib/${NEWRIG}/hamlib-${NEWRIG}.tar.gz
+    cd ${HOME}/Downloads || return
+    echo "###################################"
+    echo "#		Installing Hamlib	"
+    echo "###################################"
+    wget --tries 2 --connect-timeout=60 ${HAMLIBLINK}
+
+    tar -xzf hamlib-${NEWRIG}.tar.gz
+    rm hamlib-${NEWRIG}.tar.gz
+    cd hamlib-${NEWRIG} || return
+    sudo apt install -y libusb-1.0 libusb-dev
+    ./configure
+    make
+    sudo make install
+    sudo ldconfig
+fi
+
+#############################################
+#write patch name to a file so we can       
+#look and see if it has been applied before.
+#This is checked by the patch-menu script   
+#before running the patch                   
+#############################################
+echo "$PATCHNAME" >> $PATCHFILE
+
+}
+################################
+
+################################
+#	testpatch20211020
+################################
+testpatch20211020(){
+###############################
+#Patch name to record in PATCHFILE
+###############################
+PATCHNAME=testpatch20211020
+
+###############################
+#Patch script commands go here
+###############################
+echo
+echo
+echo "This is testpatch20211020"
+echo
+
+#############################################
+#write patch name to a file so we can       
+#look and see if it has been applied before.
+#This is checked by the patch-menu script   
+#before running the patch                   
+#############################################
+echo "$PATCHNAME" >> $PATCHFILE
+
+}
+################################
+
+
+
+
+################################
+#	Proto
+################################
+Proto(){
+	# Install/update Proto  
+	cd
+	if [ ! -d ${HOME}/Proto 2>/dev/null ]; then
+		echo "file" >/dev/null
+	else
+		echo "file" >/dev/null
+	fi
+
+# Create the desktop entry
+	cat <<EOF > ${HOME}/.local/share/applications/Proto.desktop
+[Desktop Entry]
+Version=1.0
+Name=Proto
+Comment=
+Exec=/home/pi/bin/proto.sh
+Icon=proto_icon
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=wb0sio;
+StartupNotify=true
+NoDisplay=false
+EOF
+
+	# Create the shell script to run proto
+	if [ ! -d ${HOME}/bin 2>/dev/null ]; then
+		mkdir ${HOME}/bin >/dev/null
+	fi
+
+	cat <<EOF > ${HOME}/bin/proto.sh
+#!/bin/bash
+cd ${HOME}/Proto
+python3 Proto.py
+EOF
+
+	# Make the shell script executable
+	chmod a+x ${HOME}/bin/Proto.sh
+}
+################################
+
+################################
+#	Proto File
+################################
+Proto(){
+if ! hash file 2>/dev/null ; then
+	echo "file" >/dev/null
+fi
+}
+################################
+
+################################
+#	Proto Folder
+################################
+ProtoF(){
+if [ ! -d ${HOME}/folder 2>/dev/null ]; then
+	echo "folder" >/dev/null
+fi
+}
+################################
+
+

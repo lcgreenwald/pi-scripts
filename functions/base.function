@@ -4,6 +4,7 @@
 
 TEMPCRON=${MYPATH}/cron.tmp
 TEMPSYSCTL=${MYPATH}/sysctl.tmp
+source ${MYPATH}/config
 
 ################################
 #	LOG2RAM
@@ -313,6 +314,33 @@ nmon(){
 if ! hash nmon 2>/dev/null ; then
 	sudo apt install nmon >/dev/null
 fi
+}
+################################
+
+
+################################
+#	Weather
+################################
+nmon(){
+if ! hash weather 2>/dev/null ; then
+        git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
+        cd ${HOME}/.conky/weather
+        sudo make install
+        sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
+        sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
+        sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+        crontab -l > ${TEMPCRON}
+        echo "@reboot sleep 20 && /usr/bin/weather -w" >> ${TEMPCRON}
+	crontab ${TEMPCRON}
+	rm ${TEMPCRON}
+else
+        cd ${HOME}/.conky/weather
+        git pull
+        sudo make install
+        sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
+        sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
+        sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+fi        
 }
 ################################
 

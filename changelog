@@ -1,45 +1,62 @@
-version=1.1.10
+version=1.1.11
 author=wb0sio
-LastUpdate=2021/09/22
+LastUpdate=2021/10/31
 
-1.1.10 - 2021/09/22 - Added nmon - Linux performance monitor.
-                2021/09/22 Added Pi-Scripts version display to WB0SIO sub menu.
+1.1.11
+    2021/09/30 - Added radio and patch function. Updated changelog layout.
+    2021/10/23 - Updated gpsinstall to version 3.23.1
+    2021/10/31 - Added Weather app and Conky config to display current weather plus hourly and daily forecasts. 
 
-1.1.9 - 2021/09/10 - Added ZramSwap - Create a RAM based swap file to improve system response. 
-                2921/09/12 - Added installation and updated dates to file ${HOME}/.config/WB0SIO
+1.1.10
+    2021/09/22 - Added nmon - Linux performance monitor.
+    2021/09/22 - Added Pi-Scripts version display to WB0SIO sub menu.
 
-1.1.8 - 2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
-		2021/08/22 - Moved RPiMonitor from always install to install from the menu
-		2021/08/27 - Added X715 power supply hat utilities
+1.1.9
+    2021/09/10 - Added ZramSwap - Create a RAM based swap file to improve system response. 
+    2921/09/12 - Added installation and updated dates to file ${HOME}/.config/WB0SIO
 
-1.1.7 - Added PiSafe - Backup or Restore Raspberry Pi devices
+1.1.8
+    2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
+	2021/08/22 - Moved RPiMonitor from always install to install from the menu
+	2021/08/27 - Added X715 power supply hat utilities
 
-1.1.6 - Added Argon One m.2 case utilities
-			Added FLSuite, KM4ACK and WB0SIO sub-menus to the HamRadio menu
-			Added build Conky from source
-			Added folder $HOME/Douments/adi_files
-			Added symlinks for js8call and wsjtx adi files to $HOME/Douments/adi_files
+1.1.7
+    Added PiSafe - Backup or Restore Raspberry Pi devices
 
-1.1.5 - Added diskio and fortune to conky
-			Added fortune installation option.
-			Added xscreensaver install.
-			Added Disk IO display to conky
-			Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
-			Added DeskPi utilities
-			Added writefreq.sh and updated conky files with ${exec cat $HOME/bin/conky/Freq.txt}.  Added writefreq.sh to crontab.
+1.1.6
+    Added Argon One m.2 case utilities
+    Added FLSuite, KM4ACK and WB0SIO sub-menus to the HamRadio menu
+    Added build Conky from source
+    Added folder $HOME/Douments/adi_files
+    Added symlinks for js8call and wsjtx adi files to $HOME/Douments/adi_files
 
-1.1.4 - Updates to the updates.sh script
+1.1.5
+    Added diskio and fortune to conky
+    Added fortune installation option.
+    Added xscreensaver install.
+	Added Disk IO display to conky
+	Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
+	Added DeskPi utilities
+	Added writefreq.sh and updated conky files with ${exec cat $HOME/bin/conky/Freq.txt}.  Added writefreq.sh to crontab.
 
-1.1.3 - Added set_wallpaper.sh
-			Added second conky to display solar conditions gif
+1.1.4
+    Updates to the updates.sh script
 
-1.1.2 - Added set_default_res.sh
-			Added solar conditions to conky
+1.1.3
+    Added set_wallpaper.sh
+    Added second conky to display solar conditions gif
+
+1.1.2
+    Added set_default_res.sh
+	Added solar conditions to conky
       
-1.1.1 - Added Neofetch and CommanderPi
-			Added conky-medium-adif
+1.1.1
+    Added Neofetch and CommanderPi
+	Added conky-medium-adif
 
-1.1.0 - Added gnome disk utility and Raspberry Pi Imager.
+1.1.0
+    Added gnome disk utility and Raspberry Pi Imager.
 
-1.0.0 	Initial Release
+1.0.0
+ 	Initial Release
 				
