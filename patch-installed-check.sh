@@ -33,7 +33,7 @@ if [ ${PATCHCHECK} = "YES" ]; then
   
   # check to see if all patches have been installed
   PATCHESINSTALLED=$(grep "Not_Installed" $PATCHDIR/avail-patch.txt)
-  if [ ${PATCHESINSTALLED} == "Not_Installed" ]; then
+  if [[ -s ${PATCHESINSTALLED} ]]; then
     echo "Available patches found"
     bash $PATCHDIR/patch-menu.sh 
   fi
