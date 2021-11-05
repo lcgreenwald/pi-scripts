@@ -49,9 +49,5 @@ if [ ${PATCHCHECK} = "YES" ]; then
     bash $PATCHDIR/patch-menu.sh 
   fi
   
-  #####################################
-  #	Clean Up
-  #####################################
-  rm -rf $PATCHDIR
 
 fi  # patch check

@@ -30,6 +30,7 @@ LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUp
 TODAY=$(date +%Y-%m-%d)
 UPDATEFILE=/run/user/${UID}/psupdate.txt
 PATCHDIR=/run/user/${UID}/patch
+AVAILPATCH=$PATCHDIR/avail-patch.txt
 
 export MYPATH PATCH LOGO PATCHDIR
 
@@ -62,7 +63,7 @@ LATEST=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/master
 
 if (( $(echo "$LATEST $CURRENT" | awk '{print ($1 > $2)}') ))
 then
-cat <<EOF > ${MYPATH}/updatebap.txt
+cat <<EOF > ${MYPATH}/updateps.txt
 Pi Scripts update available. Current version is $CURRENT and
 the lateest version is $LATEST. Would you like to update?
 
@@ -70,7 +71,7 @@ Change log - https://github.com/lcgreenwald/pi-scripts/blob/master/changelog
 EOF
 BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
---text-info<${MYPATH}/updatebap.txt \
+--text-info<${MYPATH}/updateps.txt \
 --button="Yes":2 \
 --button="No":3)
 BUT=$?
@@ -86,19 +87,19 @@ echo $BUT
 	git clone https://github.com/lcgreenwald/pi-scripts.git
 	mv ${HOME}/Documents/config.bap ${MYPATH}/config
 
-cat <<EOF > ${MYPATH}/updatebap.txt
+cat <<EOF > ${MYPATH}/updateps.txt
 Pi Scripts has been updated to $LATEST. Please restart Pi Scripts.
 EOF
 	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 	--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
-	--text-info<${MYPATH}/updatebap.txt \
+	--text-info<${MYPATH}/updateps.txt \
 	--button="OK":2)
 	BUT=$?
 	exit 0
 	fi
 ##########
 fi
-rm ${MYPATH}/updatebap.txt >> /dev/null 2>&1
+rm ${MYPATH}/updateps.txt >> /dev/null 2>&1
 rm ${MYPATH}/complete.txt >> /dev/null 2>&1
 clear
 
@@ -212,28 +213,38 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt -y full-upgrade
 
+#touch ${RB}
+#touch ${HOME}/.config/WB0SIO
 #####################################
 #	Install Patches
 #####################################
-touch ${RB}
-source ${FUNCTIONS}/patch.function
-while read i ; do
-$i
-done < ${PATCH}
+  # check to see if all patches have been installed
+  PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
+  if [[ -s ${PATCHESINSTALLED} ]]; then
+    echo "No available patches found"
+  else
+    echo "Available patches found"
+    source ${PATCHDIR}/patch.function
+    while read i ; do
+      $i
+    done < ${PATCH}
+    #####################################
+    #	Clean Up
+    #####################################
+    rm -rf $PATCHDIR
+  fi
 
 #####################################
 #	Install Base Apps
 #####################################
-touch ${HOME}/.config/WB0SIO
-while read i ; do
 source ${FUNCTIONS}/base.function
+while read i ; do
 $i
 done < ${BASE}
 
 #####################################
 #	Install Radio Apps
 #####################################
-touch ${RB}
 source ${FUNCTIONS}/radio.function
 while read i ; do
 $i
