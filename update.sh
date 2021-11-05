@@ -29,8 +29,9 @@ LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
 TODAY=$(date +%Y-%m-%d)
 UPDATEFILE=/run/user/${UID}/psupdate.txt
+PATCHDIR=/run/user/${UID}/patch
 
-Export MYPATH PATCH LOGO
+Export MYPATH PATCH LOGO PATCHDIR
 
 FINISH(){
 if [ -f "${BASE}" ]; then

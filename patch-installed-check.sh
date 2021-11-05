@@ -15,9 +15,9 @@ if [ ${PATCHCHECK} = "YES" ]; then
   mkdir $PATCHDIR
   cd $PATCHDIR
 
-  curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch.function
-  curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-list
-  curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-menu.sh
+  wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch.function
+  wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-list
+  wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/patch-menu.sh
 
   FILES=cat patch-list
   #check if available patches have already been applied to Pi-Scripts
