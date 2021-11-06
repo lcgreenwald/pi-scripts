@@ -244,7 +244,7 @@ false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Install Selected":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 CLEANUP

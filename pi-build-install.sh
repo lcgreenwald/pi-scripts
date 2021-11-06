@@ -208,7 +208,7 @@ false "Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Install Selected":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
@@ -219,14 +219,13 @@ if [ $BUT = 3 ]; then
 BASEAPPS=(Cqrprop JS8map)
 for i in "${BASEAPPS[@]}"
 do
-echo "$i" >> ${BASE}
+echo "$i" >> ${RADIO}
 done
 fi
 
 #####################################
 #	Install Base Apps
 #####################################
-touch ${RB}
 source ${FUNCTIONS}/base.function
 while read i ; do
 $i
@@ -235,7 +234,6 @@ done < ${BASE}
 #####################################
 #	Install Radio Apps
 #####################################
-touch ${RB}
 source ${FUNCTIONS}/radio.function
 while read i ; do
 $i
