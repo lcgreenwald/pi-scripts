@@ -178,10 +178,10 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
     --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
     --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
     --field="API Key" "" \
-    --field="Latitude" "")\
-    --field="Longitude" "")\
+    --field="Latitude" "" \
+    --field="Longitude" "") \
     --button="Exit":1 \
-    --button="Continue":2 \
+    --button="Continue":2 
 		BUT=$?
 		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
 			exit
