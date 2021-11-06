@@ -179,7 +179,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
     --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
     --field="API Key" "" \
     --field="Latitude" "")\
-    --field="Longitude" "")
+    --field="Longitude" "")\
     --button="Exit":1 \
     --button="Continue":2 \
 		BUT=$?

@@ -207,6 +207,32 @@ echo "$i" >> ${BASE}
 done
 fi
 
+#check if Weather is chosen for install & get info if needed
+Weather=$(grep "Weather" ${BASE})
+if [ -n "$Weather" ]; then
+WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
+    --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+    --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
+    --field="API Key" "" \
+    --field="Latitude" "")\
+    --field="Longitude" "")\
+    --button="Exit":1 \
+    --button="Continue":2 \
+		BUT=$?
+		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+			exit
+		fi
+
+#update settings
+APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
+LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
+LON=$(echo $WEATHER | awk -F "|" '{print $3}')
+
+echo "APIKEY=$APIKEY" >>${CONFIG}
+echo "LAT=$LAT" >>${CONFIG}
+echo "LON=$LON" >>${CONFIG}
+fi
+
 #####################################
 #	Ham Apps Menu
 #####################################
