@@ -156,7 +156,7 @@ false "nmon" "Linux performance monitor" \
 false "Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
