@@ -320,7 +320,7 @@ fi
 ################################
 #	Weather
 ################################
-nmon(){
+Weather(){
 if ! hash weather 2>/dev/null ; then
         git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
         cd ${HOME}/.conky/weather
