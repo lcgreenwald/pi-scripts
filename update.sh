@@ -230,13 +230,15 @@ APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
 LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
 LON=$(echo $WEATHER | awk -F "|" '{print $3}')
 
-RB=$(grep APIKEY ${CONFIG})
+WRB=$(grep APIKEY ${CONFIG})
 if [ -z ${WRB} ]; then
-echo "APIKEY=$APIKEY" >>${CONFIG}
-echo "LAT=$LAT" >>${CONFIG}
-echo "LON=$LON" >>${CONFIG}
+  echo "APIKEY=$APIKEY" >>${CONFIG}
+  echo "LAT=$LAT" >>${CONFIG}
+  echo "LON=$LON" >>${CONFIG}
 else
-
+  sudo sed -i "s/^appid=.*$/appid=$APIKEY/" ${CONFIG})
+  sudo sed -i "s/^lat=.*$/lat=$LAT/" ${CONFIG})
+  sudo sed -i "s/^lon=.*$/lon=$LON/" ${CONFIG})
 fi
 
 #####################################
