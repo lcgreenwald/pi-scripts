@@ -27,12 +27,15 @@ PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
 TEMPCRON=${MYPATH}/cron.tmp
 TEMPFSTAB=${MYPATH}/fstab.tmp
-CONFIG=${MYPATH}/config
+CONFIG=${MYPATH}/config.txt
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 TODAY=$(date +%Y-%m-%d)
+
+export MYPATH LOGO CONFIG
+touch ${CONFIG}
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -44,6 +47,21 @@ fi
 }
 
 trap FINISH EXIT
+
+CLEANUP(){
+# Run solar.sh to update the solar condiions data for conky
+/home/pi/bin/solar.sh
+/home/pi/bin/solarimage.sh
+#Remove temp files
+rm ${BASE} > /dev/null 2>&1
+rm ${RADIO} > /dev/null 2>&1
+rm ${PATCH} > /dev/null 2>&1
+sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
+sudo apt -y autoremove
+# Enter the installation date in ${HOME}/.config/WB0SIO
+echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
+echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
+}  
 
 #####################################
 #check for display. can't run from SSH
@@ -159,6 +177,7 @@ false "Weather" "Display weather conditions and forecast." \
 --button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
@@ -184,7 +203,8 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
     --button="Continue":2 
 		BUT=$?
 		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
-			exit
+		CLEANUP
+    exit
 		fi
 
 #update settings
@@ -211,6 +231,7 @@ false "JS8map" "Map to show location of JS8Call contacts" \
 --button="Install Selected":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
@@ -434,18 +455,7 @@ echo "${MYPATH}/.pscomplete" >> ${HOME}/pi-build/.complete
 #####################################
 #	END CLEANUP
 #####################################
-# Run solar.sh to update the solar condiions data for conky
-/home/pi/bin/solar.sh
-/home/pi/bin/solarimage.sh
-#Remove temp files
-rm ${BASE} > /dev/null 2>&1
-rm ${RADIO} > /dev/null 2>&1
-rm ${PATCH} > /dev/null 2>&1
-sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
-sudo apt -y autoremove
-# Enter the installation date in ${HOME}/.config/WB0SIO
-echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
-echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
+CLEANUP
 
 #####################################
 #reboot when done

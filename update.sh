@@ -28,11 +28,12 @@ AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
 TODAY=$(date +%Y-%m-%d)
+CONFIG=${MYPATH}/config.txt
 UPDATEFILE=/run/user/${UID}/psupdate.txt
 PATCHDIR=/run/user/${UID}/patch
 AVAILPATCH=$PATCHDIR/avail-patch.txt
 
-export MYPATH LOGO PATCH PATCHDIR AVAILPATCH
+export MYPATH LOGO CONFIG PATCH PATCHDIR AVAILPATCH
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -220,7 +221,8 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
     --button="Continue":2 
 		BUT=$?
 		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
-			exit
+		CLEANUP
+    exit
 		fi
 
 #update settings
@@ -228,9 +230,13 @@ APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
 LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
 LON=$(echo $WEATHER | awk -F "|" '{print $3}')
 
+RB=$(grep APIKEY ${CONFIG})
+if [ -z ${WRB} ]; then
 echo "APIKEY=$APIKEY" >>${CONFIG}
 echo "LAT=$LAT" >>${CONFIG}
 echo "LON=$LON" >>${CONFIG}
+else
+
 fi
 
 #####################################

@@ -321,6 +321,10 @@ fi
 #	Weather
 ################################
 Weather(){
+APIKEY=$(grep APIKEY ${CONFIG})
+LAT=$(grep LAT ${CONFIG})
+LON=$(grep LON ${CONFIG})
+
 if ! hash weather 2>/dev/null ; then
         git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
         cd ${HOME}/.conky/weather
