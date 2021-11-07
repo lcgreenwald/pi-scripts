@@ -236,9 +236,9 @@ if [ -z ${WRB} ]; then
   echo "LAT=$LAT" >>${CONFIG}
   echo "LON=$LON" >>${CONFIG}
 else
-  sudo sed -i "s/^appid=.*$/appid=$APIKEY/" ${CONFIG})
-  sudo sed -i "s/^lat=.*$/lat=$LAT/" ${CONFIG})
-  sudo sed -i "s/^lon=.*$/lon=$LON/" ${CONFIG})
+  sudo sed -i "s/^appid=.*$/appid=$APIKEY/" ${CONFIG}
+  sudo sed -i "s/^lat=.*$/lat=$LAT/" ${CONFIG}
+  sudo sed -i "s/^lon=.*$/lon=$LON/" ${CONFIG}
 fi
 
 #####################################
