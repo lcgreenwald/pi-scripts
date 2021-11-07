@@ -211,27 +211,27 @@ fi
 #check if Weather is chosen for install & get info if needed
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
-APIKEY=$(grep APIKEY ${CONFIG} | sed 's/APIKEY=//')
-LAT=$(grep LAT ${CONFIG} | sed 's/LAT=//')
-LON=$(grep LON ${CONFIG} | sed 's/LON=//')
-WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
---image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
---text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
---field="API Key" "$APIKEY" \
---field="Latitude" "$LAT" \
---field="Longitude" "$LON") \
---button="Exit":1 \
---button="Next":2
-BUT=$?
-if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+	source ${CONFIG}
+	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version ${VERSION}</b>" \
+    --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
+		--field="API Key" "${APIKEY}" \
+		--field="Latitude" "${LAT}" \
+		--field="Longitude" "${LON}" \
+		--button="Continue":2)
+	BUT=$?
+
+	if [ ${BUT} = 252 ]; then
     CLEANUP
-    exit
-fi
-echo "WEATHER=${WEATHER}"
+		exit
+	fi
+
+echo "INFO=${INFO}"
   #update settings
-  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
-  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
-  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
+  APIKEY=$(echo ${INFO} | awk -F "|" '{print $1}')
+  LAT=$(echo ${INFO} | awk -F "|" '{print $2}')
+  LON=$(echo ${INFO} | awk -F "|" '{print $3}')
   echo "APIKEY=$APIKEY"
 
   WRB=$(grep APIKEY ${CONFIG})
