@@ -212,6 +212,10 @@ fi
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
 	source ${CONFIG}
+  echo "APIKEY=$APIKEY"
+  echo "LAT=$LAT"
+  echo "LON=$LON"
+  
 	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
 		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 		--text="<b>version ${VERSION}</b>" \
