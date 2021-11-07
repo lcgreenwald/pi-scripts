@@ -242,9 +242,9 @@ echo "INFO=${INFO}"
     echo "LAT=$LAT" >>${CONFIG}
     echo "LON=$LON" >>${CONFIG}
   else
-    sudo sed -i "s/^appid=.*$/appid=$APIKEY/" ${CONFIG}
-    sudo sed -i "s/^lat=.*$/lat=$LAT/" ${CONFIG}
-    sudo sed -i "s/^lon=.*$/lon=$LON/" ${CONFIG}
+    sudo sed -i "s/^APIKEY=.*$/APIKEY=$APIKEY/" ${CONFIG}
+    sudo sed -i "s/^LAT=.*$/LAT=$LAT/" ${CONFIG}
+    sudo sed -i "s/^LON=.*$/LON=$LON/" ${CONFIG}
   fi
 fi
 
