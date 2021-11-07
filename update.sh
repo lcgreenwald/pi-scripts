@@ -211,24 +211,27 @@ fi
 #check if Weather is chosen for install & get info if needed
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
+APIKEY=$(grep APIKEY ${CONFIG})
+LAT=$(grep LAT ${CONFIG})
+LON=$(grep LON ${CONFIG})
 WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
     --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
     --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
-    --field="API Key" "" \
-    --field="Latitude" "" \
-    --field="Longitude" "") \
+    --field="API Key" "$APIKEY" \
+    --field="Latitude" "$LAT" \
+    --field="Longitude" "LON") \
     --button="Exit":1 \
     --button="Continue":2 
 		BUT=$?
 		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
-		CLEANUP
-    exit
+      CLEANUP
+      exit
 		fi
-
+echo ${WEATHER}
   #update settings
-  APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
-  LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
-  LON=$(echo $WEATHER | awk -F "|" '{print $3}')
+  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
+  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
+  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
   echo "APIKEY=$APIKEY"
 
   WRB=$(grep APIKEY ${CONFIG})
@@ -330,8 +333,9 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Bu
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
-rm $MYPATH/intro.txt
-exit
+  rm $MYPATH/intro.txt  
+  CLEANUP
+  exit
 fi
 rm $MYPATH/intro.txt
 
