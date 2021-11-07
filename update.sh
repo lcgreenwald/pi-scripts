@@ -229,6 +229,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
   APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
   LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
   LON=$(echo $WEATHER | awk -F "|" '{print $3}')
+  echo "APIKEY=$APIKEY"
 
   WRB=$(grep APIKEY ${CONFIG})
   if [ -z ${WRB} ]; then
