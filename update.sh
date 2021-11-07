@@ -233,6 +233,8 @@ echo "INFO=${INFO}"
   LAT=$(echo ${INFO} | awk -F "|" '{print $2}')
   LON=$(echo ${INFO} | awk -F "|" '{print $3}')
   echo "APIKEY=$APIKEY"
+  echo "LAT=$LAT"
+  echo "LON=$LON"
 
   WRB=$(grep APIKEY ${CONFIG})
   if [ -z ${WRB} ]; then
