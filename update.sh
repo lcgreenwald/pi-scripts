@@ -211,15 +211,15 @@ fi
 #check if Weather is chosen for install & get info if needed
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
-APIKEY=$(grep APIKEY ${CONFIG})
-LAT=$(grep LAT ${CONFIG})
-LON=$(grep LON ${CONFIG})
+APIKEY=$(grep APIKEY ${CONFIG} | sed 's/APIKEY=//')
+LAT=$(grep LAT ${CONFIG} | sed 's/LAT=//')
+LON=$(grep LON ${CONFIG} | sed 's/LON=//')
 WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
     --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
     --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
     --field="API Key" "$APIKEY" \
     --field="Latitude" "$LAT" \
-    --field="Longitude" "LON") \
+    --field="Longitude" "$LON") \
     --button="Exit":1 \
     --button="Continue":2 
 		BUT=$?
@@ -227,7 +227,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
       CLEANUP
       exit
 		fi
-echo ${WEATHER}
+echo "WEATHER=${WEATHER}"
   #update settings
   APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
   LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
