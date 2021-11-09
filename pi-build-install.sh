@@ -194,27 +194,33 @@ fi
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
 WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
-    --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
-    --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
-    --field="API Key" "" \
-    --field="Latitude" "" \
-    --field="Longitude" "") \
-    --button="Exit":1 \
-    --button="Continue":2 
-		BUT=$?
-		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+  --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+  --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
+  --field="API Key" "" \
+  --field="Latitude" "" \
+  --field="Longitude" "") \
+	--field="Longitude Direction" "" \
+	--field="Units imperial/metric" "" \
+  --button="Exit":1 \
+  --button="Continue":2 
+	BUT=$?
+	if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
 		CLEANUP
     exit
-		fi
+	fi
 
-#update settings
-APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
-LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
-LON=$(echo $WEATHER | awk -F "|" '{print $3}')
+	#update settings
+	APIKEY=$(echo $WEATHER | awk -F "|" '{print $1}')
+	LAT=$(echo $WEATHER | awk -F "|" '{print $2}')
+	LON=$(echo $WEATHER | awk -F "|" '{print $3}')
+  LONDIR=$(echo ${INFO} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${INFO} | awk -F "|" '{print $5}')
 
-echo "APIKEY=$APIKEY" >>${CONFIG}
-echo "LAT=$LAT" >>${CONFIG}
-echo "LON=$LON" >>${CONFIG}
+	echo "APIKEY=$APIKEY" >>${CONFIG}
+	echo "LAT=$LAT" >>${CONFIG}
+	echo "LON=$LON" >>${CONFIG}
+  echo "LONDIR=$LONDIR" >>${CONFIG}
+  echo "UNITS=$UNITS" >>${CONFIG}
 fi
 
 #####################################
