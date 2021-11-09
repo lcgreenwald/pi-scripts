@@ -211,35 +211,33 @@ fi
 #check if Weather is chosen for install & get info if needed
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
-	source ${CONFIG}
-  
-	INFO=$(yad --form --width=500 --text-align=center --center --title="Pi-Scripts" \
-		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
-		--text="<b>version ${VERSION}</b>" \
-    --text "Enter your API Key, Latitude, Longitude and Longitude E/W below and press OK. " \
-		--field="API Key" ${APIKEY} \
-		--field="Latitude" ${LAT} \
-		--field="Longitude" ${LON} \
-		--field="Longitude Direction" ${LONDIR} \
-		--field="Units imperial/metric" ${UNITS} \
-		--button="Continue":2)
-	BUT=$?
-
-	if [ ${BUT} = 252 ]; then
-	    CLEANUP
-	    exit
-	fi
+WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
+  --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+  --text "Enter your API Key, Latitude and Longitude below and press Continue." \
+  --field="API Key" \
+  --field="Latitude":NUM \
+  --field="Longitude":NUM \
+  --field="Longitude Direction":CB \
+  --field="Units":CB \
+  "$APIKEY" "$LAT|-90..90|.0001|4" "$LON|-180..180|.0001|4" "E|W" "imperial|metric" \
+  --button="Exit":1 \
+  --button="Continue":2 )
+  BUT=$?
+  if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+    CLEANUP
+    exit
+  fi
 
   #update settings
-  APIKEY=$(echo ${INFO} | awk -F "|" '{print $1}')
-  LAT=$(echo ${INFO} | awk -F "|" '{print $2}')
-  LON=$(echo ${INFO} | awk -F "|" '{print $3}')
-  LONDIR=$(echo ${INFO} | awk -F "|" '{print $4}')
-  UNITS=$(echo ${INFO} | awk -F "|" '{print $5}')
+  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
+  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
+  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
+  LONDIR=$(echo ${WEATHER} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${WEATHER} | awk -F "|" '{print $5}')
 
   WRB=$(grep APIKEY ${CONFIG})
   if [ -z ${WRB} ]; then
-    echo "APIKEY=$APIKEY" >>${CONFIG}
+    echo "APIKEY=$APIKEY" >${CONFIG}
     echo "LAT=$LAT" >>${CONFIG}
     echo "LON=$LON" >>${CONFIG}
     echo "LONDIR=$LONDIR" >>${CONFIG}
