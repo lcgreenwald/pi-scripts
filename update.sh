@@ -221,6 +221,7 @@ if [ -n "$Weather" ]; then
 		--field="Latitude" ${LAT} \
 		--field="Longitude" ${LON} \
 		--field="Longitude Direction" ${LONDIR} \
+		--field="Units imperial/metric" ${UNITS} \
 		--button="Continue":2)
 	BUT=$?
 
@@ -234,6 +235,7 @@ if [ -n "$Weather" ]; then
   LAT=$(echo ${INFO} | awk -F "|" '{print $2}')
   LON=$(echo ${INFO} | awk -F "|" '{print $3}')
   LONDIR=$(echo ${INFO} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${INFO} | awk -F "|" '{print $5}')
 
   WRB=$(grep APIKEY ${CONFIG})
   if [ -z ${WRB} ]; then
@@ -241,11 +243,13 @@ if [ -n "$Weather" ]; then
     echo "LAT=$LAT" >>${CONFIG}
     echo "LON=$LON" >>${CONFIG}
     echo "LONDIR=$LONDIR" >>${CONFIG}
+    echo "UNITS=$UNITS" >>${CONFIG}
   else
     sudo sed -i "s/^APIKEY=.*$/APIKEY=$APIKEY/" ${CONFIG}
     sudo sed -i "s/^LAT=.*$/LAT=$LAT/" ${CONFIG}
     sudo sed -i "s/^LON=.*$/LON=$LON/" ${CONFIG}
     sudo sed -i "s/^LONDIR=.*$/LONDIR=$LONDIR/" ${CONFIG}
+    sudo sed -i "s/^UNITS=.*$/UNITS=$UNITS/" ${CONFIG}
   fi
 fi
 
