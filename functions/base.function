@@ -287,11 +287,11 @@ EOF
 ZramSwap(){
 if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
 	cd ${HOME}/Downloads
-        git clone https://github.com/foundObjects/zram-swap.git
-        cd zram-swap
-        sudo ./install.sh
-        cd
-        cat /etc/sysctl.conf > ${TEMPSYSCTL}
+	git clone https://github.com/foundObjects/zram-swap.git
+	cd zram-swap
+	sudo ./install.sh
+	cd
+	cat /etc/sysctl.conf > ${TEMPSYSCTL}
 	echo "vm.vfs_cache_pressure=500" >> ${TEMPSYSCTL}
 	echo "vm.swappiness=100" >> ${TEMPSYSCTL}
 	echo "vm.dirty_background_ratio=1" >> ${TEMPSYSCTL}
@@ -299,9 +299,9 @@ if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
 	sudo mv ${TEMPSYSCTL} /etc/sysctl.conf
 else
 	cd ${HOME}/Downloads/zram-swap
-        git pull
-        sudo ./install.sh
-        cd
+	git pull
+	sudo ./install.sh
+	cd
 fi
 }
 ################################
@@ -326,26 +326,26 @@ if [ $LONDIR == "W" ]; then
   LON="-$LON"
 fi
 if ! hash weather 2>/dev/null ; then
-        git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
-        cd ${HOME}/.conky/weather
-        sudo make install
-        sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
-        sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
-				sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
-				sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
-        crontab -l > ${TEMPCRON}
-        echo "@reboot sleep 20 && /usr/bin/weather -w" >> ${TEMPCRON}
+	git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
+	cd ${HOME}/.conky/weather
+	sudo make install
+	sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
+	sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
+	sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+	sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
+	crontab -l > ${TEMPCRON}
+	echo "@reboot sleep 20 && /usr/bin/weather -w" >> ${TEMPCRON}
 	crontab ${TEMPCRON}
 	rm ${TEMPCRON}
 else
-        cd ${HOME}/.conky/weather
-        git pull
-        sudo make install
-        sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
-        sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
-				sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
-				sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
-fi        
+	cd ${HOME}/.conky/weather
+	git pull
+	sudo make install
+	sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
+	sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
+	sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+	sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
+fi	
 }
 ################################
 
