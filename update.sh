@@ -212,43 +212,40 @@ fi
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
 	source ${CONFIG}
-  echo "APIKEY=$APIKEY"
-  echo "LAT=$LAT"
-  echo "LON=$LON"
   
-	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+	INFO=$(yad --form --width=500 --text-align=center --center --title="Pi-Scripts" \
 		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 		--text="<b>version ${VERSION}</b>" \
-    --text "Enter your API Key, Latitude and Longitude below and press OK.\rIf your Longitude is W then enter a negative number. " \
-		--field="API Key" "${APIKEY}" \
-		--field="Latitude" "${LAT}" \
-		--field="Longitude" "${LON}" \
+    --text "Enter your API Key, Latitude, Longitude and Longitude E/W below and press OK. " \
+		--field="API Key" ${APIKEY} \
+		--field="Latitude" ${LAT} \
+		--field="Longitude" ${LON} \
+		--field="Longitude Direction" ${LONDIR} \
 		--button="Continue":2)
 	BUT=$?
 
 	if [ ${BUT} = 252 ]; then
-    CLEANUP
-		exit
+	    CLEANUP
+	    exit
 	fi
 
-echo "INFO=${INFO}"
   #update settings
   APIKEY=$(echo ${INFO} | awk -F "|" '{print $1}')
   LAT=$(echo ${INFO} | awk -F "|" '{print $2}')
   LON=$(echo ${INFO} | awk -F "|" '{print $3}')
-  echo "APIKEY=$APIKEY"
-  echo "LAT=$LAT"
-  echo "LON=$LON"
+  LONDIR=$(echo ${INFO} | awk -F "|" '{print $4}')
 
   WRB=$(grep APIKEY ${CONFIG})
   if [ -z ${WRB} ]; then
     echo "APIKEY=$APIKEY" >>${CONFIG}
     echo "LAT=$LAT" >>${CONFIG}
     echo "LON=$LON" >>${CONFIG}
+    echo "LONDIR=$LONDIR" >>${CONFIG}
   else
     sudo sed -i "s/^APIKEY=.*$/APIKEY=$APIKEY/" ${CONFIG}
     sudo sed -i "s/^LAT=.*$/LAT=$LAT/" ${CONFIG}
     sudo sed -i "s/^LON=.*$/LON=$LON/" ${CONFIG}
+    sudo sed -i "s/^LONDIR=.*$/LONDIR=$LONDIR/" ${CONFIG}
   fi
 fi
 

@@ -322,13 +322,17 @@ fi
 ################################
 Weather(){
 source ${CONFIG}
+if [ $LONDIR == "W" ]; then
+  LON="-$LON"
+fi
 if ! hash weather 2>/dev/null ; then
         git clone https://github.com/lcgreenwald/weather.git ${HOME}/.conky/weather
         cd ${HOME}/.conky/weather
         sudo make install
         sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
         sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
-        sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+				sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+				sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
         crontab -l > ${TEMPCRON}
         echo "@reboot sleep 20 && /usr/bin/weather -w" >> ${TEMPCRON}
 	crontab ${TEMPCRON}
@@ -339,7 +343,8 @@ else
         sudo make install
         sudo sed -i "s/^appid=.*$/appid=$APIKEY/" $HOME/.conky/weather/config
         sudo sed -i "s/^lat=.*$/lat=$LAT/" $HOME/.conky/weather/config
-        sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+				sudo sed -i "s/^lon=.*$/lon=$LON/" $HOME/.conky/weather/config
+				sudo sed -i "s/^units=.*$/units=$UNITS/" $HOME/.conky/weather/config
 fi        
 }
 ################################
