@@ -6,9 +6,7 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 # hamlib4dot3dot1date20211105
 Update Hamlib to v4.3.1. 
 
-# testpatch20211020
-This patch is for testing purposes only. It will echo "This is test patch two." to the terminal. 
 
-Last Edit 1NOV2021
+Last Edit 11NOV2021
 
-PATCH=NO
+PATCH=YES
