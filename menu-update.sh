@@ -6,7 +6,7 @@
 # 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
 # 2021/08/25 wb0sio - Removed redundant menu items
 
-REV=2021-11-12
+REV=2021-11-12A
 
 source $HOME/.config/WB0SIO
 
@@ -32,6 +32,7 @@ Icon=/home/pi/pi-scripts/logo.png
 EOF
 
 sudo mv wb0sio.directory /usr/share/desktop-directories/
+sudo mv wb0sioconky.directory /usr/share/desktop-directories/
 
 #MOD HAMRADIO.MENU FILE
 cat >hamradio.menu <<EOF

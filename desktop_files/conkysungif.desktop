@@ -7,5 +7,5 @@ Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
 Terminal=false
-Categories=wb0sio;
+Categories=wb0sio;wb0sioconky;
 Keywords=Radio
