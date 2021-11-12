@@ -102,9 +102,9 @@ fi
 
 cp $TEMPFILE $HOME/.conkyrc
 
-sudo killall conky > /dev/null 2>&1
+#sudo killall conky > /dev/null 2>&1
 
-conky > /dev/null 2>&1
+#conky > /dev/null 2>&1
 
 yad --form --width=420 --text-align=center --center --title="Preferences" \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \

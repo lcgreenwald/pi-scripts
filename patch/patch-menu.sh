@@ -1,18 +1,11 @@
 #!/bin/bash
 
-#script to test a patch system for quick fixes in Pi-Scripts
+#script for a patch system for quick fixes in Pi-Scripts
 #KM4ACK 20210805
 #WB0SIO 20211031
 
-#MYPATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-#LOGO=${MYPATH}/logo.png
-#DIR=/run/user/$UID
-#PATCH=${MYPATH}/patch.txt
 PATCHDIR=/run/user/${UID}/patch
-echo "MYPATH = $MYPATH"
-echo "PATCH = $PATCH"
 
-#cat $PATCHDIR/avail-patch.txt
 source $PATCHDIR/avail-patch.txt
 
        

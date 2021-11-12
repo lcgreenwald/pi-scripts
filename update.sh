@@ -28,11 +28,12 @@ AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
 TODAY=$(date +%Y-%m-%d)
+CONFIG=${MYPATH}/config.txt
 UPDATEFILE=/run/user/${UID}/psupdate.txt
 PATCHDIR=/run/user/${UID}/patch
 AVAILPATCH=$PATCHDIR/avail-patch.txt
 
-export MYPATH LOGO PATCH PATCHDIR AVAILPATCH
+export MYPATH LOGO CONFIG PATCH PATCHDIR AVAILPATCH
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -207,6 +208,49 @@ echo "$i" >> ${BASE}
 done
 fi
 
+#check if Weather is chosen for install & get info if needed
+Weather=$(grep "Weather" ${BASE})
+if [ -n "$Weather" ]; then
+WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
+  --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+  --text "Enter your API Key, Latitude and Longitude below and press Continue." \
+  --field="API Key" \
+  --field="Latitude":NUM \
+  --field="Longitude":NUM \
+  --field="Longitude Direction":CB \
+  --field="Units":CB \
+  "$APIKEY" "$LAT|-90..90|.0001|4" "$LON|-180..180|.0001|4" "E|W" "imperial|metric" \
+  --button="Exit":1 \
+  --button="Continue":2 )
+  BUT=$?
+  if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+    CLEANUP
+    exit
+  fi
+
+  #update settings
+  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
+  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
+  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
+  LONDIR=$(echo ${WEATHER} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${WEATHER} | awk -F "|" '{print $5}')
+
+  WRB=$(grep APIKEY ${CONFIG})
+  if [ -z ${WRB} ]; then
+    echo "APIKEY=$APIKEY" >${CONFIG}
+    echo "LAT=$LAT" >>${CONFIG}
+    echo "LON=$LON" >>${CONFIG}
+    echo "LONDIR=$LONDIR" >>${CONFIG}
+    echo "UNITS=$UNITS" >>${CONFIG}
+  else
+    sudo sed -i "s/^APIKEY=.*$/APIKEY=$APIKEY/" ${CONFIG}
+    sudo sed -i "s/^LAT=.*$/LAT=$LAT/" ${CONFIG}
+    sudo sed -i "s/^LON=.*$/LON=$LON/" ${CONFIG}
+    sudo sed -i "s/^LONDIR=.*$/LONDIR=$LONDIR/" ${CONFIG}
+    sudo sed -i "s/^UNITS=.*$/UNITS=$UNITS/" ${CONFIG}
+  fi
+fi
+
 #####################################
 #	Ham Apps Menu
 #####################################
@@ -218,7 +262,7 @@ false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Install Selected":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 CLEANUP
@@ -294,8 +338,9 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Bu
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
-rm $MYPATH/intro.txt
-exit
+  rm $MYPATH/intro.txt  
+  CLEANUP
+  exit
 fi
 rm $MYPATH/intro.txt
 

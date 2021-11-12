@@ -11,8 +11,6 @@
 PATCHDIR=/run/user/${UID}/patch
 PATCHCHECK=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/README.md | grep PATCH= | sed 's/PATCH=//')
 AVAILPATCH=$PATCHDIR/avail-patch.txt
-echo "MYPATH = $MYPATH"
-echo "PATCH = $PATCH"
 
 if [ ${PATCHCHECK} = "YES" ]; then
   mkdir $PATCHDIR
