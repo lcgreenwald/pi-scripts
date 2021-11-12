@@ -1,0 +1,3 @@
+#!/bin/bash
+CONKYPID=$(ps -ef | grep -v grep | grep .sungif | awk '{print $2}')
+kill -term $CONKYPID 2>/dev/null
