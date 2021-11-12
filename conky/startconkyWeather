@@ -1,3 +1,26 @@
 #!/bin/bash
-#sleep 10 &&
-/usr/bin/conky -c /home/pi/pi-scripts/conky/.conkyrcWeather > /dev/null 2>&1
+
+yad --center --list --checklist --width=500 --height=250 --separator="" \
+--image ${LOGO}  --print-column=2 \
+--window-icon=${LOGO} --image-on-top --text-align=center \
+--text="Run Conky Weather\r Select either Left side or Right side of the screen." --title="Conky Weather" \
+--button="Exit":1 \
+--button="Left":2 \
+--button="Right":3
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+exit
+fi
+
+if [ $BUT = 2 ]; then
+	sed -i "s/alignment =.*$/alignment = 'top_left',/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+	sed -i "s/gap_x =.*$/gap_x = 20,/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+fi
+
+if [ $BUT = 3 ]; then
+	sed -i "s/alignment =.*$/alignment = 'top_right',/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+	sed -i "s/gap_x =.*$/gap_x = 320,/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+
+fi
+
+/usr/bin/conky -c ${HOME}/pi-scripts/conky/.conkyrcWeather > /dev/null 2>&1
