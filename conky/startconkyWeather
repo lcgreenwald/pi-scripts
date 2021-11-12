@@ -1,0 +1,3 @@
+#!/bin/bash
+#sleep 10 &&
+/usr/bin/conky -c /home/pi/pi-scripts/conky/.conkyrcWeather > /dev/null 2>&1

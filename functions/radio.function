@@ -3,6 +3,21 @@
 #wb0sio 20200820 Converted km4ack base.function to wb0sio base.function
 #wb0sio 20210816 Converted wb0sio base.function to wb0sio radio.function
 
+TEMPCRON=${MYPATH}/cron.tmp
+TEMPSYSCTL=${MYPATH}/sysctl.tmp
+
+
+################################
+#	cqrprop
+################################
+Cqrprop(){
+	sudo apt install -y git lazarus-ide lcl lcl-gtk2 lcl-nogui lcl-units lcl-utils lazarus lazarus-doc lazarus-src fp-units-misc fp-units-rtl fp-utils fpc fpc-source libssl-dev
+	git clone https://github.com/ok2cqr/cqrprop.git
+	cd cqrprop
+	make 
+	sudo make install
+}
+################################
 
 ################################
 #	js8map

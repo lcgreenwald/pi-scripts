@@ -20,6 +20,7 @@
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=${MYPATH}/base.txt
 RADIO=${MYPATH}/radio.txt
+PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
 LOGO=${MYPATH}/logo.png
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
@@ -27,6 +28,12 @@ AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
 LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 LASTUPDATERUN=$(cat ${HOME}/.config/WB0SIO | grep LastUpdateRun= | sed 's/LastUpdateRun=//')
 TODAY=$(date +%Y-%m-%d)
+CONFIG=${MYPATH}/config.txt
+UPDATEFILE=/run/user/${UID}/psupdate.txt
+PATCHDIR=/run/user/${UID}/patch
+AVAILPATCH=$PATCHDIR/avail-patch.txt
+
+export MYPATH LOGO CONFIG PATCH PATCHDIR AVAILPATCH
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -40,8 +47,30 @@ fi
 trap FINISH EXIT
 
 #####################################
+# Cleanup function
+#####################################
+CLEANUP(){
+#Remove temp files
+rm ${BASE} > /dev/null 2>&1
+rm ${RADIO} > /dev/null 2>&1
+rm ${PATCH} > /dev/null 2>&1
+rm ${UPDATEFILE} > /dev/null 2>&1
+rm -rf $PATCHDIR > /dev/null 2>&1
+sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
+sudo apt -y autoremove
+# Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
+if [[ $LASTUPDATERUN == "" ]] ; then
+  echo "# The date update.sh was last executed" >> ${HOME}/.config/WB0SIO
+  echo "LastUpdateRun=$TODAY" >> ${HOME}/.config/WB0SIO
+else
+  sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
+fi
+}
+
+
+#####################################
 # Create autostart dir
-# used to autostart conky at boot
+# used to autostart programs at boot
 #####################################
 if [ -d ${HOME}/.config/autostart ]; then
   mkdir -p ${HOME}/.config/autostart
@@ -57,7 +86,7 @@ LATEST=$(curl -s https://raw.githubusercontent.com/lcgreenwald/pi-scripts/master
 
 if (( $(echo "$LATEST $CURRENT" | awk '{print ($1 > $2)}') ))
 then
-cat <<EOF > ${MYPATH}/updatebap.txt
+cat <<EOF > ${MYPATH}/updateps.txt
 Pi Scripts update available. Current version is $CURRENT and
 the lateest version is $LATEST. Would you like to update?
 
@@ -65,13 +94,14 @@ Change log - https://github.com/lcgreenwald/pi-scripts/blob/master/changelog
 EOF
 BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
---text-info<${MYPATH}/updatebap.txt \
+--text-info<${MYPATH}/updateps.txt \
 --button="Yes":2 \
 --button="No":3)
 BUT=$?
 echo $BUT
 ##########
 	if [ $BUT = 252 ]; then 
+  CLEANUP
 	exit
 	elif [ $BUT = 2 ]; then
 	echo "Updating Pi Scripts to $LATEST"
@@ -81,19 +111,19 @@ echo $BUT
 	git clone https://github.com/lcgreenwald/pi-scripts.git
 	mv ${HOME}/Documents/config.bap ${MYPATH}/config
 
-cat <<EOF > ${MYPATH}/updatebap.txt
+cat <<EOF > ${MYPATH}/updateps.txt
 Pi Scripts has been updated to $LATEST. Please restart Pi Scripts.
 EOF
 	BAP=$(yad --width=650 --height=250 --text-align=center --center --title="Build-a-Pi"  --show-uri \
 	--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
-	--text-info<${MYPATH}/updatebap.txt \
+	--text-info<${MYPATH}/updateps.txt \
 	--button="OK":2)
 	BUT=$?
 	exit 0
 	fi
 ##########
 fi
-rm ${MYPATH}/updatebap.txt >> /dev/null 2>&1
+rm ${MYPATH}/updateps.txt >> /dev/null 2>&1
 rm ${MYPATH}/complete.txt >> /dev/null 2>&1
 clear
 
@@ -108,6 +138,7 @@ This should take less than a minute. Ready when you are." \
 --button="Start Scan":2
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
@@ -118,195 +149,21 @@ if ! hash bc>/dev/null; then
 sudo apt install -y bc
 fi
 
-CHECK(){
-#----------------------------------------------------#
-#		LOG2RAM
-#----------------------------------------------------#
-if ! hash log2ram 2>/dev/null; then
-	Log2ram="Not Installed"
-else
-	Log2ram="Installed"
-fi
-#----------------------------------------------------#
-#		LOCATE
-#----------------------------------------------------#
-if ! hash locate 2>/dev/null; then
-	Locate="Not Installed"
-else
-	Locate="Installed"
-fi
-#----------------------------------------------------#
-#		PLANK
-#----------------------------------------------------#
-if ! hash plank 2>/dev/null; then
-	Plank="Not Installed"
-else
-	Plank="Installed"
-fi
-#----------------------------------------------------#
-#		SAMBA
-#----------------------------------------------------#
-if ! hash samba 2>/dev/null; then
-	Samba="Not Installed"
-else
-	Samba="Installed"
-fi
-#----------------------------------------------------#
-#		WEBMIN
-#----------------------------------------------------#
-if [ ! -d /usr/share/webmin 2>/dev/null ]; then
-	Webmin="Not Installed"
-else
-	Webmin="Installed"
-fi
+#####################################
+#	Run the patch check script
+#####################################
+bash $MYPATH/patch-installed-check.sh
+#####################################
 
-#----------------------------------------------------#
-#		3.5" DISPLAY DRIVERS
-#----------------------------------------------------#
-if [ ! -d ${HOME}/LCD-show 2>/dev/null ]; then
-	Display="Not Installed"
-else
-	Display="Installed"
-fi
+#####################################
+#Run the app check script
+#####################################
+bash $MYPATH/app-check.sh
 
-#----------------------------------------------------#
-#		Cqrprop
-#----------------------------------------------------#
-if ! hash  cqrprop 2>/dev/null ; then
-	Cqrprop="Not Installed"
-else
-	Cqrprop="Installed"
-fi
-
-#----------------------------------------------------#
-#		Disks
-#----------------------------------------------------#
-if ! hash  gnome-disks 2>/dev/null ; then
-	Disks="Not Installed"
-else
-	Disks="Installed"
-fi
-
-#----------------------------------------------------#
-#		PiImager
-#----------------------------------------------------#
-if ! hash  rpi-imager 2>/dev/null ; then
-	PiImager="Not Installed"
-else
-	PiImager="Installed"
-fi
-
-#----------------------------------------------------#
-#		Neofetch
-#----------------------------------------------------#
-if ! hash  neofetch 2>/dev/null ; then
-	Neofetch="Not Installed"
-else
-	Neofetch="Installed"
-fi
-
-#----------------------------------------------------#
-#		Commander Pi
-#----------------------------------------------------#
-if [ ! -d ${HOME}/CommanderPi 2>/dev/null ]; then
-	CommanderPi="Not Installed"
-else
-	CommanderPi="Installed"
-fi
-
-#----------------------------------------------------#
-#		Fortune
-#----------------------------------------------------#
-if [ ! -f /usr/share/terminfo/f/fortune 2>/dev/null ]; then
-	Fortune="Not Installed"
-else
-	Fortune="Installed"
-fi
-
-#----------------------------------------------------#
-#		DeskPi
-#----------------------------------------------------#
-if [ ! -d ${HOME}/deskpi 2>/dev/null ]; then
-	DeskPi="Not Installed"
-else
-	DeskPi="Installed"
-fi
-
-#----------------------------------------------------#
-#		Argon
-#----------------------------------------------------#
-if [ ! -f /etc/argononed.conf 2>/dev/null ]; then
-	Argon="Not Installed"
-else
-	Argon="Installed"
-fi
-
-#----------------------------------------------------#
-#		PiSafe
-#----------------------------------------------------#
-if [ ! -f ${HOME}/pisafe 2>/dev/null ]; then
-	PiSafe="Not Installed"
-else
-	PiSafe="Installed"
-fi
-
-#----------------------------------------------------#
-#		RPiMonitor
-#----------------------------------------------------#
-if ! hash rpimonitor 2>/dev/null ; then
-	RPiMonitor="Not Installed"
-else
-	RPiMonitor="Installed"
-fi
-
-#----------------------------------------------------#
-#		JS8map
-#----------------------------------------------------#
-if [ ! -d ${HOME}/js8map 2>/dev/null ]; then
-	JS8map="Not Installed"
-else
-	JS8map="Installed"
-fi
-
-#----------------------------------------------------#
-#		X715
-#----------------------------------------------------#
-if [ ! -d ${HOME}/x715 2>/dev/null ]; then
-	X715="Not Installed"
-else
-	X715="Installed"
-fi
-
-#----------------------------------------------------#
-#		ZramSwap
-#----------------------------------------------------#
-if [ ! -d ${HOME}/Downloads/zram-swap 2>/dev/null ]; then
-	ZramSwap="Not Installed"
-else
-	ZramSwap="Installed"
-fi
-
-#----------------------------------------------------#
-#		nmon
-#----------------------------------------------------#
-if ! hash nmon 2>/dev/null ; then
-	nmon="Not Installed"
-else
-	nmon="Installed"
-fi
-
-}
-
-CHECK
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
-####################################################################
+#####################################
+#Load the program installation/update status
+#####################################
+source $UPDATEFILE
 
 #----------------------------------------------------#
 #			BASE APP MENU
@@ -325,7 +182,6 @@ false "Plank" "$Plank" "Application dock." \
 false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
 false "Display" "$Display" "Drivers for a 3.5 in. touch screen display" \
-false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "Disks" "$Disks" "Manage Drives and Media" \
 false "PiImager" "$PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "$Neofetch" "Display Linux system Information In a Terminal" \
@@ -333,21 +189,92 @@ false "CommanderPi" "$CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 false "nmon" "$nmon" "Linux performance monitor" \
+false "Weather" "$Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
+done
+fi
+
+#check if Weather is chosen for install & get info if needed
+Weather=$(grep "Weather" ${BASE})
+if [ -n "$Weather" ]; then
+WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
+  --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+  --text "Enter your API Key, Latitude and Longitude below and press Continue." \
+  --field="API Key" \
+  --field="Latitude":NUM \
+  --field="Longitude":NUM \
+  --field="Longitude Direction":CB \
+  --field="Units":CB \
+  "$APIKEY" "$LAT|-90..90|.0001|4" "$LON|-180..180|.0001|4" "E|W" "imperial|metric" \
+  --button="Exit":1 \
+  --button="Continue":2 )
+  BUT=$?
+  if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+    CLEANUP
+    exit
+  fi
+
+  #update settings
+  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
+  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
+  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
+  LONDIR=$(echo ${WEATHER} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${WEATHER} | awk -F "|" '{print $5}')
+
+  WRB=$(grep APIKEY ${CONFIG})
+  if [ -z ${WRB} ]; then
+    echo "APIKEY=$APIKEY" >${CONFIG}
+    echo "LAT=$LAT" >>${CONFIG}
+    echo "LON=$LON" >>${CONFIG}
+    echo "LONDIR=$LONDIR" >>${CONFIG}
+    echo "UNITS=$UNITS" >>${CONFIG}
+  else
+    sudo sed -i "s/^APIKEY=.*$/APIKEY=$APIKEY/" ${CONFIG}
+    sudo sed -i "s/^LAT=.*$/LAT=$LAT/" ${CONFIG}
+    sudo sed -i "s/^LON=.*$/LON=$LON/" ${CONFIG}
+    sudo sed -i "s/^LONDIR=.*$/LONDIR=$LONDIR/" ${CONFIG}
+    sudo sed -i "s/^UNITS=.*$/UNITS=$UNITS/" ${CONFIG}
+  fi
+fi
+
+#####################################
+#	Ham Apps Menu
+#####################################
+yad --center --list --checklist --width=750 --height=750 --separator="" \
+--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+--window-icon=${LOGO} --image-on-top --text-align=center \
+--text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
+false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
+false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
+--button="Exit":1 \
+--button="Check All and Continue":3 \
+--button="Install Selected":2 > ${RADIO}
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
+exit
+fi
+
+if [ $BUT = 3 ]; then
+
+RADIOAPPS=(Cqrprop JS8map)
+for i in "${RADIOAPPS[@]}"
+do
+echo "$i" >> ${RADIO}
 done
 fi
 
@@ -356,14 +283,39 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt -y full-upgrade
 
+#touch ${RB}
+#touch ${HOME}/.config/WB0SIO
+#####################################
+#	Install Patches
+#####################################
+# check to see if all patches have been installed
+PATCHESINSTALLED=$(grep "Not_Installed" $AVAILPATCH)
+if [[ -z ${PATCHESINSTALLED} ]]; then
+  echo "No available patches found"
+else
+  echo "Available patches found"
+  source ${PATCHDIR}/patch.function
+  while read i ; do
+    $i
+  done < ${PATCH}
+fi
+
 #####################################
 #	Install Base Apps
 #####################################
-touch ${HOME}/.config/WB0SIO
-while read i ; do
 source ${FUNCTIONS}/base.function
+while read i ; do
 $i
 done < ${BASE}
+
+#####################################
+#	Install Radio Apps
+#####################################
+source ${FUNCTIONS}/radio.function
+while read i ; do
+$i
+done < ${RADIO}
+
 
 #####################################
 #	Update Build-A-Pi
@@ -386,8 +338,9 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Bu
 BUT=$(echo $?)
 
 if [ $BUT = 252 ]; then
-rm $MYPATH/intro.txt
-exit
+  rm $MYPATH/intro.txt  
+  CLEANUP
+  exit
 fi
 rm $MYPATH/intro.txt
 
@@ -499,17 +452,7 @@ sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master
 #####################################
 #	END CLEANUP
 #####################################
-#Remove temp files
-rm ${BASE} > /dev/null 2>&1
-sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
-sudo apt -y autoremove
-# Update the LastUpdateRun date in ${HOME}/.config/WB0SIO
-if [[ $LASTUPDATERUN == "" ]] ; then
-  echo "# The date update.sh was last executed" >> ${HOME}/.config/WB0SIO
-  echo "LastUpdateRun=$TODAY" >> ${HOME}/.config/WB0SIO
-else
-  sed -i "s/LastUpdateRun=.*$/LastUpdateRun=$TODAY/" ${HOME}/.config/WB0SIO
-fi
+CLEANUP
 
 #####################################
 #reboot when done
