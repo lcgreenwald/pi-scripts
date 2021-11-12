@@ -6,7 +6,9 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 # hamlib4dot3dot1date20211105
 Update Hamlib to v4.3.1. 
 
+# testpatch20211020
+Test patch
 
-Last Edit 11NOV2021
+Last Edit 12NOV2021
 
 PATCH=YES

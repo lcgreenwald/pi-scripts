@@ -17,7 +17,7 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Patches</b>" --title="Pi-Scripts Install" \
 false "hamlib4dot3dot1date20211105" "$hamlib4dot3dot1date20211105" "HamLib update" \
-#false "testpatch20211020" "$testpatch20211020" "Another small test application" \
+false "testpatch20211020" "$testpatch20211020" "Another small test application" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${PATCH}
