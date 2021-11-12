@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Conky
-Comment=Conky
+Name=Stop Conky Weather
+Comment=Stop Conky Weather Display
 GenericName=Conky Screen Background Monitor
-Exec=conky --pause=5
+Exec=/home/pi/pi-scripts/conky/stopconkyWeather
 Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8

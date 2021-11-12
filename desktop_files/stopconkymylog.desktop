@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Conky
-Comment=Conky
+Name=Stop Conky Mylog
+Comment=Stop Conky mylog display
 GenericName=Conky Screen Background Monitor
-Exec=conky --pause=5
+Exec=/home/pi/pi-scripts/conky/stopconkymylog
 Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8

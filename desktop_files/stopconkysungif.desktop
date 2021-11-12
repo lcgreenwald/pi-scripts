@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Conky
-Comment=Conky
+Name=Stop Conky Sun GIF
+Comment=Stop Conky Solar Conditions GIF
 GenericName=Conky Screen Background Monitor
-Exec=conky --pause=5
+Exec=/home/pi/pi-scripts/conky/stopconkysungif
 Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
