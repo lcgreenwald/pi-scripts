@@ -1,0 +1,62 @@
+Replace Ruby scripts with a single python script 
+for Gridsquare display in Conky
+
+Make sure python3 and pip3 are installed:
+python3 --version
+pip3 --version
+
+Install maidenhead and gpsdclient for python:
+sudo pip3 install gpsdclient
+sudo pip3 install maidenhead
+
+Create script equivalent to 'grid' + 'get_grid' 
+sudo nano /<path to file>/PyGridsquare.py
+
+-----
+#!/usr/bin/env python3
+
+from gpsdclient import GPSDClient
+import maidenhead as mh
+
+client = GPSDClient(host="ip_address_of_host_of_gpsd_service")
+
+for result in client.dict_stream(convert_datetime=True):
+    if result["class"] == "TPV":
+        lat = result.get("lat", "n/a")
+        lon = result.get("lon", "n/a")
+        gridsquare = mh.to_maiden(lat, lon)
+        print(gridsquare)
+        break
+-----
+<ctrl> x, y <enter> to save and exit
+
+Make it executable
+sudo chmod +x /<path to file>/PyGridsquare.py
+
+Modify your .conkyrc file:
+sudo nano /<path to file>/.conkyrc
+
+comment out line: (Put a "#" at the beginning of the line)
+${font Arial:bold:size=18}${color White}Gridsquare ${alignr}${color Yellow}${execi 25 /home/pi/grid | cut -c1-6}
+so it appears:
+#${font Arial:bold:size=18}${color White}Gridsquare ${alignr}${color Yellow}${execi 25 /home/pi/grid | cut -c1-8}
+
+add line above or below:
+${font Arial:bold:size=18}${color White}Gridsquare ${alignr}${color Yellow}${execi 25 /<path to file>/PyGridsquare.py | cut -c1-8}
+<ctrl> x, y <enter> to save and exit
+
+In a few seconds the gridsquare should appear.
+
+Notes:
+
+/<path to file>/PyGridsquare.py  should be something like /home/pi/PyGridsquare.py or /usr/bin/PyGridsquare.py
+
+In the PyGridquare.py file, if you have a GPS attached directly to the machine running this, set
+client = GPSDClient(host="ip_address_of_host_of_gpsd_service") to
+client = GPSDClient(host="localhost")
+if you have gpsd running as a network server on another machine, set the above line to that IP address.
+
+This has been tested on Pis running RaspberryPiOS Buster & Debian on several models of Pi, 
+Ubuntu 20.04 and 21.10 on VMs in Virtualbox and on an M73 TFF PC.
+
+Please let me know if you find any errors or issues.

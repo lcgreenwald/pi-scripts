@@ -23,13 +23,19 @@ LOGO=${MYPATH}/logo.png
 RB=${HOME}/.config/WB0SIO
 BASE=${MYPATH}/base.txt
 RADIO=${MYPATH}/radio.txt
+PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
 TEMPCRON=${MYPATH}/cron.tmp
 TEMPFSTAB=${MYPATH}/fstab.tmp
+CONFIG=${MYPATH}/config.txt
 WHO=$(whoami)
 VERSION=$(cat ${MYPATH}/changelog | grep version= | sed 's/version=//')
 AUTHOR=$(cat ${MYPATH}/changelog | grep author= | sed 's/author=//')
+LASTUPDATE=$(cat ${MYPATH}/changelog | grep LastUpdate= | sed 's/LastUpdate=//')
 TODAY=$(date +%Y-%m-%d)
+
+export MYPATH LOGO CONFIG
+touch ${CONFIG}
 
 FINISH(){
 if [ -f "${BASE}" ]; then
@@ -41,6 +47,21 @@ fi
 }
 
 trap FINISH EXIT
+
+CLEANUP(){
+# Run solar.sh to update the solar condiions data for conky
+/home/pi/bin/solar.sh
+/home/pi/bin/solarimage.sh
+#Remove temp files
+rm ${BASE} > /dev/null 2>&1
+rm ${RADIO} > /dev/null 2>&1
+rm ${PATCH} > /dev/null 2>&1
+sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
+sudo apt -y autoremove
+# Enter the installation date in ${HOME}/.config/WB0SIO
+echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
+echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
+}  
 
 #####################################
 #check for display. can't run from SSH
@@ -142,7 +163,6 @@ false "Plank" "Application dock." \
 false "Samba" "SMB file system" \
 false "Webmin" "Web based system manager." \
 false "Display" "Drivers for a 3.5 in. touch screen display" \
-false "Cqrprop" "A small application that shows propagation data" \
 false "Disks" "Manage Drives and Media" \
 false "PiImager" "Raspberry Pi Imager" \
 false "Neofetch" "Display Linux system Information In a Terminal" \
@@ -150,33 +170,102 @@ false "CommanderPi" "Easy RaspberryPi4 GUI system managment" \
 false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
-false "JS8map" "Map to show location of JS8Call contacts" \
 false "nmon" "Linux performance monitor" \
+false "Weather" "Display weather conditions and forecast." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${BASE}
+--button="Next":2 > ${BASE}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
 exit
 fi
 
 if [ $BUT = 3 ]; then
 
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
 done
 fi
 
+#check if Weather is chosen for install & get info if needed
+Weather=$(grep "Weather" ${BASE})
+if [ -n "$Weather" ]; then
+WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
+  --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+  --text "Enter your API Key, Latitude and Longitude below and press Continue." \
+  --field="API Key" \
+  --field="Latitude":NUM \
+  --field="Longitude":NUM \
+  --field="Longitude Direction":CB \
+  --field="Units":CB \
+  "" " |-90..90|.0001|4" " |-180..180|.0001|4" "E|W" "imperial|metric" \
+  --button="Exit":1 \
+  --button="Continue":2 )
+  BUT=$?
+  if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+    CLEANUP
+    exit
+  fi
+  #update settings
+  APIKEY=$(echo ${WEATHER} | awk -F "|" '{print $1}')
+  LAT=$(echo ${WEATHER} | awk -F "|" '{print $2}')
+  LON=$(echo ${WEATHER} | awk -F "|" '{print $3}')
+  LONDIR=$(echo ${WEATHER} | awk -F "|" '{print $4}')
+  UNITS=$(echo ${WEATHER} | awk -F "|" '{print $5}')
+
+  echo "APIKEY=$APIKEY" >${CONFIG}
+  echo "LAT=$LAT" >>${CONFIG}
+  echo "LON=$LON" >>${CONFIG}
+  echo "LONDIR=$LONDIR" >>${CONFIG}
+  echo "UNITS=$UNITS" >>${CONFIG}
+fi
+
+
+#####################################
+#	Ham Apps Menu
+#####################################
+yad --center --list --checklist --width=700 --height=750 --separator="" \
+--image ${LOGO} --column=Check --column=App --column=Description \
+--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+--text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
+false "Cqrprop" "A small application that shows propagation data" \
+false "JS8map" "Map to show location of JS8Call contacts" \
+--button="Exit":1 \
+--button="Check All and Continue":3 \
+--button="Install Selected":2 > ${RADIO}
+BUT=$?
+if [ $BUT = 252 ] || [ $BUT = 1 ]; then
+CLEANUP
+exit
+fi
+
+if [ $BUT = 3 ]; then
+
+BASEAPPS=(Cqrprop JS8map)
+for i in "${BASEAPPS[@]}"
+do
+echo "$i" >> ${RADIO}
+done
+fi
+
 #####################################
 #	Install Base Apps
 #####################################
-touch ${RB}
 source ${FUNCTIONS}/base.function
 while read i ; do
 $i
 done < ${BASE}
+
+#####################################
+#	Install Radio Apps
+#####################################
+source ${FUNCTIONS}/radio.function
+while read i ; do
+$i
+done < ${RADIO}
 
 #####################################
 #	Update crontab
@@ -373,16 +462,7 @@ echo "${MYPATH}/.pscomplete" >> ${HOME}/pi-build/.complete
 #####################################
 #	END CLEANUP
 #####################################
-# Run solar.sh to update the solar condiions data for conky
-/home/pi/bin/solar.sh
-/home/pi/bin/solarimage.sh
-#Remove temp files
-rm ${BASE} > /dev/null 2>&1
-sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
-sudo apt -y autoremove
-# Enter the installation date in ${HOME}/.config/WB0SIO
-echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
-echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
+CLEANUP
 
 #####################################
 #reboot when done
