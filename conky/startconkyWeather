@@ -23,4 +23,6 @@ if [ $BUT = 3 ]; then
 
 fi
 
+CONKYPID=$(ps -ef | grep -v grep | grep .conkyrcWeather | awk '{print $2}')
+kill -term $CONKYPID > /dev/null 2>&1
 /usr/bin/conky -c ${HOME}/pi-scripts/conky/.conkyrcWeather > /dev/null 2>&1
