@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Stop Conky Fortune
+Comment=Stop Conky Fortune Display
+GenericName=Conky Screen Background Monitor
+Exec=/home/pi/pi-scripts/conky/stopconkyfortune
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=wb0sio;wb0sioconky;
+Keywords=Radio

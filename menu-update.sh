@@ -6,7 +6,7 @@
 # 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
 # 2021/08/25 wb0sio - Removed redundant menu items
 
-REV=2021-08-25
+REV=2021-11-12
 
 source $HOME/.config/WB0SIO
 
@@ -20,6 +20,14 @@ cat >wb0sio.directory <<EOF
 Type=Directory
 Encoding=UTF-8
 Name=WB0SIO-Tools
+Icon=/home/pi/pi-scripts/logo.png
+EOF
+
+cat >wb0sioconky.directory <<EOF
+[Desktop Entry]
+Type=Directory
+Encoding=UTF-8
+Name=WB0SIO-Conky-Tools
 Icon=/home/pi/pi-scripts/logo.png
 EOF
 
@@ -64,6 +72,13 @@ cat >hamradio.menu <<EOF
 			<Include>
 				<Category>wb0sio</Category>
 			</Include>
+			<Menu>
+				<Name>WB0SIO</Name>
+				<Directory>wb0sioconky.directory</Directory>
+				<Include>
+					<Category>wb0sioconky</Category>
+				</Include>
+			</Menu>
 		</Menu>
 	</Menu> <!-- End hamradio -->
 </Menu>
