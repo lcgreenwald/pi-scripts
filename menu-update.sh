@@ -73,7 +73,7 @@ cat >hamradio.menu <<EOF
 				<Category>wb0sio</Category>
 			</Include>
 			<Menu>
-				<Name>WB0SIO</Name>
+				<Name>WB0SIO-Conky</Name>
 				<Directory>wb0sioconky.directory</Directory>
 				<Include>
 					<Category>wb0sioconky</Category>
