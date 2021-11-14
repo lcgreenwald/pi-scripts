@@ -100,8 +100,7 @@ if [ "$MENU" = "$REV" ]; then
 	echo "Revision $REV installed"
 	exit
 else
-	echo "MENU=$REV" >> $HOME/.config/WB0SIO
-
+	sed -i "s/MENU=.*$/MENU=$REV/" $HOME/.config/WB0SIO
 	CREATEMENU
 fi
 
