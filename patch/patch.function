@@ -98,9 +98,9 @@ cd ${PATCHDIR}
 mkdir desktop_files
 mkdir conky
 cd ${PATCHDIR}/desktop_files
-wget ftp://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/desktop_files/*
+wget -r -np -nH --cut-dirs=1 https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/desktop_files/
 cd ${PATCHDIR}/conky
-wget ftp://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/conky/*
+wget -r -np -nH --cut-dirs=1 https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/conky/
 cp -f ${PATCHDIR}/desktop_files/* ${HOME}/.local/share/applications/
 cp -f ${PATCHDIR}/conky/* ${HOME}/.local/share/applications/
 
