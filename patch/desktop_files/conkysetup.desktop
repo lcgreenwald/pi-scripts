@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Conky-Prefs wb0sio
+Comment=Set conky size.
+Exec=/home/pi/pi-scripts/conky/setconky
+Icon=/home/pi/pi-scripts/conky/conky-logo.png
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;wb0sio;wb0sioconky;
+StartupNotify=true
+NoDisplay=false

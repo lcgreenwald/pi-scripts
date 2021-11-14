@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Conky Sun GIF
+Comment=Conky Solar Conditions GIF
+GenericName=Conky Screen Background Monitor
+Exec=/home/pi/pi-scripts/conky/startconkysungif
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=wb0sio;wb0sioconky;
+Keywords=Radio
