@@ -102,8 +102,8 @@ git config core.sparseCheckout true
 echo "/patch" >> .git/info/sparse-checkout
 git pull origin dev
 
-cp -f ${PATCHDIR}/pi-scripts/patch/desktop_files/* ${HOME}/.local/share/applications/
-cp -f ${PATCHDIR}/pi-scripts/patch/conky/* ${HOME}/.local/share/applications/
+cp -frT ${PATCHDIR}/pi-scripts/patch/desktop_files ${HOME}/.local/share/applications/
+cp -fRT ${PATCHDIR}/pi-scripts/patch/conky ${HOME}/.local/share/applications/
 
 #############################################
 #write patch name to a file so we can       
