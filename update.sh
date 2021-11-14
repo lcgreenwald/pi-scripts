@@ -211,6 +211,7 @@ fi
 #check if Weather is chosen for install & get info if needed
 Weather=$(grep "Weather" ${BASE})
 if [ -n "$Weather" ]; then
+source ${MYPATH}/config.txt
 WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-separator="|" --title="Weather config" \
   --image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
   --text "Enter your API Key, Latitude and Longitude below and press Continue." \
