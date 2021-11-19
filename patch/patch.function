@@ -137,7 +137,7 @@ cd ${PATCHDIR}
 wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PyGridsquare.py
 wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PythonGPSsetup.sh
 chmod a+x PyGridsquare.py
-chmod PythonGPSsetup.sh
+chmod a+x PythonGPSsetup.sh
 cp PyGridsquare.py ${HOME}/bin
 bash PythonGPSsetup.sh
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
