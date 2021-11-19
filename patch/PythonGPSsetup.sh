@@ -8,7 +8,12 @@
 ##############################
 
 ##############################
-# Install maidenhead and gpsdclient for python:
+# Update PIP
+##############################
+/usr/bin/python3 -m pip install --upgrade pip
+
+##############################
+# Install maidenhead and gpsdclient for python
 ##############################
 sudo pip3 install gpsdclient
 sudo pip3 install maidenhead
