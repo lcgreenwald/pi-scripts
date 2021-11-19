@@ -8,6 +8,9 @@ Update Hamlib to v4.3.1.
 # ConkyDesktops 20211112
 Conky desktop file updates
 
-Last Edit 14NOV2021
+# PythonGPS 20211119
+Install Python GPS and update Conky files to use Python instead of Ruby.
+
+Last Edit 19NOV2021
 
 PATCH=YES
