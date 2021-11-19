@@ -133,7 +133,13 @@ echo
 echo
 echo "This is patch PythonGPS20211119"
 echo
-bash ${PATCHDIR}/PythonGPSsetup.sh
+cd ${PATCHDIR}
+wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PyGridsquare.py
+wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PythonGPSsetup.sh
+chmod a+x PyGridsquare.py
+chmod PythonGPSsetup.sh
+cp PyGridsquare.py ${HOME}/bin
+bash PythonGPSsetup.sh
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-small
