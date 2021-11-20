@@ -201,7 +201,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
   --field="Longitude":NUM \
   --field="Longitude Direction":CB \
   --field="Units":CB \
-  "" " |-90..90|.0001|4" " |-180..180|.0001|4" "E|W" "imperial|metric" \
+  "" " |-90..90|.0001|4" " |-180..180|.0001|4" "W|E" "imperial|metric" \
   --button="Exit":1 \
   --button="Continue":2 )
   BUT=$?
@@ -319,7 +319,8 @@ git checkout master
 git pull
 elif [ $BUT = 3 ]; then
 echo "Beta selected."
-git checkout beta
+#git checkout beta
+git checkout bullseye
 git pull
 elif [ $BUT = 4 ]; then
 echo "Dev selected."
