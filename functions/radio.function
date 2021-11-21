@@ -118,13 +118,14 @@ sudo pip3 install maidenhead
 # This edit defaults the return to six pair precision. (AA11bb22CC33)
 # 
 ##############################
-TOMAIDEN=$(find / -name to_maiden.py)
+TOMAIDEN=$(sudo find / -name to_maiden.py)
 sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}
 
 ##############################
 # Update Conky files
 ##############################
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-small
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-medium
