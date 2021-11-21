@@ -5,9 +5,7 @@ Occasionally small changes (patches) are needed for the Pi Scripts code. These c
 # Hamlib 4.3.1 20211105
 Update Hamlib to v4.3.1. 
 
-# ConkyDesktops 20211112
-Conky desktop file updates
 
-Last Edit 14NOV2021
+Last Edit 21NOV2021
 
 PATCH=YES

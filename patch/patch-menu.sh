@@ -17,7 +17,6 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Patches</b>" --title="Pi-Scripts Install" \
 false "hamlib4dot3dot1date20211105" "$hamlib4dot3dot1date20211105" "HamLib update" \
-false "ConkyDesktops20211112" "$ConkyDesktops20211112" "Conky desktop file updates" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${PATCH}
@@ -28,7 +27,7 @@ fi
 
 if [ $BUT = 3 ]; then
 
-PATCHAPPS=(hamlib4dot3dot1date20211105 ConkyDesktops20211112)
+PATCHAPPS=(hamlib4dot3dot1date20211105)
 for i in "${PATCHAPPS[@]}"
 do
 echo "$i" >> ${PATCH}
