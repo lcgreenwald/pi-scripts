@@ -414,7 +414,7 @@ cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
 cp -rf ${MYPATH}/local/share/* ${HOME}/.local/share/
 cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
 cp -f ${MYPATH}/config/* ${HOME}/.config/
-cp -f ${MYPATH}/conky/.conkyrc* ${HOME}/
+cp -f ${MYPATH}/conky/.conkyrc ${HOME}/
 cp -f ${MYPATH}/bpq32.cfg ${HOME}/linbpq/
 cp -f ${MYPATH}/direwolf.conf ${HOME}/
 if [ ! -d ${HOME}/.xlog 2>/dev/null ] ; then

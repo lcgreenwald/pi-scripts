@@ -124,6 +124,7 @@ sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}
 ##############################
 # Update Conky files
 ##############################
+cp -f ${MYPATH}/conky/.conkyrc ${HOME}/
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
