@@ -18,7 +18,7 @@ source $PATCHFILE
 ##################################################
 
 
-################################ Patch start
+################################################################ Patch start
 #	hamlib4dot3dot1date20211105
 ################################
 hamlib4dot3dot1date20211105(){
@@ -76,9 +76,9 @@ fi
 echo "$PATCHNAME" >> $PATCHFILE
 
 }
-################################ Patch end
+################################################################ Patch end
 
-################################ Patch start
+################################################################ Patch start
 #	ConkyDesktops20211112
 ################################
 ConkyDesktops20211112(){
@@ -114,10 +114,10 @@ cp -frT ${PATCHDIR}/pi-scripts/patch/conky ${HOME}/.local/share/applications/
 echo "$PATCHNAME" >> $PATCHFILE
 
 }
-################################ Patch end
+################################################################ Patch end
 
 
-################################ Patch start
+################################################################ Patch start
 #	PythonGPS20211119
 ################################
 PythonGPS20211119(){
@@ -135,11 +135,42 @@ echo "This is patch PythonGPS20211119"
 echo
 cd ${PATCHDIR}
 wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PyGridsquare.py
-wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PythonGPSsetup.sh
+#wget https://raw.githubusercontent.com/lcgreenwald/pi-scripts/dev/patch/PythonGPSsetup.sh
 chmod a+x PyGridsquare.py
-chmod a+x PythonGPSsetup.sh
+#chmod a+x PythonGPSsetup.sh
 cp PyGridsquare.py ${HOME}/bin
-bash PythonGPSsetup.sh
+#bash PythonGPSsetup.sh
+
+##############################
+# Python GPS setup
+# created: 2021-11-19 Larry Greenwald
+# Based on code by Kevin KD9EFV posted in https://groups.io/g/KM4ACK-Pi/topic/86954136#6311
+# Modified:
+#
+##############################
+
+##############################
+# Update PIP
+##############################
+/usr/bin/python3 -m pip install --upgrade pip
+
+##############################
+# Install maidenhead and gpsdclient for python
+##############################
+sudo pip3 install gpsdclient
+sudo pip3 install maidenhead
+
+##############################
+# to_maiden.py is defined with three inputs, (lat, lon, precision) however 
+# calling mh.to_maiden(lat, lon) with all three throws a too many arguments error, limiting precision
+# to three pair (AA11bb).
+# This edit defaults the return to six pair precision. (AA11bb22CC33)
+# 
+##############################
+TOMAIDEN=$(find / -name to_maiden.py)
+
+sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}
+
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-small
@@ -156,10 +187,10 @@ sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsq
 echo "$PATCHNAME" >> $PATCHFILE
 
 }
-################################ Patch end
+################################################################ Patch end
 
 
-################################ Patch start
+################################################################ Patch start
 #	testpatch20211020
 ################################
 testpatch20211020(){
@@ -185,12 +216,12 @@ echo
 echo "$PATCHNAME" >> $PATCHFILE
 
 }
-################################ Patch end
+################################################################ Patch end
 
 
 
 
-################################
+################################################################ Patch start
 #	Proto
 ################################
 Proto(){
@@ -232,9 +263,9 @@ EOF
 	# Make the shell script executable
 	chmod a+x ${HOME}/bin/Proto.sh
 }
-################################
+################################################################ Patch end
 
-################################
+################################################################ Patch start
 #	Proto File
 ################################
 Proto(){
@@ -242,9 +273,9 @@ if ! hash file 2>/dev/null ; then
 	echo "file" >/dev/null
 fi
 }
-################################
+################################################################ Patch end
 
-################################
+################################################################ Patch start
 #	Proto Folder
 ################################
 ProtoF(){
@@ -252,6 +283,6 @@ if [ ! -d ${HOME}/folder 2>/dev/null ]; then
 	echo "folder" >/dev/null
 fi
 }
-################################
+################################################################ Patch end
 
 

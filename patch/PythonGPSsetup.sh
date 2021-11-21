@@ -25,4 +25,5 @@ sudo pip3 install maidenhead
 # This edit defaults the return to six pair precision. (AA11bb22CC33)
 # 
 ##############################
-sudo sed -i "s/precision: int = 3/precision: int = 6/" /usr/local/lib/python3.7/dist-packages/maidenhead/to_maiden.py
+TOMAIDEN=$(find / -name to_maiden.py)
+sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}

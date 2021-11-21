@@ -38,7 +38,8 @@ You may also optionally install:
 	Ham Radio Apps:
 	cqrprop - Propagation prediction.
 	JS8map - Map to show location of JS8Call contacts.
-        
+  PythonGPS - Use Python to show the grid square in conky
+      
 
 Run the following commands
 

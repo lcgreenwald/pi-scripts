@@ -233,6 +233,7 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
 false "Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "Map to show location of JS8Call contacts" \
+false "PythonGPS" "Use Python to show the grid square in conky" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${RADIO}
