@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Stop Conkye
+Name=Stop Conky
 Comment=Stop MainConky Display
 GenericName=Conky Screen Background Monitor
 Exec=/home/pi/pi-scripts/conky/stopconky
