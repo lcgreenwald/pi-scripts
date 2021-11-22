@@ -50,7 +50,7 @@ cd $HOME/Downloads
 	NEWRIG=$(curl -s https://github.com/Hamlib/Hamlib/releases | 
 		grep -o /Hamlib/Hamlib/releases/download/[0-9].[0-9].[0-9] |
 		head -n 1 | awk -F "/" '{print $6}')
-	HAMLIBLINK=https://github.com/Hamlib/Hamlib/releases/tag/${NEWRIG}/hamlib-${NEWRIG}.tar.gz
+	HAMLIBLINK=https://github.com/Hamlib/Hamlib/releases/hamlib-${NEWRIG}.tar.gz
 	cd ${HOME}/Downloads || return
 	echo "###################################"
 	echo "#		Installing Hamlib	"
