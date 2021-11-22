@@ -19,7 +19,7 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 false "hamlib4dot3dot1date20211105" "$hamlib4dot3dot1date20211105" "HamLib update" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${PATCH}
+--button="Next":2 > ${PATCH}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 exit
