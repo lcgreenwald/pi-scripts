@@ -32,25 +32,25 @@ PATCHNAME=hamlib4dot3dot1date20211105
 ###############################
 clear;echo;echo
 if [ -d $HOME/Downloads/hamlib-4.3.1 ]; then 
-cd $HOME/Downloads/hamlib-4.3.1
-sudo make uninstall
-sudo make clean
-sudo apt install -y libusb-1.0 libusb-dev
-./configure
-make
-sudo make install
-sudo ldconfig
+	cd $HOME/Downloads/hamlib-4.3.1
+	sudo make uninstall
+	sudo make clean
+	sudo apt install -y libusb-1.0 libusb-dev
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
 else
-echo "###################################"
-echo "hamlib source directory not found"
-echo "Downloading hamlib"
-echo "###################################"
-sleep 2
-cd $HOME/Downloads
-	NEWRIG=$(curl -s https://github.com/Hamlib/Hamlib/releases | 
-		grep -o /Hamlib/Hamlib/releases/download/[0-9].[0-9].[0-9] |
-		head -n 1 | awk -F "/" '{print $6}')
-	HAMLIBLINK=https://github.com/Hamlib/Hamlib/releases/hamlib-${NEWRIG}.tar.gz
+	echo "###################################"
+	echo "hamlib source directory not found"
+	echo "Downloading hamlib"
+	echo "###################################"
+	sleep 2
+	cd ${HOME}/Downloads
+	NEWRIG=$(curl -s https://sourceforge.net/projects/hamlib/files/latest/download |
+		grep -o https://downloads.sourceforge.net/project/hamlib/hamlib/[0-9].[0-9].[0-9] |
+		head -n 1 | awk -F "/" '{print $7}')
+	HAMLIBLINK=https://sourceforge.net/projects/hamlib/files/hamlib/${NEWRIG}/hamlib-${NEWRIG}.tar.gz
 	cd ${HOME}/Downloads || return
 	echo "###################################"
 	echo "#		Installing Hamlib	"
@@ -77,6 +77,15 @@ echo "$PATCHNAME" >> $PATCHFILE
 
 }
 ################################################################ Patch end
+
+#######################
+GithubHamlib(){
+	NEWRIG=$(curl -s https://github.com/Hamlib/Hamlib/releases | 
+		grep -o /Hamlib/Hamlib/releases/download/[0-9].[0-9].[0-9] |
+		head -n 1 | awk -F "/" '{print $6}')
+	HAMLIBLINK=https://github.com/Hamlib/Hamlib/releases/hamlib-${NEWRIG}.tar.gz
+}
+######################
 
 ################################################################ Patch start
 #	ConkyDesktops20211112
