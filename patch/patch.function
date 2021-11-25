@@ -32,51 +32,60 @@ PATCHNAME=hamlib4dot3dot1date20211105
 ###############################
 clear;echo;echo
 if [ -d $HOME/Downloads/hamlib-4.3.1 ]; then 
-cd $HOME/Downloads/hamlib-4.3.1
-sudo make uninstall
-sudo make clean
-sudo apt install -y libusb-1.0 libusb-dev
-./configure
-make
-sudo make install
-sudo ldconfig
+	cd $HOME/Downloads/hamlib-4.3.1
+	sudo make uninstall
+	sudo make clean
+	sudo apt install -y libusb-1.0 libusb-dev
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
 else
-echo "###################################"
-echo "hamlib source directory not found"
-echo "Downloading hamlib"
-echo "###################################"
-sleep 2
-cd $HOME/Downloads
-    NEWRIG=$(curl -s https://sourceforge.net/projects/hamlib/files/latest/download |
-        grep -o https://downloads.sourceforge.net/project/hamlib/hamlib/[0-9].[0-9].[0-9] |
-        head -n 1 | awk -F "/" '{print $7}')
-    HAMLIBLINK=https://sourceforge.net/projects/hamlib/files/hamlib/${NEWRIG}/hamlib-${NEWRIG}.tar.gz
-    cd ${HOME}/Downloads || return
-    echo "###################################"
-    echo "#		Installing Hamlib	"
-    echo "###################################"
-    wget --tries 2 --connect-timeout=60 ${HAMLIBLINK}
+	echo "###################################"
+	echo "hamlib source directory not found"
+	echo "Downloading hamlib"
+	echo "###################################"
+	sleep 2
+	cd ${HOME}/Downloads
+	NEWRIG=$(curl -s https://sourceforge.net/projects/hamlib/files/latest/download |
+		grep -o https://downloads.sourceforge.net/project/hamlib/hamlib/[0-9].[0-9].[0-9] |
+		head -n 1 | awk -F "/" '{print $7}')
+	HAMLIBLINK=https://sourceforge.net/projects/hamlib/files/hamlib/${NEWRIG}/hamlib-${NEWRIG}.tar.gz
+	cd ${HOME}/Downloads || return
+	echo "###################################"
+	echo "#		Installing Hamlib	"
+	echo "###################################"
+	wget --tries 2 --connect-timeout=60 ${HAMLIBLINK}
 
-    tar -xzf hamlib-${NEWRIG}.tar.gz
-    rm hamlib-${NEWRIG}.tar.gz
-    cd hamlib-${NEWRIG} || return
-    sudo apt install -y libusb-1.0 libusb-dev
-    ./configure
-    make
-    sudo make install
-    sudo ldconfig
+	tar -xzf hamlib-${NEWRIG}.tar.gz
+	rm hamlib-${NEWRIG}.tar.gz
+	cd hamlib-${NEWRIG} || return
+	sudo apt install -y libusb-1.0 libusb-dev
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
 fi
 
 #############################################
-#write patch name to a file so we can       
+#write patch name to a file so we can	   
 #look and see if it has been applied before.
 #This is checked by the patch-menu script   
-#before running the patch                   
+#before running the patch				   
 #############################################
 echo "$PATCHNAME" >> $PATCHFILE
 
 }
 ################################################################ Patch end
+
+#######################
+GithubHamlib(){
+	NEWRIG=$(curl -s https://github.com/Hamlib/Hamlib/releases | 
+		grep -o /Hamlib/Hamlib/releases/download/[0-9].[0-9].[0-9] |
+		head -n 1 | awk -F "/" '{print $6}')
+	HAMLIBLINK=https://github.com/Hamlib/Hamlib/releases/hamlib-${NEWRIG}.tar.gz
+}
+######################
 
 ################################################################ Patch start
 #	ConkyDesktops20211112
@@ -106,10 +115,10 @@ cp -frT ${PATCHDIR}/pi-scripts/patch/desktop_files ${HOME}/.local/share/applicat
 cp -frT ${PATCHDIR}/pi-scripts/patch/conky ${HOME}/.local/share/applications/
 
 #############################################
-#write patch name to a file so we can       
+#write patch name to a file so we can	   
 #look and see if it has been applied before.
 #This is checked by the patch-menu script   
-#before running the patch                   
+#before running the patch				   
 #############################################
 echo "$PATCHNAME" >> $PATCHFILE
 
@@ -179,10 +188,10 @@ sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsq
 
 
 #############################################
-#write patch name to a file so we can       
+#write patch name to a file so we can	   
 #look and see if it has been applied before.
 #This is checked by the patch-menu script   
-#before running the patch                   
+#before running the patch				   
 #############################################
 echo "$PATCHNAME" >> $PATCHFILE
 
@@ -208,10 +217,10 @@ echo "This is patch testpatch20211020"
 echo
 
 #############################################
-#write patch name to a file so we can       
+#write patch name to a file so we can	   
 #look and see if it has been applied before.
 #This is checked by the patch-menu script   
-#before running the patch                   
+#before running the patch				   
 #############################################
 echo "$PATCHNAME" >> $PATCHFILE
 

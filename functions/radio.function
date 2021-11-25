@@ -128,13 +128,16 @@ sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}
 ##############################
 # Update Conky files
 ##############################
-sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/.conkyrc
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-small
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-medium
 sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-large
-
+if [ ! hash ${HOME}/.conkyrc 2>/dev/null ]; then
+	cp ${HOME}/pi-scripts/conky/.conkyrc ${HOME}/.conkyrc
+else
+	sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
+fi
 }
 ##############################
 
@@ -146,7 +149,7 @@ sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsq
 #	Proto File
 ################################
 Proto(){
-if ! hash file 2>/dev/null ; then
+if [ ! hash file 2>/dev/null ]; then
 	echo "file" >/dev/null
 fi
 }

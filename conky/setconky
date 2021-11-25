@@ -41,63 +41,63 @@ echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-medium-adif' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-medium-solargif' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-medium' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-small' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-noradio' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-noradio-ssd' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-extrasmall-noradio-ssd' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+${voffset 4}${goto 10}${color5}Cpu Temp:${color}${alignr 5}${color6}${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 elif [ "$TEMP" = 'C' ] && [ "$CS" = 'conky-extrasmall' ]; then
 #delete F line
 echo
 sed -i '/vcgencmd measure_temp/d' $TEMPFILE
 #add cel line
 sed -i '/#TEMP/a \
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C' $TEMPFILE
 fi
 
 cp $TEMPFILE $HOME/.conkyrc
