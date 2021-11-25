@@ -97,8 +97,8 @@ Kernel: $alignr${kernel}
 Frequency: $alignr${freq_g cpu0}Ghz
 Uptime: $alignr${uptime}
 #TEMP
-Temp: $alignr ${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
-Throttled: $alignr ${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
+Temp: $alignr ${exec vcgencmd measure_temp | cut -c6-9} C
+Throttled: $alignr ${exec vcgencmd get_throttled | cut -c11-20}
 ${voffset -14}
 CPU${goto 45}1: ${cpu cpu0}%${goto 100}2: ${cpu cpu1}%${goto 155}3: ${cpu cpu2}%${goto 210}4: ${cpu cpu3}%
 ${cpubar cpu}

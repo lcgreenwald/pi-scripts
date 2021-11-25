@@ -11,6 +11,7 @@ sudo pip3 install maidenhead
 
 Create script equivalent to 'grid' + 'get_grid' 
 sudo nano /<path to file>/PyGridsquare.py
+geany ${HOME}/bin/PyGridsquare.py
 
 -----
 #!/usr/bin/env python3
@@ -18,7 +19,7 @@ sudo nano /<path to file>/PyGridsquare.py
 from gpsdclient import GPSDClient
 import maidenhead as mh
 
-client = GPSDClient(host="ip_address_of_host_of_gpsd_service")
+client = GPSDClient(host="127.0.0.1")
 
 for result in client.dict_stream(convert_datetime=True):
     if result["class"] == "TPV":

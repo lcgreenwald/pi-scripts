@@ -7,6 +7,6 @@ Icon=/home/pi/pi-scripts/conky/conky-logo.png
 Terminal=false
 X-MultipleArgs=false
 Type=Application
-Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;wb0sio;wb0sioconky;
+Categories=wb0sioconky;
 StartupNotify=true
 NoDisplay=false

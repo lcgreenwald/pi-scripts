@@ -220,7 +220,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
   --field="Longitude":NUM \
   --field="Longitude Direction":CB \
   --field="Units":CB \
-  "$APIKEY" "$LAT|-90..90|.0001|4" "$LON|-180..180|.0001|4" "E|W" "imperial|metric" \
+  "$APIKEY" "$LAT|-90..90|.0001|4" "$LON|-180..180|.0001|4" "W|E" "imperial|metric" \
   --button="Exit":1 \
   --button="Continue":2 )
   BUT=$?
@@ -261,6 +261,7 @@ yad --center --list --checklist --width=750 --height=750 --separator="" \
 --text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
 false "Cqrprop" "$Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
+false "PythonGPS" "$PythonGPS" "Use Python to show the grid square in conky" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${RADIO}
