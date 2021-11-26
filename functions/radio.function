@@ -67,11 +67,89 @@ EOF
 }
 ################################
 
+
+################################
+PythonGPS(){
+	# Create the shell script to run js8map
+	if [ ! -d ${HOME}/bin 2>/dev/null ]; then
+		mkdir ${HOME}/bin >/dev/null
+	fi
+
+	cat <<EOF > ${HOME}/bin/PyGridsquare.py
+#!/usr/bin/env python3
+
+from gpsdclient import GPSDClient
+import maidenhead as mh
+
+client = GPSDClient(host="127.0.0.1")
+
+for result in client.dict_stream(convert_datetime=True):
+    if result["class"] == "TPV":
+        lat = result.get("lat", "n/a")
+        lon = result.get("lon", "n/a")
+        gridsquare = mh.to_maiden(lat, lon)
+        print(gridsquare)
+        break
+
+EOF
+
+	# Make the shell script executable
+	chmod a+x ${HOME}/bin/PyGridsquare.py
+
+##############################
+# Python GPS setup
+# created: 2021-11-19 Larry Greenwald
+# Based on code by Kevin KD9EFV posted in https://groups.io/g/KM4ACK-Pi/topic/86954136#6311
+# Modified:
+#
+##############################
+
+##############################
+# Update PIP
+##############################
+/usr/bin/python3 -m pip install --upgrade pip
+
+##############################
+# Install maidenhead and gpsdclient for python
+##############################
+sudo pip3 install gpsdclient
+sudo pip3 install maidenhead
+
+##############################
+# to_maiden.py is defined with three inputs, (lat, lon, precision) however 
+# calling mh.to_maiden(lat, lon) with all three throws a too many arguments error, limiting precision
+# to three pair (AA11bb).
+# This edit defaults the return to six pair precision. (AA11bb22CC33)
+# 
+##############################
+TOMAIDEN=$(sudo find / -name to_maiden.py)
+sudo sed -i "s/precision: int = 3/precision: int = 6/" ${TOMAIDEN}
+
+##############################
+# Update Conky files
+##############################
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/.conkyrc
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-extrasmall
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-small
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-medium
+sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/pi-scripts/conky/conky-large
+if [ ! hash ${HOME}/.conkyrc 2>/dev/null ]; then
+	cp ${HOME}/pi-scripts/conky/.conkyrc ${HOME}/.conkyrc
+else
+	sed -i "s/exec cat \$HOME\/bin\/conky\/Grid.txt/execi 25 \${HOME}\/bin\/PyGridsquare.py/" ${HOME}/.conkyrc
+fi
+}
+##############################
+
+
+
+
+
 ################################
 #	Proto File
 ################################
 Proto(){
-if ! hash file 2>/dev/null ; then
+if [ ! hash file 2>/dev/null ]; then
 	echo "file" >/dev/null
 fi
 }

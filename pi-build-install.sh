@@ -201,7 +201,7 @@ WEATHER=$(yad --form --center --width 600 --height 300 --separator="|" --item-se
   --field="Longitude":NUM \
   --field="Longitude Direction":CB \
   --field="Units":CB \
-  "" " |-90..90|.0001|4" " |-180..180|.0001|4" "E|W" "imperial|metric" \
+  "" " |-90..90|.0001|4" " |-180..180|.0001|4" "W|E" "imperial|metric" \
   --button="Exit":1 \
   --button="Continue":2 )
   BUT=$?
@@ -233,6 +233,7 @@ yad --center --list --checklist --width=700 --height=750 --separator="" \
 --text="<b>Ham Radio Applications</b>" --title="Pi-Scripts Install" \
 false "Cqrprop" "A small application that shows propagation data" \
 false "JS8map" "Map to show location of JS8Call contacts" \
+false "PythonGPS" "Use Python to show the grid square in conky" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Install Selected":2 > ${RADIO}
@@ -319,7 +320,8 @@ git checkout master
 git pull
 elif [ $BUT = 3 ]; then
 echo "Beta selected."
-git checkout beta
+#git checkout beta
+git checkout bullseye
 git pull
 elif [ $BUT = 4 ]; then
 echo "Dev selected."
@@ -412,7 +414,7 @@ cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
 cp -rf ${MYPATH}/local/share/* ${HOME}/.local/share/
 cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
 cp -f ${MYPATH}/config/* ${HOME}/.config/
-cp -f ${MYPATH}/conky/.conkyrc* ${HOME}/
+cp -f ${MYPATH}/conky/.conkyrc ${HOME}/
 cp -f ${MYPATH}/bpq32.cfg ${HOME}/linbpq/
 cp -f ${MYPATH}/direwolf.conf ${HOME}/
 if [ ! -d ${HOME}/.xlog 2>/dev/null ] ; then

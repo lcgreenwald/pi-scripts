@@ -197,6 +197,16 @@ else
 	echo "Weather=Installed" >>$UPDATEFILE
 fi
 
+
+#----------------------------------------------------#
+#		PythonGPS
+#----------------------------------------------------#
+if [ ! -f ${HOME}/bin/PyGridsquare.py 2>/dev/null ]; then
+	echo "PythonGPS=Not_Installed" >>$UPDATEFILE
+else
+	echo "PythonGPS=Installed" >>$UPDATEFILE
+fi
+
 }
 
 CHECK

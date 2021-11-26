@@ -82,12 +82,12 @@ ${goto 10}${color2}$membar
 ${goto 10}${color5}SWAP $alignc ${color2}$swap / $swapmax $alignr $swapperc%
 ${goto 10}${color2}$swapbar
 #TEMP
-${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd measure_temp | cut -c6-9} C
+${goto 10}${color5}Cpu Temp: ${alignr 5} ${color2}${exec vcgencmd measure_temp | cut -c6-9} C
 ${if_existing /home/pi/bin/conky/fanrpm.txt}\
 ${goto 10}${color5}Fan Speed: ${alignr 5} ${color2}${exec cat $HOME/bin/conky/fanrpm.txt}
 ${endif}\
 ${goto 10}${color5}Frequency: ${alignr 5} ${color2}${freq_g cpu0}Ghz
-${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec /opt/vc/bin/vcgencmd get_throttled | cut -c11-20}
+${goto 10}${color5}Throttled: ${alignr 5} ${color2}${exec vcgencmd get_throttled | cut -c11-20}
 ${voffset 4}\
 ${goto 10}${color5}Load:${color}
 ${goto 10}${loadgraph 26,190 FFFFFF FFFFFF -l}
