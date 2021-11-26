@@ -1,2 +1,3 @@
 JS8Call ADIF Export<eoh>
 <call:5>N0SUW <gridsquare:4>EN34 <mode:4>MFSK <submode:3>JS8 <rst_sent:1>1 <rst_rcvd:1>1 <qso_date:8>20191031 <time_on:6>092904 <qso_date_off:8>20191031 <time_off:6>092911 <band:3>40m <freq:8>7.079600 <station_callsign:6>WB0SIO <my_gridsquare:8>EN24WS05 <name:4>Paul <operator:6>WB0SIO <eor>
+<call:6>KG6WOX <gridsquare:4>CM87 <mode:4>MFSK <submode:3>JS8 <rst_sent:3>-10 <rst_rcvd:3>-08 <qso_date:8>20211024 <time_on:6>210034 <qso_date_off:8>20211024 <time_off:6>221308 <band:3>20m <freq:9>14.079550 <station_callsign:6>WB0SIO <my_gridsquare:8>EN24WS05 <name:5>Peter <operator:6>WB0SIO <eor>
