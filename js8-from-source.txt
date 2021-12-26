@@ -1,0 +1,154 @@
+JS8CALL
+
+First we need to allow installing source packages in Raspberry Pi OS
+
+sudo nano /etc/apt/sources.list
+
+Look for these lines:
+
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi
+
+Remove the #  sign in front of deb-src so the line becomes like this:
+
+deb-src http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi
+
+Save and exit.
+
+
+Next we need to make sure the system is up to date:
+
+sudo apt update
+
+sudo apt upgrade -y
+
+
+Let's install the needed libraries for js8call building:
+
+sudo apt-get build-dep js8call -y
+
+Last command installs everything including hamlib. If we are happy with older version of hamlib, provided by Raspberry Pi OS we doesn't need to remove it. But if we use hamlib via BAP we need to remove hamlib:
+
+OPTIONAL STEP, see above
+
+sudo apt remove libhamlib4 libhamlib-dev
+
+
+Next steps are well documented in js8call source code:
+
+mkdir ~/hamlib-prefix
+
+cd ~/hamlib-prefix
+
+git clone https://github.com/Hamlib/Hamlib.git src
+
+
+### Get the JS8Call Source
+
+mkdir ~/js8call-prefix
+
+cd ~/js8call-prefix
+
+git clone https://bitbucket.org/widefido/js8call.git src
+
+
+Compile hamlib:
+
+cd ~/hamlib-prefix/src
+
+./bootstrap
+
+mkdir ../build
+
+cd ../build
+
+../src/configure --prefix=$HOME/hamlib-prefix --disable-shared --enable-static --without-cxx-binding --disable-winradio CFLAGS="-g -O2 -fdata-sections -ffunction-sections" LDFLAGS="-Wl,--gc-sections"
+
+make
+
+make install-strip
+
+
+I prefer to run make command with -j 4 option to utilize all 4 cores of the RPi 4
+
+if you like execute
+
+make -j 4
+
+instead of
+
+make
+
+
+### Compile JS8Call
+
+
+cd ~/js8call-prefix/src
+
+mkdir ../build
+
+cd ../build
+
+cmake -D CMAKE_PREFIX_PATH=~/hamlib-prefix -D CMAKE_INSTALL_PREFIX=~/usr/local ../src
+
+make
+
+make package
+
+
+again if we need speed execute make -j 4 instead of make
+
+Upon finishing there is a message like this:
+
+CPack: - package: /home/pi/js8call-prefix/build/js8call_2.2.1-devel_armhf.deb generated.
+
+The package is ready for install via apt command:
+
+cd ~/js8call-prefix/build/
+
+sudo apt install -y ./js8call_2.2.1-devel_armhf.deb
+
+
+Congratulations we have built and installed JS8Call. We can save the .deb package for later use in Bullseyeor to share it with a friend.
+
+
+###WSJTX
+
+
+The process is similar. Most of the tasks are done in js8call steps.
+
+Install the needed libraries:
+
+sudo apt install qtmultimedia5-dev libqt5serialport5-dev qttools5-dev qttools5-dev-tools libboost-all-dev libfftw3-dev libreadline-dev libusb-1.0-0-dev libudev-dev portaudio19-dev
+
+
+Then we prepare a directory for compiling, download the source and unzip it and start the compiling. At the end we have a .deb package again, ready for install:
+
+
+mkdir ~/wsjtx-build
+
+cd ~/wsjtx-build
+
+wget https://downloads.sourceforge.net/project/wsjt/wsjtx-2.5.2/wsjtx-2.5.2.tgz
+
+tar xzf wsjtx-2.5.2.tgz
+
+mkdir build
+
+cd build
+
+cmake -DWSJT_SKIP_MANPAGES=ON -DWSJT_GENERATE_DOCS=OFF ../wsjtx-2.5.2
+
+cmake --build .
+
+cmake --build . --target package
+
+
+The last command produces our .deb file and shows it's location in the terminal window:
+
+CPack: - package: /home/pi/wsjtx-build/build/wsjtx-prefix/src/wsjtx-build/wsjtx_2.5.2_armhf.deb generated.
+
+It can be installed by apt command:
+sudo apt install /home/pi/wsjtx-build/build/wsjtx-prefix/src/wsjtx-build/wsjtx_2.5.2_armhf.deb
+
+We could also save the .deb file for future use.
