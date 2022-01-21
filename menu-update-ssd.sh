@@ -65,7 +65,7 @@ cat >hamradio.menu <<EOF
 </Menu>
 EOF
 
-sudo mv HamRadio.menu /usr/share/extra-xdg-menus/
+sudo mv hamradio.menu /usr/share/extra-xdg-menus/
 }
 
 #verify HamRadio menu is installed
