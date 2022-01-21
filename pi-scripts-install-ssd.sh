@@ -92,10 +92,6 @@ cd ${MYPATH}
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 cd
-#if ! hash log2ram 2>/dev/null; then
-#	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
-#	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
-#fi
 
 if [ ! -d /usr/local/share/applications/ ]; then
 	sudo mkdir -p /usr/local/share/applications/
@@ -131,7 +127,7 @@ HotSpot Tools.
 Enjoy!  73 de WB0SIO
 EOF
 
-INTRO=$(yad --width=600 --height=500 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=600 --height=500 --text-align=center --center --title="Pi Scripts Install"  --show-uri \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text-info<${MYPATH}/intro.txt \
 --button="Continue":2 > /dev/null 2>&1)
@@ -146,7 +142,7 @@ rm ${MYPATH}/intro.txt
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=700 --height=750 --separator="" \
+yad --center --list --checklist --width=700 --height=800 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
