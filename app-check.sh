@@ -216,6 +216,24 @@ else
 	echo "Screensaver=Installed" >>$UPDATEFILE
 fi
 
+#----------------------------------------------------#
+#		CONKY
+#----------------------------------------------------#
+if [ -f ${HOME}/.conkyrc ]; then
+	echo "Conky=Installed" >> $UPDATEFILE
+else
+	echo "Conky=Not_Installed" >> $UPDATEFILE
+fi
+
+#----------------------------------------------------#
+#		GPARTED
+#----------------------------------------------------#
+if ! hash gparted 2>/dev/null; then
+	echo "Gparted=Not_Installed" >> $UPDATEFILE
+else
+	echo "Gparted=Installed" >> $UPDATEFILE
+fi
+
 }
 
 CHECK

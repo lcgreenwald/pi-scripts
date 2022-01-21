@@ -179,6 +179,8 @@ false "Log2ram" "$Log2ram" "Create a RAM based log folder to reduce SD card wear
 false "ZramSwap" "$ZramSwap" "Create a RAM based swap file to improve system response." \
 false "Locate" "$Locate" "File search utility" \
 false "Plank" "$Plank" "Application dock." \
+false "Conky" "$Conky" "System Information Display" \
+false "Gparted" "$Gparted" "Disk Utility Tool" \
 false "Samba" "$Samba" "SMB file system" \
 false "Webmin" "$Webmin" "Web based system manager." \
 false "Screensaver" "$Screensaver" "X Screensavers" \
