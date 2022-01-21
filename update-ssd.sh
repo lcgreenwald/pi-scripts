@@ -130,7 +130,7 @@ clear
 #####################################
 #Scan system for updated applications
 #####################################
-yad  --width=550 --height=150 --text-align=center --center --title="Update" \
+yad  --width=550 --height=150 --text-align=center --center --title="Update-ssd" \
 --image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
 --text="<b>Version ${VERSION}</b>\r\r\First we need to scan the system to see what is installed. \
 This should take less than a minute. Ready when you are." \
