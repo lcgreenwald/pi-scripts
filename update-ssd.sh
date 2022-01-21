@@ -192,6 +192,7 @@ false "RPiMonitor" "$RPiMonitor" "Display Linux system Information in a web brow
 false "Fortune" "$Fortune" "Display random quotes" \
 false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "Weather" "$Weather" "Display weather conditions and forecast." \
+false "Timeshift" "$Timeshift" "Linux system backup utility." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -202,7 +203,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Screensaver Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map Weather)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Screensaver Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map Weather Timeshift)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}

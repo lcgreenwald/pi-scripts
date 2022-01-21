@@ -170,6 +170,7 @@ false "RPiMonitor" "Display Linux system Information in a web browser" \
 false "Fortune" "Display random quotes" \
 false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "Weather" "Display weather conditions and forecast." \
+false "Timeshift" "Linux system backup utility." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}

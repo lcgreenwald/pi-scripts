@@ -234,6 +234,15 @@ else
 	echo "Gparted=Installed" >> $UPDATEFILE
 fi
 
+#----------------------------------------------------#
+#		TIMESHIFT
+#----------------------------------------------------#
+if ! hash timeshift 2>/dev/null; then
+	echo "Timeshift=Not_Installed" >> $UPDATEFILE
+else
+	echo "Timeshift=Installed" >> $UPDATEFILE
+fi
+
 }
 
 CHECK

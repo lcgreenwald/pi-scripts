@@ -329,8 +329,15 @@ fi
 ##################################
 #	GPARTED
 ##################################
-GPARTED() {
+Gparted() {
     sudo apt-get install -y gparted
+}
+
+##################################
+#	TIMESHIFT
+##################################
+Timeshift() {
+    sudo apt-get install -y timeshift
 }
 
 ################################
