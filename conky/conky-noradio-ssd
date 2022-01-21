@@ -129,5 +129,7 @@ $endif
 ${if_mounted /home/public}#
 ${goto 10}${color5}public ${alignr 5}  ${fs_free /home/public}/${fs_used /home/public}/${fs_size /home/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public}${alignr 5} ${fs_used_perc /home/public}%
+${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda4}${alignr}${diskiograph_read sda4 8,125}
+${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda4}${alignr}${diskiograph_write sda4 8,125}
 $endif
 ]];

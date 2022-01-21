@@ -26,6 +26,16 @@ fi
 Locate(){
 	sudo apt install -y locate
 }
+
+################################
+#	X SCREENSAVER
+################################
+Screensaver(){
+if ! hash xscreensaver 2>/dev/null; then
+	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
+fi
+}
+
 ################################
 #	PLANK
 ################################

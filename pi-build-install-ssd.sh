@@ -245,8 +245,8 @@ fi
 
 if [ $BUT = 3 ]; then
 
-RADIOAPPS=(Cqrprop JS8map PythonGPS)
-for i in "${RADIOAPPS[@]}"
+BASEAPPS=(Cqrprop JS8map)
+for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${RADIO}
 done

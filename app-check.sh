@@ -207,6 +207,15 @@ else
 	echo "PythonGPS=Installed" >>$UPDATEFILE
 fi
 
+#----------------------------------------------------#
+#		Screensaver
+#----------------------------------------------------#
+if [ ! hash xscreensaver 2>/dev/null ]; then
+	echo "Screensaver=Not_Installed" >>$UPDATEFILE
+else
+	echo "Screensaver=Installed" >>$UPDATEFILE
+fi
+
 }
 
 CHECK
