@@ -293,15 +293,16 @@ sed -i "s/#alias l='ls -CF'/alias psgrep='ps -ef|grep -v grep|grep -i '/" ${HOME
 #####################################
 # Install WB0SIO versions of desktop, conky and digi-mode files.
 #####################################
-cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
+#cp -f ${HOME}/hotspot-tools2/hstools.desktop ${HOME}/.local/share/applications/hotspot-tools.desktop
 cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
-cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
-cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
+#cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
+#cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
 cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
+sed -i 's/update.sh/update-ssd.sh/' ${HOME}/.local/share/applications/psupdate.desktop
 if [ ! -d ${HOME}/bin/conky/solardata 2>/dev/null ] ; then
 	mkdir ${HOME}/bin/conky/solardata
 fi
-cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
+#cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
 cp -f ${MYPATH}/config/* ${HOME}/.config/
 #sed -i "s/N0CALL/$CALL/" ${HOME}/.conkyrc
 

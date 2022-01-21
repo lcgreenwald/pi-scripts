@@ -411,6 +411,7 @@ cp -f ${MYPATH}/bin/*.sh ${HOME}/bin/
 cp -f ${MYPATH}/conky/get-grid ${HOME}/bin/conky/
 cp -f ${MYPATH}/conky/get-freq ${HOME}/bin/conky/
 cp -f ${MYPATH}/desktop_files/* ${HOME}/.local/share/applications/
+cp -f ${MYPATH}/hrdesktop_files/* ${HOME}/.local/share/applications/
 cp -rf ${MYPATH}/local/share/* ${HOME}/.local/share/
 cp -rf ${MYPATH}/xlog/* ${HOME}/.xlog/
 cp -f ${MYPATH}/config/* ${HOME}/.config/
