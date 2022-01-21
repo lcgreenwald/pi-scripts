@@ -5,9 +5,9 @@
 # Added wb0sio subcategory
 # 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
 # 2021/08/25 wb0sio - Removed redundant menu items
-# 2022/01/20 wb0sio - Converted to PiScripts menu for Pi-Scripts-SSD
+# 2022/01/20 wb0sio - Converted to HamRadio menu for Pi-Scripts-SSD
 
-REV=2022-01-20
+REV=2022-01-21
 
 source $HOME/.config/WB0SIO
 
@@ -35,17 +35,17 @@ EOF
 sudo mv wb0sio.directory /usr/share/desktop-directories/
 sudo mv wb0sioconky.directory /usr/share/desktop-directories/
 
-#MOD PiScripts.MENU FILE
-cat >PiScripts.menu <<EOF
+#MOD HamRadio.MENU FILE
+cat >hamradio.menu <<EOF
 <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
 	<Name>Applications</Name>
 	<Menu>
-		<Name>PiScripts</Name>
-		<Directory>PiScripts.directory</Directory>
+		<Name>HamRadio</Name>
+		<Directory>HamRadio.directory</Directory>
 		<Include>
-			<Category>PiScripts</Category>
+			<Category>HamRadio</Category>
 		</Include>
 		<Menu>
 			<Name>WB0SIO</Name>
@@ -61,15 +61,15 @@ cat >PiScripts.menu <<EOF
 				</Include>
 			</Menu>
 		</Menu>
-	</Menu> <!-- End PiScripts -->
+	</Menu> <!-- End HamRadio -->
 </Menu>
 EOF
 
-sudo mv PiScripts.menu /usr/share/extra-xdg-menus/
+sudo mv HamRadio.menu /usr/share/extra-xdg-menus/
 }
 
-#verify PiScripts menu is installed
-if [ ! -f /usr/share/extra-xdg-menus/PiScripts.menu ]; then
+#verify HamRadio menu is installed
+if [ ! -f /usr/share/extra-xdg-menus/hamradio.menu ]; then
 	sudo apt install -y extra-xdg-menus
 fi
 
