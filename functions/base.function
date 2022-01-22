@@ -375,7 +375,7 @@ fi
 ##################################
 #	CONKY
 ##################################
-CONKY() {
+Conky() {
 	if ! hash conky 2>/dev/null; then
 		sudo apt install -y conky
 	fi
