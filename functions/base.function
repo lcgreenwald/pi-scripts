@@ -395,6 +395,11 @@ Conky() {
 
 	#Create files needed for autostart at login
 	#Fix issue https://github.com/km4ack/pi-build/issues/83
+	#####################################
+	#	Create autostart dir
+	#used to autostart conky at boot
+	#####################################
+	mkdir -p ${HOME}/.config/autostart
 
 	cat <<EOF >${HOME}/.local/share/applications/conky.desktop
 [Desktop Entry]
@@ -430,6 +435,14 @@ Keywords=Radio,Conky
 EOF
 
 }
+
+################################
+#	Pi-Apps
+################################
+Piapps(){
+wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+}
+################################
 
 ################################
 #	Proto File

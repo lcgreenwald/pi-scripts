@@ -36,6 +36,7 @@ You may also optionally install:
 	Weather - Display weather conditions and forecast.
   Screensaver - X Screensavers
   Timeshift - Linux system backup utility.
+  Piapps - The most popular app store for Raspberry Pi computers.
         
 	Ham Radio Apps:
 	cqrprop - Propagation prediction.
