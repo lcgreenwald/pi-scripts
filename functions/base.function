@@ -374,6 +374,7 @@ fi
 
 ##################################
 #	CONKY
+# Custom version to use Python instead of Ruby for grid square.
 ##################################
 Conky() {
 	if ! hash conky 2>/dev/null; then
@@ -387,11 +388,13 @@ Conky() {
 	cp ${MYPATH}/conky/.conkyrc ${HOME}/.conkyrc
 	mkdir -p ${HOME}/bin/conky
 	cp ${MYPATH}/conky/* ${HOME}/bin/conky/
-	chmod +x ${HOME}/bin/conky/get-grid ${HOME}/bin/conky/temp-conv ${HOME}/bin/conky/get-freq ${HOME}/bin/conky/grid
+#	chmod +x ${HOME}/bin/conky/get-grid ${HOME}/bin/conky/temp-conv ${HOME}/bin/conky/get-freq ${HOME}/bin/conky/grid
+	chmod +x ${HOME}/bin/conky/get-grid ${HOME}/bin/conky/temp-conv ${HOME}/bin/conky/get-freq ${HOME}/bin/PyGetGridsquare.py
 	sed -i "s/N0CALL/${CALL}/" ${HOME}/.conkyrc
 	#Line below is for https://github.com/km4ack/pi-build/issues/198
 	echo "#Update GPS maidenhead for conky" >>${TEMPCRON}
-	echo "*/1 * * * * /home/pi/bin/conky/grid" >>${TEMPCRON}
+#	echo "*/1 * * * * /home/pi/bin/conky/grid" >>${TEMPCRON}
+	echo "*/1 * * * * /home/pi/bin/PyGetGridsquare.py" >>${TEMPCRON}
 
 	#Create files needed for autostart at login
 	#Fix issue https://github.com/km4ack/pi-build/issues/83
@@ -411,7 +414,7 @@ Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
 Terminal=false
-Categories=HamRadio
+Categories=HamRadio;wb0sio
 Keywords=Radio
 EOF
 
@@ -430,7 +433,7 @@ Icon=/home/pi/pi-build/conky/conky-logo.png
 Type=Application
 Encoding=UTF-8
 Terminal=false
-Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;wb0sio
 Keywords=Radio,Conky
 EOF
 
