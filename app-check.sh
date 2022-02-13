@@ -246,7 +246,7 @@ fi
 #----------------------------------------------------#
 #		Piapps
 #----------------------------------------------------#
-if [ ! -d ${HOME}/Piapps 2>/dev/null ]; then
+if [ ! -d ${HOME}/pi-apps 2>/dev/null ]; then
 	echo "Piapps=Not_Installed" >>$UPDATEFILE
 else
 	echo "Piapps=Installed" >>$UPDATEFILE
