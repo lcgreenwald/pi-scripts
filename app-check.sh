@@ -243,6 +243,16 @@ else
 	echo "Timeshift=Installed" >> $UPDATEFILE
 fi
 
+#----------------------------------------------------#
+#		Piapps
+#----------------------------------------------------#
+if [ ! -d ${HOME}/Piapps 2>/dev/null ]; then
+	echo "Piapps=Not_Installed" >>$UPDATEFILE
+else
+	echo "Piapps=Installed" >>$UPDATEFILE
+fi
+
+
 }
 
 CHECK
