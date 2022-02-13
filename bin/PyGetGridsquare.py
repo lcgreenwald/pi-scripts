@@ -14,7 +14,7 @@ import time
 # Write  GridSquare to usable location
 def write_info(data, fix):
 #    print(data + " " + str(fix))
-    file1 = open("/run/user/${USER}/gridinfo.txt","w")
+    file1 = open("/run/user/1000/gridinfo.txt","w")
     file1.write(str(data))
     file1.close()
 
