@@ -6,6 +6,7 @@ LastUpdate=2022/01/28
 		2022/01/21 - Added ssd install and update scripts.
 							 - Added Conky, Gparted and Timeshift install options.
 		2022/01/28 - Added PiApps
+		2022/02/13 - Minor updates to conky files. Added PyGetGridsquare.py
 
 1.1.12
     2021/11/21 - Added PythonGPS to the radio menu.
