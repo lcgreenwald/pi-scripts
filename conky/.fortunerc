@@ -75,6 +75,8 @@ conky.config = {
 };
 
 conky.text = [[
+# Author: Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts #
+\
 ${font Arial:bold:size=10}${color Yellow}FORTUNE ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}\
 ${exec cat $HOME/bin/conky/fortune.txt}

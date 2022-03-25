@@ -43,20 +43,19 @@ conky.config = {
 };
 
 conky.text = [[
-# Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts
-# Clock + calendar #
+# Author: Larry Greenwald - WB0SIO - https://github.com/lcgreenwald/pi-scripts #
+# Weather #
 \
 ${execi 1800 echo "$(weather -w)"}\
-${voffset 20}${font Droid Sans Mono :size=11}${color3}${alignc}Weather
-
-${font Droid Sans Mono :size=10}${color5}Current:
-${exec echo "$(weather -d)"}
+${voffset 10}\
+${font Droid Sans Mono :size=11}${color3}Weather ${color DarkSlateGray}${hr 2}
+${voffset 10}\
+${font Droid Sans Mono :size=10}${color5}Current: ${exec echo "$(weather -d)"}
 ${exec echo "$(weather -c)" }
-
+${voffset 10}\
 Hourly: 
 ${exec echo "$(weather -H 12)"}
-
+${voffset 10}\
 Seven Day:
 ${exec echo "$(weather -D 7)" }
-
 ]];

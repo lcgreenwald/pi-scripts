@@ -1,6 +1,12 @@
-version=1.1.12
+version=1.1.13
 author=wb0sio
-LastUpdate=2021/11/21
+LastUpdate=2022/01/28
+
+1.1.13
+		2022/01/21 - Added ssd install and update scripts.
+							 - Added Conky, Gparted and Timeshift install options.
+		2022/01/28 - Added PiApps
+		2022/02/13 - Minor updates to conky files. Added PyGetGridsquare.py
 
 1.1.12
     2021/11/21 - Added PythonGPS to the radio menu.
@@ -22,8 +28,8 @@ LastUpdate=2021/11/21
 
 1.1.8
     2021/08/11 - Added JS8map - Display a map of calls seen by JS8Call 
-	2021/08/22 - Moved RPiMonitor from always install to install from the menu
-	2021/08/27 - Added X715 power supply hat utilities
+		2021/08/22 - Moved RPiMonitor from always install to install from the menu
+		2021/08/27 - Added X715 power supply hat utilities
 
 1.1.7
     Added PiSafe - Backup or Restore Raspberry Pi devices
@@ -39,10 +45,10 @@ LastUpdate=2021/11/21
     Added diskio and fortune to conky
     Added fortune installation option.
     Added xscreensaver install.
-	Added Disk IO display to conky
-	Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
-	Added DeskPi utilities
-	Added writefreq.sh and updated conky files with ${exec cat $HOME/bin/conky/Freq.txt}.  Added writefreq.sh to crontab.
+		Added Disk IO display to conky
+		Added writegrid.sh to write the grid square to file $HOME/bin/conky/Grid.txt. Changed conky grid display to read the grid from $HOME/bin/conky/Grid.txt
+		Added DeskPi utilities
+		Added writefreq.sh and updated conky files with ${exec cat $HOME/bin/conky/Freq.txt}.  Added writefreq.sh to crontab.
 
 1.1.4
     Updates to the updates.sh script
@@ -53,15 +59,15 @@ LastUpdate=2021/11/21
 
 1.1.2
     Added set_default_res.sh
-	Added solar conditions to conky
+		Added solar conditions to conky
       
 1.1.1
     Added Neofetch and CommanderPi
-	Added conky-medium-adif
+		Added conky-medium-adif
 
 1.1.0
     Added gnome disk utility and Raspberry Pi Imager.
 
 1.0.0
- 	Initial Release
+		Initial Release
 				

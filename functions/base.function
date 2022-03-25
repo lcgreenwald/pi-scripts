@@ -26,6 +26,16 @@ fi
 Locate(){
 	sudo apt install -y locate
 }
+
+################################
+#	X SCREENSAVER
+################################
+Screensaver(){
+if ! hash xscreensaver 2>/dev/null; then
+	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
+fi
+}
+
 ################################
 #	PLANK
 ################################
@@ -316,6 +326,19 @@ fi
 }
 ################################
 
+##################################
+#	GPARTED
+##################################
+Gparted() {
+    sudo apt-get install -y gparted
+}
+
+##################################
+#	TIMESHIFT
+##################################
+Timeshift() {
+    sudo apt-get install -y timeshift
+}
 
 ################################
 #	Weather
@@ -349,6 +372,80 @@ fi
 }
 ################################
 
+##################################
+#	CONKY
+# Custom version to use Python instead of Ruby for grid square.
+##################################
+Conky() {
+	if ! hash conky 2>/dev/null; then
+		sudo apt install -y conky
+	fi
+	touch ${HOME}/Documents/mylog.txt  #conky will fail to load if this file doesn't exist
+	touch /var/lib/misc/dnsmasq.leases #conky will fail to load if this file doesn't exist
+	sudo apt-get install -y ruby2.5
+	sudo gem install gpsd_client
+	sudo gem install maidenhead
+	cp ${MYPATH}/conky/.conkyrc ${HOME}/.conkyrc
+	mkdir -p ${HOME}/bin/conky
+	cp ${MYPATH}/conky/* ${HOME}/bin/conky/
+#	chmod +x ${HOME}/bin/conky/get-grid ${HOME}/bin/conky/temp-conv ${HOME}/bin/conky/get-freq ${HOME}/bin/conky/grid
+	chmod +x ${HOME}/bin/conky/get-grid ${HOME}/bin/conky/temp-conv ${HOME}/bin/conky/get-freq ${HOME}/bin/PyGetGridsquare.py
+	sed -i "s/N0CALL/${CALL}/" ${HOME}/.conkyrc
+	#Line below is for https://github.com/km4ack/pi-build/issues/198
+	echo "#Update GPS maidenhead for conky" >>${TEMPCRON}
+#	echo "*/1 * * * * /home/pi/bin/conky/grid" >>${TEMPCRON}
+	echo "*/1 * * * * /home/pi/bin/PyGetGridsquare.py" >>${TEMPCRON}
+
+	#Create files needed for autostart at login
+	#Fix issue https://github.com/km4ack/pi-build/issues/83
+	#####################################
+	#	Create autostart dir
+	#used to autostart conky at boot
+	#####################################
+	mkdir -p ${HOME}/.config/autostart
+
+	cat <<EOF >${HOME}/.local/share/applications/conky.desktop
+[Desktop Entry]
+Name=Conky
+Comment=Conky
+GenericName=Conky Screen Background Monitor
+Exec=conky --pause=5
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=HamRadio;wb0sio
+Keywords=Radio
+EOF
+
+	ln -sf ${HOME}/.local/share/applications/conky.desktop ${HOME}/.config/autostart/conky.desktop
+
+	#####Add setconky to main menu
+	chmod +x ${HOME}/pi-build/conky/setconky
+
+	cat <<EOF >${HOME}/.local/share/applications/setconky.desktop
+[Desktop Entry]
+Name=Conky-Prefs
+Comment=Conky-Prefs
+GenericName=Change Conky Preferences
+Exec=/home/pi/pi-build/conky/setconky
+Icon=/home/pi/pi-build/conky/conky-logo.png
+Type=Application
+Encoding=UTF-8
+Terminal=false
+Categories=Settings;DesktopSettings;GTK;X-LXDE-Settings;wb0sio
+Keywords=Radio,Conky
+EOF
+
+}
+
+################################
+#	Pi-Apps
+################################
+Piapps(){
+wget -qO- https://raw.githubusercontent.com/Botspot/pi-apps/master/install | bash
+}
+################################
 
 ################################
 #	Proto File
