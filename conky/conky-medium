@@ -153,8 +153,8 @@ ${color #BBBBBB}5. ${top_mem name 5}${alignr}${top_mem pid 5}  ${top_mem cpu 5} 
 \
 ${font Arial:bold:size=10}${color Yellow}NETWORK/HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}\
-Wireless IP address $alignr ${addr wlan0}
 Wired IP address $alignr ${addr eth0}
+Wireless IP address $alignr ${addr wlan0}
 \
 ${font Arial:bold:size=10}${color Yellow}DHCP ADDRESSES FOR HOTSPOT ${color DarkSlateGray}${hr 2}
 ${font Arial:bold:size=8}${color White}\
