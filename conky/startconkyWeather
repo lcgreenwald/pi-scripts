@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp ${HOME}/pi-scripts/conky/.conkyrcWeather ${HOME}/.conkyrcWeather
+
 yad --center --list --checklist --width=500 --height=250 --separator="" \
 --image ${LOGO}  --print-column=2 \
 --window-icon=${LOGO} --image-on-top --text-align=center \
@@ -13,16 +15,16 @@ exit
 fi
 
 if [ $BUT = 2 ]; then
-	sed -i "s/alignment =.*$/alignment = 'top_left',/" ${HOME}/pi-scripts/conky/.conkyrcWeather
-	sed -i "s/gap_x =.*$/gap_x = 20,/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+	sed -i "s/alignment =.*$/alignment = 'top_left',/" ${HOME}/.conkyrcWeather
+	sed -i "s/gap_x =.*$/gap_x = 20,/" ${HOME}/.conkyrcWeather
 fi
 
 if [ $BUT = 3 ]; then
-	sed -i "s/alignment =.*$/alignment = 'top_right',/" ${HOME}/pi-scripts/conky/.conkyrcWeather
-	sed -i "s/gap_x =.*$/gap_x = 320,/" ${HOME}/pi-scripts/conky/.conkyrcWeather
+	sed -i "s/alignment =.*$/alignment = 'top_right',/" ${HOME}/.conkyrcWeather
+	sed -i "s/gap_x =.*$/gap_x = 320,/" ${HOME}/.conkyrcWeather
 
 fi
 
 CONKYPID=$(ps -ef | grep -v grep | grep .conkyrcWeather | awk '{print $2}')
 kill -term $CONKYPID > /dev/null 2>&1
-/usr/bin/conky -c ${HOME}/pi-scripts/conky/.conkyrcWeather > /dev/null 2>&1
+/usr/bin/conky -c ${HOME}/.conkyrcWeather > /dev/null 2>&1

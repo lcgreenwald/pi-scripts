@@ -207,6 +207,52 @@ else
 	echo "PythonGPS=Installed" >>$UPDATEFILE
 fi
 
+#----------------------------------------------------#
+#		Screensaver
+#----------------------------------------------------#
+if [ ! hash xscreensaver 2>/dev/null ]; then
+	echo "Screensaver=Not_Installed" >>$UPDATEFILE
+else
+	echo "Screensaver=Installed" >>$UPDATEFILE
+fi
+
+#----------------------------------------------------#
+#		CONKY
+#----------------------------------------------------#
+if [ -f ${HOME}/.conkyrc ]; then
+	echo "Conky=Installed" >> $UPDATEFILE
+else
+	echo "Conky=Not_Installed" >> $UPDATEFILE
+fi
+
+#----------------------------------------------------#
+#		GPARTED
+#----------------------------------------------------#
+if ! hash gparted 2>/dev/null; then
+	echo "Gparted=Not_Installed" >> $UPDATEFILE
+else
+	echo "Gparted=Installed" >> $UPDATEFILE
+fi
+
+#----------------------------------------------------#
+#		TIMESHIFT
+#----------------------------------------------------#
+if ! hash timeshift 2>/dev/null; then
+	echo "Timeshift=Not_Installed" >> $UPDATEFILE
+else
+	echo "Timeshift=Installed" >> $UPDATEFILE
+fi
+
+#----------------------------------------------------#
+#		Piapps
+#----------------------------------------------------#
+if [ ! -d ${HOME}/pi-apps 2>/dev/null ]; then
+	echo "Piapps=Not_Installed" >>$UPDATEFILE
+else
+	echo "Piapps=Installed" >>$UPDATEFILE
+fi
+
+
 }
 
 CHECK

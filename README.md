@@ -34,6 +34,9 @@ You may also optionally install:
 	PiSafe - Backup or Restore Raspberry Pi devices.  Creates a compressed image of SD or SSD drives.
 	nmon - Linux performance monitor.
 	Weather - Display weather conditions and forecast.
+  Screensaver - X Screensavers
+  Timeshift - Linux system backup utility.
+  Piapps - The most popular app store for Raspberry Pi computers.
         
 	Ham Radio Apps:
 	cqrprop - Propagation prediction.
@@ -46,7 +49,10 @@ Run the following commands
 	cd
 	git clone https://github.com/lcgreenwald/pi-scripts.git $HOME/pi-scripts
 	bash $HOME/pi-scripts/pi-build-install.sh
-
+  
+  For an SSD install without Build-a-Pi run:
+	bash $HOME/pi-scripts/pi-scripts-install-ssd.sh
+  
 
 # K4CPO-FD-Logger
 
