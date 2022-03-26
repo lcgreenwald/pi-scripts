@@ -9,17 +9,27 @@ TEMPSYSCTL=${MYPATH}/sysctl.tmp
 #	LOG2RAM
 ################################
 Log2ram(){
-if ! hash log2ram 2>/dev/null; then
-	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
-	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
-fi
-	sudo apt install -y log2ram
+#if ! hash log2ram 2>/dev/null; then
+#	echo "deb http://packages.azlux.fr/debian/ buster main" | sudo tee /etc/apt/sources.list.d/azlux.list
+#	wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+#fi
+#	sudo apt install -y log2ram
+
+	curl -L https://github.com/azlux/log2ram/archive/master.tar.gz | tar zxf -
+	cd log2ram-master
+	chmod +x install.sh && sudo ./install.sh
+	cd ..
+	rm -r log2ram-master
+
 	sudo sed -i "s/SIZE=40M/SIZE=200M/" /etc/log2ram.conf
 	sudo sed -i "s/USE_RSYNC=false/USE_RSYNC=true/" /etc/log2ram.conf
 	sudo sed -i "s/PATH_DISK=\"\/var\/log\"/PATH_DISK=\"\/var\/log;\/home\/pi\/.local\/share\"/" /etc/log2ram.conf
 	sudo sed -i "s/ZL2R=false/ZL2R=true/" /etc/log2ram.conf
 	sudo sed -i "s/LOG_DISK_SIZE=100M/LOG_DISK_SIZE=200M/" /etc/log2ram.conf
 }
+
+
+
 ################################
 #	LOCATE
 ################################
