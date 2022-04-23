@@ -194,7 +194,7 @@ source $UPDATEFILE
 #----------------------------------------------------#
 #			BASE APP MENU
 #----------------------------------------------------#
-yad --center --list --checklist --width=750 --height=750 --separator="" \
+yad --center --list --checklist --width=750 --height=760 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<big><big><b>Base Apps</b></big></big>" --title="Pi Update" \
@@ -487,7 +487,7 @@ fi
 #		HAM APP MENU
 #----------------------------------------------------#
 source $BAPUPDATEFILE
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=600 --height=740 --separator="" \
 	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
 	--window-icon=${LOGO} --image-on-top --text-align=center \
 	--text="<big><big><b>HAM Apps</b></big></big>" --title="Update" \
@@ -555,7 +555,7 @@ fi
 #		UTILITIES MENU
 #----------------------------------------------------#
 source $BAPUPDATEFILE
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=600 --height=640 --separator="" \
 	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
 	--window-icon=${LOGO} --image-on-top --text-align=center \
 	--text="<big><big><b>UTILITIES</b></big></big>" --title="Update" \

@@ -326,7 +326,7 @@ fi
 #####################################
 #	BAP Base Apps
 #####################################
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=600 --height=620 --separator="" \
 	--image ${LOGO} --column=Check --column=App --column=Description \
 	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 	--text="<b>Base Applications</b>" --title="Build-a-Pi" \
@@ -477,7 +477,7 @@ fi
 #####################################
 #	Additional (ham) Apps
 #####################################
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=600 --height=660 --separator="" \
 	--image ${LOGO} --column=Check --column=App --column=Description \
 	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 	--text="<b>Ham Applications</b>" --title="Build-a-Pi" \
@@ -554,7 +554,7 @@ fi
 #####################################
 #	Utilities
 #####################################
-yad --center --list --checklist --width=600 --height=600 --separator="" \
+yad --center --list --checklist --width=600 --height=620 --separator="" \
 	--image ${LOGO} --column=Check --column=App --column=Description \
 	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 	--text="<b>Utilities</b>" --title="Build-a-Pi" \
