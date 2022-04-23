@@ -5,15 +5,16 @@
 # Added wb0sio subcategory
 # 2021/08/16 wb0sio - fixed flrig typos in FLSUITE()
 # 2021/08/25 wb0sio - Removed redundant menu items
+# 2022/04/23 wb0sio - Removed BAP and KM4ACK menu items
 
-REV=2021-11-12A
+REV=2022-04-23
 
-source $HOME/.config/WB0SIO
+source ${HOME}/.config/WB0SIO
 
 
 CREATEMENU(){
 #Create menu subcategories
-cd /run/user/$UID
+cd /run/user/${UID}
 
 cat >wb0sio.directory <<EOF
 [Desktop Entry]
@@ -54,20 +55,6 @@ cat >hamradio.menu <<EOF
 			</Include>
 		</Menu>
 		<Menu>
-			<Name>KM4ACK</Name>
-			<Directory>km4ack.directory</Directory>
-			<Include>
-				<Category>km4ack</Category>
-			</Include>
-		</Menu>
-		<Menu>
-			<Name>Build-a-Pi</Name>
-			<Directory>bap.directory</Directory>
-			<Include>
-				<Category>bap</Category>
-			</Include>
-		</Menu>
-		<Menu>
 			<Name>WB0SIO</Name>
 			<Directory>wb0sio.directory</Directory>
 			<Include>
@@ -94,17 +81,17 @@ if [ ! -f /usr/share/extra-xdg-menus/hamradio.menu ]; then
 fi
 
 #check to see if this script has already run
-if [ "$MENU" = "$REV" ]; then
-	REV=$(cat $HOME/.config/WB0SIO | sed 's/MENU=//')
+if [ "${MENU}" = "${REV}" ]; then
+	REV=$(cat ${HOME}/.config/WB0SIO | sed 's/MENU=//')
 	echo "menu mods already made"
 	echo "Revision $REV installed"
 	exit
 else
-	MRB=$(cat $HOME/.config/WB0SIO | grep MENU= | sed 's/MENU=.*$/MENU/')
+	MRB=$(cat ${HOME}/.config/WB0SIO | grep MENU= | sed 's/MENU=.*$/MENU/')
 	if [[ -z ${MRB} ]]; then
-		echo "MENU=$REV" >> $HOME/.config/WB0SIO
+		echo "MENU=${REV}" >> $HOME/.config/WB0SIO
 	else
-		sed -i "s/MENU=.*$/MENU=$REV/" $HOME/.config/WB0SIO
+		sed -i "s/MENU=.*$/MENU=${REV}/" ${HOME}/.config/WB0SIO
 	fi
 	CREATEMENU
 fi

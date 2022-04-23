@@ -14,7 +14,8 @@
 #                                                         #
 # Modified for WB0SIO pi-build-install.                   #
 #   6-November-2020 by WB0SIO                             #
-#                                                         #
+#   23-April-2022 - WB0SIO - Copied BAP functions here    #
+#										instead of calling BAP.               #
 ###########################################################
 
 DESK=$(printenv | grep DISPLAY)
@@ -22,9 +23,14 @@ MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LOGO=${MYPATH}/logo.png
 RB=${HOME}/.config/WB0SIO
 BASE=${MYPATH}/base.txt
+BAPBASE=${MYPATH}/bapbase.txt
+ADDITIONAL=${MYPATH}/additional.txt
+UTILITY=${MYPATH}/utility.txt
+FLSUITE=${MYPATH}/flsuite.txt
 RADIO=${MYPATH}/radio.txt
 PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
+BAPFUNCTIONS=${MYPATH}/BAP/functions
 TEMPCRON=${MYPATH}/cron.tmp
 TEMPFSTAB=${MYPATH}/fstab.tmp
 CONFIG=${MYPATH}/config.txt
@@ -44,6 +50,18 @@ fi
 if [ -f "${RADIO}" ]; then
 	rm ${RADIO}
 fi
+if [ -f "${BAPBASE}" ]; then
+	rm ${BAPBASE}
+fi
+if [ -f "${ADDITIONAL}" ]; then
+	rm ${ADDITIONAL}
+fi
+if [ -f "${UTILITY}" ]; then
+	rm ${UTILITY}
+fi
+if [ -f "${FLSUITE}" ]; then
+	rm ${FLSUITE}
+fi
 }
 
 trap FINISH EXIT
@@ -54,6 +72,10 @@ CLEANUP(){
 /home/pi/bin/solarimage.sh
 #Remove temp files
 rm ${BASE} > /dev/null 2>&1
+rm ${BAPBASE} > /dev/null 2>&1
+rm ${ADDITIONAL} > /dev/null 2>&1
+rm ${UTILITY} > /dev/null 2>&1
+rm ${FLSUITE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
 rm ${PATCH} > /dev/null 2>&1
 sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
@@ -127,9 +149,11 @@ This script updates the operating system and then
 downloads and installs some required and some optional 
 utility software.
 
-It will also optionally install the latest version of 
-KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
-HotSpot Tools.
+It will also install a custom version of KM4ACK's 
+Build-a-Pi.
+
+This script takes approximately 4 hours to complete
+if you choose to install everything.
 
 Enjoy!  73 de WB0SIO
 EOF
@@ -145,6 +169,54 @@ exit
 fi
 rm ${MYPATH}/intro.txt
 
+#####################################
+#	Create autostart dir
+#used to autostart conky at boot
+#####################################
+mkdir -p ${HOME}/.config/autostart
+
+#####################################
+#	Get User Call
+#####################################
+CALL() {
+	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version $VERSION</b>" \
+		--field="Call Sign*" \
+		--field="<b>* Required</b>":LBL \
+		--button="Continue":2)
+	BUT=$?
+	if [ ${BUT} = 252 ]; then
+		exit
+	fi
+}
+CALL
+CALL=$(echo ${INFO} | awk -F "|" '{print $1}')
+CALL=${CALL^^}
+
+#Verify call not empty
+ATTEMPTS=0
+while [ -z "$CALL" ]; do
+	if [ $ATTEMPTS -eq 3 ]; then
+		yad --form --width=420 --text-align=center --center --title="Build-a-Pi" --text-align=center \
+			--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+			--text="<b>Empty callsign after 3 attempts. Quiting!</b>" \
+			--button=gtk-ok
+		exit
+	fi
+
+	yad --form --width=420 --text-align=center --center --title="Build-a-Pi" --text-align=center \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>Call Can't be Blank</b>" \
+		--button=gtk-ok
+
+	((ATTEMPTS = ATTEMPTS + 1))
+	CALL
+	CALL=$(echo ${INFO} | awk -F "|" '{print $1}')
+	CALL=${CALL^^}
+done
+
+echo "CALL=$CALL" >${CONFIG}
 
 #####################################
 #	Base Apps
@@ -254,6 +326,272 @@ done
 fi
 
 #####################################
+#	BAP Base Apps
+#####################################
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=Description \
+	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<b>Base Applications</b>" --title="Build-a-Pi" \
+	false "HOTSPOT" "Hot Spot Generator for Portable Ops" \
+	false "HSTOOLS" "Tools to Manage Hot Spot" \
+	false "GPS" "GPS Software" \
+	false "GPSUPDATE" "Tool to Manage GPS Devices" \
+	false "ARDOP" "Modem for HF" \
+	false "ARDOPGUI" "GUI for ARDOP" \
+	false "HAMLIB" "Needed for Rig Control" \
+	false "DIREWOLF" "Software TNC" \
+	false "AX25" "Data Link Layer Protocol" \
+	false "PULSE" "Pulse Audio Control Interface" \
+	--button="Exit":1 \
+	--button="Check All and Continue":3 \
+	--button="Next":2 >${BAPBASE}
+BUT=$?
+if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+	exit
+fi
+
+if [ ${BUT} = 3 ]; then
+	BAPBASEAPPS=(HOTSPOT HSTOOLS GPS ARDOP ARDOPGUI HAMLIB DIREWOLF AX25 PULSE GPSUPDATE)
+	for i in "${BAPBASEAPPS[@]}"; do
+		echo "$i" >>${BAPBASE}
+	done
+fi
+
+#check if hotspot is chosen for install & get info if needed
+HS=$(grep "HOTSPOT" ${BAPBASE})
+if [ -n "$HS" ]; then
+	HSINFO() {
+		#unblock wifi
+		sudo rfkill unblock all >/dev/null 2>&1
+		#bring wifi up
+		sudo ifconfig wlan0 up
+		#LIST=$(sudo iw dev "wlan0" scan ap-force | egrep "^BSS|SSID:" | grep SSID: | sed 's/SSID://' | awk '{ print $1 }')
+		#LIST=$(echo $LIST | sed 's/ /|/g')
+		LIST=$(sudo iw dev "wlan0" scan ap-force | sed -ne 's/^.*SSID: \(..*\)/\1/p' | sort | uniq | paste -sd '|')
+
+		HSINFO=$(yad --center --form --width=400 --height=400 --separator="|" --item-separator="|" \
+			--image ${LOGO} --column=Check --column=App --column=Description \
+			--window-icon=${LOGO} --image-on-top --text-align=center \
+			--text="<b>HotSpot Information\r\rPlease enter the information\rbelow \
+for the Hot Spot\r</b>NOTE: The last field is the password for the hotspot. You will use this password to \
+connect to your Pi when it is in hotspot mode <b>This password can only contain letters and numbers</b>" \
+			--title="Build-a-Pi" \
+			--field="Home Wifi SSID":CB "$LIST" \
+			--field="Home Wifi Password" \
+			--field="Hot Spot Password" \
+			--button="Exit":1 \
+			--button="Continue":2 \
+			--button="Refresh Wifi":3)
+		BUT=$?
+		if [ ${BUT} = 3 ]; then
+			HSINFO #Call HSINFO function
+		fi
+
+		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+			exit
+		fi
+		#}
+		#HSINFO
+		#fi
+		SHACKSSID=$(echo $HSINFO | awk -F "|" '{print $1}')
+		SHACKPASS=$(echo $HSINFO | awk -F "|" '{print $2}')
+		HSPASS=$(echo $HSINFO | awk -F "|" '{print $3}')
+
+		#Check password length
+		if [ -n "$HS" ]; then
+			COUNT=${#HSPASS}
+			if [ ${COUNT} -lt 8 ]; then
+				yad --center --form --width=300 --height=200 --separator="|" \
+					--image ${LOGO} --window-icon=${LOGO} --image-on-top --text-align=center \
+					--text="<b>Hotspot password has to be 8-63 characters</b>" --title="Build-a-Pi" \
+					--button=gtk-ok
+				HSINFO
+			fi
+		fi
+
+	}
+	HSINFO
+fi
+
+echo "SHACKSSID=$SHACKSSID" >>${CONFIG}
+echo "SHACKPASS=\"$SHACKPASS\"" >>${CONFIG}
+echo "HSPASS=\"$HSPASS\"" >>${CONFIG}
+
+###################################
+#CHECK IF GPS IS CHOSEN TO INSTALL#
+###################################
+GPSINSTALL=$(cat ${BAPBASE} | grep GPS)
+if [ -n "${GPSINSTALL}" ]; then
+
+	yad --center --height="300" --width="300" --form --separator="|" --item-separator="|" --title="GPS" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top \
+		--text="\r\r\r\r\r<b><big>Connect your GPS to the pi</big></b>" \
+		--button="Continue":2
+
+	BUT=$?
+
+	USB=$(ls /dev/serial/by-id)
+	USB=$(echo "NONE $USB") #see https://github.com/km4ack/pi-build/issues/293
+	USB=$(echo $USB | sed "s/\s/|/g")
+
+	GPS=$(yad --center --height="600" --width="300" --form --separator="|" --item-separator="|" --title="GPS" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top \
+		--text="Choose Your GPS" \
+		--field="GPS":CB "$USB")
+	BUT=$?
+	if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+		echo exiting
+		exit
+	fi
+
+	GPS=$(echo ${GPS} | awk -F "|" '{print $1}')
+	GPS=/dev/serial/by-id/${GPS}
+	echo "GPS=${GPS}" >>${CONFIG}
+fi
+
+#####################################
+#	FLSUITE
+#####################################
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=Description \
+	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<b>FLDIGI Suite</b>" --title="Build-a-Pi" \
+	false "FLRIG" "Rig Contol GUI" \
+	false "FLDIGI" "Digital Software" \
+	false "FLAMP" "File Transfer Program" \
+	false "FLNET" "Net Control Software" \
+	false "FLMSG" "Forms Manager" \
+	false "FLWRAP" "File Encapsulation" \
+	--button="Exit":1 \
+	--button="Check All and Continue":3 \
+	--button="Next":2 >${FLSUITE}
+BUT=$?
+if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+	exit
+fi
+if [ ${BUT} = 3 ]; then
+	FLAPPS=(FLRIG FLDIGI FLAMP FLNET FLMSG FLWRAP)
+	for i in "${FLAPPS[@]}"; do
+		echo "$i" >>${FLSUITE}
+	done
+fi
+
+#####################################
+#	Additional (ham) Apps
+#####################################
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=Description \
+	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<b>Ham Applications</b>" --title="Build-a-Pi" \
+	false "CONKY" "System Information Display" \
+	false "PI-APRS" "APRS Message Application" \
+	false "CHIRP" "Program Radios" \
+	false "GARIM" "File Transfer Program" \
+	false "PAT" "Radio Email Application" \
+	false "PAT-MENU" "Control for Pat Winlink" \
+	false "JS8CALL" "Weak Signal Digital Mode Software" \
+	false "M0IAX" "Tools for JS8Call Messages" \
+	false "WSJTX" "Weak Signal Digital Mode Software" \
+	false "PYQSO" "Logging Software" \
+	false "HAMRS" "Logging Software" \
+	false "EES" "KM4ACK Emergency Email Server" \
+	false "QSSTV" "Slow Scan TV" \
+	false "GRIDTRACKER" "Track Grids in WSJTX" \
+	false "HAMCLOCK" "Clock for Ham Radio Ops" \
+	false "PROPAGATION" "Propagation Prediction Software" \
+	false "YAAC" "Yet Another APRS Client" \
+	false "XASTIR" "APRS Client" \
+	false "GPREDICT" "Satellite Tracking" \
+	false "TQSL" "LOTW Software" \
+	false "GRIDCALC" "Grid Calculation Software" \
+	--button="Exit":1 \
+	--button="Check All and Continue":3 \
+	--button="Next":2 >${ADDITIONAL}
+BUT=$?
+if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+	exit
+fi
+
+if [ ${BUT} = 3 ]; then
+	ADDAPPS=(CONKY PI-APRS CHIRP GARIM PAT PAT-MENU JS8CALL M0IAX WSJTX PYQSO
+		HAMRS EES QSSTV GRIDTRACKER HAMCLOCK PROPAGATION YAAC XASTIR GPREDICT TQSL
+		GRIDCALC)
+
+	for i in "${ADDAPPS[@]}"; do
+		echo "$i" >>${ADDITIONAL}
+	done
+fi
+
+#check if hamclock is being installed
+HCCHECK=$(grep "HAMCLOCK" ${ADDITIONAL})
+if [ -n "$HCCHECK" ]; then
+
+	HC=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version $VERSION</b>" \
+		--field="Ham Clock Size":CB "SMALL|LARGE" \
+		--button="Continue":2)
+	HC=$(echo $HC | awk -F "|" '{print $1}')
+	sed -i 's/HAMCLOCK//' ${ADDITIONAL}
+	echo $HC >>${ADDITIONAL}
+fi
+
+
+PATCHECK=$(grep "PAT" ${ADDITIONAL})
+if [ -n "$PATCHECK" ]; then
+	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version $VERSION</b>" \
+		--field="Six Character Grid Square" \
+		--field="Winlink Password" \
+		--field="<b>Password is case sensitive</b>":LBL \
+		--button="Continue":2)
+	GRID=$(echo ${INFO} | awk -F "|" '{print $1}')
+	GRID=${GRID^^}
+	WL2KPASS=$(echo ${INFO} | awk -F "|" '{print $2}')
+	echo "GRID=$GRID" >>${CONFIG}
+	echo "WL2KPASS=\"$WL2KPASS\"" >>${CONFIG}
+fi
+
+#####################################
+#	Utilities
+#####################################
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=Description \
+	--print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<b>Utilities</b>" --title="Build-a-Pi" \
+	false "DIPOLE" "Dipole Calculator" \
+	false "PACKETSEARCH" "Winlink Packet Tool" \
+	false "CALLSIGN" "Call sign lookup" \
+	false "TEMPCONVERT" "Temperature Converter" \
+	false "GPARTED" "Disk Utility Tool" \
+	false "SHOWLOG" "Log file viewer" \
+	false "PISTATS" "Pi3/4 Stats Monitor" \
+	false "TELNET" "Telnet Protocol" \
+	false "PITERM" "piQtTermTCP Terminal Program" \
+	false "QTSOUND" "piQtSoundModem" \
+	false "SECURITY" "File Encryption Software" \
+	false "YGATE" "Yaesu APRS Software" \
+	false "BPQ" "LinBPQ Software" \
+	false "BATT" "Battery Test Script" \
+	false "VNC" "VNC Client Application" \
+	false "XYGRIB" "Grib File Viewer" \
+	--button="Exit":1 \
+	--button="Check All and Continue":3 \
+	--button="Install Selected":2 >${UTILITY}
+BUT=$?
+if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+	exit
+fi
+
+if [ ${BUT} = 3 ]; then
+	UTILAPPS=(DIPOLE PACKETSEARCH CALLSIGN TEMPCONVERT GPARTED SHOWLOG PISTATS TELNET PITERM QTSOUND SECURITY YGATE BPQ BATT VNC XYGRIB)
+	for i in "${UTILAPPS[@]}"; do
+		echo "$i" >>${UTILITY}
+	done
+fi
+
+#####################################
 #	Install Base Apps
 #####################################
 source ${FUNCTIONS}/base.function
@@ -268,6 +606,51 @@ source ${FUNCTIONS}/radio.function
 while read i ; do
 $i
 done < ${RADIO}
+
+#####################################
+#	Install BAP Base Apps
+#####################################
+touch ${RB}
+echo "INITIAL=\"build date $DATE version $VERSION\"" >> ${RB}
+source ${FUNCTIONS}/BAP/base.function
+while read i; do
+	$i
+done <${BASE}
+
+#####################################
+#	Install FLSUITE
+#####################################
+source ${FUNCTIONS}/BAP/flsuite.function
+#perform memory increase if needed
+CHECKFL="${MYPATH}/flsuite.txt"
+if [ -s "$CHECKFL" ]; then
+	FLSTART
+fi
+touch ${RB}
+while read i; do
+	$i
+done <${FLSUITE}
+
+#Perform memory reset if needed
+if [ -s "$CHECKFL" ]; then
+	FLSTOP
+fi
+
+#####################################
+#	Install ADDITIONAL Apps
+#####################################
+source ${FUNCTIONS}/BAP/additional.function
+while read i; do
+	$i
+done <${ADDITIONAL}
+
+#####################################
+#	Install KM4ACK Utilites
+#####################################
+source ${FUNCTIONS}/BAP/utility.function
+while read i; do
+	$i
+done <${UTILITY}
 
 #####################################
 #	Update crontab
@@ -285,84 +668,6 @@ echo "00 03 * * *  /home/pi/bin/BackupDigitalModeSettings.sh" >> ${TEMPCRON}
 crontab ${TEMPCRON}
 rm ${TEMPCRON}
 
-#####################################
-#	Install Build-A-Pi
-#####################################
-cat <<EOF > $MYPATH/intro.txt
-Now we will install Build-A-Pi.
-Please select Master, Beta or Dev installation.
-Or you may skip installing Build-A-Pi now and
-install it separately later.
-EOF
-
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
---image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text-info<$MYPATH/intro.txt \
---button="Master":2 > /dev/null 2>&1 \
---button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1 \
---button="Skip":5 > /dev/null 2>&1)
-BUT=$(echo $?)
-
-if [ $BUT = 252 ]; then
-rm $MYPATH/intro.txt
-exit
-fi
-rm $MYPATH/intro.txt
-
-cd
-git clone https://github.com/km4ack/pi-build.git
-cd pi-build
-git config --global user.email "lcgreenwald@gmail.com"
-git config --global user.name "lcgreenwald"
-if [ $BUT = 2 ]; then
-echo "Master selected."
-git checkout master
-git pull
-elif [ $BUT = 3 ]; then
-echo "Beta selected."
-#git checkout beta
-git checkout bullseye
-git pull
-elif [ $BUT = 4 ]; then
-echo "Dev selected."
-git checkout dev
-git pull
-fi
-cd
-
-if [ ! $BUT = 5 ]; then
-#************
-# Edit build-a-pi to use the WB0SIO version of gpsd install.
-#************
-sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
-
-#************
-# Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
-#************
-sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
-sed -i '/#reboot when done/a exit' $HOME/pi-build/update
-
-# Run build-a-pi
-  bash pi-build/build-a-pi
-fi
-
-# Load the configuration info that was set up in build-a-pi
-source /home/pi/pi-build/config
-
-#####################################
-# Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
-#####################################
-echo "#######################################"
-echo "#  Installing the WB0SIO version of   #"
-echo "#  Hotspot Tools.                     #"
-echo "#######################################"
-if [ -d ${HOME}/hotspot-tools2 ]; then
-	rm -rf ${HOME}/hotspot-tools2
-fi
-git clone https://github.com/lcgreenwald/autohotspot-tools2.git ${HOME}/hotspot-tools2
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/functions/base.function
 
 #####################################
 # Update aliases in .bashrc.
@@ -457,11 +762,6 @@ echo "#  Updating the locate database.      #"
 echo "#  This may take a minute or two.     #"
 echo "#######################################"
 sudo updatedb
-
-#####################################
-# Update Pi-Build/.complete to show .pscomplete.
-#####################################
-echo "${MYPATH}/.pscomplete" >> ${HOME}/pi-build/.complete
 
 #####################################
 #	END CLEANUP

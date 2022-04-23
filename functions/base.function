@@ -218,6 +218,7 @@ if [ ! -d ${HOME}/x715 2>/dev/null ]; then
 	echo "@reboot python /home/pi/bin/write_fan_speed.py" >> ${TEMPCRON}
 	crontab ${TEMPCRON}
 	rm ${TEMPCRON}
+	cp -f ${MYPATH}/bin/*.py ${HOME}/bin/
 
 else
 	cd ${HOME}/x715

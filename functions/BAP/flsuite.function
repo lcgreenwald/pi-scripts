@@ -1,0 +1,208 @@
+#script to install FLDIGI from source
+#20200121 km4ack
+
+BUILDDIR=$HOME/.bap-source-files
+mkdir -p ${BUILDDIR}
+
+FLSTART() {
+	#find how much memory we are working with
+	FREEMEM=$(free -m | grep Mem: | awk '{ print $2 }')
+	echo ${FREEMEM}
+
+	##################################
+	#	INCREASE SWAP
+	##################################
+	#increase swap file if less than 3G memory
+	if [ ${FREEMEM} -lt 3000 ]; then
+		echo "Increasing Swap size for build"
+		#increase swap size
+		sudo sed -i 's/#CONF_SWAPFILE=\/var\/swap/CONF_SWAPFILE=\/var\/swap/' /etc/dphys-swapfile
+		sudo sed -i 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/' /etc/dphys-swapfile
+		sudo /etc/init.d/dphys-swapfile restart
+		sleep 10
+	fi
+
+	##################################
+	#	DEPENDS
+	##################################
+	#install needed depends
+	#check to see if 32 or 64 bit to detemine correct dependency
+	if [ `getconf LONG_BIT` = '64' ]; then
+	LIBJPG=libjpeg62-turbo-dev
+	else
+	LIBJPG=libjpeg9-dev
+	fi
+	sudo apt-get install -y libfltk1.3-dev $LIBJPG libxft-dev libxinerama-dev libxcursor-dev libsndfile1-dev libsamplerate0-dev portaudio19-dev libpulse-dev libusb-1.0-0-dev texinfo libudev-dev
+
+	##################################
+	#	FLXMLRPC
+	##################################
+	FLX=$(ldconfig -p | grep flxmlrpc)
+
+	if [ -z "$FLX" ]; then
+		#determine latest FLXMLRPC & download
+		FLXM=$(curl -s http://www.w1hkj.com/files/flxmlrpc/ | grep .tar.gz | sed 's/.*ref="//;s/">.*$//')
+		XMPKG=$(echo ${FLXM} | sed 's/.tar.gz//')
+		cd ${BUILDDIR} || return
+		wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flxmlrpc/${FLXM}
+		tar -zxvf ${FLXM}
+		rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+		#build FLXMLRPC
+		cd ${XMPKG} || return
+		./configure --prefix=/usr/local --enable-static
+		make
+		sudo make install
+		sudo ldconfig
+		sudo make clean
+	fi
+}
+
+##################################
+#	FLRIG
+##################################
+FLRIG() {
+	#Determine latest FLRIG
+	RIGTAR=$(curl -s http://www.w1hkj.com/files/flrig/ | grep .tar.gz | sed 's/.*ref="//;s/".*$//')
+	RIGPKG=$(echo ${RIGTAR} | sed 's/.tar.gz//')
+
+	#Download latest FLRIG
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flrig/${RIGTAR}
+	tar -zxvf ${RIGTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#Build FLRIG
+	cd ${RIGPKG} || return
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+	sudo apt-mark manual libjpeg9
+}
+
+##################################
+#	FLWRAP
+##################################
+FLWRAP() {
+	#Determine latest FLWRAP
+	WRAPTAR=$(curl -s http://www.w1hkj.com/files/flwrap/ | grep .tar.gz | sed 's/.*ref="//;s/".*$//')
+	WRAPPKG=$(echo ${WRAPTAR} | sed 's/.tar.gz//')
+
+	#Download latest FLWRAP
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flwrap/${WRAPTAR}
+	tar -zxvf ${WRAPTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#Build FLRIG
+	cd ${WRAPPKG} || return
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+}
+
+##################################
+#	FLDIGI
+##################################
+FLDIGI() {
+	#Determine latest FLDIGI
+	FLTAR=$(curl -s http://www.w1hkj.com/files/fldigi/ | grep .tar.gz | sed 's/.*fldigi/fldigi/;s/.gz.*$/.gz/')
+	FLPKG=$(echo ${FLTAR} | sed 's/.tar.gz//')
+
+	#Download latest FLDIGI tar file
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/fldigi/${FLTAR}
+	tar -zxvf ${FLTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#build FLDIGI
+	cd ${FLPKG} || return
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+}
+##################################
+#	FLMSG
+##################################
+FLMSG() {
+	#Determine latest FLMSG
+	MSGTAR=$(curl -s http://www.w1hkj.com/files/flmsg/ | grep .tar.gz | sed 's/.*ref="//;s/">.*$//')
+	MSGPKG=$(echo ${MSGTAR} | sed 's/.tar.gz//')
+
+	#download FLMSG
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flmsg/${MSGTAR}
+	tar -zxvf ${MSGTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#Build FLMSG
+	cd ${MSGPKG} || return
+	./configure --prefix=/usr/local --enable-static --without-flxmlrpc
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+}
+##################################
+#	FLAMP
+##################################
+FLAMP() {
+	#determine latest FLAMP
+	AMPTAR=$(curl -s http://www.w1hkj.com/files/flamp/ | grep .tar.gz | tail -1 | sed 's/.*ref="//;s/">.*$//')
+	AMPPKG=$(echo ${AMPTAR} | sed 's/.tar.gz//')
+
+	#download FLAMP
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flamp/$AMPTAR
+	tar -zxvf ${AMPTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#build FLAMP
+	cd ${AMPPKG} || return
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+}
+##################################
+#	FLNET
+##################################
+FLNET() {
+	#determine lastest FLNET
+	NETTAR=$(curl -s http://www.w1hkj.com/files/flnet/ | grep .tar.gz | sed 's/.*ref="//;s/">.*$//')
+	NETPKG=$(echo ${NETTAR} | sed 's/.tar.gz//')
+
+	#download FLNET
+	cd ${BUILDDIR} || return
+	wget --tries 2 --connect-timeout=60 http://www.w1hkj.com/files/flnet/$NETTAR
+	tar -zxvf ${NETTAR}
+	rm ./*.gz #THIS IS DANGEROUS -- SEE SC2035
+
+	#build FLNET
+	cd ${NETPKG} || return
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
+	sudo make clean
+}
+##################################
+#	RESET SWAP
+##################################
+FLSTOP() {
+	#reset swap size to default
+	if [ ${FREEMEM} -lt 3000 ]; then
+		echo "Resetting swap size to default"
+		#increase swap size
+		sudo sed -i 's/CONF_SWAPFILE=\/var\/swap/#CONF_SWAPFILE=\/var\/swap/' /etc/dphys-swapfile
+		sudo sed -i 's/CONF_SWAPSIZE=1024/CONF_SWAPSIZE=100/' /etc/dphys-swapfile
+		sudo /etc/init.d/dphys-swapfile restart
+	fi
+}

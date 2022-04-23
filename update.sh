@@ -14,12 +14,17 @@
 #                                                         #
 # Modified for WB0SIO pi-build-install update.            #
 #   6-November-2020 by WB0SIO                             #
-#                                                         #
+#   23-April-2022 - WB0SIO - Copied BAP functions here    #
+#										instead of calling BAP.               #
 ###########################################################
 
 MYPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 BASE=${MYPATH}/base.txt
 RADIO=${MYPATH}/radio.txt
+BAPBASE=${MYPATH}/bapbase.txt
+ADDITIONAL=${MYPATH}/additional.txt
+UTILITY=${MYPATH}/utility.txt
+FLSUITE=${MYPATH}/flsuite.txt
 PATCH=${MYPATH}/patch.txt
 FUNCTIONS=${MYPATH}/functions
 LOGO=${MYPATH}/logo.png
@@ -42,6 +47,18 @@ fi
 if [ -f "${RADIO}" ]; then
 	rm ${RADIO}
 fi
+if [ -f "${BAPBASE}" ]; then
+	rm ${BAPBASE}
+fi
+if [ -f "${ADDITIONAL}" ]; then
+	rm ${ADDITIONAL}
+fi
+if [ -f "${UTILITY}" ]; then
+	rm ${UTILITY}
+fi
+if [ -f "${FLSUITE}" ]; then
+	rm ${FLSUITE}
+fi
 }
 
 trap FINISH EXIT
@@ -53,6 +70,10 @@ CLEANUP(){
 #Remove temp files
 rm ${BASE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
+rm ${BAPBASE} > /dev/null 2>&1
+rm ${ADDITIONAL} > /dev/null 2>&1
+rm ${UTILITY} > /dev/null 2>&1
+rm ${FLSUITE} > /dev/null 2>&1
 rm ${PATCH} > /dev/null 2>&1
 rm ${UPDATEFILE} > /dev/null 2>&1
 rm -rf $PATCHDIR > /dev/null 2>&1
@@ -159,6 +180,11 @@ bash $MYPATH/patch-installed-check.sh
 #Run the app check script
 #####################################
 bash $MYPATH/app-check.sh
+
+#####################################
+#Run the BAP app check script
+#####################################
+bash $MYPATH/BAPapp-check.sh
 
 #####################################
 #Load the program installation/update status
@@ -281,6 +307,297 @@ echo "$i" >> ${RADIO}
 done
 fi
 
+
+#####################################
+#	Get User Call
+#####################################
+CALL() {
+	source ${MYPATH}/config
+	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version ${VERSION}</b>" \
+		--field="Call Sign*" "${CALL}" \
+		--field="<b>* Required</b>":LBL \
+		--button="Continue":2)
+	BUT=$?
+	if [ ${BUT} = 252 ]; then
+		exit
+	fi
+}
+CALL
+CALL=$(echo $INFO | awk -F "|" '{print $1}')
+CALL=${CALL^^}
+
+echo "CALL=${CALL}" >${CONFIG}
+
+#Verify call not empty
+if [ -z "${CALL}" ]; then
+	yad --form --width=420 --text-align=center --center --title="Build-a-Pi" --text-align=center \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>Call Can't be Blank</b>" \
+		--button=gtk-ok
+	CALL
+fi
+
+#----------------------------------------------------#
+#			BAP BASE APP MENU
+#----------------------------------------------------#
+source $UPDATEFILE
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+	--window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<big><big><b>Base Apps</b></big></big>" --title="Update" \
+	false "HAMLIB" "$RIG" "Rig Control" \
+	false "HOTSPOT" "$HOTSPOT" "Hot Spot Generator for Portable Ops" \
+	false "HSTOOLS" "$HSTOOLS" "Tools to Manage HotSpot" \
+	false "GPS" "${GPS}" "GPS Software" \
+	false "GPSUPDATE" "${GPSUPDATE}" "Tool to Manage GPS Devices" \
+	false "ARDOP" "$ARDOP" "Mode for HF" \
+	false "ARDOPGUI" "$ARDOPGUI" "GUI for ARDOP" \
+	false "DIREWOLF" "$DIRE" "Software TNC" \
+	false "AX25" "$AX25" "Data Link Layer Protocol" \
+	false "PULSE" "$PULSE" "Sound server" \
+	--button="Exit":1 \
+	--button="Next":2 >${BAPBASE}
+BUT=$?
+if [ ${BUT} = 1 ] || [ ${BUT} = 252 ]; then
+	exit
+fi
+
+#############################################################
+#check if hotspot is chosen for install & get info if needed#
+#############################################################
+HS=$(cat ${BAPBASE} | grep HOTSPOT)
+if [ -n "$HS" ]; then
+	HSINFO() {
+		#unblock wifi
+		sudo rfkill unblock all >/dev/null 2>&1
+		#bring wifi up
+		sudo ifconfig wlan0 up
+		#LIST=$(sudo iw dev "wlan0" scan ap-force | egrep "^BSS|SSID:" | grep SSID: | sed 's/SSID://' | awk '{ print $1 }')
+		#LIST=$(echo $LIST | sed 's/ /|/g')
+		#Thanks to https://github.com/kuperman for fixing wifi space issue with line below.
+		LIST=$(sudo iw dev "wlan0" scan ap-force | sed -ne 's/^.*SSID: \(..*\)/\1/p' | sort | uniq | paste -sd '|')
+
+		HSINFO=$(yad --center --form --width=400 --height=400 --separator="|" --item-separator="|" \
+			--image ${LOGO} --column=Check --column=App --column=Description \
+			--window-icon=${LOGO} --image-on-top --text-align=center \
+			--text="<b>HotSpot Information\r\rPlease enter the information\rbelow \
+for the Hot Spot\r</b>NOTE: The last field is the password for the hotspot. You will use this password to \
+connect to your Pi when it is in hotspot mode <b>This password can only contain letters and numbers</b>" \
+			--title="Build-a-Pi" \
+			--field="Home Wifi SSID":CB "${LIST}" \
+			--field="Home Wifi Password" \
+			--field="Hot Spot Password" \
+			--button="Exit":1 \
+			--button="Continue":2 \
+			--button="Refresh Wifi":3)
+		#} 					THIS IS WHERE ORIGINAL FUNCTION STOPPED################
+		#HSINFO					SEE COMMENT PREVIOUS LINE
+		BUT=$?
+		if [ ${BUT} = 3 ]; then
+			HSINFO #Call HSINFO function
+		fi
+
+		if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+			exit
+		fi
+	} #THIS IS NEW FUNCTION END FOR TESTING####################
+
+	HSINFO
+fi
+SHACKSSID=$(echo $HSINFO | awk -F "|" '{print $1}')
+SHACKPASS=$(echo $HSINFO | awk -F "|" '{print $2}')
+HSPASS=$(echo $HSINFO | awk -F "|" '{print $3}')
+
+#Check password length
+if [ -n "$HS" ]; then
+	COUNT=${#HSPASS}
+	if [ $COUNT -lt 8 ]; then
+		yad --center --form --width=300 --height=200 --separator="|" \
+			--image ${LOGO} --column=Check --column=App --column=Description \
+			--window-icon=${LOGO} --image-on-top --text-align=center \
+			--text="<b>Hotspot password has to be 8-63 characters</b>" --title="Build-a-Pi" \
+			--button=gtk-ok
+		HSINFO
+	fi
+fi
+
+echo "SHACKSSID=${SHACKSSID}" >>${CONFIG}
+echo "SHACKPASS=${SHACKPASS}" >>${CONFIG}
+echo "HSPASS=${HSPASS}" >>${CONFIG}
+
+###################################
+#CHECK IF GPS IS CHOSEN TO INSTALL#
+###################################
+GPSINSTALL=$(cat ${BAPBASE} | grep GPS)
+if [ -n "${GPSINSTALL}" ]; then
+
+	yad --center --height="300" --width="300" --form --separator="|" --item-separator="|" --title="GPS" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top \
+		--text="\r\r\r\r\r<b><big>Connect your GPS to the pi</big></b>" \
+		--button="Exit":1 \
+		--button="Continue":2
+
+	BUT=$?
+	if [ ${BUT} = 1 ] || [ ${BUT} = 252 ]; then
+		exit
+	fi
+
+	USB=$(ls /dev/serial/by-id)
+	USB=$(echo $USB | sed "s/\s/|/g")
+
+	GPS=$(yad --center --height="600" --width="300" --form --separator="|" --item-separator="|" --title="GPS" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top \
+		--text="Choose Your GPS" \
+		--field="GPS":CB "$USB")
+	BUT=$?
+	if [ ${BUT} = 252 ] || [ ${BUT} = 1 ]; then
+		echo exiting
+		exit
+	fi
+
+	GPS=$(echo ${GPS} | awk -F "|" '{print $1}')
+	GPS=/dev/serial/by-id/${GPS}
+	echo "GPS=${GPS}" >>${CONFIG}
+fi
+
+#----------------------------------------------------#
+#		FLSUITE APP MENU
+#----------------------------------------------------#
+source $BAPUPDATEFILE
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+	--window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<big><big><b>FLDIGI Suite</b></big></big>" --title="Update" \
+	false "FLRIG" "${FLRIG}" "Rig Control GUI" \
+	false "FLDIGI" "${FLDIGI}" "Digital Software" \
+	false "FLAMP" "${FLAMP}" "File Transfer Program" \
+	false "FLNET" "${FLNET}" "Net Control Software" \
+	false "FLMSG" "${FLMSG}" "Form Manager" \
+	false "FLWRAP" "${FLWRAP}" "File Encapsulation" \
+	--button="Exit":1 \
+	--button="Next":2 >${FLSUITE}
+BUT=$?
+if [ ${BUT} = 1 ] || [ ${BUT} = 252 ]; then
+	exit
+fi
+#----------------------------------------------------#
+#		HAM APP MENU
+#----------------------------------------------------#
+source $BAPUPDATEFILE
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+	--window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<big><big><b>HAM Apps</b></big></big>" --title="Update" \
+	false "PAT" "$PAT" "Radio Email Application" \
+	false "PAT-MENU" "$PATMENU" "Control for Pat Winlink" \
+	false "CHIRP" "$CHIRP" "Program Radios" \
+	false "GARIM" "$GARIM" "File Transfer Program " \
+	false "M0IAX" "$M0IAX" "Tools for JS8Call messages" \
+	false "CONKY" "$CONKY" "System Information Display" \
+	false "WSJTX" "$FT8" "Weak signal digital mode software" \
+	false "JS8CALL" "$JS8" "Weak signal digital mode software" \
+	false "XASTIR" "$XASTIR" "APRS Client" \
+	false "YAAC" "$YAAC" "Yet Another APRS Client" \
+	false "PI-APRS" "$PIAPRS" "APRS Messaging Client" \
+	false "PYQSO" "$PYQSO" "Logging Software" \
+	false "HAMRS" "$HAMRS" "Logging Software" \
+	false "QSSTV" "$QSSTV" "Slow scan TV" \
+	false "GRIDTRACKER" "$GRIDTRACK" "Track grids in WSJTX" \
+	false "HAMCLOCK" "$HAMCLOCK" "Clock for Ham Radio Ops" \
+	false "PROPAGATION" "$PROP" "Propagation prediction" \
+	false "EES" "$EES" "KM4ACK Emergency Email Server" \
+	false "GPREDICT" "$GPREDICT" "Satellite Tracking" \
+	false "TQSL" "$TQSL" "LOTW Software" \
+	false "GRIDCALC" "$GRIDCALC" "Grid Calculation Software" \
+	--button="Exit":1 \
+	--button="Next":2 >${ADDITIONAL}
+BUT=$?
+if [ ${BUT} = 1 ] || [ ${BUT} = 252 ]; then
+	exit
+fi
+
+#check if hamclock is being installed
+HCCHECK=$(cat ${ADDITIONAL} | grep HAMCLOCK)
+if [ -n "$HCCHECK" ]; then
+
+	HC=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version $VERSION</b>" \
+		--field="Ham Clock Size":CB "SMALL|LARGE" \
+		--button="Continue":2)
+	HC=$(echo $HC | awk -F "|" '{print $1}')
+	sed -i 's/HAMCLOCK//' ${ADDITIONAL}
+	echo $HC >>${ADDITIONAL}
+fi
+
+
+PATCHECK=$(cat ${ADDITIONAL} | grep PAT)
+if [ -n "$PATCHECK" ]; then
+	INFO=$(yad --form --width=420 --text-align=center --center --title="Build-a-Pi" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="<b>version $VERSION</b>" \
+		--field="Six Character Grid Square" "$GRID" \
+		--field="Winlink Password" \
+		--field="<b>Password is case sensitive</b>":LBL \
+		--button="Continue":2)
+	GRID=$(echo $INFO | awk -F "|" '{print $1}')
+	GRID=${GRID^^}
+	WL2KPASS=$(echo $INFO | awk -F "|" '{print $2}')
+	echo "GRID=$GRID" >>${CONFIG}
+	echo "WL2KPASS=\"$WL2KPASS\"" >>${CONFIG}
+
+fi
+
+#----------------------------------------------------#
+#		UTILITIES MENU
+#----------------------------------------------------#
+source $BAPUPDATEFILE
+yad --center --list --checklist --width=600 --height=600 --separator="" \
+	--image ${LOGO} --column=Check --column=App --column=status --column=description --print-column=2 \
+	--window-icon=${LOGO} --image-on-top --text-align=center \
+	--text="<big><big><b>UTILITIES</b></big></big>" --title="Update" \
+	false "DIPOLE" "$DIPOLE" "Dipole Calculator" \
+	false "PACKETSEARCH" "$PACKETSEARCH" "Winlink Packet Tool" \
+	false "CALLSIGN" "${CALLSIGN}" "Call Sign Lookup Utility" \
+	false "TEMPCONVERT" "$TEMPCONVERT" "Temperature Converter" \
+	false "GPARTED" "$GPARTED" "Disk Utility Application" \
+	false "RTC" "$RTC" "Real Time Clock" \
+	false "SHOWLOG" "$SHOWLOG" "Log File Viewer" \
+	false "PISTATS" "$PISTATS" "Pi3/4 Stats Monitor" \
+	false "TELNET" "$TEL" "Telnet Protocol" \
+	false "PITERM" "$PITERM" "PiQTermTCP Terminal Program" \
+	false "QTSOUND" "$QTSOUND" "PiQtSoundModem" \
+	false "SECURITY" "$SECURITY" "File Encryption Software" \
+	false "YGATE" "$YGATE" "Yaesu APRS Software" \
+	false "BPQ" "$BPQ" "LinBPQ Software" \
+	false "BATT" "$BATT" "Battery Test Script" \
+	false "VNC" "$VNC" "VNC Viewer Application" \
+	false "XYGRIB" "$XYGRIB" "Grib file viewer" \
+	--button="Exit":1 \
+	--button="Install/Update Selected":2 >${UTILITY}
+BUT=$?
+if [ ${BUT} = 1 ] || [ ${BUT} = 252 ]; then
+	exit
+fi
+
+#check and exit if nothing selected
+CKBASE=$(cat ${BASE})
+CKRADIO=$(cat ${RADIO})
+CKBAPBASE=$(cat ${BAPBASE})
+CKFL=$(cat ${FLSUITE})
+CKADD=$(cat ${ADDITIONAL})
+CKUTIL=$(cat ${UTILITY})
+if [ -z "$CKBASE" ] && [ -z "$CKRADIO" ] && [ -z "$CKBAPBASE" ] && [ -z "$CKFL" ] && [ -z "$CKADD" ] && [ -z "$CKUTIL" ]; then
+	CLEANUP >/dev/null 2>&1
+	yad --width=550 --height=250 --text-align=center --center --title="Update" \
+		--image ${LOGO} --window-icon=${LOGO} --image-on-top --separator="|" --item-separator="|" \
+		--text="\r\r\r\r<b>Nothing selected for install/update</b>" \
+		--button="CLOSE":1
+	exit
+fi
+
 #update/upgrade the system
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -319,78 +636,52 @@ while read i ; do
 $i
 done < ${RADIO}
 
+#####################################
+#	Install BAP Base Apps
+#####################################
+touch ${HOME}/.config/KM4ACK
+echo "UPDATE=\"ran $DATE Version $VERSION\"" >> ${HOME}/.config/KM4ACK
+while read i; do
+	source ${FUNCTIONS}/BAP/base.function
+	$i
+done <${BAPBASE}
 
 #####################################
-#	Update Build-A-Pi
+#	Install FLSUITE
 #####################################
-cat <<EOF > $MYPATH/intro.txt
-Now we will optionally update Build-A-Pi.
-Please select Current, Master, Beta or Dev installation.
-Or you may skip installing Build-A-Pi now and
-install it separately later.
-EOF
-
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install Update"  --show-uri \
---image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
---text-info<$MYPATH/intro.txt \
---button="Current":6 > /dev/null 2>&1 \
---button="Master":2 > /dev/null 2>&1 \
---button="Beta":3 > /dev/null 2>&1 \
---button="Dev":4 > /dev/null 2>&1 \
---button="Skip":5 > /dev/null 2>&1)
-BUT=$(echo $?)
-
-if [ $BUT = 252 ]; then
-  rm $MYPATH/intro.txt  
-  CLEANUP
-  exit
+source ${FUNCTIONS}/BAP/flsuite.function
+#perform memory increase if needed
+CHECKFL=$(cat ${MYPATH}/flsuite.txt)
+if [ -n "$CHECKFL" ]; then
+	FLSTART
 fi
-rm $MYPATH/intro.txt
 
-if [ ! $BUT = 5 ]; then
-  cd
-  if [ -d ${HOME}/pi-build ]; then
-    git clone https://github.com/km4ack/pi-build.git
-  fi
-  cd pi-build
-  git config --global user.email "lcgreenwald@gmail.com"
-  git config --global user.name "lcgreenwald"
-  if [ $BUT = 2 ]; then
-    echo "Master selected."
-    git checkout master
-    git stash
-    git pull
-  elif [ $BUT = 3 ]; then
-    echo "Beta selected."
-    git checkout beta
-    git stash
-    git pull
-  elif [ $BUT = 4 ]; then
-    echo "Dev selected."
-    git checkout dev
-    git stash
-    git pull
-  elif [ $BUT = 6 ]; then
-    echo "Current version selected."
-    git stash
-    git pull
-  fi
-  cd
-  bash $HOME/pi-build/update
+touch ${HOME}/.config/KM4ACK
+while read i; do
+	source ${FUNCTIONS}/flsuite.function
+	$i
+done <${FLSUITE}
+
+source ${FUNCTIONS}/BAP/flsuite.function
+if [ -n "$CHECKFL" ]; then
+	FLSTOP
 fi
 
 #####################################
-# Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
+#	Install ADDITIONAL (Radio) Apps
 #####################################
-if [ -d ${HOME}/hotspot-tools2 ]; then
-  AUTHOR=$(grep "author=" ${HOME}/hotspot-tools2/changelog | sed 's/author=//')
-	if [[ ! $AUTHOR == 'wb0sio' ]]; then
-		rm -rf ${HOME}/hotspot-tools2
-	  git clone https://github.com/lcgreenwald/autohotspot-tools2.git ${HOME}/hotspot-tools2
-	  sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/update
-	  sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/functions/base.function
-  fi
-fi
+while read i; do
+	source ${FUNCTIONS}/BAP/additional.function
+	$i
+done <${ADDITIONAL}
+
+#####################################
+#	Install KM4ACK Utilites
+#####################################
+while read i; do
+	source ${FUNCTIONS}/BAP/utility.function
+	$i
+done <${UTILITY}
 
 #####################################
 # Update aliases in .bashrc.
