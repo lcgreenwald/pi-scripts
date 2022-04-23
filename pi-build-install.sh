@@ -132,9 +132,6 @@ fi
 if ! hash jq 2>/dev/null; then
 	sudo apt install -y jq
 fi
-if ! hash xscreensaver 2>/dev/null; then
-	sudo apt install -y xscreensaver streamer xdaliclock xfishtank xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
-fi
 
 #####################################
 #	notice to user
@@ -221,7 +218,7 @@ echo "CALL=$CALL" >${CONFIG}
 #####################################
 #	Base Apps
 #####################################
-yad --center --list --checklist --width=700 --height=750 --separator="" \
+yad --center --list --checklist --width=700 --height=760 --separator="" \
 --image ${LOGO} --column=Check --column=App --column=Description \
 --print-column=2 --window-icon=${LOGO} --image-on-top --text-align=center \
 --text="<b>Base Applications</b>" --title="Pi-Scripts Install" \
@@ -245,6 +242,7 @@ false "PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "nmon" "Linux performance monitor" \
 false "Weather" "Display weather conditions and forecast." \
 false "Piapps" "The most popular app store for Raspberry Pi computers." \
+false "Screensaver" "X Screensaver and misc screen savers." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -256,7 +254,7 @@ fi
 
 if [ $BUT = 3 ]; then
 
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather Piapps)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather Piapps Screensaver)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
@@ -309,7 +307,7 @@ false "JS8map" "Map to show location of JS8Call contacts" \
 false "PythonGPS" "Use Python to show the grid square in conky" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${RADIO}
+--button="Next":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 CLEANUP

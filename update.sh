@@ -218,6 +218,7 @@ false "PiSafe" "$PiSafe" "Backup or Restore Raspberry Pi devices" \
 false "nmon" "$nmon" "Linux performance monitor" \
 false "Weather" "$Weather" "Display weather conditions and forecast." \
 false "Piapps" "$Piapps" "The most popular app store for Raspberry Pi computers." \
+false "Screensaver" "X Screensaver and misc screen savers." \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
 --button="Next":2 > ${BASE}
@@ -228,7 +229,7 @@ exit
 fi
 
 if [ $BUT = 3 ]; then
-BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather Piapps)
+BASEAPPS=(DeskPi Argon X715 Log2ram ZramSwap Locate Plank Samba Webmin Display Cqrprop Disks PiImager Neofetch CommanderPi RPiMonitor Fortune PiSafe JS8map nmon Weather Piapps Screensaver)
 for i in "${BASEAPPS[@]}"
 do
 echo "$i" >> ${BASE}
@@ -291,7 +292,7 @@ false "JS8map" "$JS8map" "Map to show location of JS8Call contacts" \
 false "PythonGPS" "$PythonGPS" "Use Python to show the grid square in conky" \
 --button="Exit":1 \
 --button="Check All and Continue":3 \
---button="Install Selected":2 > ${RADIO}
+--button="Next":2 > ${RADIO}
 BUT=$?
 if [ $BUT = 252 ] || [ $BUT = 1 ]; then
 CLEANUP

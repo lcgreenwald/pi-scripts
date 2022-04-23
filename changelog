@@ -4,6 +4,7 @@ LastUpdate=2022/04/23
 
 1.1.14
 		2022/04/23 - Copied BAP functions to pi-scripts instead of calling BAP.
+							 - Moved X screensaver from always install to the base menu.
 
 1.1.13
 		2022/01/21 - Added ssd install and update scripts.
