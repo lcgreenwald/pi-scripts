@@ -290,7 +290,7 @@ rm ${TEMPCRON}
 #####################################
 cat <<EOF > $MYPATH/intro.txt
 Now we will install Build-A-Pi.
-Please select Master, Beta or Dev installation.
+Please select Master, Buster or Dev installation.
 Or you may skip installing Build-A-Pi now and
 install it separately later.
 EOF
@@ -299,7 +299,7 @@ INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Bu
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
---button="Beta":3 > /dev/null 2>&1 \
+--button="Buster":3 > /dev/null 2>&1 \
 --button="Dev":4 > /dev/null 2>&1 \
 --button="Skip":5 > /dev/null 2>&1)
 BUT=$(echo $?)
@@ -320,9 +320,9 @@ echo "Master selected."
 git checkout master
 git pull
 elif [ $BUT = 3 ]; then
-echo "Beta selected."
+echo "Buster selected."
 #git checkout beta
-git checkout bullseye
+git checkout buster
 git pull
 elif [ $BUT = 4 ]; then
 echo "Dev selected."
