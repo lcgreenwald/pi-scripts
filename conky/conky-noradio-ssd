@@ -125,11 +125,23 @@ ${goto 10}${color5}data ${alignr 5} ${fs_free /home/data}/${fs_used /home/data}/
 ${goto 10}${color2}${fs_bar 8, 150 /home/data}${alignr 5}${fs_used_perc /home/data}%
 ${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda3}${alignr}${diskiograph_read sda3 8,125}
 ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda3}${alignr}${diskiograph_write sda3 8,125}
-$endif
+$endif\
 ${if_mounted /home/public}#
 ${goto 10}${color5}public ${alignr 5}  ${fs_free /home/public}/${fs_used /home/public}/${fs_size /home/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public}${alignr 5} ${fs_used_perc /home/public}%
 ${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda4}${alignr}${diskiograph_read sda4 8,125}
 ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda4}${alignr}${diskiograph_write sda4 8,125}
-$endif
+$endif\
+${if_mounted /home/public/mounts/firefly/public}#
+${goto 10}${color5}firefly public ${alignr 5} ${fs_free /home/public/mounts/firefly/public}/${fs_used /home/public/mounts/firefly/public}/${fs_size /home/public/mounts/firefly/public}
+${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/firefly/public}${alignr 5} ${fs_used_perc /home/public/mounts/firefly/public}%
+$endif\
+${if_mounted /home/public/mounts/honshu/public}#
+${goto 10}${color5}honshu public ${alignr 5} ${fs_free /home/public/mounts/honshu/public}/${fs_used /home/public/mounts/honshu/public}/${fs_size /home/public/mounts/honshu/public}
+${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/honshu/public}${alignr 5} ${fs_used_perc /home/public/mounts/honshu/public}%
+$endif\
+${if_mounted /home/public/mounts/serenity/public}#
+${goto 10}${color5}serenity public ${alignr 5} ${fs_free /home/public/mounts/serenity/public}/${fs_used /home/public/mounts/serenity/public}/${fs_size /home/public/mounts/serenity/public}
+${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/serenity/public}${alignr 5} ${fs_used_perc /home/public/mounts/serenity/public}%
+$endif\
 ]];

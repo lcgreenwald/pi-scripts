@@ -124,107 +124,107 @@ ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/
 ${if_mounted /home}#
 ${goto 10}${color5}home ${alignr 5} ${fs_free /home}/${fs_used /home}/${fs_size /home}
 ${goto 10}${color2}${fs_bar 8, 150 /home}${alignr 5} ${fs_used_perc /home}%
-$endif
+$endif\
 ${if_mounted /home/data}#
 ${goto 10}${color5}data ${alignr 5} ${fs_free /home/data}/${fs_used /home/data}/${fs_size /home/data}
 ${goto 10}${color2}${fs_bar 8, 150 /home/data}${alignr 5}${fs_used_perc /home/data}%
 ${goto 10}${color5}I/O Read:${color2}${alignr}${offset -10}${diskio_read /dev/sda3}${alignr}${diskiograph_read sda3 8,125}
 ${goto 10}${color5}I/O Write:${color2}${alignr}${offset -10}${diskio_write /dev/sda3}${alignr}${diskiograph_write sda3 8,125}
-$endif
+$endif\
 ${if_mounted /home/public}#
 ${goto 10}${color5}public ${alignr 5}  ${fs_free /home/public}/${fs_used /home/public}/${fs_size /home/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public}${alignr 5} ${fs_used_perc /home/public}%
-$endif
+$endif\
 ${if_mounted /dev/sdb1}#
 ${goto 10}${color5}public ${alignr 5}  ${fs_free /home/public}/${fs_used /home/public}/${fs_size /home/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public}${alignr 5} ${fs_used_perc /home/public}%
-$endif
+$endif\
 ${if_mounted /var/www}#
 ${goto 10}${color5}www ${alignr 5} ${fs_free /var/www}/${fs_used /var/www}/${fs_size /var/www}
 ${goto 10}${color2}${fs_bar 8, 150 /var/www}${alignr 5} ${fs_used_perc /var/www}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/firefly/public}#
 ${goto 10}${color5}firefly public ${alignr 5} ${fs_free /home/public/mounts/firefly/public}/${fs_used /home/public/mounts/firefly/public}/${fs_size /home/public/mounts/firefly/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/firefly/public}${alignr 5} ${fs_used_perc /home/public/mounts/firefly/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/honshu/public}#
 ${goto 10}${color5}honshu public ${alignr 5} ${fs_free /home/public/mounts/honshu/public}/${fs_used /home/public/mounts/honshu/public}/${fs_size /home/public/mounts/honshu/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/honshu/public}${alignr 5} ${fs_used_perc /home/public/mounts/honshu/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/serenity/public}#
 ${goto 10}${color5}serenity public ${alignr 5} ${fs_free /home/public/mounts/serenity/public}/${fs_used /home/public/mounts/serenity/public}/${fs_size /home/public/mounts/serenity/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/serenity/public}${alignr 5} ${fs_used_perc /home/public/mounts/serenity/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/bardotter/data}#
 ${goto 10}${color5}bardotter data ${alignr 5} ${fs_free /home/public/mounts/bardotter/data}/${fs_used /home/public/mounts/bardotter/data}/${fs_size /home/public/mounts/bardotter/data}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/bardotter/data}${alignr 5} ${fs_used_perc /home/public/mounts/bardotter/data}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/bardotter/public}#
 ${goto 10}${color5}bardotter public ${alignr 5} ${fs_free /home/public/mounts/bardotter/public}/${fs_used /home/public/mounts/bardotter/public}/${fs_size /home/public/mounts/bardotter/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/bardotter/public}${alignr 5} ${fs_used_perc /home/public/mounts/bardotter/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/dragonskeep/larry}#
 ${goto 10}${color5}dragonskeep larry ${alignr 5} ${fs_free /home/public/mounts/dragonskeep/larry}/${fs_used /home/public/mounts/dragonskeep/larry}/${fs_size /home/public/mounts/dragonskeep/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/dragonskeep/larry}${alignr 5} ${fs_used_perc /home/public/mounts/dragonskeep/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/dragonskeep/public}#
 ${goto 10}${color5}dragonskeep public ${alignr 5} ${fs_free /home/public/mounts/dragonskeep/public}/${fs_used /home/public/mounts/dragonskeep/public}/${fs_size /home/public/mounts/dragonskeep/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/dragonskeep/public}${alignr 5} ${fs_used_perc /home/public/mounts/dragonskeep/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/nerat/larry}#
 ${goto 10}${color5}nerat larry ${alignr 5} ${fs_free /home/public/mounts/nerat/larry}/${fs_used /home/public/mounts/nerat/larry}/${fs_size /home/public/mounts/nerat/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/nerat/larry}${alignr 5} ${fs_used_perc /home/public/mounts/nerat/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/nerat/public}#
 ${goto 10}${color5}nerat public ${alignr 5} ${fs_free /home/public/mounts/nerat/public}/${fs_used /home/public/mounts/nerat/public}/${fs_size /home/public/mounts/nerat/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/nerat/public}${alignr 5} ${fs_used_perc /home/public/mounts/nerat/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/ruatha/larry}#
 ${goto 10}${color5}ruatha larry ${alignr 5} ${fs_free /home/public/mounts/ruatha/larry}/${fs_used /home/public/mounts/ruatha/larry}/${fs_size /home/public/mounts/ruatha/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/ruatha/larry}${alignr 5} ${fs_used_perc /home/public/mounts/ruatha/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/ruatha/public}#
 ${goto 10}${color5}ruatha public ${alignr 5} ${fs_free /home/public/mounts/ruatha/public}/${fs_used /home/public/mounts/ruatha/public}/${fs_size /home/public/mounts/ruatha/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/ruatha/public}${alignr 5} ${fs_used_perc /home/public/mounts/ruatha/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/telgar/larry}#
 ${goto 10}${color5}telgar larry ${alignr 5} ${fs_free /home/public/mounts/telgar/larry}/${fs_used /home/public/mounts/telgar/larry}/${fs_size /home/public/mounts/telgar/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/telgar/larry}${alignr 5} ${fs_used_perc /home/public/mounts/telgar/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/telgar/public}#
 ${goto 10}${color5}telgar public ${alignr 5} ${fs_free /home/public/mounts/telgar/public}/${fs_used /home/public/mounts/telgar/public}/${fs_size /home/public/mounts/telgar/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/telgar/public}${alignr 5} ${fs_used_perc /home/public/mounts/telgar/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/thunderbolt1/larry}#
 ${goto 10}${color5}thunderbolt1 larry ${alignr 5} ${fs_free /home/public/mounts/thunderbolt1/larry}/${fs_used /home/public/mounts/thunderbolt1/larry}/${fs_size /home/public/mounts/thunderbolt1/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/thunderbolt1/larry}${alignr 5} ${fs_used_perc /home/public/mounts/thunderbolt1/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/thunderbolt1/public}#
 ${goto 10}${color5}thunderbolt1 public ${alignr 5} ${fs_free /home/public/mounts/thunderbolt1/public}/${fs_used /home/public/mounts/thunderbolt1/public}/${fs_size /home/public/mounts/thunderbolt1/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/thunderbolt1/public}${alignr 5} ${fs_used_perc /home/public/mounts/thunderbolt1/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/DrinanIV/public}#
 ${goto 10}${color5}DrinanIV public ${alignr 5} ${fs_free /home/public/mounts/DrinanIV/public}/${fs_used /home/public/mounts/DrinanIV/public}/${fs_size /home/public/mounts/DrinanIV/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/DrinanIV/public}${alignr 5} ${fs_used_perc /home/public/mounts/DrinanIV/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/DrinanIV/larry}#
 ${goto 10}${color5}DrinanIV larry ${alignr 5} ${fs_free /home/public/mounts/DrinanIV/larry}/${fs_used /home/public/mounts/DrinanIV/larry}/${fs_size /home/public/mounts/DrinanIV/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/DrinanIV/larry}${alignr 5} ${fs_used_perc /home/public/mounts/DrinanIV/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/Seelzar/public}#
 ${goto 10}${color5}Seelzar public ${alignr 5} ${fs_free /home/public/mounts/Seelzar/public}/${fs_used /home/public/mounts/Seelzar/public}/${fs_size /home/public/mounts/Seelzar/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/Seelzar/public}${alignr 5} ${fs_used_perc /home/public/mounts/Seelzar/public}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/Seelzar/larry}#
 ${goto 10}${color5}Seelzar larry ${alignr 5} ${fs_free /home/public/mounts/Seelzar/larry}/${fs_used /home/public/mounts/Seelzar/larry}/${fs_size /home/public/mounts/Seelzar/larry}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/Seelzar/larry}${alignr 5} ${fs_used_perc /home/public/mounts/Seelzar/larry}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/starbug/data}#
 ${goto 10}${color5}starbug data ${alignr 5} ${fs_free /home/public/mounts/starbug/data}/${fs_used /home/public/mounts/starbug/data}/${fs_size /home/public/mounts/starbug/data}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/starbug/data}${alignr 5} ${fs_used_perc /home/public/mounts/starbug/data}%
-$endif
+$endif\
 ${if_mounted /home/public/mounts/starbug/public}#
 ${goto 10}${color5}starbug public ${alignr 5} ${fs_free /home/public/mounts/starbug/public}/${fs_used /home/public/mounts/starbug/public}/${fs_size /home/public/mounts/starbug/public}
 ${goto 10}${color2}${fs_bar 8, 150 /home/public/mounts/starbug/public}${alignr 5} ${fs_used_perc /home/public/mounts/starbug/public}%
-$endif
+$endif\
 ]];
