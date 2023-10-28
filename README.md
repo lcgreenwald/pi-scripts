@@ -2,9 +2,8 @@
 My Raspberry Pi Scripts and programs
 
 # pi-build-install
-This script installs or updates:
+This script installs or updates km4ack 73Linux
 
-km4ack build-a-pi
 	Optionally select Current, Master, Beta or Dev
 	Current will execute git pull for the current branch. Current is only available in Update.
 	Master, Beta or Dev will change to the requested branch and execute git clone or git pull. 
