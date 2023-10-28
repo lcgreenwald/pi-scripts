@@ -50,6 +50,7 @@ Run the following commands
 	bash $HOME/pi-scripts/pi-build-install.sh
   
   For an SSD install without 73Linux run:
+  
 	bash $HOME/pi-scripts/pi-scripts-install-ssd.sh
   
 
