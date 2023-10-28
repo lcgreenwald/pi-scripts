@@ -128,7 +128,7 @@ downloads and installs some required and some optional
 utility software.
 
 It will also optionally install the latest version of 
-KM4ACK's Build-a-Pi and a custom version of KM4ACK's 
+KM4ACK's 73Linux and a custom version of KM4ACK's 
 HotSpot Tools.
 
 Enjoy!  73 de WB0SIO
