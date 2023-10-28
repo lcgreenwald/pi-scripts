@@ -12,7 +12,7 @@
 #                                                         #
 ###########################################################
 #                                                         #
-# Modified for WB0SIO pi-build-install.                   #
+# Modified for WB0SIO 73Linux-install.                   #
 #   6-November-2020 by WB0SIO                             #
 #                                                         #
 ###########################################################
@@ -56,10 +56,10 @@ CLEANUP(){
 rm ${BASE} > /dev/null 2>&1
 rm ${RADIO} > /dev/null 2>&1
 rm ${PATCH} > /dev/null 2>&1
-sudo rm -rf ${HOME}/pi-build/temp > /dev/null 2>&1
+sudo rm -rf ${HOME}/73Linux/temp > /dev/null 2>&1
 sudo apt -y autoremove
 # Enter the installation date in ${HOME}/.config/WB0SIO
-echo "# The date pi-build-install.sh was executed" >> ${HOME}/.config/WB0SIO
+echo "# The date 73Linux-install.sh was executed" >> ${HOME}/.config/WB0SIO
 echo "InstallDate=$TODAY" >> ${HOME}/.config/WB0SIO
 }  
 
@@ -118,7 +118,7 @@ fi
 #	notice to user
 #####################################
 cat <<EOF > ${MYPATH}/intro.txt
-pi-build-install by $AUTHOR.
+73Linux-install by $AUTHOR.
 Version $VERSION.
 Last version update $LASTUPDATE.
 This script is installed in ${MYPATH}
@@ -286,16 +286,16 @@ crontab ${TEMPCRON}
 rm ${TEMPCRON}
 
 #####################################
-#	Install Build-A-Pi
+#	Install 73Linux
 #####################################
 cat <<EOF > $MYPATH/intro.txt
-Now we will install Build-A-Pi.
+Now we will install 73Linux.
 Please select Master, Beta or Dev installation.
-Or you may skip installing Build-A-Pi now and
+Or you may skip installing 73Linux now and
 install it separately later.
 EOF
 
-INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="Pi Build Install"  --show-uri \
+INTRO=$(yad --width=750 --height=275 --text-align=center --center --title="73Linux73Linux Install"  --show-uri \
 --image $LOGO --window-icon=$LOGO --image-on-top --separator="|" --item-separator="|" \
 --text-info<$MYPATH/intro.txt \
 --button="Master":2 > /dev/null 2>&1 \
@@ -311,8 +311,8 @@ fi
 rm $MYPATH/intro.txt
 
 cd
-git clone https://github.com/km4ack/pi-build.git
-cd pi-build
+git clone https://github.com/km4ack/73Linux.git
+cd 73Linux
 git config --global user.email "lcgreenwald@gmail.com"
 git config --global user.name "lcgreenwald"
 if [ $BUT = 2 ]; then
@@ -335,20 +335,20 @@ if [ ! $BUT = 5 ]; then
 #************
 # Edit build-a-pi to use the WB0SIO version of gpsd install.
 #************
-sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/pi-build/functions/base.function
+sed -i "s/km4ack\/pi-scripts\/master\/gpsinstall/lcgreenwald\/pi-scripts\/master\/gpsinstall/" $HOME/73Linux/functions/base.function
 
 #************
 # Update Pi-Build/build-a-pi to exit before the "Reboot now" pop up message.
 #************
-sed -i '/#reboot when done/a exit' $HOME/pi-build/build-a-pi
-sed -i '/#reboot when done/a exit' $HOME/pi-build/update
+sed -i '/#reboot when done/a exit' $HOME/73Linux/73.sh
+sed -i '/#reboot when done/a exit' $HOME/73Linux/update
 
 # Run build-a-pi
-  bash pi-build/build-a-pi
+  bash 73Linux/73.sh
 fi
 
 # Load the configuration info that was set up in build-a-pi
-source /home/pi/pi-build/config
+source /home/pi/73Linux/config
 
 #####################################
 # Install the WB0SIO version of hotspot tools and edit build-a-pi to use that version.
@@ -361,8 +361,8 @@ if [ -d ${HOME}/hotspot-tools2 ]; then
 	rm -rf ${HOME}/hotspot-tools2
 fi
 git clone https://github.com/lcgreenwald/autohotspot-tools2.git ${HOME}/hotspot-tools2
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/update
-sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/pi-build/functions/base.function
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/73Linux/update
+sed -i "s/km4ack\/hotspot-tools2/lcgreenwald\/autohotspot-tools2/" ${HOME}/73Linux/functions/base.function
 
 #####################################
 # Update aliases in .bashrc.
@@ -461,7 +461,7 @@ sudo updatedb
 #####################################
 # Update Pi-Build/.complete to show .pscomplete.
 #####################################
-echo "${MYPATH}/.pscomplete" >> ${HOME}/pi-build/.complete
+echo "${MYPATH}/.pscomplete" >> ${HOME}/73Linux/.complete
 
 #####################################
 #	END CLEANUP
